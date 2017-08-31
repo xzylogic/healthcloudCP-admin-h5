@@ -1,0 +1,62 @@
+<md-toolbar color="primary" class="app-toolbar">
+  <button md-icon-button (click)="sidenav.toggle()">
+    <md-icon>menu</md-icon>
+  </button>
+  <h1>{{app.title}}</h1>
+  <span class="toolbar__spacer"></span>
+  <span class="toolbar__info">你好，{{username | async}} ！</span>
+  <span class="toolbar__pwd" (click)="changePwd()">修改密码</span>
+  <button md-mini-fab (click)="logout()">退出</button>
+</md-toolbar>
+<md-sidenav-container class="app-container">
+  <md-sidenav #sidenav mode="side" opened="true" class="app-nav">
+    <nav id="container" class="nav__container">
+      <ul class="nav__list" *ngIf="sidebars">
+        <li *ngFor="let sidebar of sidebars | async">
+          <div class="nav__item" [class.open]="sidebar.open">
+            <div class="nav__title">
+              <a
+                *ngIf="!sidebar.ifSub&&sidebar.key!=='datacollection'"
+                routerLinkActive="active"
+                [routerLink]="[sidebar.link]"
+              >
+                {{sidebar.title}}
+              </a>
+              <a
+                *ngIf="!sidebar.ifSub&&sidebar.key==='datacollection'"
+                href="/management-pci/old"
+              >
+                {{sidebar.title}}
+              </a>
+              <span *ngIf="sidebar.ifSub" (click)="toggleSub(sidebar)">
+                {{sidebar.title}}
+                <md-icon>chevron_right</md-icon>
+              </span>
+              <md-chip-list *ngIf="sidebar.tag">
+                <md-chip color="accent" selected="true"></md-chip>
+              </md-chip-list>
+            </div>
+          </div>
+          <ul class="nav-sub__list" *ngIf="sidebar.ifSub">
+            <li class="nav-sub__item" *ngFor="let subSidebar of sidebar?.subBars">
+              <div class="nav-sub__title">
+                <a
+                  routerLinkActive="active"
+                  [routerLink]="[subSidebar.link]"
+                >
+                  {{subSidebar.title}}
+                </a>
+                <md-chip-list *ngIf="subSidebar.tag">
+                  <md-chip color="accent" selected="true">{{subSidebar.tag}}</md-chip>
+                </md-chip-list>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </md-sidenav>
+  <div class="app-main">
+    <ng-content></ng-content>
+  </div>
+</md-sidenav-container>

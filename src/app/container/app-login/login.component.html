@@ -1,0 +1,17 @@
+<md-toolbar class="login-toolbar" color="primary">
+  <h1>{{app.title}}</h1>
+</md-toolbar>
+<div class="login-container">
+  <form *ngIf="loginForm" class="login__form" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+    <app-input-text class="login__form__input" [form]="loginForm"
+                    *ngFor="let data of loginLib" [data]="data"
+    ></app-input-text>
+    <button md-raised-button class="login__form__button" color="primary"
+            [disabled]="!loginForm.valid">登陆
+    </button>
+    <div class="login__footer">
+      <p>万达信息股份有限公司</p>
+      <p>© {{date | date:'yyyy'}}</p>
+    </div>
+  </form>
+</div>
