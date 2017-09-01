@@ -10,7 +10,7 @@
   line-height: 24px;
   overflow: hidden;
   padding-bottom: 16px;
-  border-bottom: 3px solid $border-color;
+  border-bottom: 3px solid $color-border-light;
 }
 
 .content__addition {
@@ -28,7 +28,7 @@
 }
 
 a.location__item {
-  color: $primary-color;
+  color: $color-primary;
   cursor: pointer;
 }
 
@@ -41,7 +41,7 @@ a.location__item {
 }
 
 .location__item:hover {
-  color: $primary-color;
+  color: $color-primary;
 }
 
 .location__item:focus {

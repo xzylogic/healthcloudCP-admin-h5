@@ -29,8 +29,7 @@ export class DoctorService {
       title: '医生信息管理',
       subTitle: '医生信息列表',
       ifHome: true,
-      homeRouter: '/doctor',
-      currentRouter: '/doctor'
+      homeRouter: '/doctor'
     });
   }
 
@@ -39,8 +38,7 @@ export class DoctorService {
       title: '医生信息管理',
       subTitle: tag ? '新增医生' : '编辑医生信息',
       ifHome: false,
-      homeRouter: '/doctor',
-      currentRouter: '/doctor/edit'
+      homeRouter: '/doctor'
     });
   }
 
@@ -49,8 +47,7 @@ export class DoctorService {
       title: '医生信息管理',
       subTitle: '短信提醒医生',
       ifHome: false,
-      homeRouter: '/doctor',
-      currentRouter: '/doctor/message'
+      homeRouter: '/doctor'
     });
   }
 
@@ -59,8 +56,7 @@ export class DoctorService {
       title: '医生信息管理',
       subTitle: '医生积分详情列表',
       ifHome: false,
-      homeRouter: '/doctor',
-      currentRouter: '/doctor/integral'
+      homeRouter: '/doctor'
     });
   }
 
@@ -69,8 +65,7 @@ export class DoctorService {
       title: '医生信息管理',
       subTitle: '医生开通的服务',
       ifHome: false,
-      homeRouter: '/doctor',
-      currentRouter: '/doctor/service-list'
+      homeRouter: '/doctor'
     });
   }
 
@@ -79,8 +74,7 @@ export class DoctorService {
       title: '医生信息管理',
       subTitle: '医生服务明细',
       ifHome: false,
-      homeRouter: '/doctor',
-      currentRouter: '/doctor/service-detail'
+      homeRouter: '/doctor'
     });
   }
 

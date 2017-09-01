@@ -8,7 +8,7 @@ import { Component, Inject } from '@angular/core';
   styles: [`
     .welcome-title {
       padding: 100px 0;
-      color: #eee;
+      color: #ddd;
       font-size: 38px;
       text-align: center;
     }

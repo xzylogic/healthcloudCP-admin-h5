@@ -11,44 +11,28 @@
 <md-sidenav-container class="app-container">
   <md-sidenav #sidenav mode="side" opened="true" class="app-nav">
     <nav id="container" class="nav__container">
-      <ul class="nav__list" *ngIf="sidebars">
-        <li *ngFor="let sidebar of sidebars | async">
-          <div class="nav__item" [class.open]="sidebar.open">
+      <ul class="nav__list" *ngIf="navigation">
+        <li *ngFor="let menu of navigation | async">
+          <div class="nav__item" [class.open]="menu.open">
             <div class="nav__title">
-              <a
-                *ngIf="!sidebar.ifSub&&sidebar.key!=='datacollection'"
-                routerLinkActive="active"
-                [routerLink]="[sidebar.link]"
-              >
-                {{sidebar.title}}
+              <a *ngIf="!menu.children||(menu.children&&menu.children.length===0)"
+                 routerLinkActive="active"
+                 [routerLink]="[menu.href]">
+                {{menu.menuName}}
               </a>
-              <a
-                *ngIf="!sidebar.ifSub&&sidebar.key==='datacollection'"
-                href="/management-pci/old"
-              >
-                {{sidebar.title}}
-              </a>
-              <span *ngIf="sidebar.ifSub" (click)="toggleSub(sidebar)">
-                {{sidebar.title}}
+              <span *ngIf="menu.children&&menu.children.length!==0"
+                    (click)="toggleSub(menu)">
+                {{menu.menuName}}
                 <md-icon>chevron_right</md-icon>
               </span>
-              <md-chip-list *ngIf="sidebar.tag">
-                <md-chip color="accent" selected="true"></md-chip>
-              </md-chip-list>
             </div>
           </div>
-          <ul class="nav-sub__list" *ngIf="sidebar.ifSub">
-            <li class="nav-sub__item" *ngFor="let subSidebar of sidebar?.subBars">
+          <ul class="nav-sub__list" *ngIf="menu.children&&menu.children.length!==0">
+            <li class="nav-sub__item" *ngFor="let subMenu of menu.children">
               <div class="nav-sub__title">
-                <a
-                  routerLinkActive="active"
-                  [routerLink]="[subSidebar.link]"
-                >
-                  {{subSidebar.title}}
+                <a routerLinkActive="active" [routerLink]="[subMenu.href]">
+                  {{subMenu.menuName}}
                 </a>
-                <md-chip-list *ngIf="subSidebar.tag">
-                  <md-chip color="accent" selected="true">{{subSidebar.tag}}</md-chip>
-                </md-chip-list>
               </div>
             </li>
           </ul>

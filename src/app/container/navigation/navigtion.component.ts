@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, OnDestroy, Inject } from '@angular/co
 import { Observable } from 'rxjs/Observable';
 import { select } from '@angular-redux/store';
 
-import { Navbar } from '../_store/main.state';
+import { Menu } from '../_store/main.state';
 
 @Component({
   selector: 'app-nav',
@@ -11,10 +11,10 @@ import { Navbar } from '../_store/main.state';
 })
 export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   @select(['main', 'adminName']) readonly username: Observable<string>;
-  @select(['main', 'navigation']) readonly sidebars: Observable<Navbar[]>;
+  @select(['main', 'navigation']) readonly navigation: Observable<Menu[]>;
 
   constructor(
-    @Inject('app') private app,
+    @Inject('app') public app,
     @Inject('nav') private navService,
     @Inject('auth') private authService
   ) {
@@ -37,21 +37,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   initSidebars() {
     const path = window.location.pathname.split('/')[1];
     this.navService.initSidebars(path);
-    this.setCount();
-  }
-
-  setCount() {
-    this.navService.getCount().subscribe(res => {
-      if (res.code === 0 && res.data) {
-        const count = res.data;
-        this.navService.setCount(count.doctorAuditing, 'doctorgroup', 'doctor');
-        this.navService.setCount(count.serviceAuditing, 'doctorgroup', 'doctorgroup');
-        this.navService.setCount(count.purchase + count.withdraw, 'doctorgroup', 'doctoraccount');
-        this.navService.setCount(count.refundSum + count.thirdSum, 'user', 'userorder');
-        this.navService.setCount(count.failure, 'user', 'usercertification');
-        this.navService.setCount(count.goods, 'integral', 'integralOrder');
-      }
-    });
+    // this.setCount();
   }
 
   toggleSub(sidebar) {

@@ -1,3 +1,5 @@
+@import '../../theme/theme';
+
 .lib-form {
   padding: 1em;
 }
@@ -18,8 +20,8 @@
   font-size: 16px;
 }
 
-.lib-form-set__label-valid{
-  color: #e74c3c;
+.lib-form-set__label-valid {
+  color: $color-danger;
 }
 
 .lib-form-set__container {
@@ -56,7 +58,6 @@
   clear: both;
 }
 
-
 .clear:before,
 .clear:after {
   content: " ";
@@ -72,13 +73,13 @@
   font-size: 1em;
   padding: .2em 0;
   border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  border-bottom: 1px solid $color-border-dark;
 }
 
 .custom-input input:focus {
   border-width: 2px;
   border-style: solid;
-  border-color: #00bcd4;
+  border-color: $color-primary;
 }
 
 ::-webkit-input-placeholder {

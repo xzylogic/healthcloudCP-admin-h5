@@ -4,6 +4,13 @@ import { RouterModule } from '@angular/router';
 import { MainComponent } from './main.component';
 import { WelcomeComponent } from './welcome.component';
 import { routes as doctorRoutes } from './manage-doctor';
+import { routes as systemRoutes } from './manage-system';
+import { routes as basedataRoutes } from './manage-basedata';
+import { routes as mdRoutes } from './manage-mac-database';
+import { routes as pfcRoutes } from './manage-pe-for-children';
+import { routes as piRoutes } from './manage-planned-immunity';
+import { routes as rfaRoutes } from './manage-receive-folic-acid';
+import { AuthGuardService } from './_service/auth-guard.service';
 
 @NgModule({
   imports: [RouterModule.forChild([{
@@ -12,12 +19,19 @@ import { routes as doctorRoutes } from './manage-doctor';
     }, {
       path: '',
       component: MainComponent,
+      canActivate: [AuthGuardService],
       children: [
         {
           path: '',
           component: WelcomeComponent
         },
         ...doctorRoutes,
+        ...systemRoutes,
+        ...basedataRoutes,
+        ...mdRoutes,
+        ...pfcRoutes,
+        ...piRoutes,
+        ...rfaRoutes,
       ]
     }]
   )],

@@ -25,7 +25,7 @@
 }
 
 .table > tbody > tr:hover {
-  border-left: 4px solid $primary-color;
+  border-left: 4px solid $color-primary;
 }
 
 .table > thead > tr > th {
@@ -38,10 +38,10 @@
 .table > tbody > tr > td {
   min-height: 45px;
   padding: 5px;
-  border-top: 1px solid $border-color;
+  border-top: 1px solid $color-border-light;
   word-wrap: break-word;
   word-break: break-all;
-  color: $text-color-secondary;
+  color: $color-text-secondary;
   text-align: center;
 }
 
@@ -63,13 +63,13 @@
 }
 
 .table__option {
-  color: $primary-color;
+  color: $color-primary;
   text-decoration: underline;
   cursor: pointer;
 }
 
 .table__option:hover {
-  color: $primary-color-dark;
+  color: $color-dark;
 }
 
 @media (max-width: 800px) {
@@ -88,10 +88,10 @@
     left: -9999px;
   }
   .table > tbody {
-    border-top: 1px solid $border-color;
+    border-top: 1px solid $color-border-light;
   }
   .table > tbody > tr {
-    border: 1px solid $border-color;
+    border: 1px solid $color-border-light;
   }
   .table > tbody > tr > td {
     position: relative;
@@ -124,18 +124,18 @@
   height: 24px;
   line-height: 24px;
   margin: 0 4px;
-  color: $text-color-third;
+  color: $color-text-third;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
 }
 
 .page__items > .item:hover {
-  color: $primary-color;
-  background-color: $primary-color-light !important;
+  color: $color-primary;
+  background-color: $color-light !important;
 }
 
 .page__items > .item.active {
-  color: $primary-color !important;
+  color: $color-primary !important;
   text-decoration: underline !important;
 }

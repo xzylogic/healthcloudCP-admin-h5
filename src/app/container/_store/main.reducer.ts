@@ -1,20 +1,24 @@
 import { Action } from 'redux';
-import { IMainState } from './main.state';
+import { IMainState, Menu } from './main.state';
 import { DelAdminAction, InitNavAction, MainAction, SetAdminAction, UpdateTagAction } from './main.action';
-import { NAVBARS } from './static';
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
+import { MENU } from './static';
+
+const __assign = (this && this.__assign) || Object.assign || function (t) {
+  for (let s, i = 1, n = arguments.length; i < n; i++) {
+    s = arguments[i];
+    for (const p in s) {
+      if (Object.prototype.hasOwnProperty.call(s, p)) {
+        t[p] = s[p];
+      }
     }
-    return t;
+  }
+  return t;
 };
 
 export function MainReducer(state: IMainState = {
   adminId: 0,
   adminName: '',
-  navigation: NAVBARS
+  navigation: <Menu[]>MENU
 }, action: Action): IMainState {
   switch (action.type) {
     case MainAction.SET_ADMIN:
@@ -47,16 +51,9 @@ function handleDelAdminAction(state: IMainState, action: DelAdminAction): IMainS
 function handleInitNavAction(state: IMainState, action: InitNavAction): IMainState {
   const stateCopy = __assign(state);
   stateCopy.navigation.forEach(obj => {
-    obj.active = false;
-    obj.open = false;
-    if (obj.link.replace('/', '') === action.payload.path) {
-      obj.active = true;
-    }
-    if (obj.subBars) {
-      obj.subBars.forEach(subObj => {
-        subObj.active = false;
-        if (subObj.link.replace('/', '') === action.payload.path) {
-          subObj.active = true;
+    if (obj.children) {
+      obj.children.forEach(subObj => {
+        if (subObj.href.replace('/', '') === action.payload.path) {
           obj.open = true;
         }
       });

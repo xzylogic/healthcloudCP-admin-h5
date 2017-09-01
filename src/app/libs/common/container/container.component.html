@@ -1,10 +1,11 @@
 <div class="main__content" *ngIf="config">
   <div class="content__location">
     <md-icon *ngIf="!config.ifHome" class="location__item" [routerLink]="config.homeRouter">arrow_back</md-icon>
-    <md-icon *ngIf="config.ifHome" class="location__item" [routerLink]="config.homeRouter">home</md-icon>
-    <span class="location__item" [routerLink]="config.homeRouter">{{config.title}}</span>
-    <span class="location__item span"> - </span>
-    <a class="location__item">{{config.subTitle}}</a>
+    <span class="location__item">{{config.title}}</span>
+    <span class="location__item span">
+      <md-icon>chevron_right</md-icon>
+    </span>
+    <span class="location__item">{{config.subTitle}}</span>
   </div>
   <div class="content__addition">
     <ng-content select=".addition"></ng-content>

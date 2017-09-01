@@ -1,28 +1,17 @@
 export interface IMainState {
   readonly adminId: number;
   readonly adminName: string;
-  readonly navigation: Navbar[];
+  readonly navigation: Menu[];
 }
 
-export class Navbar {
-  key: string;
-  title: string;
-  link: string;
-  tag: number;
-  ifSub: boolean;
-  active: boolean;
-  open: boolean;
-  subBars: Navbar[];
-
-  constructor(obj ?: any) {
-    this.key = obj && obj.key || '';
-    this.title = obj.title || '';
-    this.link = obj.link || '';
-    this.tag = obj.tag || null;
-    this.open = !!obj.open;
-    this.ifSub = !!obj.ifSub;
-    this.subBars = obj.subBars || [];
-  }
+export class Menu {
+  menuId: string;
+  menuName: string;
+  checked?: boolean;
+  parentId?: string;
+  href?: string;
+  children?: Menu[];
+  open?: boolean;
 }
 
 export class Admin {

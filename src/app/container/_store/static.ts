@@ -1,372 +1,188 @@
-import { Navbar } from './main.state';
-
-export let NAVBARS = [
-  new Navbar({
-    key: 'statistics',
-    title: '数据统计',
-    ifSub: true,
-    subBars: [
-      new Navbar({
-        key: 'registerstatistics',
-        title: '注册量统计',
-        link: '/register-statistics'
-      }),
-      new Navbar({
-        key: 'activenessstatistics',
-        title: '日活跃度统计',
-        link: '/activeness-statistics'
-      }),
-      new Navbar({
-        key: 'periodstatistics',
-        title: '活跃度统计',
-        link: '/period-statistics'
-      }),
-      new Navbar({
-        key: 'businessstatistics',
-        title: '业务数据统计',
-        link: '/business-statistics'
-      }),
-      new Navbar({
-        key: 'downloadtatistics',
-        title: '渠道来源统计',
-        link: '/download-statistics'
-      })
-    ]
-  }),
-  new Navbar({
-    key: 'doctorgroup',
-    title: '医生管理',
-    ifSub: true,
-    tag: 0,
-    subBars: [
-      new Navbar({
-        key: 'doctor',
-        title: '医生信息管理',
-        link: '/doctor',
-        tag: 0
-      }),
-      new Navbar({
-        key: 'doctorgroup',
-        title: '医生小组管理',
-        link: '/doctor-group',
-        tag: 0
-      }),
-      new Navbar({
-        key: 'doctoraccount',
-        title: '医生账户管理',
-        link: '/doctor-account',
-        tag: 0
-      }),
-      new Navbar({
-        key: 'relationship',
-        title: '医患关联管理',
-        link: '/relationship',
-        tag: 0
-      })
-    ]
-  }),
-  new Navbar({
-    key: 'doctorpersonal',
-    title: '医生个人服务管理',
-    ifSub: true,
-    subBars: [
-      new Navbar({
-        key: 'greenchannel',
-        title: '绿色通道管理',
-        link: '/green-channel'
-      }),
-      new Navbar({
-        key: 'reservationbed',
-        title: '预约床位管理',
-        link: '/reservation-bed'
-      })
-    ]
-  }),
-  new Navbar({
-    key: 'usergroup',
-    title: '患者管理',
-    ifSub: true,
-    tag: 0,
-    subBars: [
-      new Navbar({
-        key: 'user',
-        title: '患者信息管理',
-        link: '/user'
-      }),
-      new Navbar({
-        key: 'userorder',
-        title: '患者订单管理',
-        link: '/user-order',
-        tag: 0
-      }),
-      new Navbar({
-        key: 'usercertification',
-        title: '实名认证管理',
-        link: '/user-certification',
-        tag: 0
-      }),
-      new Navbar({
-        key: 'healthdata',
-        title: '患者体征数据管理',
-        link: '/health-data',
-        tag: 0
-      })
-    ]
-  }),
-  new Navbar({
-    key: 'integral',
-    title: '积分管理',
-    ifSub: true,
-    tag: 0,
-    subBars: [
-      new Navbar({
-        key: 'integralDetail',
-        title: '积分明细',
-        link: '/integral-detail'
-      }),
-      new Navbar({
-        key: 'integralOrder',
-        title: '积分商品订单管理',
-        link: '/integral-order',
-        tag: 0
-      }),
-      new Navbar({
-        key: 'integralCommodity',
-        title: '积分商品维护',
-        link: '/integral-commodity'
-      }),
-      new Navbar({
-        key: 'integralProportion',
-        title: '积分比例维护',
-        link: '/integral-proportion'
-      }),
-      new Navbar({
-        key: 'missionIntegral',
-        title: '任务积分维护',
-        link: '/mission-integral'
-      })
-    ]
-  }),
-  new Navbar({
-    key: 'healthnews',
-    title: '健康资讯',
-    link: '/health-news'
-  }),
-  new Navbar({
-    key: 'commodity',
-    title: '商品维护',
-    link: '/commodity'
-  }),
-  new Navbar({
-    key: 'servicegroup',
-    title: '服务维护',
-    ifSub: true,
-    subBars: [
-      new Navbar({
-        key: 'doctorservice',
-        title: '医生个人服务维护',
-        link: '/doctor-service'
-      }),
-      new Navbar({
-        key: 'basicservice',
-        title: '医生小组服务维护',
-        link: '/basic-service'
-      }),
-      new Navbar({
-        key: 'healthservice',
-        title: '第三方服务维护',
-        link: '/health-service'
-      }),
-      new Navbar({
-        key: 'packageservice',
-        title: '套餐包服务维护',
-        link: '/package-service'
-      }),
-      new Navbar({
-        key: 'servicespec',
-        title: '服务规格维护',
-        link: '/service-spec'
-      }),
-    ]
-  }),
-  new Navbar({
-    key: 'basicgroup',
-    title: '基础数据维护',
-    ifSub: true,
-    subBars: [
-      new Navbar({
-        key: 'hospital',
-        title: '医院维护',
-        link: '/hospital'
-      }),
-      new Navbar({
-        key: 'community',
-        title: '小区维护',
-        link: '/community'
-      }),
-      new Navbar({
-        key: 'departmant',
-        title: '科室数据维护',
-        link: '/department'
-      }),
-      new Navbar({
-        key: 'doctortitle',
-        title: '职称数据维护',
-        link: '/doctor-title'
-      }),
-      new Navbar({
-        key: 'doctorsort',
-        title: '医生排序',
-        link: '/doctor-sort'
-      }),
-      new Navbar({
-        key: 'newsclassify',
-        title: '健康资讯分类数据维护',
-        link: '/news-classify'
-      }),
-      new Navbar({
-        key: 'discomfortsymptom',
-        title: '不适症状数据维护',
-        link: '/discomfort-symptom'
-      }),
-      new Navbar({
-        key: 'followupplan',
-        title: '随访计划模版数据维护',
-        link: '/follow-up-plan'
-      }),
-      new Navbar({
-        key: 'flowergrade',
-        title: '鲜花等级数据维护',
-        link: '/flower-grade'
-      }),
-      new Navbar({
-        key: 'drug',
-        title: '药品数据维护',
-        link: '/drug'
-      }),
-      new Navbar({
-        key: 'healthorganization',
-        title: '第三方机构数据维护',
-        link: '/health-organization'
-      }),
-      new Navbar({
-        key: 'inspectioncategory',
-        title: '检查类目维护',
-        link: '/inspection-category'
-      }),
-      new Navbar({
-        key: 'inspectionitem',
-        title: '检查子项目维护',
-        link: '/inspection-item'
-      }),
-      new Navbar({
-        key: 'pushtime',
-        title: '推送时间维护',
-        link: '/push-time'
-      }),
-      new Navbar({
-        key: 'downloadorigin',
-        title: '下载渠道维护',
-        link: '/download-origin'
-      }),
-      new Navbar({
-        key: 'purchaseEntrance',
-        title: '购药入口维护',
-        link: '/purchase-entrance'
-      }),
-      new Navbar({
-        key: 'counselingProblem',
-        title: '咨询问题引导维护',
-        link: '/counseling-problem'
-      }),
-      new Navbar({
-        key: 'recommendRadius',
-        title: '定位推荐半径维护',
-        link: '/recommend-radius'
-      }),
-    ]
-  }),
-  new Navbar({
-    key: 'datacollection',
-    title: '病史资料录入',
-    link: '/old'
-  }),
-  new Navbar({
-    key: 'versioncontrol',
-    title: '版本控制',
-    link: '/version-control'
-  }),
-  new Navbar({
-    key: 'subscribe',
-    title: '服务号管理',
-    ifSub: true,
-    subBars: [
-      new Navbar({
-        key: 'assessmentrisk',
-        title: '风险评估管理',
-        link: '/assessment-risk'
-      }),
-      new Navbar({
-        key: 'familyaccount',
-        title: '家庭账号维护',
-        link: '/family-account'
-      }),
-      new Navbar({
-        key: 'lecture',
-        title: '讲座管理',
-        link: '/lecture'
-      }),
-      new Navbar({
-        key: 'custommenu',
-        title: '自定义菜单',
-        link: '/custom-menu'
-      }),
-      new Navbar({
-        key: 'autoreply',
-        title: '自动回复维护',
-        link: '/auto-reply'
-      })
-    ]
-  }),
-  new Navbar({
-    key: 'adsmanagement',
-    title: '广告位管理',
-    ifSub: true,
-    subBars: [
-      new Navbar({
-        key: 'ad-doctor',
-        title: '广告位管理-医生端',
-        link: '/ad-doctor'
-      }),
-      new Navbar({
-        key: 'ad-patient',
-        title: '广告位管理-患者端',
-        link: '/ad-patient'
-      })
-    ]
-  }),
-  new Navbar({
-    key: 'discountcoupon',
-    title: '优惠券管理',
-    ifSub: true,
-    subBars: [
-      new Navbar({
-        key: 'dc-list',
-        title: '优惠券列表',
-        link: '/dc-list'
-      }),
-      new Navbar({
-        key: 'dc-issue',
-        title: '优惠券发放记录',
-        link: '/dc-issue'
-      })
-    ]
-  }),
-  new Navbar({
-    key: 'operationpush',
-    title: '运营推送',
-    link: '/operation-push'
-  })
+export let MENU = [
+  {
+    'menuId': '08f204a024844f29b60ff0e11d39ab8e',
+    'menuName': '系统管理',
+    'parentId': '1',
+    'href': '/',
+    'children': [
+      {
+        'menuId': '41f290d8c44b4dbaae4179952f90bc31',
+        'menuName': '菜单管理',
+        'parentId': '08f204a024844f29b60ff0e11d39ab8e',
+        'href': '/menu',
+        'checked': false
+      },
+      {
+        'menuId': 'cc43a371cfa8471ba506d0e33d5d447e',
+        'menuName': '医院机构管理',
+        'parentId': '08f204a024844f29b60ff0e11d39ab8e',
+        'href': '/organization',
+        'checked': false
+      },
+      {
+        'menuId': 'cc43a371cfa8471ba506d0e33d5d447e',
+        'menuName': '角色管理',
+        'parentId': '08f204a024844f29b60ff0e11d39ab8e',
+        'href': '/role',
+        'checked': false
+      },
+      {
+        'menuId': 'cc43a371cfa8471ba506d0e33d5d447e',
+        'menuName': '账号管理',
+        'parentId': '08f204a024844f29b60ff0e11d39ab8e',
+        'href': '/account',
+        'checked': false
+      }
+    ],
+    'checked': false
+  },
+  {
+    'menuId': '08f204a024844f29b60ff0e11d39ab8e',
+    'menuName': '叶酸领取预约',
+    'parentId': '1',
+    'href': '/',
+    'children': [
+      {
+        'menuId': '41f290d8c44b4dbaae4179952f90bc31',
+        'menuName': '排号及号源管理',
+        'parentId': '08f204a024844f29b60ff0e11d39ab8e',
+        'href': '/receive-folic-acid/plan',
+        'checked': false
+      },
+      {
+        'menuId': 'cc43a371cfa8471ba506d0e33d5d447e',
+        'menuName': '预约信息查询',
+        'parentId': '08f204a024844f29b60ff0e11d39ab8e',
+        'href': '/receive-folic-acid/appointment',
+        'checked': false
+      }
+    ],
+    'checked': false
+  },
+  {
+    'menuId': '08f204a024844f29b60ff0e11d39ab8e',
+    'menuName': '母子建档预约',
+    'parentId': '1',
+    'href': '/',
+    'children': [
+      {
+        'menuId': '41f290d8c44b4dbaae4179952f90bc31',
+        'menuName': '排号及号源管理',
+        'parentId': '08f204a024844f29b60ff0e11d39ab8e',
+        'href': '/mac-database/plan',
+        'checked': false
+      },
+      {
+        'menuId': 'cc43a371cfa8471ba506d0e33d5d447e',
+        'menuName': '预约信息查询',
+        'parentId': '08f204a024844f29b60ff0e11d39ab8e',
+        'href': '/mac-database/appointment',
+        'checked': false
+      }
+    ],
+    'checked': false
+  },
+  {
+    'menuId': '08f204a024844f29b60ff0e11d39ab8e',
+    'menuName': '计划免疫预约',
+    'parentId': '1',
+    'href': '/',
+    'children': [
+      {
+        'menuId': '41f290d8c44b4dbaae4179952f90bc31',
+        'menuName': '排号及号源管理',
+        'parentId': '08f204a024844f29b60ff0e11d39ab8e',
+        'href': '/planned-immunity/plan',
+        'checked': false
+      },
+      {
+        'menuId': 'cc43a371cfa8471ba506d0e33d5d447e',
+        'menuName': '预约信息查询',
+        'parentId': '08f204a024844f29b60ff0e11d39ab8e',
+        'href': '/planned-immunity/appointment',
+        'checked': false
+      }
+    ],
+    'checked': false
+  },
+  {
+    'menuId': '08f204a024844f29b60ff0e11d39ab8e',
+    'menuName': '儿童体检预约',
+    'parentId': '1',
+    'href': '/',
+    'children': [
+      {
+        'menuId': '41f290d8c44b4dbaae4179952f90bc31',
+        'menuName': '排号及号源管理',
+        'parentId': '08f204a024844f29b60ff0e11d39ab8e',
+        'href': '/pe-for-children/plan',
+        'checked': false
+      },
+      {
+        'menuId': 'cc43a371cfa8471ba506d0e33d5d447e',
+        'menuName': '医院机构管理',
+        'parentId': '预约信息查询',
+        'href': '/pe-for-children/appointment',
+        'checked': false
+      }
+    ],
+    'checked': false
+  },
+  {
+    'menuId': '6f23805d6859481fa3298b4a6f080df6',
+    'menuName': '资讯管理',
+    'parentId': '1',
+    'href': '/',
+    'children': [
+      {
+        'menuId': '41f290d8c44b4dbaae4179952f90bc31',
+        'menuName': '文章库',
+        'parentId': '08f204a024844f29b60ff0e11d39ab8e',
+        'href': '/article',
+        'checked': false
+      },
+      {
+        'menuId': 'cc43a371cfa8471ba506d0e33d5d447e',
+        'menuName': '资讯分类',
+        'parentId': '08f204a024844f29b60ff0e11d39ab8e',
+        'href': '/article-classify',
+        'checked': false
+      }
+    ],
+    'checked': false
+  },
+  {
+    'menuId': '6f23805d6859481fa3298b4a6f080df6',
+    'menuName': '广告管理',
+    'parentId': '1',
+    'href': '/',
+    'children': [
+      {
+        'menuId': '41f290d8c44b4dbaae4179952f90bc31',
+        'menuName': 'banner设置',
+        'parentId': '08f204a024844f29b60ff0e11d39ab8e',
+        'href': '/banner',
+        'checked': false
+      }
+    ],
+    'checked': false
+  },
+  {
+    'menuId': '6f23805d6859481fa3298b4a6f080df6',
+    'menuName': '消息',
+    'parentId': '1',
+    'href': '/message',
+    'children': [],
+    'checked': false
+  },
+  {
+    'menuId': '6f23805d6859481fa3298b4a6f080df6',
+    'menuName': '建议反馈',
+    'parentId': '1',
+    'href': '/feedback',
+    'children': [],
+    'checked': false
+  }
 ];
 
 export const ERRMSG = {
