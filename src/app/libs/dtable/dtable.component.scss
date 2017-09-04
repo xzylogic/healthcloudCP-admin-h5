@@ -17,11 +17,11 @@
   width: 100%;
   margin: 16px 0;
   border-collapse: collapse;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .table > tbody > tr {
-  line-height: 1.5em;
+  line-height: 1.6em;
 }
 
 .table > tbody > tr:hover {
@@ -30,14 +30,13 @@
 
 .table > thead > tr > th {
   padding: 16px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   text-align: center;
 }
 
 .table > tbody > tr > td {
-  min-height: 45px;
-  padding: 5px;
+  padding: 8px;
   border-top: 1px solid $color-border-light;
   word-wrap: break-word;
   word-break: break-all;

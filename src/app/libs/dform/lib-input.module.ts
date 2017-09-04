@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MdButtonModule, MdIconModule,
   MdInputModule, MdRadioModule,
@@ -21,11 +21,13 @@ import { LibInputRadioComponent } from './component/lib-input/lib-input-radio';
 import { LibInputTimeComponent } from './component/lib-input/lib-input-time';
 import { LibInputTextareaComponent } from './component/lib-input/lib-input-textarea';
 import { LibInputHiddenComponent } from './component/lib-input/lib-input-hidden';
+import { LibInputTreeComponent } from './component/lib-input/lib-input-tree';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     MdButtonModule,
     MdIconModule,
     MdInputModule,
@@ -45,7 +47,8 @@ import { LibInputHiddenComponent } from './component/lib-input/lib-input-hidden'
     LibInputRadioComponent,
     LibInputTimeComponent,
     LibInputTextareaComponent,
-    LibInputHiddenComponent
+    LibInputHiddenComponent,
+    LibInputTreeComponent
   ],
   providers: [
     DFormControlService,
@@ -70,7 +73,8 @@ import { LibInputHiddenComponent } from './component/lib-input/lib-input-hidden'
     LibInputRadioComponent,
     LibInputTimeComponent,
     LibInputTextareaComponent,
-    LibInputHiddenComponent
+    LibInputHiddenComponent,
+    LibInputTreeComponent
   ]
 })
 export class LibInputModule {

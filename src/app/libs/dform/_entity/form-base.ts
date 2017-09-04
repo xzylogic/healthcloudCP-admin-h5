@@ -12,7 +12,7 @@
  * file - 文件上传
  */
 
-export enum FormType { text, date, time, datetime, textarea, editor, radio, checkbox, dropdown, file, hidden }
+export enum FormType { text, date, time, datetime, textarea, editor, radio, checkbox, dropdown, file, hidden, tree }
 
 export class FormBase<T> {
   value: T; // 默认值

@@ -1,5 +1,30 @@
 <app-container [config]="containerConfig">
+  <div class="addition">
+    <button md-raised-button (click)="newData()">新增角色</button>
+  </div>
   <div class="content">
-    role
+    <form>
+      <md-input-container>
+        <input mdInput type="text" placeholder="角色名称搜索" name="queryKey" [(ngModel)]="roleTable.queryKey">
+      </md-input-container>
+      <button md-icon-button color="primary" type="button" (click)="getRoles()">
+        <md-icon>search</md-icon>
+      </button>
+      <button md-icon-button color="primary" type="button" (click)="reset()">
+        <md-icon>autorenew</md-icon>
+      </button>
+    </form>
+    <div *ngIf="!roleTable.lists&&roleTable.loading">Loading...</div>
+    <div *ngIf="!roleTable.lists&&!roleTable.loading&&!!roleTable.errorMessage" class="center">
+      {{roleTable.errorMessage}}
+    </div>
+    <div *ngIf="roleTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="roleTable"
+          (handleEmmit)="gotoHandle($event)"
+        ></app-lib-table>
+      </div>
+    </div>
   </div>
 </app-container>

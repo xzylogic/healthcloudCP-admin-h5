@@ -1,7 +1,6 @@
 import { Action } from 'redux';
 import { IMainState, Menu } from './main.state';
-import { DelAdminAction, InitNavAction, MainAction, SetAdminAction, UpdateTagAction } from './main.action';
-import { MENU } from './static';
+import { DelAdminAction, InitNavAction, SetTreeAction, SetNavAction, MainAction, SetAdminAction, UpdateTagAction } from './main.action';
 
 const __assign = (this && this.__assign) || Object.assign || function (t) {
   for (let s, i = 1, n = arguments.length; i < n; i++) {
@@ -18,13 +17,18 @@ const __assign = (this && this.__assign) || Object.assign || function (t) {
 export function MainReducer(state: IMainState = {
   adminId: 0,
   adminName: '',
-  navigation: <Menu[]>MENU
+  navigation: [],
+  navTree: {}
 }, action: Action): IMainState {
   switch (action.type) {
     case MainAction.SET_ADMIN:
       return handleSetAdminAction(state, <any>action);
     case MainAction.DEL_ADMIN:
       return handleDelAdminAction(state, <any>action);
+    case MainAction.SET_TREE:
+      return handleSetTreeAction(state, <any>action);
+    case MainAction.SET_NAV:
+      return handleSetNavAction(state, <any>action);
     case MainAction.INIT_NAV:
       return handleInitNavAction(state, <any>action);
     case MainAction.UPDATE_NAV:
@@ -45,6 +49,18 @@ function handleDelAdminAction(state: IMainState, action: DelAdminAction): IMainS
   const stateCopy = __assign(state);
   stateCopy.adminId = 0;
   stateCopy.adminName = '';
+  return stateCopy;
+}
+
+function handleSetTreeAction(state: IMainState, action: SetTreeAction): IMainState {
+  const stateCopy = __assign(state);
+  stateCopy.navTree = action.payload;
+  return stateCopy;
+}
+
+function handleSetNavAction(state: IMainState, action: SetNavAction): IMainState {
+  const stateCopy = __assign(state);
+  stateCopy.navigation = action.payload;
   return stateCopy;
 }
 

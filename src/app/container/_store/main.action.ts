@@ -7,6 +7,8 @@ import { Admin, IMainState, InitPayload, TagPayload } from './main.state';
 export class MainAction {
   static SET_ADMIN = 'SET_ADMIN';
   static DEL_ADMIN = 'DEL_ADMIN';
+  static SET_TREE = 'SET_TREE';
+  static SET_NAV = 'SET_NAV';
   static INIT_NAV = 'INIT_NAV';
   static UPDATE_NAV = 'UPDATE_NAV';
 
@@ -23,6 +25,20 @@ export class MainAction {
   delAdmin() {
     this.ngRedux.dispatch({
       type: MainAction.DEL_ADMIN
+    });
+  }
+
+  setTree(obj: any) {
+    this.ngRedux.dispatch({
+      type: MainAction.SET_TREE,
+      payload: obj
+    });
+  }
+
+  setNav(obj: any) {
+    this.ngRedux.dispatch({
+      type: MainAction.SET_NAV,
+      payload: obj
     });
   }
 
@@ -52,6 +68,20 @@ export class DelAdminAction implements Action {
   readonly type = MainAction.DEL_ADMIN;
 
   constructor() {
+  }
+}
+
+export class SetTreeAction implements Action {
+  readonly type = MainAction.SET_TREE;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class SetNavAction implements Action {
+  readonly type = MainAction.SET_NAV;
+
+  constructor(public payload: any) {
   }
 }
 

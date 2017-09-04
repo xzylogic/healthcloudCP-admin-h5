@@ -1,0 +1,47 @@
+{
+  "code": 0,
+  "data": [
+    {
+      "role_id": "59d4057729a64ab3ab5becc2de2a4e5e",
+      "name": "上海管理员",
+      "enname": null,
+      "description": null,
+      "useable": null,
+      "del_flag": "0",
+      "create_by": null,
+      "create_date": null,
+      "update_by": null,
+      "update_date": "2017-07-25 10:17:15",
+      "menu_list": null,
+      "menu_tree": null
+    },
+    {
+      "role_id": "e7f095bd767d4f7584c568b10305e6e7",
+      "name": "广州管理员",
+      "enname": null,
+      "description": null,
+      "useable": null,
+      "del_flag": "0",
+      "create_by": null,
+      "create_date": null,
+      "update_by": null,
+      "update_date": "2017-01-10 05:29:52",
+      "menu_list": null,
+      "menu_tree": null
+    },
+    {
+      "role_id": "73ab058e84ac4ccda1df501e61b80608",
+      "name": "系统管理员",
+      "enname": null,
+      "description": null,
+      "useable": null,
+      "del_flag": "0",
+      "create_by": null,
+      "create_date": null,
+      "update_by": null,
+      "update_date": "2016-12-19 03:24:40",
+      "menu_list": null,
+      "menu_tree": null
+    }
+  ]
+}

@@ -40,6 +40,11 @@
         <app-input-checkbox [form]="form" [data]="formdata" [(value)]="formdata.value"></app-input-checkbox>
       </div>
     </div>
+    <div *ngSwitchCase="formControl.tree">
+      <div class="lib-input">
+        <app-input-tree [form]="form" [data]="formdata" [(value)]="formdata.value"></app-input-tree>
+      </div>
+    </div>
     <div *ngSwitchCase="formControl.radio">
       <div class="lib-input">
         <app-input-radio [form]="form" [data]="formdata" [(value)]="formdata.value"></app-input-radio>

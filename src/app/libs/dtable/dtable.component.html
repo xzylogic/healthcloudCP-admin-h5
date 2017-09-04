@@ -6,8 +6,12 @@
     </tr>
     </thead>
     <tbody *ngIf="table.lists">
-    <tr *ngFor="let list of table.lists">
+    <tr *ngFor="let list of table.lists;let i=index">
       <td *ngFor="let title of table.titles" [ngSwitch]="title.controlType" data-title="{{title.name}}">
+        <div *ngSwitchCase="controlType.index" [style.minWidth.px]="title.minwidth" [style.maxWidth.px]="title.maxwidth"
+             class="table__content">
+          <span>{{i+1}}</span>
+        </div>
         <div *ngSwitchCase="controlType.text" [style.minWidth.px]="title.minwidth" [style.maxWidth.px]="title.maxwidth"
              class="table__content">
           <span>{{list[title.key] == 0 ? list[title.key] : list[title.key] || ''}}</span>
@@ -21,6 +25,10 @@
         </div>
         <div *ngSwitchCase="controlType.button" [style.minWidth.px]="title.minwidth" class="table__content">
           <span (click)="gotoHandle(title.key,list)" class="table__option">{{title.option || title.name}}</span>
+        </div>
+        <div *ngSwitchCase="controlType.buttons" [style.minWidth.px]="title.minwidth" class="table__content">
+          <span *ngFor="let btn of title.option" (click)="gotoHandle(btn.key,list)" class="table__option"
+                style="padding: 0 10px">{{list[btn.key] || btn.name}}</span>
         </div>
       </td>
     </tr>

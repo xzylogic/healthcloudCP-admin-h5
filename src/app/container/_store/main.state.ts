@@ -2,6 +2,7 @@ export interface IMainState {
   readonly adminId: number;
   readonly adminName: string;
   readonly navigation: Menu[];
+  readonly navTree: any;
 }
 
 export class Menu {

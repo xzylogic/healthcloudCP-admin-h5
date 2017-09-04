@@ -3,20 +3,24 @@
 .main__content {
   position: relative;
   min-width: 600px;
-  padding: 32px 16px;
 }
 
 .content__location {
+  padding: 25px;
   line-height: 24px;
+  background: $color-primary;
+  color: $color-white;
   overflow: hidden;
-  padding-bottom: 16px;
-  border-bottom: 3px solid $color-border-light;
 }
 
 .content__addition {
   position: absolute;
-  right: 16px;
+  right: 25px;
   top: 20px;
+}
+
+.content__main {
+  padding: 20px 25px;
 }
 
 .location__item {
@@ -28,7 +32,7 @@
 }
 
 a.location__item {
-  color: $color-primary;
+  color: $color-white;
   cursor: pointer;
 }
 
@@ -41,7 +45,7 @@ a.location__item {
 }
 
 .location__item:hover {
-  color: $color-primary;
+  color: $color-white;
 }
 
 .location__item:focus {
