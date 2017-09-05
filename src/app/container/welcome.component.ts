@@ -16,6 +16,5 @@ import { Component, Inject } from '@angular/core';
 })
 export class WelcomeComponent {
   constructor(@Inject('app') public app) {
-
   }
 }

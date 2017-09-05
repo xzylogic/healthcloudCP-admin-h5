@@ -8,6 +8,7 @@ export class DialogForm {
   key: string;
   label: string;
   value: any;
+  type: string;
 }
 
 export class DialogOptions {

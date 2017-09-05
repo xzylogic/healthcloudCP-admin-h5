@@ -21,9 +21,7 @@ export class RoleService {
   }
 
   getRoles(name) {
-    console.log(name);
-    // return this.http.post(`${this.app.api_url}${PATH.getRoles}`, {name: name});
-    return this.http.get('/json/role.json');
+    return this.http.post(`${this.app.api_url}${PATH.getRoles}`, {name: name});
   }
 
   getRole(roleId) {
@@ -34,12 +32,8 @@ export class RoleService {
     return this.http.post(`${this.app.api_url}${PATH.updateRole}`, data);
   }
 
-  enableRole(ids) {
-    return this.http.post(`${this.app.api_url}${PATH.enableRole}`, {roleIds: ids, delFlag: 0});
-  }
-
-  unenableRole(id) {
-    return this.http.post(`${this.app.api_url}${PATH.enableRole}`, {roleIds: id, delFlag: 1});
+  enableRole(ids, flag) {
+    return this.http.get(`${this.app.api_url}${PATH.enableRole}?roleIds=${ids}&delFlag=${flag}`);
   }
 
   setRoleConfig() {
@@ -77,7 +71,7 @@ export class RoleService {
       }),
       new TableTitle({
         name: '更新时间',
-        key: 'update_date'
+        key: 'updateDate'
       }),
       new TableTitle({
         name: '操作',
@@ -95,32 +89,28 @@ export class RoleService {
   }
 
   setRoleForm(tree, data?) {
+    console.log(tree);
     const forms: FormBase<any>[] = [];
-    if (data) {
-      forms.push(new FormText({
+    forms.push(
+      new FormText({
         key: 'name',
         label: '角色名称',
-        value: data && data.name || '',
+        value: data || '',
         required: true,
-        readonly: true
-      }));
-    } else {
-      forms.push(new FormText({
-        key: 'name',
-        label: '角色名称',
-        value: data && data.name || '',
-        required: true,
+        readonly: !!data,
         errMsg: '请填写角色名称'
-      }));
-    }
-    forms.push(new FormTree({
-      key: 'menuIds',
-      label: '添加权限',
-      value: data && data.name || [],
-      required: true,
-      options: tree,
-      errMsg: '请选择菜单权限'
-    }));
+      })
+    );
+    forms.push(
+      new FormTree({
+        key: 'menuIds',
+        label: '添加权限',
+        value: [],
+        required: true,
+        options: tree || [],
+        errMsg: '请选择菜单权限'
+      })
+    );
     return forms;
   }
 }

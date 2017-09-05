@@ -18,10 +18,10 @@ export const rootReducer = combineReducers({
 })
 export class StoreModule {
   constructor(ngRedux: NgRedux<any>) {
-    // if (environment.production === true) {
-    ngRedux.configureStore(rootReducer, {});
-    // } else {
-    //   ngRedux.configureStore(rootReducer, {}, [createLogger()]);
-    // }
+    if (environment.production === true) {
+      ngRedux.configureStore(rootReducer, {});
+    } else {
+      ngRedux.configureStore(rootReducer, {}, [createLogger()]);
+    }
   }
 }

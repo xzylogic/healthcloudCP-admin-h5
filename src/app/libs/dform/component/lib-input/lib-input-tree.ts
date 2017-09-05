@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { FormTree } from '../../_entity/form-tree';
@@ -41,8 +41,7 @@ import { FormTree } from '../../_entity/form-tree';
           </div>
         </section>
         <span class="input_span">{{data.label}}</span>
-        <input type="hidden" [formControlName]="data.key" [(ngModel)]="value" (change)="change()">
-        <!--<p *ngIf="this.value.length===0">{{data.errMsg}}</p>-->
+        <input type="hidden" [formControlName]="data.key" [(ngModel)]="value">
       </div>
     </div>
   `,
@@ -56,13 +55,12 @@ export class LibInputTreeComponent implements OnInit {
 
   @ViewChild('date') date: any;
 
-  constructor() {
+  constructor(private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
-    console.log(this.data.options);
     this.setInit(this.data.options);
-    console.log(this.data.options);
+    this.getValue();
   }
 
   getChecked(div, opt) {
@@ -73,15 +71,40 @@ export class LibInputTreeComponent implements OnInit {
       this.setUnChecked(opt);
       this.setParentUnChecked(opt);
     }
+    this.getValue();
   }
 
   setInit(data) {
-    data.open = false;
+    data.open = true;
     if (data.children && data.children.length !== 0) {
       data.children.forEach(obj => {
         this.setInit(obj);
       });
     }
+  }
+
+  getValue() {
+    const value = [];
+    if (this.data.options.checked) {
+      value.push(this.data.options.menuId);
+    }
+    if (this.data.options.children) {
+      this.data.options.children.forEach(obj => {
+        if (obj.checked) {
+          value.push(obj.menuId);
+        }
+        if (obj.children) {
+          obj.children.forEach(subObj => {
+            if (subObj.checked) {
+              value.push(subObj.menuId);
+            }
+          });
+        }
+      });
+    }
+    this.value = value;
+    this.cdr.detectChanges();
+    this.valueChange.emit(value);
   }
 
   setChecked(data) {
@@ -97,20 +120,22 @@ export class LibInputTreeComponent implements OnInit {
     if (this.data.options.menuId === pid) {
       this.data.options.checked = true;
     }
-    this.data.options.children.forEach(obj => {
-      if (obj.menuId === pid) {
-        obj.checked = true;
-        this.setParentChecked(obj.parentId);
-      }
-      if (obj.children && obj.children.length !== 0) {
-        obj.children.forEach(subObj => {
-          if (subObj.menuId === pid) {
-            subObj.checked = true;
-            this.setParentChecked(subObj.parentId);
-          }
-        });
-      }
-    });
+    if (this.data.options.children) {
+      this.data.options.children.forEach(obj => {
+        if (obj.menuId === pid) {
+          obj.checked = true;
+          this.setParentChecked(obj.parentId);
+        }
+        if (obj.children && obj.children.length !== 0) {
+          obj.children.forEach(subObj => {
+            if (subObj.menuId === pid) {
+              subObj.checked = true;
+              this.setParentChecked(subObj.parentId);
+            }
+          });
+        }
+      });
+    }
   }
 
   setUnChecked(data) {
@@ -123,33 +148,35 @@ export class LibInputTreeComponent implements OnInit {
   }
 
   setParentUnChecked(opt) {
-    this.data.options.children.forEach(obj => {
-      if (obj.children && obj.children.length !== 0) {
-        obj.children.forEach(subObj => {
-          if (subObj.parentId === opt.parentId) {
-            let flag = 0;
-            if (obj.children && obj.children.length !== 0) {
-              obj.children.forEach(pobj => {
-                if (pobj.checked && pobj.menuId !== opt.parentId) {
-                  flag++;
-                }
-              });
-            }
-            obj.checked = flag > 0;
-            this.setParentUnChecked(obj);
-          }
-        });
-        if (obj.parentId === opt.parentId) {
-          let flag = 0;
-          this.data.options.children.forEach(pobj => {
-            if (pobj.checked && pobj.menuId !== opt.parentId) {
-              flag++;
+    if (this.data.options.children) {
+      this.data.options.children.forEach(obj => {
+        if (obj.children && obj.children.length !== 0) {
+          obj.children.forEach(subObj => {
+            if (subObj.parentId === opt.parentId) {
+              let flag = 0;
+              if (obj.children && obj.children.length !== 0) {
+                obj.children.forEach(pobj => {
+                  if (pobj.checked && pobj.menuId !== opt.parentId) {
+                    flag++;
+                  }
+                });
+              }
+              obj.checked = flag > 0;
+              this.setParentUnChecked(obj);
             }
           });
-          this.data.options.checked = flag > 0;
+          if (obj.parentId === opt.parentId) {
+            let flag = 0;
+            this.data.options.children.forEach(pobj => {
+              if (pobj.checked && pobj.menuId !== opt.parentId) {
+                flag++;
+              }
+            });
+            this.data.options.checked = flag > 0;
+          }
         }
-      }
-    });
+      });
+    }
   }
 
   toggle(data) {
