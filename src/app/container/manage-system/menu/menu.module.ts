@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
-import { MenuComponent } from './menu.component';
+import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { MdButtonModule, MdGridListModule } from '@angular/material';
+import { MenuComponent } from './menu.component';
 import { MenuService } from './_service/menu.service';
 import { LibModule } from '../../../libs/common/lib.module';
+import { DFormModule } from '../../../libs/dform/dform.module';
 
 const routes: Routes = [{
   path: '',
@@ -11,7 +14,11 @@ const routes: Routes = [{
 
 @NgModule({
   imports: [
+    CommonModule,
     LibModule,
+    DFormModule,
+    MdGridListModule,
+    MdButtonModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

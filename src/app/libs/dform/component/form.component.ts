@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ChangeDetectorRef, OnDestroy, OnChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { FormBase } from '../_entity/form-base';
@@ -9,7 +9,7 @@ import { DFormControlService } from '../_service/form-control.service';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
-export class DynamicFormComponent implements OnInit {
+export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() button: string;
   @Input() reset: boolean;
   @Input() formDatas: FormBase<any>[] = [];
@@ -26,6 +26,15 @@ export class DynamicFormComponent implements OnInit {
   ngOnInit() {
     this.form = this.fcs.toFormGroup(this.formDatas);
     this.cdr.detectChanges();
+  }
+
+  ngOnChanges() {
+    this.form = this.fcs.toFormGroup(this.formDatas);
+    this.cdr.detectChanges();
+  }
+
+  ngOnDestroy() {
+    console.log('form destroy');
   }
 
   onSubmit() {

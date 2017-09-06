@@ -9,7 +9,8 @@ const PATH = {
   getRoles: '/api/basicInfo/role/list',
   getRole: '/api/basicInfo/roleAdd',
   updateRole: '/api/basicInfo/role/saveOrUpdate',
-  enableRole: '/api/basicInfo/role/enOrDisable'
+  enableRole: '/api/basicInfo/role/enOrDisable',
+  getMenu: '/api/menu/list'
 };
 
 @Injectable()
@@ -26,6 +27,10 @@ export class RoleService {
 
   getRole(roleId) {
     return this.http.get(`${this.app.api_url}${PATH.getRole}?roleId=${roleId}`);
+  }
+
+  getMenu() {
+    return this.http.get(`${this.app.api_url}${PATH.getMenu}`);
   }
 
   updateRole(data) {

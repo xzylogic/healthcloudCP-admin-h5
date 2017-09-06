@@ -60,7 +60,7 @@ export class AuthService {
     this.mainAction.setAdmin(new Admin({id: data.userId, name: data.userName}));
     this.mainAction.setTree(data.menu || {});
     this.mainAction.setNav(data.menu && data.menu.children || []);
-    this.httpService.setHeaders({'sessionId': data.sessionId});
+    this.httpService.setHeaders({'sessionId': data.sessionId, 'userId': data.userId});
   }
 
   updatePassword(data) {

@@ -1,5 +1,5 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="form" id="app-form" class="lib-form">
-  <div *ngFor="let formdata of formDatas" class="lib-form__content">
+  <div *ngFor="let formdata of formDatas">
     <app-form-set [formdata]="formdata" [form]="form"></app-form-set>
   </div>
   <div class="ui grid">

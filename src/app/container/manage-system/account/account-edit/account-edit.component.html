@@ -1,0 +1,25 @@
+<app-container [config]="containerConfig">
+  <div class="content">
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="getValues(form.value)">
+      <!--<app-input-dropdown [form]="form" [data]="config.recordExaminationTypeId" [(value)]="config.recordExaminationTypeId.value"></app-input-dropdown>-->
+      <app-input-text [form]="form" [data]="config[0]" [(value)]="config[0].value"></app-input-text>
+      <app-input-text [form]="form" [data]="config[1]" [(value)]="config[1].value" (valueChange)="getValidName($event)"></app-input-text>
+      <app-input-text [form]="form" [data]="config[2]" [(value)]="config[2].value"></app-input-text>
+      <app-input-text [form]="form" [data]="config[3]" [(value)]="config[3].value"></app-input-text>
+      <app-input-text [form]="form" [data]="config[4]" [(value)]="config[4].value"></app-input-text>
+      <app-input-text [form]="form" [data]="config[5]" [(value)]="config[5].value"></app-input-text>
+      <!--<app-input-text [form]="form" [data]="config.alias" [(value)]="config.alias.value"></app-input-text>-->
+      <!--<app-input-text [form]="form" [data]="config.unit" [(value)]="config.unit.value"></app-input-text>-->
+      <!--<app-input-radio [form]="form" [data]="config.type" [(value)]="config.type.value"></app-input-radio>-->
+      <!--<app-input-text [form]="form" [data]="config.reference" [(value)]="config.reference.value" *ngIf="config.type.value==0"></app-input-text>-->
+      <!--<app-input-text [form]="form" [data]="config.max" [(value)]="config.max.value" *ngIf="config.type.value==1"></app-input-text>-->
+      <!--<app-input-text [form]="form" [data]="config.min" [(value)]="config.min.value" *ngIf="config.type.value==1"></app-input-text>-->
+      <!--<app-input-radio [form]="form" [data]="config.chart" [(value)]="config.chart.value"></app-input-radio>-->
+      <!--<app-input-text [form]="form" [data]="config.maxY" [(value)]="config.maxY.value" *ngIf="config.chart.value==true"></app-input-text>-->
+      <!--<app-input-text [form]="form" [data]="config.minY" [(value)]="config.minY.value" *ngIf="config.chart.value==true"></app-input-text>-->
+      <!--<app-input-text [form]="form" [data]="config.intervalY" [(value)]="config.intervalY.value" *ngIf="config.chart.value==true"></app-input-text>-->
+      <button md-raised-button color="primary" [disabled]="!form.valid">保存</button>
+      <button md-raised-button type="reset">重置</button>
+    </form>
+  </div>
+</app-container>

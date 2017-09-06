@@ -13,7 +13,6 @@ import { ERRMSG } from '../../../_store/static';
   templateUrl: './role-edit.component.html'
 })
 export class RoleEditComponent implements OnInit {
-  @select(['main', 'navTree']) readonly navTree: Observable<Menu[]>;
   containerConfig: ContainerConfig;
   form: any;
   errMsg = '';
@@ -29,14 +28,16 @@ export class RoleEditComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.navTree.subscribe(menu => {
-        if (params.id) {
-          this.id = params.id;
-          this.containerConfig = this.roleService.setRoleEditConfig(true);
-          this.getInit(params.id);
-        } else {
-          this.containerConfig = this.roleService.setRoleEditConfig(false);
-          this.form = this.roleService.setRoleForm(menu);
+      this.roleService.getMenu().subscribe(res => {
+        if (res.code === 0 && res.data) {
+          if (params.id) {
+            this.id = params.id;
+            this.containerConfig = this.roleService.setRoleEditConfig(true);
+            this.getInit(params.id);
+          } else {
+            this.containerConfig = this.roleService.setRoleEditConfig(false);
+            this.form = this.roleService.setRoleForm(res.data);
+          }
         }
       });
     });

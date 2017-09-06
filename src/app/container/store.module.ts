@@ -6,11 +6,11 @@ import { environment } from '../../environments/environment';
 
 import { MainReducer } from './_store/main.reducer';
 
-import { stores as doctorStores } from './manage-doctor';
+// import { stores as doctorStores } from './manage-doctor';
 
 export const rootReducer = combineReducers({
   main: MainReducer,
-  ...doctorStores,
+  // ...doctorStores,
 });
 
 @NgModule({

@@ -1,5 +1,65 @@
 <app-container [config]="containerConfig">
   <div class="content">
-    menu
+    <md-grid-list cols="2" rowHeight="fit" gutterSize="30" class="grid">
+      <md-grid-tile>
+        <div class="container">
+          <div class="tree__title clear">
+            <h3 class="p">菜单列表</h3>
+            <button class="button" md-button color="primary" (click)="offData(menuList)">全部折叠</button>
+            <button class="button" md-button color="primary" (click)="openData(menuList)">全部展开</button>
+          </div>
+          <div *ngIf="menuList">
+            <div class="clear tree__p">
+              <md-icon class="tree__icon" (click)="toggle(menuList)" *ngIf="!menuList.open">add</md-icon>
+              <md-icon class="tree__icon" (click)="toggle(menuList)" *ngIf="menuList.open">remove</md-icon>
+              <p class="tree__span" [class.active]="menuList.active"
+                 (click)="newMenu(menuList.menuId,menuList.menuName)">
+                {{menuList.menuName}}</p>
+              <!--<button md-icon-button color="primary" (click)="updateMenu(menuList)">-->
+              <!--<md-icon aria-label="edit">mode_edit</md-icon>-->
+              <!--</button>-->
+            </div>
+            <ul *ngIf="menuList.children&&menuList.open" class="tree__list">
+              <li *ngFor="let menu of menuList.children">
+                <div class="clear tree__p">
+                  <md-icon class="tree__icon" (click)="toggle(menu)" *ngIf="!menu.open">add</md-icon>
+                  <md-icon class="tree__icon" (click)="toggle(menu)" *ngIf="menu.open">remove</md-icon>
+                  <p class="tree__span" [class.active]="menu.active" (click)="newMenu(menu.menuId, menu.menuName)">
+                    {{menu.menuName}}</p>
+                  <button md-icon-button color="primary" (click)="updateMenu(menu)">
+                    <md-icon aria-label="edit">mode_edit</md-icon>
+                  </button>
+                  <button md-icon-button color="warn" (click)="deleteMenu(menu.menuId, menu.menuName)">
+                    <md-icon aria-label="delete">delete_forever</md-icon>
+                  </button>
+                </div>
+                <ul *ngIf="menu.children&&menu.open" class="tree__list">
+                  <li *ngFor="let subMenu of menu.children">
+                    <div class="clear tree__p">
+                      <md-icon class="tree__icon last">remove</md-icon>
+                      <p class="tree__span last">{{subMenu.menuName}}</p>
+                      <button md-icon-button color="primary" (click)="updateMenu(subMenu)">
+                        <md-icon aria-label="edit">mode_edit</md-icon>
+                      </button>
+                      <button md-icon-button color="warn" (click)="deleteMenu(subMenu.menuId, subMenu.menuName)">
+                        <md-icon aria-label="delete">delete_forever</md-icon>
+                      </button>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </md-grid-tile>
+      <md-grid-tile>
+        <div class="container" *ngIf="form">
+          <div class="tree__title clear">
+            <h3 class="p">{{title}}</h3>
+          </div>
+          <app-form [formDatas]="form" (formValues)="getValues($event)"></app-form>
+        </div>
+      </md-grid-tile>
+    </md-grid-list>
   </div>
 </app-container>

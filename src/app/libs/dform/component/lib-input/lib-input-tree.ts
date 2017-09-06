@@ -9,23 +9,23 @@ import { FormTree } from '../../_entity/form-tree';
     <div [formGroup]="form">
       <div class="input_container">
         <section calss="input_content">
-          <div class="clear">
+          <div class="clear" style="padding: 3px 0">
             <md-icon style="float:left" *ngIf="!data.options.open" (click)="toggle(data.options)">add</md-icon>
             <md-icon style="float:left" *ngIf="data.options.open" (click)="toggle(data.options)">remove</md-icon>
             <div style="float:left">
               <md-checkbox [(checked)]="data.options.checked" (change)="getChecked($event, data.options)">
                 {{data.options.menuName}}
               </md-checkbox>
-              <div *ngIf="data.options.open&&data.options.children">
-                <div *ngFor="let opt of data.options.children" class="clear">
+              <div *ngIf="data.options.open&&data.options.children" style="padding-top: 3px">
+                <div *ngFor="let opt of data.options.children" class="clear" style="padding: 3px 0">
                   <md-icon style="float:left" *ngIf="!opt.open" (click)="toggle(opt)">add</md-icon>
                   <md-icon style="float:left" *ngIf="opt.open" (click)="toggle(opt)">remove</md-icon>
                   <div style="float:left">
                     <md-checkbox [(checked)]="opt.checked" (change)="getChecked($event, opt)">
                       {{opt.menuName}}
                     </md-checkbox>
-                    <div *ngIf="opt.open&&opt.children">
-                      <div *ngFor="let subopt of opt.children" class="clear">
+                    <div *ngIf="opt.open&&opt.children" style="padding-top: 3px">
+                      <div *ngFor="let subopt of opt.children" class="clear" style="padding: 3px 0">
                         <md-icon style="float:left">remove</md-icon>
                         <div style="float:left">
                           <md-checkbox [(checked)]="subopt.checked" (change)="getChecked($event, subopt)">
