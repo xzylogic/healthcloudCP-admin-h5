@@ -15,6 +15,7 @@ import { FormText } from '../../_entity/form-text';
                [readonly]="data.readonly"
                (keyup)="change()"
                (change)="change()"
+               (blur)="change()"
         >
         <md-error>{{data.errMsg}}</md-error>
       </md-input-container>
@@ -27,6 +28,7 @@ import { FormText } from '../../_entity/form-text';
                [readonly]="data.readonly"
                (keyup)="change()"
                (change)="change()"
+               (blur)="change()"
         >
         <md-hint align="end">{{value.length}} / {{data.maxlength}}</md-hint>
       </md-input-container>

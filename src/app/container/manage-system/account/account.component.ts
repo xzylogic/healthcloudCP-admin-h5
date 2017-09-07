@@ -26,12 +26,12 @@ export class AccountComponent implements OnInit {
       titles: this.accountService.setAccountTitles(),
       ifPage: true
     });
-    this.getAccounts(0);
+    this.getAccounts(1);
   }
 
   getAccounts(page: number) {
     this.accountTable.reset(page);
-    this.accountService.getAccounts('123')
+    this.accountService.getAccounts(page)
       .subscribe(res => {
         console.log(res);
         this.accountTable.loading = false;
@@ -40,6 +40,7 @@ export class AccountComponent implements OnInit {
         } else if (res.code === 0 && res.data && res.data.data) {
           this.accountTable.totalPage = res.data.totalPages;
           this.accountTable.lists = res.data.data;
+          this.formatData(this.accountTable.lists);
         } else {
           this.accountTable.errorMessage = res.msg || ERRMSG.otherMsg;
         }
@@ -56,5 +57,13 @@ export class AccountComponent implements OnInit {
 
   newData() {
     this.router.navigate(['/account/edit']);
+  }
+
+  formatData(data) {
+    if (Array.isArray(data)) {
+      data.forEach(obj => {
+        obj.roleName = obj.roleList[0].name;
+      });
+    }
   }
 }

@@ -6,7 +6,8 @@ import { FormHidden } from '../../../../libs/dform/_entity/form-hidden';
 import { FormRadio } from '../../../../libs/dform/_entity/form-radio';
 
 const PATH = {
-  getMenus: '/api/communityMenu/list',
+  getMenus: '/api/getCommunityMenuByUserId',
+  getMenuAll: '/api/communityMenu/list',
   updateCenter: '/api/communityCenter/saveOrUpdate',
   updateSite: '/api/communitySite/saveOrUpdate',
   updateDepartment: '/api/communityDepartment/saveOrupdate',
@@ -17,12 +18,17 @@ const PATH = {
 export class OrganizationService {
   constructor(
     @Inject('http') private http,
+    @Inject('auth') private auth,
     @Inject('app') private app
   ) {
   }
 
   getMenus() {
-    return this.http.get(`${this.app.api_url}${PATH.getMenus}`);
+    return this.http.get(`${this.app.api_url}${PATH.getMenus}?userId=${this.auth.getAdminId()}`);
+  }
+
+  getMenuAll() {
+    return this.http.get(`${this.app.api_url}${PATH.getMenuAll}`);
   }
 
   updateCenter(data) {

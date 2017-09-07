@@ -6,13 +6,15 @@ import { FormText } from '../../../../libs/dform/_entity/form-text';
 
 const PATH = {
   accountList: '/api/basicInfo/user/list',
-  accountDetail: '/api/basicInfo/userEditor'
+  accountDetail: '/api/basicInfo/userEditor',
+  accountValid: '/api/basicInfo/user/nameExist'
 };
 
 @Injectable()
 export class AccountService {
   constructor(
     @Inject('app') private app,
+    @Inject('auth') private auth,
     @Inject('http') private http
   ) {
   }
@@ -35,14 +37,21 @@ export class AccountService {
     });
   }
 
-  getAccounts(data) {
-    return this.http.get('json/account.json');
-    // return this.http.post(`${this.app.api_url}${PATH.accountList}`, data);
+  getAccounts(page) {
+    // return this.http.get('json/account.json');
+    return this.http.post(`${this.app.api_url}${PATH.accountList}`, {
+      number: page,
+      parameter: {}
+    });
   }
 
   getAccount(id) {
     return this.http.get('json/account-detail.json');
     // return this.http.get(`${this.app.api_url}${PATH.accountDetail}?userId=${id}`);
+  }
+
+  getValid(name) {
+    return this.http.get(`${this.app.api_url}${PATH.accountValid}?loginname=${name}&userId=${this.auth.getAdminId()}`);
   }
 
   setAccountTitles() {
@@ -62,7 +71,7 @@ export class AccountService {
       }),
       new TableTitle({
         name: '手机号码',
-        key: 'name'
+        key: 'telephone'
       }),
       new TableTitle({
         name: '所属机构',
@@ -91,7 +100,8 @@ export class AccountService {
         key: 'username',
         label: '姓名',
         value: '',
-        required: true
+        required: true,
+        errMsg: '请填写姓名'
       })
     );
     forms.push(
@@ -99,7 +109,8 @@ export class AccountService {
         key: 'loginname',
         label: '后台账号',
         value: '',
-        required: true
+        required: true,
+        errMsg: '请填写用户后台账号'
       })
     );
     forms.push(
@@ -107,28 +118,32 @@ export class AccountService {
         key: 'telephone',
         label: '手机号码',
         value: '',
-        required: true
+        required: true,
+        errMsg: '请填写用户手机号码'
       })
     );
     forms.push(
       new FormText({
         key: 'menuId',
         label: '所属机构',
-        value: ''
+        value: '',
+        errMsg: '请选择用户所属机构'
       })
     );
     forms.push(
       new FormText({
         key: 'roleIds',
         label: '角色',
-        value: ''
+        value: '',
+        errMsg: '请选择账号角色'
       })
     );
     forms.push(
       new FormText({
         key: 'delFlag',
         label: '是否启用',
-        value: ''
+        value: '',
+        required: true
       })
     );
     return forms.sort((a, b) => a.order - b.order);
