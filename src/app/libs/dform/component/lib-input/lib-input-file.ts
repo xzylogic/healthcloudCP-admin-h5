@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MdDialog } from '@angular/material';
 
@@ -39,7 +39,10 @@ export class LibInputFileComponent implements OnInit {
 
   @ViewChild('file') file: any;
 
+  domain: string;
+
   constructor(
+    @Inject('app') private app,
     private uploadService: HttpService,
     private dialog: MdDialog,
     private cdr: ChangeDetectorRef
@@ -55,22 +58,35 @@ export class LibInputFileComponent implements OnInit {
   // 上传图片操作
   uploadChange(files) {
     const myForm = new FormData();
-    myForm.append('file', files.target.files[0]);
-    this.uploadService.upload(this.data.url, myForm)
-      .subscribe(res => {
-        if (res.code === 0) {
-          HintDialog('上传图片成功！', this.dialog);
-          if (this.data.multiple === false) {
-            this.value = res.data;
-          } else {
-            if (!this.value) {
-              this.value = [];
-            }
-            this.value.push(res.data);
-          }
-          this.cdr.detectChanges();
+    this.uploadService.get(`${this.app.api_url}/admin/common/getQiniuToken`)
+      .subscribe(sres => {
+        if (sres.code === 0 && sres.data) {
+          this.domain = sres.data.domain;
+          myForm.append('file', files.target.files[0]);
+          myForm.append('token', sres.data.token);
+          myForm.append('key', (new Date()).valueOf().toString());
+          this.uploadService.upload('http://upload.qiniu.com', myForm)
+            .subscribe(res => {
+              if (res.key) {
+                HintDialog('上传图片成功！', this.dialog);
+                if (this.data.multiple === false) {
+                  this.value = `${this.domain}${res.key}`;
+                } else {
+                  if (!this.value) {
+                    this.value = [];
+                  }
+                  this.value.push(`${this.domain}${res.key}`);
+                }
+                this.cdr.detectChanges();
+              } else {
+                HintDialog(res.msg || '上传图片失败！', this.dialog);
+              }
+            }, err => {
+              console.log(err);
+              HintDialog('上传图片失败！', this.dialog);
+            });
         } else {
-          HintDialog(res.msg || '上传图片失败！', this.dialog);
+          HintDialog(sres.msg || '上传图片失败！', this.dialog);
         }
       }, err => {
         console.log(err);

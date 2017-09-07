@@ -13,7 +13,10 @@ export class OrganizationComponent implements OnInit {
   containerConfig: ContainerConfig;
   menuList: any;
   form: any;
+  formTwo: any;
+  formThree: any;
   title = '';
+  flag: number; // 0 添加部门／修改所有 1 添加部门和站点 2 添加中心部门和站点
 
   constructor(
     @Inject('organization') private organizationService,
@@ -79,42 +82,64 @@ export class OrganizationComponent implements OnInit {
   }
 
   newCenter(parentId, parentName) {
+    this.flag = 2;
     this.unActive(this.menuList, parentId);
     this.form = null;
     this.title = '添加中心';
     console.log(parentId, parentName);
     this.form = this.organizationService.setCenterForm(1, null, parentName, parentId);
+    this.formTwo = this.organizationService.setSiteForm(2, null, parentName, parentId);
+    this.formThree = this.organizationService.setDepartmentForm(3, null, parentName, parentId);
     this.cdr.detectChanges();
   }
 
   updateCenter(menu) {
+    this.flag = 0;
     this.unActive(this.menuList, 0);
     this.form = null;
     this.title = '编辑中心';
     console.log(menu);
-    this.form = this.organizationService.setCenterForm(1, menu);
-    this.cdr.detectChanges();
+    this.organizationService.getCenter(menu.menuId)
+      .subscribe(res => {
+        if (res.data && res.code === 0) {
+          res.data.parentId = menu.parentId;
+          console.log(res.data);
+          this.form = this.organizationService.setCenterForm(1, res.data);
+          this.cdr.detectChanges();
+        }
+      });
   }
 
   newSite(parentId, parentName) {
+    this.flag = 1;
     this.unActive(this.menuList, parentId);
     this.form = null;
     this.title = '添加站点';
     console.log(parentId, parentName);
     this.form = this.organizationService.setSiteForm(2, null, parentName, parentId);
+    this.formTwo = this.organizationService.setDepartmentForm(3, null, parentName, parentId);
     this.cdr.detectChanges();
   }
 
   updateSite(menu) {
+    this.flag = 0;
     this.unActive(this.menuList, 0);
     this.form = null;
     this.title = '编辑站点';
     console.log(menu);
-    this.form = this.organizationService.setSiteForm(2, menu);
-    this.cdr.detectChanges();
+    this.organizationService.getSite(menu.menuId)
+      .subscribe(res => {
+        if (res.data && res.code === 0) {
+          res.data.parentId = menu.parentId;
+          console.log(res.data);
+          this.form = this.organizationService.setSiteForm(2, res.data);
+          this.cdr.detectChanges();
+        }
+      });
   }
 
   newDepartment(parentId, parentName) {
+    this.flag = 0;
     this.unActive(this.menuList, parentId);
     this.form = null;
     this.title = '添加部门';
@@ -124,12 +149,20 @@ export class OrganizationComponent implements OnInit {
   }
 
   updateDepartment(menu) {
+    this.flag = 0;
     this.unActive(this.menuList, 0);
     this.form = null;
     this.title = '编辑部门';
     console.log(menu);
-    this.form = this.organizationService.setDepartmentForm(3, menu);
-    this.cdr.detectChanges();
+    this.organizationService.getDepartment(menu.menuId)
+      .subscribe(res => {
+        if (res.data && res.code === 0) {
+          res.data.parentId = menu.parentId;
+          console.log(res.data);
+          this.form = this.organizationService.setDepartmentForm(3, res.data);
+          this.cdr.detectChanges();
+        }
+      });
   }
 
   getValues(value) {

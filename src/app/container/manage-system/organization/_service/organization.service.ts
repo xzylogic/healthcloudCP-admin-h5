@@ -4,6 +4,7 @@ import { FormBase } from '../../../../libs/dform/_entity/form-base';
 import { FormText } from '../../../../libs/dform/_entity/form-text';
 import { FormHidden } from '../../../../libs/dform/_entity/form-hidden';
 import { FormRadio } from '../../../../libs/dform/_entity/form-radio';
+import { FormFile } from '../../../../libs/dform/_entity/form-file';
 
 const PATH = {
   getMenus: '/api/getCommunityMenuByUserId',
@@ -11,7 +12,9 @@ const PATH = {
   updateCenter: '/api/communityCenter/saveOrUpdate',
   updateSite: '/api/communitySite/saveOrUpdate',
   updateDepartment: '/api/communityDepartment/saveOrupdate',
-  deleteMenu: '/api/menu/delete'
+  getCenter: '/api/getCommunityCenterById',
+  getSite: '/api/getCommunitySiteById',
+  getDepartment: '/api/getCommunityDepartmentById'
 };
 
 @Injectable()
@@ -41,6 +44,18 @@ export class OrganizationService {
 
   updateDepartment(data) {
     return this.http.post(`${this.app.api_url}${PATH.updateDepartment}`, data);
+  }
+
+  getCenter(id) {
+    return this.http.get(`${this.app.api_url}${PATH.getCenter}?menuId=${id}`);
+  }
+
+  getSite(id) {
+    return this.http.get(`${this.app.api_url}${PATH.getSite}?menuId=${id}`);
+  }
+
+  getDepartment(id) {
+    return this.http.get(`${this.app.api_url}${PATH.getDepartment}?menuId=${id}`);
   }
 
   setOrganizationConfig() {
@@ -106,9 +121,9 @@ export class OrganizationService {
       new FormText({
         key: 'name',
         label: '中心名称',
-        value: data && data.menuName || '',
+        value: data && data.communityName || '',
         required: true,
-        readonly: !!(data && data.menuName),
+        readonly: !!(data && data.communityName),
         errMsg: '请填写中心名称',
         order: 1
       })
@@ -117,18 +132,19 @@ export class OrganizationService {
       new FormText({
         key: 'nameShort',
         label: '中心简拼',
-        value: data && data.nameShort || '',
+        value: data && data.nameForShort || '',
         required: true,
         errMsg: '请填写中心简拼',
         order: 2
       })
     );
     forms.push(
-      new FormText({
-        key: 'picture',
+      new FormFile({
+        key: 'imageUrl',
         label: '中心图片',
-        value: data && data.picture || '',
-        order: 3
+        value: data && data.imageUrl || '',
+        order: 3,
+        url: ''
       })
     );
     forms.push(
@@ -224,9 +240,9 @@ export class OrganizationService {
       new FormText({
         key: 'name',
         label: '站点名称',
-        value: data && data.menuName || '',
+        value: data && data.siteName || '',
         required: true,
-        readonly: !!(data && data.menuName),
+        readonly: !!(data && data.siteName),
         errMsg: '请填写站点名称',
         order: 1
       })
@@ -235,18 +251,19 @@ export class OrganizationService {
       new FormText({
         key: 'nameShort',
         label: '站点简拼',
-        value: data && data.nameShort || '',
+        value: data && data.nameForShort || '',
         required: true,
         errMsg: '请填写站点简拼',
         order: 2
       })
     );
     forms.push(
-      new FormText({
-        key: 'picture',
+      new FormFile({
+        key: 'imageUrl',
         label: '站点图片',
-        value: data && data.picture || '',
-        order: 3
+        value: data && data.imageUrl || '',
+        order: 3,
+        url: ''
       })
     );
     forms.push(
@@ -342,9 +359,9 @@ export class OrganizationService {
       new FormText({
         key: 'name',
         label: '科室名称',
-        value: data && data.menuName || '',
+        value: data && data.departmentName || '',
         required: true,
-        readonly: !!(data && data.menuName),
+        readonly: !!(data && data.departmentName),
         errMsg: '请填写科室名称',
         order: 1
       })
@@ -353,7 +370,7 @@ export class OrganizationService {
       new FormText({
         key: 'nameShort',
         label: '科室简称',
-        value: data && data.nameShort || '',
+        value: data && data.nameForShort || '',
         required: true,
         errMsg: '请填写科室简称',
         order: 2
@@ -361,9 +378,9 @@ export class OrganizationService {
     );
     forms.push(
       new FormText({
-        key: 'telephone',
+        key: 'departmentLeader',
         label: '主管负责人',
-        value: data && data.telephone || '',
+        value: data && data.departmentLeader || '',
         required: true,
         errMsg: '请填写主管负责人',
         order: 4

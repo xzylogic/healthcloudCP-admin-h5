@@ -1,15 +1,142 @@
 <app-container [config]="containerConfig">
   <div class="content">
     <form *ngIf="form" [formGroup]="form" (ngSubmit)="getValues(form.value)">
-      <app-input-text [form]="form" [data]="config[0]" [(value)]="config[0].value"></app-input-text>
-      <app-input-text [form]="form" [data]="config[1]" [(value)]="config[1].value"
-                      (valueChange)="getValidName($event)"></app-input-text>
-      <app-input-text [form]="form" [data]="config[2]" [(value)]="config[2].value"></app-input-text>
-      <app-input-text [form]="form" [data]="config[3]" [(value)]="config[3].value"></app-input-text>
-      <app-input-text [form]="form" [data]="config[4]" [(value)]="config[4].value"></app-input-text>
-      <app-input-text [form]="form" [data]="config[5]" [(value)]="config[5].value"></app-input-text>
-      <button md-raised-button color="primary" [disabled]="!form.valid">保存</button>
-      <button md-raised-button type="reset">重置</button>
+      <div class="input-container">
+        <app-input-text [form]="form" [data]="config[0]" [(value)]="config[0].value"></app-input-text>
+      </div>
+      <div class="input-container">
+        <app-input-text [form]="form" [data]="config[1]" [(value)]="config[1].value"
+                        (valueChange)="getValidName($event)" #name></app-input-text>
+        <p class="input-error" *ngIf="valid==false&&name.value">登录名重复，请更换</p>
+      </div>
+      <div class="input-container">
+        <app-input-text [form]="form" [data]="config[2]" [(value)]="config[2].value"></app-input-text>
+      </div>
+      <div class="hidden input-container">
+        <app-input-text [form]="form" [data]="config[3]" [(value)]="config[3].value"></app-input-text>
+      </div>
+      <div class="input-container">
+        <p class="input-span">所属机构</p>
+        <div *ngIf="menuList">
+          <div class="clear tree__p">
+            <md-icon class="tree__icon" (click)="toggle(menuList)" *ngIf="!menuList.open&&menuList.children">add
+            </md-icon>
+            <md-icon class="tree__icon" (click)="toggle(menuList)" *ngIf="menuList.open&&menuList.children">remove
+            </md-icon>
+            <md-icon class="tree__icon block" *ngIf="menuList.type!=3&&!menuList.children">block</md-icon>
+            <div *ngIf="!menuList.type">
+              <p class="tree__span" [class.active]="menuList.active"
+                 (click)="selectMenu(menuList)">
+                {{menuList.menuName}}
+              </p>
+            </div>
+            <div *ngIf="menuList.type==1">
+              <md-icon class="tree__icon type center">lens</md-icon>
+              <p class="tree__span" [class.active]="menuList.active"
+                 (click)="selectMenu(menuList)">
+                {{menuList.menuName}}
+              </p>
+            </div>
+            <div *ngIf="menuList.type==2">
+              <md-icon class="tree__icon type site">lens</md-icon>
+              <p class="tree__span" [class.active]="menuList.active"
+                 (click)="selectMenu(menuList)">
+                {{menuList.menuName}}
+              </p>
+            </div>
+            <div *ngIf="menuList.type==3">
+              <md-icon class="tree__icon type department">lens</md-icon>
+              <p class="tree__span" [class.active]="menuList.active"
+                 (click)="selectMenu(menuList)">
+                {{menuList.menuName}}
+              </p>
+            </div>
+          </div>
+          <ul *ngIf="menuList.children&&menuList.open" class="tree__list">
+            <li *ngFor="let menu of menuList.children">
+              <div class="clear tree__p">
+                <md-icon class="tree__icon" (click)="toggle(menu)" *ngIf="!menu.open&&menu.children">add</md-icon>
+                <md-icon class="tree__icon" (click)="toggle(menu)" *ngIf="menu.open&&menu.children">remove</md-icon>
+                <md-icon class="tree__icon block" *ngIf="menu.type!=3&&!menu.children">block</md-icon>
+                <div *ngIf="menu.type==1">
+                  <md-icon class="tree__icon type center">lens</md-icon>
+                  <p class="tree__span" [class.active]="menu.active" (click)="selectMenu(menu)">
+                    {{menu.menuName}}
+                  </p>
+                </div>
+                <div *ngIf="menu.type==2">
+                  <md-icon class="tree__icon type site">lens</md-icon>
+                  <p class="tree__span" [class.active]="menu.active" (click)="selectMenu(menu)">
+                    {{menu.menuName}}
+                  </p>
+                </div>
+                <div *ngIf="menu.type==3">
+                  <md-icon class="tree__icon type department">lens</md-icon>
+                  <p class="tree__span" [class.active]="menu.active" (click)="selectMenu(menu)">
+                    {{menu.menuName}}
+                  </p>
+                </div>
+              </div>
+              <ul *ngIf="menu.children&&menu.open" class="tree__list">
+                <li *ngFor="let subMenu of menu.children">
+                  <div class="clear tree__p">
+                    <md-icon class="tree__icon" (click)="toggle(subMenu)" *ngIf="!subMenu.open&&subMenu.children">add
+                    </md-icon>
+                    <md-icon class="tree__icon" (click)="toggle(subMenu)" *ngIf="subMenu.open&&subMenu.children">
+                      remove
+                    </md-icon>
+                    <md-icon class="tree__icon block" *ngIf="subMenu.type!=3&&!subMenu.children">block</md-icon>
+                    <div *ngIf="subMenu.type==1">
+                      <md-icon class="tree__icon type center">lens</md-icon>
+                      <p class="tree__span" [class.active]="subMenu.active" (click)="selectMenu(subMenu)">
+                        {{subMenu.menuName}}
+                      </p>
+                    </div>
+                    <div *ngIf="subMenu.type==2">
+                      <md-icon class="tree__icon type site">lens</md-icon>
+                      <p class="tree__span" [class.active]="subMenu.active" (click)="selectMenu(subMenu)">
+                        {{subMenu.menuName}}
+                      </p>
+                    </div>
+                    <div *ngIf="subMenu.type==3">
+                      <md-icon class="tree__icon type department">lens</md-icon>
+                      <p class="tree__span" [class.active]="subMenu.active" (click)="selectMenu(subMenu)">
+                        {{subMenu.menuName}}
+                      </p>
+                    </div>
+                  </div>
+                  <ul *ngIf="subMenu.children&&subMenu.open" class="tree__list">
+                    <li *ngFor="let sSubMenu of subMenu.children">
+                      <div class="clear tree__p">
+                        <md-icon class="tree__icon type department">lens</md-icon>
+                        <p class="tree__span last" [class.active]="sSubMenu.active"
+                           (click)="selectMenu(sSubMenu)">{{sSubMenu.menuName}}</p>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="input-container">
+        <md-select style="width: 50%;"
+                   [placeholder]="config[4].label"
+                   [formControlName]="config[4].key"
+                   [(ngModel)]="config[4].value">
+          <md-option *ngFor="let opt of roleList" [value]="opt.roleId">
+            {{opt.name}}
+          </md-option>
+        </md-select>
+      </div>
+      <div class="input-container">
+        <app-input-radio [form]="form" [data]="config[5]" [(value)]="config[5].value"></app-input-radio>
+      </div>
+      <div class="input-container">
+        <button md-raised-button color="primary" [disabled]="!form.valid||!valid">保存</button>
+        <button md-raised-button type="button" (click)="resetPwd()" *ngIf="id">初始化密码</button>
+      </div>
     </form>
   </div>
 </app-container>

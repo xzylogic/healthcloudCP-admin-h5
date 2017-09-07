@@ -6,6 +6,7 @@ import { LibModule } from '../../../libs/common/lib.module';
 import { AccountEditComponent } from './account-edit/account-edit.component';
 import { DTableModule } from '../../../libs/dtable/dtable.module';
 import { DFormModule } from '../../../libs/dform/dform.module';
+import { ForbiddenValidatorDirective } from './_service/forbidden-name.directive';
 
 const routes: Routes = [{
   path: '',
@@ -24,7 +25,8 @@ const routes: Routes = [{
   ],
   declarations: [
     AccountComponent,
-    AccountEditComponent
+    AccountEditComponent,
+    ForbiddenValidatorDirective
   ],
   providers: [
     AccountService,

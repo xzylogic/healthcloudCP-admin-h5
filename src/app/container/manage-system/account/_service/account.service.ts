@@ -3,11 +3,18 @@ import { ContainerConfig } from '../../../../libs/common/container/container.com
 import { ControlType, TableTitle } from '../../../../libs/dtable/dtable.entity';
 import { FormBase } from '../../../../libs/dform/_entity/form-base';
 import { FormText } from '../../../../libs/dform/_entity/form-text';
+import { FormRadio } from '../../../../libs/dform/_entity/form-radio';
 
 const PATH = {
   accountList: '/api/basicInfo/user/list',
   accountDetail: '/api/basicInfo/userEditor',
-  accountValid: '/api/basicInfo/user/nameExist'
+  accountValid: '/api/basicInfo/user/nameExist',
+  getRole: '/api/basicInfo/role/list',
+  getCenter: '/api/getAllCommunityCenterByUserId',
+  getSite: '/api/getAllCommunityCenterByUserId',
+  updateAccount: '/api/basicInfo/user/update',
+  getCommunity: '/api/getCommunityMenuByUserId',
+  resetPwd: '/api/basicInfo/user/updatePassword'
 };
 
 @Injectable()
@@ -28,17 +35,16 @@ export class AccountService {
     });
   }
 
-  setAccountEditConfig() {
+  setAccountEditConfig(flag) {
     return new ContainerConfig({
       title: '系统管理',
-      subTitle: '账号信息',
+      subTitle: flag ? '编辑账号' : '新增账号',
       ifHome: false,
       homeRouter: '/account'
     });
   }
 
   getAccounts(page) {
-    // return this.http.get('json/account.json');
     return this.http.post(`${this.app.api_url}${PATH.accountList}`, {
       number: page,
       parameter: {}
@@ -46,12 +52,27 @@ export class AccountService {
   }
 
   getAccount(id) {
-    return this.http.get('json/account-detail.json');
-    // return this.http.get(`${this.app.api_url}${PATH.accountDetail}?userId=${id}`);
+    return this.http.get(`${this.app.api_url}${PATH.accountDetail}?userId=${id}`);
+  }
+
+  updateAccount(data, roleIds, menuId) {
+    return this.http.post(`${this.app.api_url}${PATH.updateAccount}?roleIds=${roleIds}&menuId=${menuId}`, data);
   }
 
   getValid(name) {
     return this.http.get(`${this.app.api_url}${PATH.accountValid}?loginname=${name}&userId=${this.auth.getAdminId()}`);
+  }
+
+  getRole() {
+    return this.http.post(`${this.app.api_url}${PATH.getRole}`, {});
+  }
+
+  getCommunity() {
+    return this.http.get(`${this.app.api_url}${PATH.getCommunity}?userId=${this.auth.getAdminId()}`);
+  }
+
+  resetPwd(id) {
+    return this.http.post(`${this.app.api_url}${PATH.resetPwd}`, {userId: id, password: 123456});
   }
 
   setAccountTitles() {
@@ -93,13 +114,14 @@ export class AccountService {
     ];
   }
 
-  setAccountForm(): FormBase<any>[] {
+  setAccountForm(data?): FormBase<any>[] {
+    console.log(data && data.roleId);
     const forms: FormBase<any>[] = [];
     forms.push(
       new FormText({
         key: 'username',
         label: '姓名',
-        value: '',
+        value: data && data.username || '',
         required: true,
         errMsg: '请填写姓名'
       })
@@ -108,7 +130,7 @@ export class AccountService {
       new FormText({
         key: 'loginname',
         label: '后台账号',
-        value: '',
+        value: data && data.loginname || '',
         required: true,
         errMsg: '请填写用户后台账号'
       })
@@ -117,7 +139,7 @@ export class AccountService {
       new FormText({
         key: 'telephone',
         label: '手机号码',
-        value: '',
+        value: data && data.telephone || '',
         required: true,
         errMsg: '请填写用户手机号码'
       })
@@ -126,24 +148,33 @@ export class AccountService {
       new FormText({
         key: 'menuId',
         label: '所属机构',
-        value: '',
+        value: data && data.menuId || '',
+        required: true,
         errMsg: '请选择用户所属机构'
       })
     );
     forms.push(
       new FormText({
-        key: 'roleIds',
+        key: 'roleId',
         label: '角色',
-        value: '',
+        value: data && data.roleId || '',
+        required: true,
         errMsg: '请选择账号角色'
       })
     );
     forms.push(
-      new FormText({
+      new FormRadio({
         key: 'delFlag',
         label: '是否启用',
-        value: '',
-        required: true
+        value: data && data.delFlag || '',
+        required: true,
+        options: [{
+          id: '0',
+          name: '启用'
+        }, {
+          id: '1',
+          name: '禁用'
+        }]
       })
     );
     return forms.sort((a, b) => a.order - b.order);

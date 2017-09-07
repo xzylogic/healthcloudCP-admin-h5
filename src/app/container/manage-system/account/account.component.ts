@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { TableOption } from '../../../libs/dtable/dtable.entity';
 import { ERRMSG } from '../../_store/static';
-import { MdDialog } from '@angular/material';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,10 +11,11 @@ import { Router } from '@angular/router';
 export class AccountComponent implements OnInit {
   containerConfig: ContainerConfig;
   accountTable: TableOption;
+  username: string;
+  telephone: string;
 
   constructor(
     @Inject('account') private accountService,
-    private dialog: MdDialog,
     private router: Router
   ) {
   }
@@ -26,19 +26,28 @@ export class AccountComponent implements OnInit {
       titles: this.accountService.setAccountTitles(),
       ifPage: true
     });
-    this.getAccounts(1);
+    this.getAccounts(0);
+  }
+
+  search() {
+    console.log(this.username);
+    console.log(this.telephone);
+  }
+
+  reset() {
+    this.getAccounts(0);
   }
 
   getAccounts(page: number) {
     this.accountTable.reset(page);
-    this.accountService.getAccounts(page)
+    this.accountService.getAccounts(page + 1)
       .subscribe(res => {
         console.log(res);
         this.accountTable.loading = false;
         if (res.code === 0 && res.data && res.data.data && res.data.data.length === 0) {
           this.accountTable.errorMessage = ERRMSG.nullMsg;
         } else if (res.code === 0 && res.data && res.data.data) {
-          this.accountTable.totalPage = res.data.totalPages;
+          this.accountTable.totalPage = res.data.total_pages;
           this.accountTable.lists = res.data.data;
           this.formatData(this.accountTable.lists);
         } else {
@@ -52,7 +61,9 @@ export class AccountComponent implements OnInit {
   }
 
   gotoHandle(res) {
-    console.log(res);
+    if (res.key === 'edit' && res.value.userId) {
+      this.router.navigate(['/account/edit'], {queryParams: {id: res.value.userId}});
+    }
   }
 
   newData() {
@@ -62,7 +73,7 @@ export class AccountComponent implements OnInit {
   formatData(data) {
     if (Array.isArray(data)) {
       data.forEach(obj => {
-        obj.roleName = obj.roleList[0].name;
+        obj.roleName = obj.roleList[0] && obj.roleList[0].name || '';
       });
     }
   }
