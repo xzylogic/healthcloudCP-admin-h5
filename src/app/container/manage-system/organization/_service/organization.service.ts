@@ -123,7 +123,7 @@ export class OrganizationService {
         label: '中心名称',
         value: data && data.communityName || '',
         required: true,
-        readonly: !!(data && data.communityName),
+        // readonly: !!(data && data.communityName),
         errMsg: '请填写中心名称',
         order: 1
       })
@@ -200,7 +200,7 @@ export class OrganizationService {
       forms.push(
         new FormText({
           key: 'parentName',
-          label: '所属中心',
+          label: '父级',
           value: parentName,
           disabled: true,
           order: 0
@@ -242,7 +242,7 @@ export class OrganizationService {
         label: '站点名称',
         value: data && data.siteName || '',
         required: true,
-        readonly: !!(data && data.siteName),
+        // readonly: !!(data && data.siteName),
         errMsg: '请填写站点名称',
         order: 1
       })
@@ -319,7 +319,7 @@ export class OrganizationService {
       forms.push(
         new FormText({
           key: 'parentName',
-          label: '所属站点',
+          label: '父级',
           value: parentName,
           disabled: true,
           order: 0
@@ -361,7 +361,7 @@ export class OrganizationService {
         label: '科室名称',
         value: data && data.departmentName || '',
         required: true,
-        readonly: !!(data && data.departmentName),
+        // readonly: !!(data && data.departmentName),
         errMsg: '请填写科室名称',
         order: 1
       })

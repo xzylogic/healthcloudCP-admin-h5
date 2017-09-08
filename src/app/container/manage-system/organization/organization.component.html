@@ -265,7 +265,7 @@
           <app-form [formDatas]="form" (formValues)="getValues($event)"></app-form>
         </div>
         <div class="container" *ngIf="form&&formTwo&&flag==1">
-          <md-tab-group>
+          <md-tab-group dynamicHeight="true">
             <md-tab label="添加站点">
               <div style="padding: 15px 0">
                 <app-form [formDatas]="form" (formValues)="getValues($event)"></app-form>
@@ -279,7 +279,7 @@
           </md-tab-group>
         </div>
         <div class="container" *ngIf="form&&formTwo&&formThree&&flag==2">
-          <md-tab-group>
+          <md-tab-group dynamicHeight="true">
             <md-tab label="添加中心">
               <div style="padding: 15px 0">
                 <app-form [formDatas]="form" (formValues)="getValues($event)"></app-form>

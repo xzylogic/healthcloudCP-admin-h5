@@ -73,7 +73,6 @@ export class AccountEditComponent implements OnInit {
   }
 
   getValues(data) {
-    console.log(data);
     if (this.valid) {
       const value = data;
       const roleId = value.roleId;
@@ -126,7 +125,6 @@ export class AccountEditComponent implements OnInit {
   }
 
   selectMenu(data) {
-    console.log(data);
     this.unActive(this.menuList, data.menuId);
     this.config[3].value = data.menuId;
     this.cdr.detectChanges();
@@ -148,10 +146,9 @@ export class AccountEditComponent implements OnInit {
   }
 
   loadData(data) {
-    this.accountService.getValid(data)
+    this.accountService.getValid(data, this.id || '')
       .subscribe(res => {
-        console.log(res);
-        this.valid = (res.code !== 1000) || (this.loginname === data);
+        this.valid = res.code !== 1000;
       });
   }
 
@@ -176,6 +173,8 @@ export class AccountEditComponent implements OnInit {
           this.offData(this.menuList);
           if (this.menuId) {
             this.unActive(this.menuList, this.menuId);
+            const tag = this.getTree(this.menuList, this.menuId);
+            this.openTree(this.menuList, tag);
           }
         } else {
           console.log(res);
@@ -186,7 +185,7 @@ export class AccountEditComponent implements OnInit {
   }
 
   resetPwd() {
-    console.log(this.id);
+    // console.log(this.id);
     this.accountService.resetPwd(this.id)
       .subscribe(res => {
         if (res.code === 0) {
@@ -198,5 +197,59 @@ export class AccountEditComponent implements OnInit {
         console.log(err);
         HintDialog(ERRMSG.saveError, this.dialog);
       });
+  }
+
+  getTree(tree, id): { one?: string, two?: string, three?: string } {
+    const tag = {one: '', two: '', three: ''};
+    let one = '';
+    let two = '';
+    let three = '';
+    if (tree.menuId !== id && tree.children) {
+      tag.one = tree.menuId;
+      tree.children.forEach(obj => {
+        if (obj.menuId === id) {
+          one = tag.one;
+        } else if (obj.menuId !== id && obj.children) {
+          tag.two = obj.menuId;
+          obj.children.forEach(sobj => {
+            if (sobj.menuId === id) {
+              one = tag.one;
+              two = tag.two;
+            } else if (sobj.menuId !== id && sobj.children) {
+              tag.three = sobj.menuId;
+              sobj.children.forEach(ssobj => {
+                if (ssobj.menuId === id) {
+                  one = tag.one;
+                  two = tag.two;
+                  three = tag.three;
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+    return {one: one, two: two, three: three};
+  }
+
+  openTree(tree, tag: { one?: string, two?: string, three?: string }) {
+    if (tree.menuId === tag.one) {
+      tree.open = true;
+    }
+    if (tree.children) {
+      tree.children.forEach(obj => {
+          if (obj.menuId === tag.two) {
+            obj.open = true;
+          }
+          if (obj.children) {
+            obj.children.forEach(sobj => {
+              if (sobj.menuId === tag.three) {
+                sobj.open = true;
+              }
+            });
+          }
+        }
+      );
+    }
   }
 }

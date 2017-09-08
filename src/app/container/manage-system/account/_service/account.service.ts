@@ -14,6 +14,7 @@ const PATH = {
   getSite: '/api/getAllCommunityCenterByUserId',
   updateAccount: '/api/basicInfo/user/update',
   getCommunity: '/api/getCommunityMenuByUserId',
+  getCommunityAll: '/api/getAllCommunityByUserId',
   resetPwd: '/api/basicInfo/user/updatePassword'
 };
 
@@ -44,10 +45,15 @@ export class AccountService {
     });
   }
 
-  getAccounts(page) {
+  getAccounts(page, size, username, telephone, menuId) {
     return this.http.post(`${this.app.api_url}${PATH.accountList}`, {
-      number: page,
-      parameter: {}
+      number: page + 1,
+      parameter: {
+        username: username || '',
+        telephone: telephone || '',
+        menuId: menuId || '',
+      },
+      size: size
     });
   }
 
@@ -59,8 +65,12 @@ export class AccountService {
     return this.http.post(`${this.app.api_url}${PATH.updateAccount}?roleIds=${roleIds}&menuId=${menuId}`, data);
   }
 
-  getValid(name) {
-    return this.http.get(`${this.app.api_url}${PATH.accountValid}?loginname=${name}&userId=${this.auth.getAdminId()}`);
+  getValid(name, userId) {
+    let query = `loginname=${name}`;
+    if (userId) {
+      query += `&userId=${userId}`;
+    }
+    return this.http.get(`${this.app.api_url}${PATH.accountValid}?${query}`);
   }
 
   getRole() {
@@ -69,6 +79,10 @@ export class AccountService {
 
   getCommunity() {
     return this.http.get(`${this.app.api_url}${PATH.getCommunity}?userId=${this.auth.getAdminId()}`);
+  }
+
+  getCommunityAll() {
+    return this.http.get(`${this.app.api_url}${PATH.getCommunityAll}?userId=${this.auth.getAdminId()}`);
   }
 
   resetPwd(id) {
@@ -103,6 +117,10 @@ export class AccountService {
         key: 'roleName'
       }),
       new TableTitle({
+        name: '状态',
+        key: 'status'
+      }),
+      new TableTitle({
         name: '操作',
         key: '',
         controlType: ControlType.buttons,
@@ -115,7 +133,7 @@ export class AccountService {
   }
 
   setAccountForm(data?): FormBase<any>[] {
-    console.log(data && data.roleId);
+    // console.log(data && data.roleId);
     const forms: FormBase<any>[] = [];
     forms.push(
       new FormText({

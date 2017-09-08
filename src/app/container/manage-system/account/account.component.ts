@@ -11,8 +11,14 @@ import { Router } from '@angular/router';
 export class AccountComponent implements OnInit {
   containerConfig: ContainerConfig;
   accountTable: TableOption;
-  username: string;
-  telephone: string;
+  username = '';
+  telephone = '';
+  centerId = '';
+  siteId = '';
+  centerList: Array<any>;
+  siteList: Array<any>;
+  departmentList: Array<any>;
+  communityList: Array<any>;
 
   constructor(
     @Inject('account') private accountService,
@@ -26,28 +32,35 @@ export class AccountComponent implements OnInit {
       titles: this.accountService.setAccountTitles(),
       ifPage: true
     });
+    this.getCommunityAll();
     this.getAccounts(0);
   }
 
   search() {
-    console.log(this.username);
-    console.log(this.telephone);
+    this.getAccounts(0);
   }
 
   reset() {
+    this.username = '';
+    this.telephone = '';
+    this.telephone = '';
+    this.centerId = '';
+    this.siteId = '';
+    this.getCenter(this.communityList);
+    this.getSite(this.communityList);
+    this.getDepartment(this.communityList);
     this.getAccounts(0);
   }
 
   getAccounts(page: number) {
     this.accountTable.reset(page);
-    this.accountService.getAccounts(page + 1)
+    this.accountService.getAccounts(page, this.accountTable.size, this.username, this.telephone, this.siteId || this.centerId)
       .subscribe(res => {
-        console.log(res);
         this.accountTable.loading = false;
         if (res.code === 0 && res.data && res.data.data && res.data.data.length === 0) {
           this.accountTable.errorMessage = ERRMSG.nullMsg;
         } else if (res.code === 0 && res.data && res.data.data) {
-          this.accountTable.totalPage = res.data.total_pages;
+          this.accountTable.totalPage = res.data.totalPages;
           this.accountTable.lists = res.data.data;
           this.formatData(this.accountTable.lists);
         } else {
@@ -74,7 +87,70 @@ export class AccountComponent implements OnInit {
     if (Array.isArray(data)) {
       data.forEach(obj => {
         obj.roleName = obj.roleList[0] && obj.roleList[0].name || '';
+        obj.status = obj.delFlag == 1 ? '禁用' : '启用';
       });
     }
+  }
+
+  getCommunityAll() {
+    this.accountService.getCommunityAll()
+      .subscribe(res => {
+        if (res.code === 0 && res.data) {
+          this.communityList = res.data;
+          this.getCenter(res.data);
+          this.getSite(res.data);
+          this.getDepartment(res.data);
+        }
+      });
+  }
+
+  // 获取中心列表
+  getCenter(list) {
+    if (Array.isArray(list)) {
+      const center = [];
+      list.forEach(obj => {
+        if (obj.type == 1) {
+          center.push(obj);
+        }
+      });
+      this.centerList = center;
+    }
+  }
+
+  // 获取站点列表
+  getSite(list) {
+    if (Array.isArray(list)) {
+      const center = [];
+      list.forEach(obj => {
+        if (obj.type == 2) {
+          center.push(obj);
+        }
+      });
+      this.siteList = center;
+    }
+  }
+
+  // 获取部门列表
+  getDepartment(list) {
+    if (Array.isArray(list)) {
+      const center = [];
+      list.forEach(obj => {
+        if (obj.type == 3) {
+          center.push(obj);
+        }
+      });
+      this.departmentList = center;
+    }
+  }
+
+  centerChange(data) {
+    this.siteId = '';
+    const site = [];
+    this.communityList.forEach(obj => {
+      if (obj.parentId === data.value && obj.type == 2) {
+        site.push(obj);
+      }
+    });
+    this.siteList = site;
   }
 }

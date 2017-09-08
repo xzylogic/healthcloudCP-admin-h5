@@ -7,7 +7,7 @@
       <div class="input-container">
         <app-input-text [form]="form" [data]="config[1]" [(value)]="config[1].value"
                         (valueChange)="getValidName($event)" #name></app-input-text>
-        <p class="input-error" *ngIf="valid==false&&name.value">登录名重复，请更换</p>
+        <p class="input-error" *ngIf="valid==false">登录名重复，请更换</p>
       </div>
       <div class="input-container">
         <app-input-text [form]="form" [data]="config[2]" [(value)]="config[2].value"></app-input-text>

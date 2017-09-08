@@ -4,18 +4,23 @@
   </div>
   <div class="content">
     <form style="padding: 0 16px">
-      <md-input-container floatPlaceholder="auto">
+      <md-input-container floatPlaceholder="auto" style="margin-right: 1em">
         <input mdInput placeholder="姓名" name="username" [(ngModel)]="username">
       </md-input-container>
-      <md-input-container floatPlaceholder="auto">
+      <md-input-container floatPlaceholder="auto" style="margin-right: 1em">
         <input mdInput placeholder="手机号码" name="telephone" [(ngModel)]="telephone">
       </md-input-container>
+      <md-select *ngIf="centerList&&centerList.length!==0" placeholder="中心" [(ngModel)]="centerId" name="center"
+                 style="width: 200px;margin-right: 1em" (change)="centerChange($event)">
+        <md-option *ngFor="let opt of centerList" [value]="opt.menuId">{{opt.name}}</md-option>
+      </md-select>
+      <md-select *ngIf="siteList&&siteList.length!==0" placeholder="站点" [(ngModel)]="siteId" name="site"
+                 style="width: 200px;margin-right: 1em">
+        <md-option *ngFor="let opt of siteList" [value]="opt.menuId">{{opt.name}}</md-option>
+      </md-select>
       <button md-icon-button color="primary" type="button" (click)="search()">
         <md-icon>search</md-icon>
       </button>
-      <!--<md-select [(ngModel)]="modelName" placeholder="">-->
-      <!--<md-option [value]=""></md-option>-->
-      <!--</md-select>-->
       <button md-icon-button color="primary" type="button" (click)="reset()">
         <md-icon>autorenew</md-icon>
       </button>
