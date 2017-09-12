@@ -44,3 +44,7 @@ ul, li {
   display: table;
   clear: both;
 }
+
+button:focus {
+  outline: none !important;
+}

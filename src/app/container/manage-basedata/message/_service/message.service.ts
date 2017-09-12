@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 
 @Injectable()
 export class MessageService {
-  constructor() {
+  constructor(
+    @Inject('app') private app
+  ) {
   }
 
   setMessageConfig() {

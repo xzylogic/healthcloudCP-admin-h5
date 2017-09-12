@@ -1,0 +1,125 @@
+@import '../../libs/theme/theme';
+
+.table-container {
+  width: 100%;
+  margin-bottom: 16px;
+  overflow-x: scroll;
+}
+
+.table {
+  width: 100%;
+  margin: 16px 0;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table > tbody > tr {
+  line-height: 1.6em;
+}
+
+.table > thead > tr > th {
+  padding: 16px;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.table > tbody > tr > td {
+  padding: 8px;
+  border-top: 1px solid $color-border-light;
+  word-wrap: break-word;
+  word-break: break-all;
+  color: $color-text-secondary;
+  text-align: center;
+}
+
+.table__image {
+  width: 35px;
+  height: 35px;
+  overflow: hidden;
+  border-radius: 20px;
+  margin: 0 auto;
+}
+
+.table__image img {
+  width: 100%;
+  height: 100%;
+}
+
+.table__content {
+  margin: 0 auto;
+}
+
+.table__option {
+  color: $color-primary;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  .table,
+  .table > thead,
+  .table > thead > tr,
+  .table > thead > tr > th,
+  .table > tbody,
+  .table > tbody > tr,
+  .table > tbody > tr > td {
+    display: block;
+  }
+  .table > thead > tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  .table > tbody {
+    border-top: 1px solid $color-border-light;
+  }
+  .table > tbody > tr {
+    border: 1px solid $color-border-light;
+  }
+  .table > tbody > tr > td {
+    position: relative;
+    padding-left: 50%;
+    white-space: normal;
+    text-align: left;
+  }
+  .table > tbody > tr > td:before {
+    content: attr(title);
+    position: absolute;
+    left: 6px;
+    width: 45%;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: 700;
+  }
+  .table__image,
+  .table__content {
+    margin: 0;
+  }
+}
+
+.icon {
+  position: relative;
+  top: 6px;
+  color: $color-primary;
+}
+
+.button-content {
+  padding: 30px;
+  text-align: center;
+}
+
+.time-input {
+  width: 50px;
+  padding: 10px 5px;
+  border: 1px solid $color-border-dark;
+}
+
+.time-input[disabled] {
+  background: #eee;
+  border: none;
+}
+
+.tab-content {
+  padding: 15px 0;
+}
