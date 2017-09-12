@@ -116,7 +116,18 @@
       </md-tab>
       <md-tab label="排班日历表">
         <div class="tab-content">
-          <div #calendar></div>
+          <button md-raised-button (click)="decrement()" [disabled]="prevBtnDisabled">上个月</button>
+          <button md-raised-button (click)="increment()" [disabled]="nextBtnDisabled">下个月</button>
+          <button md-raised-button (click)="today()">今天</button>
+          <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'zh-cn' }}</h3>
+          <mwl-calendar-month-view
+            [viewDate]="viewDate"
+            [events]="events"
+            (dayClicked)="handleDayClick($event.day.date)"
+            [locale]="'zh-cn'">
+          </mwl-calendar-month-view>
+          <!--<div #calendar></div>-->
+          <!--<app-calendar [options]="options" *ngIf="options"></app-calendar>-->
         </div>
       </md-tab>
     </md-tab-group>

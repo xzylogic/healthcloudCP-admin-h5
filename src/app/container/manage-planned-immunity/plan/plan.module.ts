@@ -6,6 +6,7 @@ import { LibModule } from '../../../libs/common/lib.module';
 import { MdButtonModule, MdCheckboxModule, MdTabsModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CalendarModule } from 'angular-calendar';
 
 const routes: Routes = [{
   path: '',
@@ -24,6 +25,7 @@ const routes: Routes = [{
     MdCheckboxModule,
     FormsModule,
     RouterModule.forChild(routes),
+    CalendarModule.forRoot()
   ],
   declarations: [
     PlanComponent

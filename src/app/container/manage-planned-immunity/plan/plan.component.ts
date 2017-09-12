@@ -1,13 +1,59 @@
-import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdDialog } from '@angular/material';
-import 'fullcalendar';
-import { Options } from 'fullcalendar';
-import * as $ from 'jquery';
 import * as moment from 'moment';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { HintDialog } from '../../../libs/dmodal/dialog.component';
 import { ERRMSG } from '../../_store/static';
+import { CalendarEvent } from 'angular-calendar';
+import {
+  subMonths,
+  addMonths,
+  addDays,
+  addWeeks,
+  subDays,
+  subWeeks,
+  startOfMonth,
+  endOfMonth,
+  startOfWeek,
+  endOfWeek,
+  startOfDay,
+  endOfDay
+} from 'date-fns';
+
+type CalendarPeriod = 'day' | 'week' | 'month';
+
+function addPeriod(period: CalendarPeriod, date: Date, amount: number): Date {
+  return {
+    day: addDays,
+    week: addWeeks,
+    month: addMonths
+  }[period](date, amount);
+}
+
+function subPeriod(period: CalendarPeriod, date: Date, amount: number): Date {
+  return {
+    day: subDays,
+    week: subWeeks,
+    month: subMonths
+  }[period](date, amount);
+}
+
+function startOfPeriod(period: CalendarPeriod, date: Date): Date {
+  return {
+    day: startOfDay,
+    week: startOfWeek,
+    month: startOfMonth
+  }[period](date);
+}
+
+function endOfPeriod(period: CalendarPeriod, date: Date): Date {
+  return {
+    day: endOfDay,
+    week: endOfWeek,
+    month: endOfMonth
+  }[period](date);
+}
 
 @Component({
   selector: 'app-planned-immunity-plan',
@@ -24,8 +70,47 @@ export class PlanComponent implements OnInit, AfterViewInit {
   timeList4: any;
   timeList5: any;
   timeList6: any;
-  options: Options;
-  @ViewChild('calendar') calendar: ElementRef;
+
+  view: CalendarPeriod = 'month';
+  viewDate: Date = new Date();
+  events: CalendarEvent[] = [
+    {
+      title: '已设置特殊日期',
+      start: new Date('2017-01-01'),
+      color: {
+        primary: '#1e90ff',
+        secondary: '#D1E8FF'
+      }
+    },
+    {
+      title: '已设置特殊日期',
+      start: new Date('2017-09-12'),
+      color: {
+        primary: '#1e90ff',
+        secondary: '#D1E8FF'
+      }
+    },
+    {
+      title: '已设置特殊日期',
+      start: new Date('2017-09-12'),
+      color: {
+        primary: '#1e90ff',
+        secondary: '#D1E8FF'
+      }
+    },
+    {
+      title: '已设置特殊日期',
+      start: new Date('2017-09-13'),
+      color: {
+        primary: '#1e90ff',
+        secondary: '#D1E8FF'
+      }
+    }
+  ];
+  minDate: Date = new Date(`${new Date().getFullYear()}-01-01`);
+  maxDate: Date = new Date(`${new Date().getFullYear()}-12-31`);
+  prevBtnDisabled = false;
+  nextBtnDisabled = false;
 
   constructor(
     @Inject('plan') private planService,
@@ -36,61 +121,60 @@ export class PlanComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.containerConfig = this.planService.setPlanConfig();
-    this.getWeekList();
-    this.getTimeList();
     this.getDays();
   }
 
   ngAfterViewInit() {
   }
 
-  setCalendar(days) {
-    this.options = {
-      header: {
-        left: 'title',
-        center: '',
-        right: 'today prev,next'
-      },
-      defaultDate: new Date(),
-      defaultView: 'month',
-      locale: 'zh-cn',
-      buttonText: {
-        today: '今天',
-      },
-      firstDay: 0,
-      events: days,
-      titleFormat: 'YYYY MMMM',
-      validRange: {
-        start: `${new Date().getFullYear()}-01-01`,
-        end: `${new Date().getFullYear() + 1}-01-01`
-      },
-      dayClick: (date, jsEvent, view) => {
-        this.dayClick({
-          date,
-          jsEvent,
-          view
-        });
-      }
-    };
-    $(this.calendar.nativeElement).fullCalendar(this.options);
-    setTimeout(() => {
-      $(this.calendar.nativeElement).fullCalendar(this.options);
-    }, 3000);
-  }
+  // setCalendar(days) {
+  //   this.options = {
+  //     header: {
+  //       left: 'title',
+  //       center: '',
+  //       right: 'today prev,next'
+  //     },
+  //     defaultDate: new Date(),
+  //     defaultView: 'month',
+  //     locale: 'zh-cn',
+  //     buttonText: {
+  //       today: '今天',
+  //     },
+  //     firstDay: 0,
+  //     events: days,
+  //     titleFormat: 'YYYY MMMM',
+  //     validRange: {
+  //       start: `${new Date().getFullYear()}-01-01`,
+  //       end: `${new Date().getFullYear() + 1}-01-01`
+  //     },
+  //     dayClick: (date, jsEvent, view) => {
+  //       this.dayClick({
+  //         date,
+  //         jsEvent,
+  //         view
+  //       });
+  //     }
+  //   };
+  //   // $(this.calendar.nativeElement).fullCalendar(this.options);
+  //   // setTimeout(() => {
+  //   //   $(this.calendar.nativeElement).fullCalendar(this.options);
+  //   // }, 3000);
+  // }
 
-  dayClick(data) {
-    const date = moment(data.date).format('YYYY-MM-DD');
-    this.router.navigate(['/planned-immunity/plan/edit', date, 'jm']);
-  }
+  // dayClick(data) {
+  //   const date = moment(data.date).format('YYYY-MM-DD');
+  //   this.router.navigate(['/planned-immunity/plan/edit', date, 'jm']);
+  // }
 
   getDays() {
-    this.planService.getDays()
-      .subscribe(res => {
-        if (res.code === 0 && res.data) {
-          console.log(res.data);
-          this.setCalendar(res.data);
-        }
-      });
+    // this.planService.getDays()
+    //   .subscribe(res => {
+    //     if (res.code === 0 && res.data) {
+    //       console.log(res.data);
+    //       this.setCalendar(res.data);
+    //   }
+    // });
+    // this.setCalendar([{start: '2017-09-12', title: '未设置特殊日期'}]);
   }
 
   getWeekList() {
@@ -162,6 +246,45 @@ export class PlanComponent implements OnInit, AfterViewInit {
         console.log(err);
         HintDialog(ERRMSG.netErrMsg, this.dialog);
       });
+  }
+
+  increment(): void {
+    this.changeDate(addPeriod(this.view, this.viewDate, 1));
+  }
+
+  decrement(): void {
+    this.changeDate(subPeriod(this.view, this.viewDate, 1));
+  }
+
+  today(): void {
+    this.changeDate(new Date());
+  }
+
+  changeDate(date: Date): void {
+    this.viewDate = date;
+    this.dateOrViewChanged();
+  }
+
+  dateIsValid(date: Date): boolean {
+    return date >= this.minDate && date <= this.maxDate;
+  }
+
+  dateOrViewChanged(): void {
+    this.prevBtnDisabled = !this.dateIsValid(
+      endOfPeriod(this.view, subPeriod(this.view, this.viewDate, 1))
+    );
+    this.nextBtnDisabled = !this.dateIsValid(
+      startOfPeriod(this.view, addPeriod(this.view, this.viewDate, 1))
+    );
+    if (this.viewDate < this.minDate) {
+      this.changeDate(this.minDate);
+    } else if (this.viewDate > this.maxDate) {
+      this.changeDate(this.maxDate);
+    }
+  }
+
+  handleDayClick(date) {
+    console.log(moment(date).format('YYYY-MM-DD'));
   }
 }
 

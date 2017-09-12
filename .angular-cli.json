@@ -21,7 +21,7 @@
       "prefix": "app",
       "styles": [
         "styles.scss",
-        "../node_modules/fullcalendar/dist/fullcalendar.min.css"
+        "../node_modules/angular-calendar/dist/css/angular-calendar.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

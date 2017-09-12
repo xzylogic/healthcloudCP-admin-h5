@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { PlanCommonComponent } from './plan-common.component';
 import { PlanCommonService } from './plan-common.service';
 import { LibModule } from '../../libs/common/lib.module';
-import { DFormModule } from '../../libs/dform/dform.module';
+import { CalendarComponent } from './calendar.component';
 
 const routes: Routes = [{
   path: ':date/:type',
@@ -25,14 +25,16 @@ const routes: Routes = [{
     RouterModule.forChild(routes)
   ],
   declarations: [
-    PlanCommonComponent
+    PlanCommonComponent,
+    CalendarComponent
   ],
   providers: [
     PlanCommonService,
     {provide: 'plancommon', useClass: PlanCommonService},
   ],
   exports: [
-    PlanCommonComponent
+    PlanCommonComponent,
+    CalendarComponent
   ]
 })
 export class PlanCommonModule {
