@@ -43,7 +43,6 @@ export class AccountComponent implements OnInit {
   reset() {
     this.username = '';
     this.telephone = '';
-    this.telephone = '';
     this.centerId = '';
     this.siteId = '';
     this.getCenter(this.communityList);

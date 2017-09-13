@@ -5,7 +5,7 @@ import {
   MdButtonModule, MdIconModule,
   MdInputModule, MdRadioModule,
   MdCheckboxModule, MdSelectModule,
-  MdGridListModule
+  MdGridListModule, MdDatepickerModule, DateAdapter, NativeDateAdapter, MD_DATE_FORMATS, MdNativeDateModule, MdDatepickerIntl
 } from '@angular/material';
 
 import { HttpService } from '../_service/http.service';
@@ -34,7 +34,9 @@ import { LibInputTreeComponent } from './component/lib-input/lib-input-tree';
     MdRadioModule,
     MdCheckboxModule,
     MdSelectModule,
-    MdGridListModule
+    MdGridListModule,
+    MdDatepickerModule,
+    MdNativeDateModule
   ],
   declarations: [
     LibInputTextComponent,
@@ -52,7 +54,9 @@ import { LibInputTreeComponent } from './component/lib-input/lib-input-tree';
   ],
   providers: [
     DFormControlService,
-    HttpService
+    HttpService,
+    {provide: DateAdapter, useClass: NativeDateAdapter},
+    // {provide: MdDatepickerIntl, useClass: MyIntl},
   ],
   exports: [
     CommonModule,
@@ -63,6 +67,8 @@ import { LibInputTreeComponent } from './component/lib-input/lib-input-tree';
     MdRadioModule,
     MdCheckboxModule,
     MdSelectModule,
+    MdDatepickerModule,
+    MdNativeDateModule,
     LibInputTextComponent,
     LibInputCheckboxComponent,
     LibInputDateComponent,
