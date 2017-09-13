@@ -145,12 +145,16 @@ export class AccountComponent implements OnInit {
 
   centerChange(data) {
     this.siteId = '';
-    const site = [];
+    const site = [{menuId: '', name: '无'}];
     this.communityList.forEach(obj => {
       if (obj.parentId === data.value && obj.type == 2) {
         site.push(obj);
       }
     });
+    if (site.length !== 1) {
+      site.splice(0, 1);
+    }
     this.siteList = site;
+    console.log(this.siteList);
   }
 }

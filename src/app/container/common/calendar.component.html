@@ -15,7 +15,7 @@
 <ng-template #customCellTemplate let-day="day" let-locale="locale">
   <div class="cal-cell-top">
     <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">已设置特殊日期</span>
-    <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':'en' }}</span>
+    <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
   </div>
 </ng-template>
 <mwl-calendar-month-view

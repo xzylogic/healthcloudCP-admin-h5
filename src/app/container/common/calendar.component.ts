@@ -62,7 +62,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   view: CalendarPeriod = 'month';
   minDate: Date = new Date(`${new Date().getFullYear()}-01-01`);
-  maxDate: Date = new Date(`${new Date().getFullYear()}-12-31`);
+  maxDate: Date = new Date(`${new Date().getFullYear() + 1}-01-31`);
   prevBtnDisabled = false;
   nextBtnDisabled = false;
 

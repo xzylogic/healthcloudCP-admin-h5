@@ -1,9 +1,24 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
+
+const PATH = {
+  getData: '/api/planImmunization/checkPlanImmunizationList'
+};
 
 @Injectable()
 export class AppointmentService {
-  constructor() {
+  constructor(
+    @Inject('app') private app,
+    @Inject('http') private http
+  ) {
+  }
+
+  getData(page, planImmunizationNum?, status?, reservationDate?, telephone?, organizationId?) {
+    let query = `?flag=${page}`;
+    if (planImmunizationNum) {
+      // query +=
+    }
+    return this.http.get(`${this.app.api_url}${PATH.getData}`);
   }
 
   setAppointmentConfig() {
