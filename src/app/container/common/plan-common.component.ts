@@ -1,6 +1,9 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ContainerConfig } from '../../libs/common/container/container.component';
+import { HintDialog } from '../../libs/dmodal/dialog.component';
+import { MdDialog } from '@angular/material';
+import { ERRMSG } from '../_store/static';
 
 @Component({
   selector: 'app-plan-common',
@@ -16,9 +19,11 @@ export class PlanCommonComponent implements OnInit, OnDestroy {
   scheduleAm: any;
   listPm: any;
   schedulePm: any;
+  flag = true;
 
   constructor(
     @Inject('plancommon') private planCommonService,
+    private dialog: MdDialog,
     private route: ActivatedRoute
   ) {
   }
@@ -60,7 +65,7 @@ export class PlanCommonComponent implements OnInit, OnDestroy {
     this.planCommonService.getDefault(this.type, this.date)
       .subscribe(res => {
         if (res.code === 0 && res.data && res.data.content) {
-          console.log(res.data.content);
+          this.flag = res.data.more;
           this.listAm = res.data.content[0] || {};
           this.scheduleAm = res.data.content[0] && res.data.content[0].schedulingDateTimeDtos || [];
           this.listPm = res.data.content[1] || {};
@@ -69,10 +74,44 @@ export class PlanCommonComponent implements OnInit, OnDestroy {
       });
   }
 
+  setAmWorkState(status) {
+    this.listAm.workState = status;
+    this.scheduleAm.forEach(obj => {
+      obj.workState = status;
+    });
+  }
+
+  setPmWorkState(status) {
+    this.listPm.workState = status;
+    this.schedulePm.forEach(obj => {
+      obj.workState = status;
+    });
+  }
+
   saveDate() {
-    console.log(this.listAm);
-    console.log(this.listPm);
-    console.log(this.scheduleAm);
-    console.log(this.schedulePm);
+    const postData = [];
+    postData.push(this.listAm);
+    postData.push(this.listPm);
+    postData[0].schedulingDateTimeDtos = this.scheduleAm;
+    postData[1].schedulingDateTimeDtos = this.schedulePm;
+    this.planCommonService.saveDefault(postData)
+      .subscribe(res => {
+        if (res.code === 0) {
+          HintDialog('保存成功', this.dialog);
+          this.getDefault();
+        } else {
+          HintDialog(res.msg || '保存失败', this.dialog);
+        }
+      }, err => {
+        console.log(err);
+        HintDialog(ERRMSG.netErrMsg, this.dialog);
+      });
+  }
+
+  resetNumber(list, i) {
+    const num = list[i].stock;
+    if (isNaN(Number(num)) || num < 0) {
+      list[i].stock = 0;
+    }
   }
 }

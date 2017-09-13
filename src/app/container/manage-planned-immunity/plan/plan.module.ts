@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { PlanComponent } from './plan.component';
-import { RouterModule, Routes } from '@angular/router';
-import { PlanService } from './_service/plan.service';
-import { LibModule } from '../../../libs/common/lib.module';
-import { MdButtonModule, MdCheckboxModule, MdTabsModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CalendarModule } from 'angular-calendar';
+import { RouterModule, Routes } from '@angular/router';
+import { MdButtonModule, MdCheckboxModule, MdTabsModule } from '@angular/material';
+import { PlanComponent } from './plan.component';
+import { PlanService } from './_service/plan.service';
+import { LibModule } from '../../../libs/common/lib.module';
+import { PlanCommonModule } from '../../common/plan-common.module';
 
 const routes: Routes = [{
   path: '',
@@ -24,8 +24,8 @@ const routes: Routes = [{
     MdButtonModule,
     MdCheckboxModule,
     FormsModule,
-    RouterModule.forChild(routes),
-    CalendarModule.forRoot()
+    PlanCommonModule,
+    RouterModule.forChild(routes)
   ],
   declarations: [
     PlanComponent

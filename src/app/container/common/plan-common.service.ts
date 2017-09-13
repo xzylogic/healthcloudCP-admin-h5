@@ -27,7 +27,8 @@ export class PlanCommonService {
       title: title,
       subTitle: `特殊日期设置：${date}`,
       ifHome: false,
-      homeRouter: router
+      homeRouter: router,
+      query: {tab: 2, date: date}
     });
   }
 }

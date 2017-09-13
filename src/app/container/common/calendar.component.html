@@ -1,0 +1,29 @@
+<div class="clear" style="padding: 1em 0">
+  <h2 style="float: left">{{ viewDate | calendarDate:(view + 'ViewTitle'):'zh-cn' }}</h2>
+  <div style="float: right" class="clear">
+    <button md-mini-fab (click)="today()" style="float: left;margin: 0 5px">今天</button>
+    <button md-mini-fab color="primary" (click)="decrement()" [disabled]="prevBtnDisabled"
+            style="float: left;margin: 0 5px">
+      <md-icon>chevron_left</md-icon>
+    </button>
+    <button md-mini-fab color="primary" (click)="increment()" [disabled]="nextBtnDisabled"
+            style="float: left;margin: 0 5px">
+      <md-icon>chevron_right</md-icon>
+    </button>
+  </div>
+</div>
+<ng-template #customCellTemplate let-day="day" let-locale="locale">
+  <div class="cal-cell-top">
+    <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">已设置特殊日期</span>
+    <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':'en' }}</span>
+  </div>
+</ng-template>
+<mwl-calendar-month-view
+  *ngIf="viewDate"
+  [viewDate]="viewDate"
+  [events]="events"
+  (dayClicked)="handleDayClick($event.day.date)"
+  (beforeViewRender)="beforeMonthViewRender($event)"
+  [cellTemplate]="customCellTemplate"
+  [locale]="'zh-cn'">
+</mwl-calendar-month-view>

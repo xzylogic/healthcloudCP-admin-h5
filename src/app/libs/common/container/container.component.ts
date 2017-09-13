@@ -5,12 +5,14 @@ export class ContainerConfig {
   subTitle: string;
   ifHome: boolean;
   homeRouter: string;
+  query?: any;
 
   constructor(obj?: ContainerConfig) {
-    this.title = obj.title || '';
-    this.subTitle = obj.subTitle || '';
-    this.ifHome = !!obj.ifHome;
-    this.homeRouter = obj.homeRouter || '';
+    this.title = obj && obj.title || '';
+    this.subTitle = obj && obj.subTitle || '';
+    this.ifHome = obj && !!obj.ifHome;
+    this.homeRouter = obj && obj.homeRouter || '';
+    this.query = obj && obj.query || {};
   }
 }
 

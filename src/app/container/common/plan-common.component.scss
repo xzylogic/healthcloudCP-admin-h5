@@ -115,6 +115,10 @@
   border: 1px solid $color-border-dark;
 }
 
+.time-input:focus {
+  outline: none;
+}
+
 .time-input[disabled] {
   background: #eee;
   border: none;
