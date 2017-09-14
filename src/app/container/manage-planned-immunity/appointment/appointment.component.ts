@@ -3,6 +3,7 @@ import { ContainerConfig } from '../../../libs/common/container/container.compon
 import { TableOption } from '../../../libs/dtable/dtable.entity';
 import { ERRMSG } from '../../_store/static';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-planned-immunity-appointment',
@@ -42,7 +43,10 @@ export class AppointmentComponent implements OnInit {
     name: '用户取消'
   }];
 
-  constructor(@Inject('appointment') private appointmentService) {
+  constructor(
+    @Inject('appointment') private appointmentService,
+    private router: Router
+  ) {
   }
 
   ngOnInit() {
@@ -100,6 +104,9 @@ export class AppointmentComponent implements OnInit {
 
   gotoHandle(data) {
     console.log(data);
+    if (data.key === 'edit') {
+      this.router.navigate(['/planned-immunity/appointment/detail', data.value.id]);
+    }
   }
 
   formatData(data) {

@@ -5,6 +5,7 @@ import { ControlType, TableTitle } from '../../../../libs/dtable/dtable.entity';
 const PATH = {
   getData: '/api/planImmunization/checkPlanImmunizationList',
   getCommunityAll: '/api/getAllCommunityByUserId',
+  getDetail: '/api/planImmunization/check'
 };
 
 @Injectable()
@@ -43,11 +44,24 @@ export class AppointmentService {
     return this.http.get(`${this.app.api_url}${PATH.getCommunityAll}?userId=${this.auth.getAdminId()}`);
   }
 
+  getDetail(id) {
+    return this.http.get(`${this.app.api_url}${PATH.getDetail}?id=${id}`);
+  }
+
   setAppointmentConfig() {
     return new ContainerConfig({
       title: '计划免疫预约',
       subTitle: '预约信息查询',
       ifHome: true,
+      homeRouter: '/planned-immunity/appointment'
+    });
+  }
+
+  setAppointmentDetailConfig() {
+    return new ContainerConfig({
+      title: '计划免疫预约',
+      subTitle: '预约详情',
+      ifHome: false,
       homeRouter: '/planned-immunity/appointment'
     });
   }

@@ -5,7 +5,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve -p 4204",
-    "build": "ng build",
+    "copy": "cp -rf WEB-INF healthcloud-cp-admin",
+    "build": "ng build --prod --env=prod --bh /healthcloud-cp-admin/ && npm run copy",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
