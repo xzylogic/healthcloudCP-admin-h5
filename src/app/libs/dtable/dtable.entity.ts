@@ -38,7 +38,7 @@ export class TableOption {
   private _ifPage: boolean; // 是否分页
 
   constructor(obj?: {
-    titles: TableTitle[],
+    titles?: TableTitle[],
     size?: number,
     ifPage?: boolean
   }) {

@@ -1,43 +1,48 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-lib-page',
   templateUrl: './page.component.html',
   styleUrls: ['./dtable.component.scss']
 })
-export class DPageComponent implements OnInit {
+export class DPageComponent implements OnInit, OnChanges {
   @Input() page: number;
   @Input() total: number;
   @Output() pageEmitter = new EventEmitter();
 
-  pageList: Array<any> = [];
+  pageList: Array<any>;
 
   constructor() {
   }
 
   ngOnInit() {
-    this.getPageList(this.total, this.page);
+    this.getPageList(Number(this.total), Number(this.page));
+  }
+
+  ngOnChanges() {
+    this.getPageList(Number(this.total), Number(this.page));
   }
 
   getPageList(total, current) {
-    this.pageList = [];
+    let list = [];
     if (total <= 6) {
       for (let i = 0; i < total; i++) {
-        this.pageList.push(i + 1);
+        list.push(i + 1);
       }
     } else if (total > 6) {
       if (current + 1 === 1) {
-        this.pageList.push(1, current + 2, '...', total);
+        list.push(1, current + 2, '...', total);
       } else if (current + 1 === 2) {
-        this.pageList.push(1, current + 1, current + 2, '...', total);
+        list.push(1, current + 1, current + 2, '...', total);
       } else if (current + 1 === total - 1) {
-        this.pageList.push(1, '...', current, current + 1, total);
+        list.push(1, '...', current, current + 1, total);
       } else if (current + 1 === total) {
-        this.pageList.push(1, '...', current, total);
+        list.push(1, '...', current, total);
       } else {
-        this.pageList.push(1, '...', current, current + 1, current + 2, '...', total);
+        list.push(1, '...', current, current + 1, current + 2, '...', total);
       }
     }
+    this.pageList = list;
   }
 
   // 获取指定页

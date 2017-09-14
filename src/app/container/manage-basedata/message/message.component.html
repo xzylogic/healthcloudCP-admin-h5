@@ -1,5 +1,64 @@
 <app-container [config]="containerConfig">
-  <div class="content">
-    message
+  <div class="content clear">
+    <div class="table-container" *ngIf="messageTable">
+      <div *ngIf="!messageTable.lists&&messageTable.loading">Loading...</div>
+      <div *ngIf="!messageTable.lists&&!messageTable.loading&&!!messageTable.errorMessage"
+           class="center">
+        {{messageTable.errorMessage}}
+      </div>
+      <div *ngIf="messageTable.lists">
+        <div style="padding: 10px 25px">
+          <button md-raised-button color="primary" (click)="delSelected()">删除</button>
+          <button md-raised-button color="primary" (click)="readSelected()">设为已读</button>
+        </div>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>
+              <md-checkbox [(ngModel)]="allChecked" (change)="getAllChecked()"></md-checkbox>
+            </th>
+            <th>消息内容</th>
+            <th>消息类型</th>
+            <th>是否已读</th>
+            <th>发送时间</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let obj of messageTable.lists">
+            <td>
+              <md-checkbox [(ngModel)]="obj.checked"></md-checkbox>
+            </td>
+            <td>
+              <span [class.primary]="obj.is_read==0">{{obj.content}}</span>
+            </td>
+            <td>
+              <span *ngIf="obj.type==0">系统消息</span>
+              <span *ngIf="obj.type==1">计划免疫预约</span>
+              <span *ngIf="obj.type==2">儿童体检预约</span>
+              <span *ngIf="obj.type==3">叶酸随访预约</span>
+              <span *ngIf="obj.type==4">孕期随访</span>
+              <span *ngIf="obj.type==5">叶酸随访</span>
+              <span *ngIf="obj.type==6">实名认证</span>
+            </td>
+            <td>
+              <span *ngIf="obj.is_read==1">已读</span>
+              <span *ngIf="obj.is_read==0" class="red">未读</span>
+            </td>
+            <td>
+              <span>{{obj.create_time | date: 'yyyy-MM-dd HH:mm'}}</span>
+            </td>
+            <td>
+              <span (click)="gotoHandle(obj.id)" class="table__option" style="padding: 0 10px">删除</span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="messageTable.lists">
+        <app-lib-page [page]="messageTable.currentPage" [total]="messageTable.totalPage"
+                      (pageEmitter)="getMessage($event)"></app-lib-page>
+      </div>
+    </div>
   </div>
 </app-container>

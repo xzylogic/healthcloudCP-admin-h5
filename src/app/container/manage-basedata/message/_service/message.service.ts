@@ -1,10 +1,18 @@
 import { Inject, Injectable } from '@angular/core';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 
+const PATH = {
+  getMessage: '/api/message/list',
+  delMessage: '/api/message/delete',
+  readMessage: '/api/message/updateReadStatus'
+};
+
 @Injectable()
 export class MessageService {
   constructor(
-    @Inject('app') private app
+    @Inject('app') private app,
+    @Inject('auth') private auth,
+    @Inject('http') private http
   ) {
   }
 
@@ -15,5 +23,17 @@ export class MessageService {
       ifHome: true,
       homeRouter: '/message'
     });
+  }
+
+  getMessage() {
+    return this.http.get(`${this.app.api_url}${PATH.getMessage}?uid=${this.auth.getAdminId()}`);
+  }
+
+  delMessage(ids) {
+    return this.http.post(`${this.app.api_url}${PATH.delMessage}`, ids);
+  }
+
+  readMessage(ids) {
+    return this.http.get(`${this.app.api_url}${PATH.readMessage}?ids=${ids}`);
   }
 }

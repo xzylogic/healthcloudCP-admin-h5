@@ -1,11 +1,11 @@
-<div class="page__items">
+<div class="page__items" *ngIf="pageList">
   <a class="item icon" (click)="getFirstPage()">
     <md-icon>first_page</md-icon>
   </a>
   <a class="item icon" (click)="getPrePage()">
     <md-icon>chevron_left</md-icon>
   </a>
-  <a class="item" *ngFor="let item of pageList" [class.active]="item-1 === page"
+  <a class="item" *ngFor="let item of pageList" [class.active]="item-1 == page"
      (click)="getCurrentPage(item)">{{item}}</a>
   <a class="item icon" (click)="getNextPage()">
     <md-icon>chevron_right</md-icon>
