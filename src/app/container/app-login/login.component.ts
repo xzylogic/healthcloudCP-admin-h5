@@ -5,7 +5,6 @@ import { MdDialog } from '@angular/material';
 
 import { FormText } from '../../libs/dform/_entity/form-text';
 import { HintDialog } from '../../libs/dmodal/dialog.component';
-import { Admin } from '../_store/main.state';
 import { ERRMSG } from '../_store/static';
 
 @Component({
@@ -20,7 +19,7 @@ export class LoginComponent implements OnInit {
   errorMsg = '';
 
   constructor(
-    @Inject('app') private app,
+    @Inject('app') public app,
     @Inject('main') private mainAction,
     @Inject('auth') private authService,
     private fb: FormBuilder,

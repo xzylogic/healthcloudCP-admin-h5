@@ -60,9 +60,9 @@ export function MessageDialog(title, msg, dialog) {
         title: title,
         message: msg,
         buttons: [{
-          key: 'comfirm',
+          key: 'confirm',
           value: '确定',
-          color: ''
+          color: 'primary'
         }]
       }),
     width: '300px'

@@ -5,7 +5,8 @@ import { ControlType, TableTitle } from '../../../../libs/dtable/dtable.entity';
 const PATH = {
   getData: '/api/planImmunization/checkPlanImmunizationList',
   getCommunityAll: '/api/getAllCommunityByUserId',
-  getDetail: '/api/planImmunization/check'
+  getDetail: '/api/planImmunization/check',
+  saveDetail: '/api/planImmunization/updateInfo'
 };
 
 @Injectable()
@@ -46,6 +47,10 @@ export class AppointmentService {
 
   getDetail(id) {
     return this.http.get(`${this.app.api_url}${PATH.getDetail}?id=${id}`);
+  }
+
+  saveDetail(id, status, reason) {
+    return this.http.post(`${this.app.api_url}${PATH.saveDetail}?id=${id}&status=${status}&reason=${reason}&addUserId=${this.auth.getAdminId()}`, {});
   }
 
   setAppointmentConfig() {

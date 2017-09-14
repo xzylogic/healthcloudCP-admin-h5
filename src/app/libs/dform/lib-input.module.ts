@@ -61,6 +61,7 @@ import { LibInputTreeComponent } from './component/lib-input/lib-input-tree';
   exports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     MdButtonModule,
     MdIconModule,
     MdInputModule,

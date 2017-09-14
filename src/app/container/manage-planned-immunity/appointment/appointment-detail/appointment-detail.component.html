@@ -27,20 +27,26 @@
     </div>
     <div class="detail-container">
       <h3 class="detail-title">预约登记</h3>
-      <md-grid-list cols="6" gutterSize="15px" rowHeight="30px">
-        <md-grid-tile colspan="2"><p class="detail-content">宝宝姓名：</p></md-grid-tile>
-        <md-grid-tile colspan="2"><p class="detail-content">性别：</p></md-grid-tile>
-        <md-grid-tile colspan="2"><p class="detail-content">出生日期：</p></md-grid-tile>
-        <md-grid-tile colspan="2"><p class="detail-content">证件类型：</p></md-grid-tile>
-        <md-grid-tile colspan="4"><p class="detail-content">证件号码：</p></md-grid-tile>
-        <md-grid-tile colspan="6"><p class="detail-content">户籍地址：</p></md-grid-tile>
-        <md-grid-tile colspan="6"><p class="detail-content">家长姓名：</p></md-grid-tile>
-        <md-grid-tile colspan="6"><p class="detail-content">手机号：</p></md-grid-tile>
-        <md-grid-tile colspan="6"><p class="detail-content">预约医院：</p></md-grid-tile>
-        <md-grid-tile colspan="6"><p class="detail-content">预约时间：</p></md-grid-tile>
-        <md-grid-tile colspan="6"><p class="detail-content">预约单号：</p></md-grid-tile>
-        <md-grid-tile colspan="6"><p class="detail-content">订单状态：</p></md-grid-tile>
-      </md-grid-list>
+      <form class="form-content" *ngIf="data">
+        <div class="input-content">
+          <md-radio-group [(ngModel)]="status" name="status" [disabled]="data?.status!==1">
+            <md-radio-button value="2">正常接种</md-radio-button>
+            <md-radio-button value="4">接种取消</md-radio-button>
+            <md-radio-button value="5">接种爽约</md-radio-button>
+          </md-radio-group>
+        </div>
+        <div class="input-content">
+          <md-form-field *ngIf="status==4" style="width:280px">
+            <textarea mdInput rows="5" placeholder="取消原因" [(ngModel)]="reason" name="reason"
+                      style="resize: none" [disabled]="data.status!=1"></textarea>
+          </md-form-field>
+        </div>
+        <div class="input-content" *ngIf="data.status==1">
+          <button md-raised-button color="primary" type="button" (click)="saveStatus()"
+                  [disabled]="!(status==2||status==5||(status==4&&reason))">保存
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </app-container>
