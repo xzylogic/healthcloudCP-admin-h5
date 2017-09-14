@@ -31,6 +31,10 @@ import { AuthGuardService } from './_service/auth-guard.service';
         ...piRoutes,
         ...rfaRoutes,
       ]
+    }, {
+      path: '**',
+      redirectTo: '/',
+      pathMatch: 'full'
     }]
   )],
   exports: [RouterModule]
