@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+/healthcloud-cp-admin
 
 # dependencies
 /node_modules
