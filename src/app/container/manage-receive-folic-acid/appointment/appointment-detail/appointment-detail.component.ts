@@ -6,7 +6,7 @@ import { MdDialog } from '@angular/material';
 import { ERRMSG } from '../../../_store/static';
 
 @Component({
-  selector: 'app-planned-immunity-appointment-detail',
+  selector: 'app-receive-folic-acid-appointment-detail',
   templateUrl: './appointment-detail.component.html',
   styleUrls: ['./appointment-detail.component.scss']
 })
@@ -16,6 +16,7 @@ export class AppointmentDetailComponent implements OnInit {
   data: any;
   status: string;
   reason = '';
+  reasonRadio = '';
 
   constructor(
     @Inject('appointment') private appointmentService,
@@ -39,31 +40,28 @@ export class AppointmentDetailComponent implements OnInit {
       .subscribe(res => {
         if (res.code === 0 && res.data) {
           this.data = res.data;
-          this.status = res.data.status;
-          this.reason = res.data.cancellationReason;
+          this.status = res.data.checked;
+          this.reason = res.data.noCheckReason || '';
         }
       });
   }
 
   saveStatus() {
-    let msg = `是否设置${this.data && this.data.childDto && this.data.childDto.name || ''}`;
+    let msg = `是否`;
     let reason = '';
+    if (this.status == '1') {
+      msg += '通过审核？';
+      this.reason = '';
+      this.reasonRadio = '';
+    }
     if (this.status == '2') {
-      msg += '正常接种？';
-      this.reason = '';
-    }
-    if (this.status == '4') {
-      msg += '接种取消？';
-      reason = `取消原因：${this.reason}`;
-    }
-    if (this.status == '5') {
-      msg += '接种爽约？';
-      this.reason = '';
+      msg += '不通过审核？';
+      reason = `不通过原因：${this.reasonRadio == '0' ? this.reason : this.reasonRadio}`;
     }
     MessageDialog(msg, reason, this.dialog).afterClosed()
       .subscribe(result => {
         if (result && result.key === 'confirm') {
-          this.save(this.status, this.reason);
+          this.save(this.status, this.reasonRadio == '0' ? this.reason : this.reasonRadio);
         }
       });
   }

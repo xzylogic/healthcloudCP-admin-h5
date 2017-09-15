@@ -1,0 +1,62 @@
+<app-container [config]="containerConfig">
+  <div class="content">
+    <md-tab-group dynamicHeight="true">
+      <md-tab label="预约详情">
+        <div class="detail-container">
+          <h3 class="detail-title">预约信息</h3>
+          <md-grid-list cols="6" gutterSize="15px" rowHeight="30px">
+            <md-grid-tile colspan="2"><p class="detail-content">姓名：{{data?.name}}</p></md-grid-tile>
+            <md-grid-tile colspan="2"><p class="detail-content">性别：{{data?.sex}}</p></md-grid-tile>
+            <md-grid-tile colspan="2"><p class="detail-content">出生日期：{{data?.birthStr}}</p></md-grid-tile>
+            <md-grid-tile colspan="2"><p class="detail-content">证件类型：{{data?.cardTypeNo}}</p></md-grid-tile>
+            <md-grid-tile colspan="2"><p class="detail-content">证件号码：{{data?.cardNo}}</p></md-grid-tile>
+            <md-grid-tile colspan="2"><p class="detail-content">国籍：{{data?.nationality}}</p></md-grid-tile>
+            <md-grid-tile colspan="2"><p class="detail-content">民族：{{data?.nation}}</p></md-grid-tile>
+            <md-grid-tile colspan="2"><p class="detail-content">文化程度：{{data?.culture}}</p></md-grid-tile>
+            <md-grid-tile colspan="2"><p class="detail-content">职业：{{data?.profession}}</p></md-grid-tile>
+            <md-grid-tile colspan="6"><p class="detail-content">联系电话：{{data?.tel}}</p></md-grid-tile>
+            <md-grid-tile colspan="6"><p class="detail-content">户籍地址：{{data?.householdAddr}}</p></md-grid-tile>
+            <md-grid-tile colspan="6"><p class="detail-content">现住地址：{{data?.presentAddr}}</p></md-grid-tile>
+            <md-grid-tile colspan="6"><p class="detail-content">领取地点：{{data?.hospitalName}}</p></md-grid-tile>
+            <md-grid-tile colspan="6"><p class="detail-content">领取时间：{{data?.reservationTimeStr}}</p></md-grid-tile>
+          </md-grid-list>
+        </div>
+        <div class="detail-container">
+          <h3 class="detail-title">审核结果</h3>
+          <form class="form-content" *ngIf="data">
+            <div class="input-content">
+              <md-radio-group [(ngModel)]="status" name="status" [disabled]="data?.checked!=0">
+                <md-radio-button value="1">通过</md-radio-button>
+                <md-radio-button value="2">不通过</md-radio-button>
+              </md-radio-group>
+            </div>
+            <div class="input-content" *ngIf="data.checked==0">
+              <md-radio-group *ngIf="status=='2'" [(ngModel)]="reasonRadio">
+                <md-radio-button value="户籍不属于我中心管辖地段">户籍不属于我中心管辖地段</md-radio-button>
+                <md-radio-button value="资料提供不全">资料提供不全</md-radio-button>
+                <md-radio-button value="0">其他，请填写</md-radio-button>
+              </md-radio-group>
+              <md-form-field *ngIf="reasonRadio=='0'" style="width:280px">
+            <textarea mdInput rows="5" placeholder="不通过原因" [(ngModel)]="reason" name="reason"
+                      style="resize: none"></textarea>
+              </md-form-field>
+            </div>
+            <div class="input-content" *ngIf="data.checked==2">
+              <md-form-field style="width:280px">
+            <textarea mdInput rows="5" placeholder="不通过原因" [(ngModel)]="reason" name="reason"
+                      style="resize: none" disabled></textarea>
+              </md-form-field>
+            </div>
+            <div class="input-content" *ngIf="data.checked==0">
+              <button md-raised-button color="primary" type="button" (click)="saveStatus()"
+                      [disabled]="!(status==1||(status==2&&reason))">保存
+              </button>
+            </div>
+          </form>
+        </div>
+      </md-tab>
+      <md-tab label="问卷调查">
+      </md-tab>
+    </md-tab-group>
+  </div>
+</app-container>

@@ -50,7 +50,8 @@ export class AppointmentService {
   }
 
   saveDetail(id, status, reason) {
-    return this.http.post(`${this.app.api_url}${PATH.saveDetail}?id=${id}&status=${status}&reason=${reason}&addUserId=${this.auth.getAdminId()}`, {});
+    return this.http.post(
+      `${this.app.api_url}${PATH.saveDetail}?id=${id}&status=${status}&reason=${reason}&addUserId=${this.auth.getAdminId()}`, {});
   }
 
   setAppointmentConfig() {
