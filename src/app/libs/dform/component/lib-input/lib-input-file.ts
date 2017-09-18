@@ -70,12 +70,12 @@ export class LibInputFileComponent implements OnInit {
               if (res.key) {
                 HintDialog('上传图片成功！', this.dialog);
                 if (this.data.multiple === false) {
-                  this.value = `${this.domain}${res.key}`;
+                  this.value = `///${this.domain}/${res.key}`;
                 } else {
                   if (!this.value) {
                     this.value = [];
                   }
-                  this.value.push(`${this.domain}${res.key}`);
+                  this.value.push(`///${this.domain}/${res.key}`);
                 }
                 this.cdr.detectChanges();
               } else {

@@ -1,5 +1,19 @@
 <app-container [config]="containerConfig">
+  <div class="addition">
+    <button md-raised-button (click)="newData()">添加资讯分类</button>
+  </div>
   <div class="content">
-    article-classify
+    <div *ngIf="!classifyTable.lists&&classifyTable.loading">Loading...</div>
+    <div *ngIf="!classifyTable.lists&&!classifyTable.loading&&!!classifyTable.errorMessage" class="center">
+      {{classifyTable.errorMessage}}
+    </div>
+    <div *ngIf="classifyTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="classifyTable"
+          (handleEmmit)="gotoHandle($event)"
+        ></app-lib-table>
+      </div>
+    </div>
   </div>
 </app-container>

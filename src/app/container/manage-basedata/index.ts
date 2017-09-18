@@ -8,6 +8,9 @@ export const routes: Routes = [{
   path: 'article-classify',
   loadChildren: 'app/container/manage-basedata/article-classify/article-classify.module#ArticleClassifyModule'
 }, {
+  path: 'article-home',
+  loadChildren: 'app/container/manage-basedata/article-home/article-home.module#ArticleHomeModule'
+}, {
   path: 'banner',
   loadChildren: 'app/container/manage-basedata/banner/banner.module#BannerModule'
 }, {
