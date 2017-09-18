@@ -6,9 +6,9 @@
     "ng": "ng",
     "start": "ng serve -p 4204",
     "copy": "cp -rf WEB-INF healthcloud-cp-admin",
-    "build-dev": "ng build --prod --env=dev --bh /healthcloud-cp-admin/ && npm run copy",
-    "build-test": "ng build --prod --env=test --bh /healthcloud-cp-admin/ && npm run copy",
-    "build": "ng build --prod --env=prod --bh /healthcloud-cp-admin/ && npm run copy",
+    "build-dev": "ng build -prod -e dev -bh /healthcloud-cp-admin/ && npm run copy",
+    "build-test": "ng build -prod -e test -bh /healthcloud-cp-admin/ && npm run copy",
+    "build": "ng build -prod -e prod -bh /healthcloud-cp-admin/ && npm run copy",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
