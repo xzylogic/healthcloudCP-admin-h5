@@ -1,5 +1,20 @@
 <app-container [config]="containerConfig">
+  <div class="addition">
+    <button md-raised-button (click)="newData()" >添加首页资讯</button>
+  </div>
   <div class="content">
-    article-home
+    <div *ngIf="!homeArticleTable.lists&&homeArticleTable.loading">Loading...</div>
+    <div *ngIf="!homeArticleTable.lists&&!homeArticleTable.loading&&!!homeArticleTable.errorMessage" class="center">
+      {{homeArticleTable.errorMessage}}
+    </div>
+    <div *ngIf="homeArticleTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="homeArticleTable"
+          (handleEmmit)="gotoHandle($event)"
+          (pageEmitter)="getHomeArticles($event)"
+        ></app-lib-table>
+      </div>
+    </div>
   </div>
 </app-container>

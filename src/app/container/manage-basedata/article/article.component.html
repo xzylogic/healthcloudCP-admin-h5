@@ -1,5 +1,36 @@
 <app-container [config]="containerConfig">
+  <div class="addition">
+    <button md-raised-button (click)="newData()">添加文章</button>
+  </div>
   <div class="content">
-    article
+    <form style="padding: 0 16px">
+      <md-input-container floatPlaceholder="auto" style="margin-right: 1em">
+        <input mdInput placeholder="文章标题" name="title" [(ngModel)]="title">
+      </md-input-container>
+      <md-select placeholder="资讯分类" [(ngModel)]="classifyId" name="center"
+                 style="width: 200px;margin-right: 1em">
+        <md-option *ngFor="let opt of classifyList" [value]="opt.id">{{opt.categoryName}}</md-option>
+      </md-select>
+      <app-search style="margin-right: 1em" [type]="'1'" [label]="'请选择日期范围'" [(value)]="queryTime"></app-search>
+      <button md-icon-button color="primary" type="button" (click)="getArticles(0)">
+        <md-icon>search</md-icon>
+      </button>
+      <button md-icon-button color="primary" type="button" (click)="reset()">
+        <md-icon>autorenew</md-icon>
+      </button>
+    </form>
+    <div *ngIf="!articleTable.lists&&articleTable.loading">Loading...</div>
+    <div *ngIf="!articleTable.lists&&!articleTable.loading&&!!articleTable.errorMessage" class="center">
+      {{articleTable.errorMessage}}
+    </div>
+    <div *ngIf="articleTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="articleTable"
+          (handleEmmit)="gotoHandle($event)"
+          (pageEmitter)="getArticles($event)"
+        ></app-lib-table>
+      </div>
+    </div>
   </div>
 </app-container>

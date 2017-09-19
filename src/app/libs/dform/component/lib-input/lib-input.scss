@@ -6,6 +6,7 @@
   padding-top: 1em;
   padding-bottom: 1.296875em;
   .input_content {
+    margin-top: -0.0625em;
     font-size: 1em;
     width: 100%;
     padding: .4375em 0;
@@ -27,6 +28,18 @@
   .input_content:focus + .input_span {
     color: $color-primary;
   }
+}
+
+.input__content {
+  font-size: 16px;
+  font-weight: 200;
+  width: 100%;
+  border: none;
+}
+
+.input__format {
+  border-bottom: 1px solid $color-text-label !important;
+  bottom: 2px !important;
 }
 
 .check_content {

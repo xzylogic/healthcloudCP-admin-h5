@@ -1,5 +1,20 @@
 <app-container [config]="containerConfig">
+  <div class="addition">
+    <button md-raised-button (click)="newData()" >添加banner</button>
+  </div>
   <div class="content">
-    banner
+    <div *ngIf="!bannerTable.lists&&bannerTable.loading">Loading...</div>
+    <div *ngIf="!bannerTable.lists&&!bannerTable.loading&&!!bannerTable.errorMessage" class="center">
+      {{bannerTable.errorMessage}}
+    </div>
+    <div *ngIf="bannerTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="bannerTable"
+          (handleEmmit)="gotoHandle($event)"
+          (pageEmitter)="getBanners($event)"
+        ></app-lib-table>
+      </div>
+    </div>
   </div>
 </app-container>

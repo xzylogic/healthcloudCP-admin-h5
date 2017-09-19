@@ -2,7 +2,7 @@
   <div class="content">
     <md-grid-list cols="2" rowHeight="fit" gutterSize="30" class="grid">
       <md-grid-tile>
-        <div class="container">
+        <div class="container" style="overflow: auto">
           <div class="tree__title clear">
             <h3 class="p">医院机构列表</h3>
             <button class="button" md-button color="primary" (click)="offData(menuList)">全部折叠</button>
@@ -258,7 +258,7 @@
         </div>
       </md-grid-tile>
       <md-grid-tile>
-        <div class="container" *ngIf="form&&flag==0">
+        <div class="container" *ngIf="form&&flag==0" style="overflow: auto">
           <div class="tree__title clear">
             <h3 class="p">{{title}}</h3>
           </div>
@@ -267,12 +267,12 @@
         <div class="container" *ngIf="form&&formTwo&&flag==1">
           <md-tab-group dynamicHeight="true">
             <md-tab label="添加站点">
-              <div style="padding: 15px 0">
+              <div style="padding: 15px 0;height: calc(100vh - 280px);overflow: auto">
                 <app-form [formDatas]="form" (formValues)="getValues($event)"></app-form>
               </div>
             </md-tab>
             <md-tab label="添加部门">
-              <div style="padding: 15px 0">
+              <div style="padding: 15px 0;height: calc(100vh - 280px);overflow: auto">
                 <app-form [formDatas]="formTwo" (formValues)="getValues($event)"></app-form>
               </div>
             </md-tab>
@@ -281,17 +281,17 @@
         <div class="container" *ngIf="form&&formTwo&&formThree&&flag==2">
           <md-tab-group dynamicHeight="true">
             <md-tab label="添加中心">
-              <div style="padding: 15px 0">
+              <div style="padding: 15px 0;height: calc(100vh - 280px);overflow: auto">
                 <app-form [formDatas]="form" (formValues)="getValues($event)"></app-form>
               </div>
             </md-tab>
             <md-tab label="添加站点">
-              <div style="padding: 15px 0">
+              <div style="padding: 15px 0;height: calc(100vh - 280px);overflow: auto">
                 <app-form [formDatas]="formTwo" (formValues)="getValues($event)"></app-form>
               </div>
             </md-tab>
             <md-tab label="添加部门">
-              <div style="padding: 15px 0">
+              <div style="padding: 15px 0;height: calc(100vh - 280px);overflow: auto">
                 <app-form [formDatas]="formThree" (formValues)="getValues($event)"></app-form>
               </div>
             </md-tab>
