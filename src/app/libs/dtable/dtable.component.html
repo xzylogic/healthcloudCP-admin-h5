@@ -9,24 +9,30 @@
     <tr *ngFor="let list of table.lists;let i=index">
       <td *ngFor="let title of table.titles" [ngSwitch]="title.controlType" data-title="{{title.name}}">
         <div *ngSwitchCase="controlType.index" [style.minWidth.px]="title.minwidth" [style.maxWidth.px]="title.maxwidth"
+             [ngStyle]="{'text-align': title.align}"
              class="table__content">
           <span>{{i+1}}</span>
         </div>
         <div *ngSwitchCase="controlType.text" [style.minWidth.px]="title.minwidth" [style.maxWidth.px]="title.maxwidth"
+             [ngStyle]="{'text-align': title.align}"
              class="table__content">
           <span>{{list[title.key] == 0 ? list[title.key] : list[title.key] || ''}}</span>
         </div>
         <div *ngSwitchCase="controlType.date" [style.minWidth.px]="title.minwidth" [style.maxWidth.px]="title.maxwidth"
+             [ngStyle]="{'text-align': title.align}"
              class="table__content">
           <span>{{list[title.key] | date:"yyyy/MM/dd HH:mm:ss"}}</span>
         </div>
-        <div *ngSwitchCase="controlType.image" class="table__image">
+        <div *ngSwitchCase="controlType.image" class="table__image"
+             [ngStyle]="{'text-align': title.align}">
           <img src="{{list[title.key]}}">
         </div>
-        <div *ngSwitchCase="controlType.button" [style.minWidth.px]="title.minwidth" class="table__content">
+        <div *ngSwitchCase="controlType.button" [style.minWidth.px]="title.minwidth" class="table__content"
+             [ngStyle]="{'text-align': title.align}">
           <span (click)="gotoHandle(title.key,list)" class="table__option">{{title.option || title.name}}</span>
         </div>
-        <div *ngSwitchCase="controlType.buttons" [style.minWidth.px]="title.minwidth" class="table__content">
+        <div *ngSwitchCase="controlType.buttons" [style.minWidth.px]="title.minwidth" class="table__content"
+             [ngStyle]="{'text-align': title.align}">
           <span *ngFor="let btn of title.option" (click)="gotoHandle(btn.key,list)" class="table__option"
                 style="padding: 0 10px">{{list[btn.key] || btn.name}}</span>
         </div>

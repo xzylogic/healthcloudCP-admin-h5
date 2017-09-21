@@ -4,6 +4,7 @@ import { TableOption } from '../../../libs/dtable/dtable.entity';
 import { Router } from '@angular/router';
 import { MdDialog } from '@angular/material';
 import { ERRMSG } from '../../_store/static';
+import { ShowDetail } from './article-detail/article-detail.component';
 
 @Component({
   selector: 'app-article',
@@ -70,9 +71,16 @@ export class ArticleComponent implements OnInit {
   }
 
   gotoHandle(data) {
-    console.log(data);
     if (data.key === 'edit') {
       this.router.navigate(['/article/edit'], {queryParams: {id: data.value.id}});
+    }
+    if (data.key === 'detail') {
+      this.articleService.getArticle(data.value.id)
+        .subscribe(res => {
+          if (res.code === 0 && res.data) {
+            ShowDetail(res.data, this.dialog);
+          }
+        });
     }
   }
 

@@ -2,6 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MdDialog } from '@angular/material';
+import { ERRMSG } from '../../../_store/static';
+import { HintDialog } from '../../../../libs/dmodal/dialog.component';
+import { ShowDetail } from '../article-detail/article-detail.component';
 
 @Component({
   selector: 'app-article-edit',
@@ -9,6 +12,9 @@ import { MdDialog } from '@angular/material';
 })
 export class ArticleEditComponent implements OnInit {
   containerConfig: ContainerConfig;
+  errMsg = '';
+  form: any;
+  classifyList: any;
 
   constructor(
     @Inject('article') private articleService,
@@ -25,6 +31,59 @@ export class ArticleEditComponent implements OnInit {
       } else {
         this.containerConfig = this.articleService.setArticleEditConfig(false);
       }
+      this.articleService.getClassifies()
+        .subscribe(list => {
+          if (list.code === 0 && list.data) {
+            const data = [];
+            list.data.forEach(obj => {
+              data.push({
+                id: obj.id,
+                name: obj.categoryName
+              });
+            });
+            this.classifyList = data;
+            if (res.id) {
+              this.getArticle(res.id);
+            } else {
+              this.form = this.articleService.setArticleForm(
+                this.classifyList
+              );
+            }
+          }
+        });
     });
+  }
+
+  getArticle(id) {
+    this.articleService.getArticle(id)
+      .subscribe(res => {
+        if (res.code === 0 && res.data) {
+          this.form = this.articleService.setArticleForm(
+            this.classifyList,
+            res.data
+          );
+        }
+      });
+  }
+
+  getValues(data) {
+    console.log(data);
+    this.articleService.saveArticle(data)
+      .subscribe(res => {
+        if (res.code === 0) {
+          HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {
+            this.router.navigate(['/article']);
+          });
+        } else {
+          HintDialog(res.msg || ERRMSG.saveError, this.dialog);
+        }
+      }, err => {
+        console.log(err);
+        HintDialog(ERRMSG.saveError, this.dialog);
+      });
+  }
+
+  viewArticle(data) {
+    ShowDetail(data, this.dialog);
   }
 }

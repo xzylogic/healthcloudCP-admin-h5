@@ -7,6 +7,7 @@ export class TableTitle {
   maxwidth: number; // 最大宽度
   controlType: ControlType; // 类型
   option: any; // 附加选项
+  align: string;
 
   constructor(obj: {
     name: string,
@@ -15,6 +16,7 @@ export class TableTitle {
     maxwidth?: number,
     controlType?: ControlType,
     option?: any
+    align?: string
   }) {
     this.name = obj && obj.name;
     this.key = obj && obj.key;
@@ -22,6 +24,7 @@ export class TableTitle {
     this.maxwidth = obj && obj.maxwidth || null;
     this.controlType = obj && obj.controlType || ControlType.text;
     this.option = obj && obj.option || null;
+    this.align = obj && obj.align || 'center';
   }
 }
 

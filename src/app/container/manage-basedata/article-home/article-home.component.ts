@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { TableOption } from '../../../libs/dtable/dtable.entity';
 import { ERRMSG } from '../../_store/static';
+import { MdDialog } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-article-home',
@@ -12,8 +14,28 @@ export class ArticleHomeComponent implements OnInit {
   homeArticleTable: TableOption;
   title = '';
   status = '';
+  statusList = [{
+    id: '',
+    name: '全部'
+  }, {
+    id: '1',
+    name: '未开始'
+  }, {
+    id: '2',
+    name: '进行中'
+  }, {
+    id: '3',
+    name: '已结束'
+  }, {
+    id: '4',
+    name: '已下线'
+  }];
 
-  constructor(@Inject('home') private homeService) {
+  constructor(
+    @Inject('home') private homeService,
+    private dialog: MdDialog,
+    private router: Router
+  ) {
   }
 
   ngOnInit() {
@@ -41,6 +63,7 @@ export class ArticleHomeComponent implements OnInit {
         } else if (res.data && res.totalPages) {
           console.log(res.data);
           this.homeArticleTable.totalPage = res.totalPages;
+          this.formatData(res.data);
           this.homeArticleTable.lists = res.data;
         } else {
           this.homeArticleTable.errorMessage = res.msg || ERRMSG.otherMsg;
@@ -54,9 +77,34 @@ export class ArticleHomeComponent implements OnInit {
 
   gotoHandle(data) {
     console.log(data);
+    if (data.key === 'edit') {
+      this.router.navigate(['/article-home/edit'], {queryParams: {id: data.value.id}});
+    }
   }
 
   newData() {
-    console.log('new');
+    this.router.navigate(['/article-home/edit']);
+  }
+
+  formatData(list) {
+    if (Array.isArray(list)) {
+      list.forEach(obj => {
+        if (obj.status == 1) {
+          obj.statusName = '未开始';
+          obj.detail = '下线';
+        }
+        if (obj.status == 2) {
+          obj.statusName = '进行中';
+          obj.detail = '下线';
+        }
+        if (obj.status == 3) {
+          obj.statusName = '已结束';
+        }
+        if (obj.status == 4) {
+          obj.statusName = '已下线';
+        }
+        obj.recommend = obj.isRecommend == 1 ? '推荐' : '不推荐';
+      });
+    }
   }
 }

@@ -1,5 +1,8 @@
 <app-container [config]="containerConfig">
   <div class="content">
-    article edit
+    <app-form *ngIf="form"
+              [formDatas]="form" (formValues)="getValues($event)"
+    [optionButton]="'预览文章'" (optionChange)="viewArticle($event)"></app-form>
+    <div *ngIf="errMsg">{{errMsg}}</div>
   </div>
 </app-container>

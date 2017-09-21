@@ -1,6 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { ControlType, TableTitle } from '../../../../libs/dtable/dtable.entity';
+import { FormBase } from '../../../../libs/dform/_entity/form-base';
+import { FormRadio } from '../../../../libs/dform/_entity/form-radio';
+import { FormText } from '../../../../libs/dform/_entity/form-text';
+import { FormDatetime } from '../../../../libs/dform/_entity/form-datetime';
 
 const PATH = {
   getArticleTitle: '/api/article/queryArticleByTitleName',
@@ -95,6 +99,7 @@ export class ArticleHomeService {
       new TableTitle({
         key: '',
         name: '操作',
+        align: 'left',
         controlType: ControlType.buttons,
         option: [{
           key: 'edit',
@@ -105,5 +110,61 @@ export class ArticleHomeService {
         }]
       }),
     ];
+  }
+
+  setArticleHomeForm(data?): FormBase<any>[] {
+    const forms: FormBase<any>[] = [];
+    forms.push(
+      new FormText({
+        key: 'title',
+        label: '文章标题',
+        value: data && data.title || '',
+        errMsg: '请输入文章标题搜索文章'
+      })
+    );
+    forms.push(
+      new FormText({
+        key: 'articleId',
+        label: '文章ID',
+        value: data && data.articleId || '',
+        readonly: true,
+        required: true,
+        errMsg: '请在文章标题栏输入文章标题搜索文章'
+      })
+    );
+    forms.push(
+      new FormDatetime({
+        key: 'range',
+        label: '显示时间段',
+        value: data && data.range || '',
+        required: true,
+        options: 'range'
+      })
+    );
+    forms.push(
+      new FormRadio({
+        key: 'isRecommend',
+        label: '是否推荐',
+        value: data && (data.isRecommend == 0 ? data.isRecommend : data.isRecommend || ''),
+        required: true,
+        options: [{
+          id: '1',
+          name: '是'
+        }, {
+          id: '0',
+          name: '否'
+        }]
+      })
+    );
+    forms.push(
+      new FormText({
+        key: 'rank',
+        label: '文章排序',
+        value: data && data.rank || '',
+        required: true,
+        errMsg: '请填写文章排序'
+      })
+    );
+    return forms.sort((a, b) => a.order - b.order);
   }
 }

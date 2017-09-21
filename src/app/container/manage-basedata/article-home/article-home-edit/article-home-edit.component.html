@@ -1,5 +1,33 @@
 <app-container [config]="containerConfig">
   <div class="content">
-    article-home edit
+
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="getValues(form.value)">
+      <div class="input-container">
+        <app-input-text [form]="form" [data]="config[0]" [(value)]="config[0].value"
+                        (valueChange)="getValidName($event)"></app-input-text>
+        <div class="ui middle aligned divided selection list" style="background-color: #fff">
+          <div class="item" *ngFor="let result of thirdList;let i=index">
+            <div class="content" *ngIf="i<20">
+              <div class="header" (click)="selected(result)" style="cursor: pointer">{{result.title}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="input-container">
+        <app-input-text [form]="form" [data]="config[1]" [(value)]="config[1].value" readonly></app-input-text>
+      </div>
+      <div class="input-container">
+        <app-input-datetime [form]="form" [data]="config[2]" [(value)]="config[2].value"></app-input-datetime>
+      </div>
+      <div class="input-container">
+        <app-input-radio [form]="form" [data]="config[3]" [(value)]="config[3].value"></app-input-radio>
+      </div>
+      <div class="input-container">
+        <app-input-text [form]="form" [data]="config[4]" [(value)]="config[4].value"></app-input-text>
+      </div>
+      <div class="input-container">
+        <button md-raised-button color="primary" [disabled]="!form.valid">保存</button>
+      </div>
+    </form>
   </div>
 </app-container>

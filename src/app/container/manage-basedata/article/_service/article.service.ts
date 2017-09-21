@@ -1,6 +1,12 @@
 import { Inject, Injectable } from '@angular/core';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { ControlType, TableTitle } from '../../../../libs/dtable/dtable.entity';
+import { FormBase } from '../../../../libs/dform/_entity/form-base';
+import { FormHidden } from '../../../../libs/dform/_entity/form-hidden';
+import { FormText } from '../../../../libs/dform/_entity/form-text';
+import { FormFile } from '../../../../libs/dform/_entity/form-file';
+import { FormEditor } from '../../../../libs/dform/_entity/form-editor';
+import { FormDropdown } from '../../../../libs/dform/_entity/form-dropdown';
 
 const PATH = {
   getArticles: '/api/article/list',
@@ -38,7 +44,7 @@ export class ArticleService {
     return this.http.get(`${this.app.api_url}${PATH.getArticle}?id=${id}`);
   }
 
-  save(data) {
+  saveArticle(data) {
     return this.http.post(`${this.app.api_url}${PATH.saveArticle}`, data);
   }
 
@@ -92,5 +98,114 @@ export class ArticleService {
         }]
       }),
     ];
+  }
+
+  setArticleForm(classifyList, data?) {
+    const forms: FormBase<any>[] = [];
+    if (data && data.id) {
+      forms.push(
+        new FormHidden({
+          key: 'id',
+          label: '',
+          value: data.id,
+          required: true,
+          order: 0
+        }));
+    }
+
+    forms.push(
+      new FormText({
+        key: 'title',
+        label: '文章标题',
+        value: data && data.title || '',
+        required: true,
+        errMsg: '请填写文章标题',
+        order: 1
+      })
+    );
+    forms.push(
+      new FormText({
+        key: 'brief',
+        label: '描述',
+        value: data && data.brief || '',
+        required: true,
+        errMsg: '请填写文章描述',
+        order: 2
+      })
+    );
+    forms.push(
+      new FormFile({
+        key: 'thumb',
+        label: '图片',
+        value: data && data.thumb || '',
+        required: true,
+        url: '',
+        errMsg: '',
+        order: 3
+      })
+    );
+    forms.push(
+      new FormFile({
+        key: 'recommImageUrl',
+        label: '推荐图片',
+        value: data && data.recommImageUrl || '',
+        required: false,
+        url: '',
+        errMsg: '',
+        order: 4
+      })
+    );
+    forms.push(
+      new FormEditor({
+        key: 'content',
+        label: '内容',
+        value: data && data.content || '',
+        required: true,
+        errMsg: '请填写文章内容',
+        order: 5
+      })
+    );
+    forms.push(
+      new FormText({
+        key: 'keyword',
+        label: '关键字（可输入多个关键字，用逗号分隔）',
+        value: data && data.keyword || '',
+        required: true,
+        errMsg: '请填写关键字',
+        order: 6
+      })
+    );
+    forms.push(
+      new FormText({
+        key: 'author',
+        label: '文章作者',
+        value: data && data.author || '',
+        required: true,
+        errMsg: '请填写文章作者',
+        order: 7
+      })
+    );
+    forms.push(
+      new FormDropdown({
+        key: 'categoryId',
+        label: '资讯分类',
+        value: data && data.categoryId || '',
+        required: true,
+        options: classifyList,
+        errMsg: '请选择资讯分类',
+        order: 8
+      })
+    );
+    forms.push(
+      new FormText({
+        key: 'fakePv',
+        label: '预设阅读量',
+        value: data && data.fakePv || '',
+        required: true,
+        errMsg: '请填写预设阅读量',
+        order: 9
+      })
+    );
+    return forms.sort((a, b) => a.order - b.order);
   }
 }

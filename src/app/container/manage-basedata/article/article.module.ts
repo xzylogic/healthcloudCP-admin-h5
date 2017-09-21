@@ -6,6 +6,7 @@ import { LibModule } from '../../../libs/common/lib.module';
 import { DTableModule } from '../../../libs/dtable/dtable.module';
 import { DFormModule } from '../../../libs/dform/dform.module';
 import { ArticleEditComponent } from './article-edit/article-edit.component';
+import { ArticleDetailModule } from './article-detail/article-detail.module';
 
 const routes: Routes = [{
   path: '',
@@ -20,6 +21,7 @@ const routes: Routes = [{
     LibModule,
     DTableModule,
     DFormModule,
+    ArticleDetailModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

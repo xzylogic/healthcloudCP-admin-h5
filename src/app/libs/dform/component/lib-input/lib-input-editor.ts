@@ -1,62 +1,53 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { FormText } from '../../_entity/form-text';
+import * as WangEditor from 'wangeditor';
 
 @Component({
   selector: 'app-input-editor',
   template: `
     <div [formGroup]="form">
       <div class="input_container" style="padding-top: 2em">
+        <div #editor></div>
         <!--<quill-editor calss="input_content"-->
         <!--[formControlName]="data.key"-->
         <!--[(ngModel)]="value"-->
         <!--[options]="editorOptions"-->
         <!--&gt;</quill-editor>-->
+        <input type="hidden" [formControlName]="data.key" [(ngModel)]="value">
         <span class="input_span">{{data.label}}</span>
       </div>
     </div>
   `,
   styleUrls: ['./lib-input.scss']
 })
-export class LibInputEditorComponent implements OnInit {
+export class LibInputEditorComponent implements OnInit, AfterViewInit {
   @Input() form: FormGroup;
   @Input() data: FormText;
   @Input() value: any;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
+  @ViewChild('editor') editorRef: ElementRef;
 
-  editorOptions: Object;
+  editor: any;
 
   constructor() {
   }
 
   ngOnInit() {
-    this.editorOptions = {
-      placeholder: this.data.placeholder || '',
-      modules: {
-        toolbar: ToolbarOptions
-      }
+  }
+
+  ngAfterViewInit() {
+    this.editor = new WangEditor(this.editorRef.nativeElement);
+    // 关闭粘贴样式的过滤
+    this.editor.customConfig.pasteFilterStyle = false;
+    // 使用 base64 保存图片
+    this.editor.customConfig.uploadImgShowBase64 = true;
+    this.editor.customConfig.onchange = (html) => {
+      this.value = html;
+      this.valueChange.emit(html);
     };
+    this.editor.create();
+    this.editor.txt.html(this.value);
   }
 }
-
-const ToolbarOptions = [
-  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-  ['blockquote', 'code-block'],
-
-  [{'header': 1}, {'header': 2}, {'header': 3}, {'header': 4}],               // custom button values
-  [{'list': 'ordered'}, {'list': 'bullet'}],
-  [{'script': 'sub'}, {'script': 'super'}],      // superscript/subscript
-  [{'indent': '-1'}, {'indent': '+1'}],          // outdent/indent
-  [{'direction': 'rtl'}],                         // text direction
-
-  [{'size': ['small', false, 'large', 'huge']}],  // custom dropdown
-  [{'header': [1, 2, 3, 4, 5, 6, false]}],
-
-  [{'color': []}, {'background': []}],          // dropdown with defaults from theme
-  [{'font': []}],
-  [{'align': []}],
-
-  ['clean']                                         // remove formatting button
-];
-

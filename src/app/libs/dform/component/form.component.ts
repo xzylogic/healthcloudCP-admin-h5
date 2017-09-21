@@ -12,8 +12,10 @@ import { DFormControlService } from '../_service/form-control.service';
 export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() button: string;
   @Input() reset: boolean;
+  @Input() optionButton: string;
   @Input() formDatas: FormBase<any>[] = [];
   @Output() formValues = new EventEmitter();
+  @Output() optionChange = new EventEmitter();
 
   form: FormGroup;
 
@@ -39,5 +41,9 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 
   onSubmit() {
     this.formValues.emit(this.form.value);
+  }
+
+  optionClick() {
+    this.optionChange.emit(this.form.value);
   }
 }

@@ -1,0 +1,18 @@
+@import '../../../../libs/theme/theme';
+
+.input-container {
+  position: relative;
+  margin: 0 auto;
+  width: 80%;
+  padding: 15px;
+}
+
+.input-span {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.38);
+}
+
+.input-error {
+  font-size: 12px;
+  color: #f44336;
+}

@@ -1,6 +1,11 @@
 import { Inject, Injectable } from '@angular/core';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { ControlType, TableTitle } from '../../../../libs/dtable/dtable.entity';
+import { FormBase } from '../../../../libs/dform/_entity/form-base';
+import { FormText } from '../../../../libs/dform/_entity/form-text';
+import { FormDatetime } from '../../../../libs/dform/_entity/form-datetime';
+import { FormRadio } from '../../../../libs/dform/_entity/form-radio';
+import { FormFile } from '../../../../libs/dform/_entity/form-file';
 
 const PATH = {
   getBanners: '/api/imagetext/findImageTextByAdcode',
@@ -99,5 +104,71 @@ export class BannerService {
         }]
       }),
     ];
+  }
+
+  setArticleHomeForm(data?): FormBase<any>[] {
+    const forms: FormBase<any>[] = [];
+    forms.push(
+      new FormFile({
+        key: 'imgUrl',
+        label: '图片',
+        value: data && data.imgUrl || '',
+        required: true,
+        url: '',
+        errMsg: '请添加图片'
+      })
+    );
+    forms.push(
+      new FormText({
+        key: 'mainTitle',
+        label: '标题',
+        value: data && data.mainTitle || '',
+        required: true,
+        errMsg: '请填写广告标题'
+      })
+    );
+    forms.push(
+      new FormText({
+        key: 'hoplink',
+        label: '广告跳转地址',
+        value: data && data.hoplink || '',
+        required: true,
+        errMsg: '请填写广告跳转地址'
+      })
+    );
+    forms.push(
+      new FormDatetime({
+        key: 'range',
+        label: '显示时间段',
+        value: data && data.range || '',
+        required: true,
+        options: 'range'
+      })
+    );
+    forms.push(
+      new FormRadio({
+        key: 'delFlag',
+        label: '是否显示',
+        value: data && (data.delFlag == 0 ? data.delFlag : data.delFlag || ''),
+        required: true,
+        options: [{
+          id: '0',
+          name: '是'
+        }, {
+          id: '1',
+          name: '否'
+        }]
+      })
+    );
+    forms.push(
+      new FormText({
+        key: 'sequence',
+        label: '排序',
+        value: data && data.sequence || '',
+        required: true,
+        errMsg: '请填写排序'
+      })
+    );
+    return forms.sort((a, b) => a.order - b.order);
   }
 }

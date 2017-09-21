@@ -1,11 +1,14 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { FormText } from '../../_entity/form-text';
 
-declare var require;
-const Flatpickr = require('flatpickr');
-const ZH = require('flatpickr/dist/l10n/zh.js').zh;
+// declare var require;
+// const Flatpickr = require('flatpickr');
+// const ZH = require('flatpickr/dist/l10n/zh.js').zh;
+
+import * as laydate from 'layui-laydate/';
+import { FormDatetime } from '../../_entity/form-datetime';
 
 @Component({
   selector: 'app-input-datetime',
@@ -26,28 +29,51 @@ const ZH = require('flatpickr/dist/l10n/zh.js').zh;
 })
 export class LibInputDatetimeComponent implements OnInit, AfterViewInit {
   @Input() form: FormGroup;
-  @Input() data: FormText;
+  @Input() data: FormDatetime;
   @Input() value: any;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild('datetime') datetime: any;
+  @ViewChild('datetime') datetime: ElementRef;
 
-  constructor() {
+  constructor(
+    private cdr: ChangeDetectorRef
+  ) {
   }
 
   ngOnInit() {
   }
 
   ngAfterViewInit() {
-    const date = new Flatpickr(this.datetime.nativeElement, {
-      'locale': ZH,
-      'enableTime': true,
-      'time_24hr': true,
-      'defaultDate': this.value || ''
+
+    laydate.render({
+      elem: this.datetime.nativeElement,
+      type: 'datetime',
+      range: this.data.options == 'range',
+      value: this.value,
+      done: (value, date, endDate) => {
+        console.log(value);
+        console.log(date);
+        console.log(endDate);
+        console.log(this.datetime);
+        this.value = value;
+        this.cdr.detectChanges();
+        console.log(this.value);
+        this.valueChange.emit(this.value);
+      }
     });
+    // const date = new Flatpickr(this.datetime.nativeElement, {
+    //   'locale': ZH,
+    //   'enableTime': true,
+    //   'time_24hr': true,
+    //   'defaultDate': this.value || ''
+    // });
   }
 
-  change() {
+  change(value, date, endDate) {
+    console.log(value);
+    console.log(date);
+    console.log(endDate);
+    console.log(this.datetime);
     this.valueChange.emit(this.value);
   }
 }
