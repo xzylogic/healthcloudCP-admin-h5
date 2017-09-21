@@ -7,11 +7,11 @@
                     *ngFor="let data of loginLib" [data]="data"
     ></app-input-text>
     <button md-raised-button class="login__form__button" color="primary"
-            [disabled]="!loginForm.valid">登陆
+            [disabled]="!loginForm.valid">登录
     </button>
     <div class="login__footer">
-      <p>万达信息股份有限公司</p>
       <p>© {{date | date:'yyyy'}}</p>
+      <p>万达信息股份有限公司</p>
     </div>
   </form>
 </div>

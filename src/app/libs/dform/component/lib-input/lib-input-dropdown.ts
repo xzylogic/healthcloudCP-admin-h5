@@ -13,6 +13,7 @@ import { FormDropdown } from '../../_entity/form-dropdown';
                    [formControlName]="data.key"
                    [(ngModel)]="value"
                    (change)="change()"
+                   floatPlaceholder="always"
         >
           <md-option *ngFor="let opt of data.options" [value]="opt.id">
             {{opt.name}}

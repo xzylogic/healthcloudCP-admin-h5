@@ -7,7 +7,7 @@ import { FormText } from '../../_entity/form-text';
   selector: 'app-input-text',
   template: `
     <div [formGroup]="form">
-      <md-input-container *ngIf="!data.maxlength" style="width: 100%">
+      <md-input-container *ngIf="!data.maxlength" style="width: 100%" floatPlaceholder="always">
         <input mdInput [type]="data.type"
                [placeholder]="data.label"
                [formControlName]="data.key"
@@ -19,7 +19,7 @@ import { FormText } from '../../_entity/form-text';
         >
         <md-error>{{data.errMsg}}</md-error>
       </md-input-container>
-      <md-input-container *ngIf="data.maxlength" style="width: 100%">
+      <md-input-container *ngIf="data.maxlength" style="width: 100%" floatPlaceholder="always">
         <input mdInput [type]="data.type"
                [maxlength]="data.maxlength"
                [placeholder]="data.label"
