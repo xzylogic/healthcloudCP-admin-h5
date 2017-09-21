@@ -19,7 +19,7 @@ import { FormDatetime } from '../../_entity/form-datetime';
                [placeholder]="data.placeholder"
                [formControlName]="data.key"
                [(ngModel)]="value"
-               (change)="change()" #datetime
+               #datetime
         >
         <span class="input_span">{{data.label}}</span>
       </div>
@@ -69,11 +69,7 @@ export class LibInputDatetimeComponent implements OnInit, AfterViewInit {
     // });
   }
 
-  change(value, date, endDate) {
-    console.log(value);
-    console.log(date);
-    console.log(endDate);
-    console.log(this.datetime);
-    this.valueChange.emit(this.value);
-  }
+  // change() {
+  //   this.valueChange.emit(this.value);
+  // }
 }
