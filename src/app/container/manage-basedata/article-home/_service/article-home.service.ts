@@ -148,10 +148,10 @@ export class ArticleHomeService {
         value: data && (data.isRecommend == 0 ? data.isRecommend : data.isRecommend || ''),
         required: true,
         options: [{
-          id: '1',
+          id: 1,
           name: '是'
         }, {
-          id: '0',
+          id: 0,
           name: '否'
         }]
       })
