@@ -31,20 +31,22 @@
               </md-radio-group>
             </div>
             <div class="input-content" *ngIf="data.checked==0">
-              <md-radio-group *ngIf="status=='2'" [(ngModel)]="reasonRadio">
-                <md-radio-button value="户籍不属于我中心管辖地段">户籍不属于我中心管辖地段</md-radio-button>
-                <md-radio-button value="资料提供不全">资料提供不全</md-radio-button>
-                <md-radio-button value="0">其他，请填写</md-radio-button>
-              </md-radio-group>
-              <md-form-field *ngIf="reasonRadio=='0'" style="width:280px">
-            <textarea mdInput rows="5" placeholder="不通过原因" [(ngModel)]="reason" name="reason"
-                      style="resize: none"></textarea>
+              <div>
+                <md-radio-group *ngIf="status=='2'" [(ngModel)]="reasonRadio" name="option">
+                  <md-radio-button value="户籍不属于我中心管辖地段">户籍不属于我中心管辖地段</md-radio-button>
+                  <md-radio-button value="资料提供不全">资料提供不全</md-radio-button>
+                  <md-radio-button value="0">其他，请填写</md-radio-button>
+                </md-radio-group>
+              </div>
+              <md-form-field *ngIf="reasonRadio=='0'" style="width:280px;padding: 15px 0">
+                <textarea mdInput rows="5" placeholder="不通过原因" [(ngModel)]="reason" name="reason"
+                          style="resize: none"></textarea>
               </md-form-field>
             </div>
             <div class="input-content" *ngIf="data.checked==2">
               <md-form-field style="width:280px">
-            <textarea mdInput rows="5" placeholder="不通过原因" [(ngModel)]="reason" name="reason"
-                      style="resize: none" disabled></textarea>
+                <textarea mdInput rows="5" placeholder="不通过原因" [(ngModel)]="reason" name="reason"
+                          style="resize: none" disabled></textarea>
               </md-form-field>
             </div>
             <div class="input-content" *ngIf="data.checked==0">

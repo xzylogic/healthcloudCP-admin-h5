@@ -15,7 +15,6 @@ export class ArticleComponent implements OnInit {
   articleTable: TableOption;
   title = '';
   queryTime = '';
-  endTime = '';
   classifyId = '';
   classifyList: any;
 
@@ -39,7 +38,6 @@ export class ArticleComponent implements OnInit {
   reset() {
     this.title = '';
     this.queryTime = '';
-    this.endTime = '';
     this.classifyId = '';
     this.getArticles(0);
   }

@@ -58,7 +58,7 @@ export class ArticleClassifyComponent implements OnInit {
       HintDialog(`你确定要${data.value.statusName}资讯分类：${data.value.categoryName}？`, this.dialog)
         .afterClosed().subscribe(res => {
         if (res && res.key === 'confirm') {
-          this.getValues(data.value);
+          this.delClassify(data.value);
         }
       });
     }
@@ -68,13 +68,8 @@ export class ArticleClassifyComponent implements OnInit {
     this.router.navigate(['/article-classify/edit']);
   }
 
-  getValues(data) {
-    this.classifyService.saveClassify({
-      id: data.id,
-      rank: data.rank,
-      categoryName: data.categoryName,
-      isVisable: data.isVisable == 0 ? 1 : 0
-    })
+  delClassify(data) {
+    this.classifyService.delClassify(data.id, data.isVisable == 0 ? 1 : 0)
       .subscribe(res => {
         if (res.code === 0) {
           HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {

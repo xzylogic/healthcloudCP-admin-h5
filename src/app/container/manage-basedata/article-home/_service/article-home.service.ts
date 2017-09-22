@@ -99,7 +99,6 @@ export class ArticleHomeService {
       new TableTitle({
         key: '',
         name: '操作',
-        align: 'left',
         controlType: ControlType.buttons,
         option: [{
           key: 'edit',

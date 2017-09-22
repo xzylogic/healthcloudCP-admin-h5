@@ -111,6 +111,7 @@ export class AppointmentService {
         name: '操作',
         key: '',
         controlType: ControlType.buttons,
+        minwidth: 65,
         option: [{
           key: 'edit',
           name: ''

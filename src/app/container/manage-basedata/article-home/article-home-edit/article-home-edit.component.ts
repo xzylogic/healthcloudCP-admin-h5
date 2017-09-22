@@ -59,7 +59,6 @@ export class ArticleHomeEditComponent implements OnInit {
         if (res.code === 0 && res.data && res.data[0]) {
           res.data[0].range = moment(res.data[0].startTime || new Date()).format('YYYY-MM-DD HH:mm:ss') +
             ' - ' + moment(res.data[0].endTime || new Date()).format('YYYY-MM-DD HH:mm:ss');
-          console.log(res.data[0]);
           this.config = this.homeService.setArticleHomeForm(res.data[0]);
           this.form = this.fcs.toFormGroup(this.config);
           this.cdr.detectChanges();

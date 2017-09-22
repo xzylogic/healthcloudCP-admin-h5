@@ -21,10 +21,14 @@ export class BannerService {
   ) {
   }
 
-  getBanners(page, size, adcode, start, end) {
+  getBanners(page, size, delFlag, start, end) {
     const query: any = {};
-    if (adcode) {
-      query.adcode = adcode;
+    if (delFlag) {
+      query.delFlag = delFlag;
+    }
+    if (start && end) {
+      query.startTime = start;
+      query.endTime = end;
     }
     return this.http.post(`${this.app.api_url}${PATH.getBanners}`, {
       number: page + 1,
@@ -106,7 +110,7 @@ export class BannerService {
     ];
   }
 
-  setArticleHomeForm(data?): FormBase<any>[] {
+  setBannerForm(data?): FormBase<any>[] {
     const forms: FormBase<any>[] = [];
     forms.push(
       new FormFile({
@@ -152,10 +156,10 @@ export class BannerService {
         value: data && (data.delFlag == 0 ? data.delFlag : data.delFlag || ''),
         required: true,
         options: [{
-          id: '0',
+          id: 0,
           name: '是'
         }, {
-          id: '1',
+          id: 1,
           name: '否'
         }]
       })

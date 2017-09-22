@@ -1,5 +1,29 @@
 <app-container [config]="containerConfig">
   <div class="content">
-    feedback
+    <form style="padding: 0 16px">
+      <md-input-container floatPlaceholder="auto" style="margin-right: 1em">
+        <input mdInput placeholder="联系电话" name="tel" [(ngModel)]="tel">
+      </md-input-container>
+      <app-search style="margin-right: 1em" [type]="'1'" [label]="'请选择提交时间'" [(value)]="queryTime"></app-search>
+      <button md-icon-button color="primary" type="button" (click)="getFeedbacks(0)">
+        <md-icon>search</md-icon>
+      </button>
+      <button md-icon-button color="primary" type="button" (click)="reset()">
+        <md-icon>autorenew</md-icon>
+      </button>
+    </form>
+    <div *ngIf="!feedbackTable.lists&&feedbackTable.loading">Loading...</div>
+    <div *ngIf="!feedbackTable.lists&&!feedbackTable.loading&&!!feedbackTable.errorMessage" class="center">
+      {{feedbackTable.errorMessage}}
+    </div>
+    <div *ngIf="feedbackTable.lists">
+      <div class="content__table">
+        <app-lib-table
+          [table]="feedbackTable"
+          (handleEmmit)="gotoHandle($event)"
+          (pageEmitter)="getFeedbacks($event)"
+        ></app-lib-table>
+      </div>
+    </div>
   </div>
 </app-container>

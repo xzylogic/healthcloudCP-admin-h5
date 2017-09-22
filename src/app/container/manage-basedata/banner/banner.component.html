@@ -3,6 +3,19 @@
     <button md-raised-button (click)="newData()" >添加banner</button>
   </div>
   <div class="content">
+    <form style="padding: 0 16px">
+      <md-select placeholder="是否显示" [(ngModel)]="status" name="status"
+                 style="width: 200px;margin-right: 1em">
+        <md-option *ngFor="let opt of statusList" [value]="opt.id">{{opt.name}}</md-option>
+      </md-select>
+      <app-search style="margin-right: 1em;width: 250px;display: inline-block" [type]="'1'" [label]="'请选择日期范围'" [(value)]="queryTime"></app-search>
+      <button md-icon-button color="primary" type="button" (click)="getBanners(0)">
+        <md-icon>search</md-icon>
+      </button>
+      <button md-icon-button color="primary" type="button" (click)="reset()">
+        <md-icon>autorenew</md-icon>
+      </button>
+    </form>
     <div *ngIf="!bannerTable.lists&&bannerTable.loading">Loading...</div>
     <div *ngIf="!bannerTable.lists&&!bannerTable.loading&&!!bannerTable.errorMessage" class="center">
       {{bannerTable.errorMessage}}

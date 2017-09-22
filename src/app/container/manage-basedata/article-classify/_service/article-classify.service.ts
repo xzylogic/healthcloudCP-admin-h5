@@ -10,6 +10,7 @@ const PATH = {
   getClassifies: '/api/article/categoryList',
   getClassify: '/api/article/categoryInfo',
   saveClassify: '/api/article/categorySave',
+  delClassify: '/api/article/deleteCategroy'
 };
 
 @Injectable()
@@ -30,6 +31,10 @@ export class ArticleClassifyService {
 
   saveClassify(data) {
     return this.http.post(`${this.app.api_url}${PATH.saveClassify}`, data);
+  }
+
+  delClassify(id, flag) {
+    return this.http.delete(`${this.app.api_url}${PATH.delClassify}?id=${id}&isVisable=${flag}`);
   }
 
   setArticleClassifyConfig() {

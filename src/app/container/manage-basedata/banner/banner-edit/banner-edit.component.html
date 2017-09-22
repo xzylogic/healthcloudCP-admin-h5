@@ -1,5 +1,28 @@
 <app-container [config]="containerConfig">
   <div class="content">
-    banner edit
+
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="getValues(form.value)">
+      <div class="input-container">
+        <app-input-file [form]="form" [data]="config[0]" [(value)]="config[0].value"></app-input-file>
+      </div>
+      <div class="input-container">
+        <app-input-text [form]="form" [data]="config[1]" [(value)]="config[1].value"></app-input-text>
+      </div>
+      <div class="input-container">
+        <app-input-text [form]="form" [data]="config[2]" [(value)]="config[2].value"></app-input-text>
+      </div>
+      <div class="input-container">
+        <app-input-datetime [form]="form" [data]="config[3]" [(value)]="config[3].value"></app-input-datetime>
+      </div>
+      <div class="input-container">
+        <app-input-radio [form]="form" [data]="config[4]" [(value)]="config[4].value"></app-input-radio>
+      </div>
+      <div class="input-container">
+        <app-input-text [form]="form" [data]="config[5]" [(value)]="config[5].value"></app-input-text>
+      </div>
+      <div class="input-container">
+        <button md-raised-button color="primary" [disabled]="!form.valid">保存</button>
+      </div>
+    </form>
   </div>
 </app-container>

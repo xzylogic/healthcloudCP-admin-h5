@@ -4,6 +4,7 @@ import { TableOption } from '../../../libs/dtable/dtable.entity';
 import { ERRMSG } from '../../_store/static';
 import { MdDialog } from '@angular/material';
 import { Router } from '@angular/router';
+import { HintDialog } from '../../../libs/dmodal/dialog.component';
 
 @Component({
   selector: 'app-article-home',
@@ -61,7 +62,6 @@ export class ArticleHomeComponent implements OnInit {
         if (res.data && res.data.length === 0) {
           this.homeArticleTable.errorMessage = ERRMSG.nullMsg;
         } else if (res.data && res.totalPages) {
-          console.log(res.data);
           this.homeArticleTable.totalPage = res.totalPages;
           this.formatData(res.data);
           this.homeArticleTable.lists = res.data;
@@ -76,10 +76,35 @@ export class ArticleHomeComponent implements OnInit {
   }
 
   gotoHandle(data) {
-    console.log(data);
     if (data.key === 'edit') {
       this.router.navigate(['/article-home/edit'], {queryParams: {id: data.value.id}});
     }
+    if (data.key === 'detail') {
+      HintDialog(`你确定要${data.value.detail}${data.value.title}？`, this.dialog)
+        .afterClosed().subscribe(res => {
+        if (res && res.key === 'confirm') {
+          this.getValues(data.value);
+        }
+      });
+    }
+  }
+
+  getValues(data) {
+    const formData: any = Object.assign(data);
+    formData.isVisable = formData.isVisable == 0 ? 1 : 0;
+    this.homeService.saveHomeArticle(formData)
+      .subscribe(res => {
+        if (res.code === 0) {
+          HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {
+            this.reset();
+          });
+        } else {
+          HintDialog(res.msg || ERRMSG.saveError, this.dialog);
+        }
+      }, err => {
+        console.log(err);
+        HintDialog(ERRMSG.saveError, this.dialog);
+      });
   }
 
   newData() {
@@ -91,11 +116,9 @@ export class ArticleHomeComponent implements OnInit {
       list.forEach(obj => {
         if (obj.status == 1) {
           obj.statusName = '未开始';
-          obj.detail = '下线';
         }
         if (obj.status == 2) {
           obj.statusName = '进行中';
-          obj.detail = '下线';
         }
         if (obj.status == 3) {
           obj.statusName = '已结束';
@@ -104,6 +127,7 @@ export class ArticleHomeComponent implements OnInit {
           obj.statusName = '已下线';
         }
         obj.recommend = obj.isRecommend == 1 ? '推荐' : '不推荐';
+        obj.detail = obj.isVisable == 0 ? '下线' : '上线';
       });
     }
   }

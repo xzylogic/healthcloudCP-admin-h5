@@ -1,4 +1,4 @@
-export enum ControlType { text, image, button, date, buttons, index }
+export enum ControlType { text, image, button, date, buttons, index, maxtext }
 
 export class TableTitle {
   name: string; // 表头标题

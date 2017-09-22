@@ -1,0 +1,16 @@
+<app-container [config]="containerConfig">
+  <div class="content">
+    <div *ngIf="errMsg&&!data" style="padding: 30px;text-align: center">{{errMsg}}</div>
+    <ul *ngIf="data">
+      <li style="padding-bottom: 15px">联系电话：{{data?.telephone}}</li>
+      <li style="padding-bottom: 15px">电子邮件：{{data?.email}}</li>
+      <li style="padding-bottom: 15px">提交时间：{{data?.createTime | date:'yyyy-MM-dd HH:mm'}}</li>
+      <li style="padding-bottom: 15px">建议：{{data?.adviceContent}}</li>
+      <li style="padding-bottom: 15px">
+        <p style="padding: 15px 0">
+          <button md-raised-button color="primary" [routerLink]="['/feedback']">返回</button>
+        </p>
+      </li>
+    </ul>
+  </div>
+</app-container>
