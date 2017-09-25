@@ -74,7 +74,9 @@ export class AccountService {
   }
 
   getRole() {
-    return this.http.post(`${this.app.api_url}${PATH.getRole}`, {});
+    return this.http.post(`${this.app.api_url}${PATH.getRole}`, {
+      delFlag: 0
+    });
   }
 
   getCommunity() {

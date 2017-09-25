@@ -86,7 +86,7 @@ export class OrganizationComponent implements OnInit {
     this.unActive(this.menuList, parentId);
     this.form = null;
     this.title = '添加中心';
-    console.log(parentId, parentName);
+    // console.log(parentId, parentName);
     this.form = this.organizationService.setCenterForm(1, null, parentName, parentId);
     this.formTwo = this.organizationService.setSiteForm(2, null, parentName, parentId);
     this.formThree = this.organizationService.setDepartmentForm(3, null, parentName, parentId);
@@ -98,12 +98,12 @@ export class OrganizationComponent implements OnInit {
     this.unActive(this.menuList, 0);
     this.form = null;
     this.title = '编辑中心';
-    console.log(menu);
+    // console.log(menu);
     this.organizationService.getCenter(menu.menuId)
       .subscribe(res => {
         if (res.data && res.code === 0) {
           res.data.parentId = menu.parentId;
-          console.log(res.data);
+          // console.log(res.data);
           this.form = this.organizationService.setCenterForm(1, res.data);
           this.cdr.detectChanges();
         }
@@ -115,7 +115,7 @@ export class OrganizationComponent implements OnInit {
     this.unActive(this.menuList, parentId);
     this.form = null;
     this.title = '添加站点';
-    console.log(parentId, parentName);
+    // console.log(parentId, parentName);
     this.form = this.organizationService.setSiteForm(2, null, parentName, parentId);
     this.formTwo = this.organizationService.setDepartmentForm(3, null, parentName, parentId);
     this.cdr.detectChanges();
@@ -126,12 +126,12 @@ export class OrganizationComponent implements OnInit {
     this.unActive(this.menuList, 0);
     this.form = null;
     this.title = '编辑站点';
-    console.log(menu);
+    // console.log(menu);
     this.organizationService.getSite(menu.menuId)
       .subscribe(res => {
         if (res.data && res.code === 0) {
           res.data.parentId = menu.parentId;
-          console.log(res.data);
+          // console.log(res.data);
           this.form = this.organizationService.setSiteForm(2, res.data);
           this.cdr.detectChanges();
         }
@@ -143,7 +143,7 @@ export class OrganizationComponent implements OnInit {
     this.unActive(this.menuList, parentId);
     this.form = null;
     this.title = '添加部门';
-    console.log(parentId, parentName);
+    // console.log(parentId, parentName);
     this.form = this.organizationService.setDepartmentForm(3, null, parentName, parentId);
     this.cdr.detectChanges();
   }
@@ -153,12 +153,12 @@ export class OrganizationComponent implements OnInit {
     this.unActive(this.menuList, 0);
     this.form = null;
     this.title = '编辑部门';
-    console.log(menu);
+    // console.log(menu);
     this.organizationService.getDepartment(menu.menuId)
       .subscribe(res => {
         if (res.data && res.code === 0) {
           res.data.parentId = menu.parentId;
-          console.log(res.data);
+          // console.log(res.data);
           this.form = this.organizationService.setDepartmentForm(3, res.data);
           this.cdr.detectChanges();
         }
@@ -166,7 +166,7 @@ export class OrganizationComponent implements OnInit {
   }
 
   getValues(value) {
-    console.log(JSON.stringify(value));
+    // console.log(JSON.stringify(value));
     if (value.status == 1) {
       delete value.status;
       delete value.picture;
