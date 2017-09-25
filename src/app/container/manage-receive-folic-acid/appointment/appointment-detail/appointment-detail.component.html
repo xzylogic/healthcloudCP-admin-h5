@@ -51,7 +51,7 @@
             </div>
             <div class="input-content" *ngIf="data.checked==0">
               <button md-raised-button color="primary" type="button" (click)="saveStatus()"
-                      [disabled]="!(status==1||(status==2&&reason))">保存
+                      [disabled]="!(status==1||(status==2&&(reasonRadio&&reasonRadio!='0'||reason)))">保存
               </button>
             </div>
           </form>
