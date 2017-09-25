@@ -77,7 +77,7 @@ export class ArticleHomeService {
         name: '文章标题'
       }),
       new TableTitle({
-        key: 'title',
+        key: 'articleId',
         name: '文章ID'
       }),
       new TableTitle({

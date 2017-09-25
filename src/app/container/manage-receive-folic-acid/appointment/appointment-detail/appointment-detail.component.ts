@@ -14,6 +14,7 @@ export class AppointmentDetailComponent implements OnInit {
   containerConfig: ContainerConfig;
   id: string;
   data: any;
+  survey: any;
   status: string;
   reason = '';
   reasonRadio = '';
@@ -31,6 +32,7 @@ export class AppointmentDetailComponent implements OnInit {
       if (route.id) {
         this.id = route.id;
         this.getDetail(route.id);
+        this.getSurvey(route.id);
       }
     });
   }
@@ -42,6 +44,15 @@ export class AppointmentDetailComponent implements OnInit {
           this.data = res.data;
           this.status = res.data.checked;
           this.reason = res.data.noCheckReason || '';
+        }
+      });
+  }
+
+  getSurvey(id) {
+    this.appointmentService.getSurvey(id)
+      .subscribe(res => {
+        if (res.code === 0 && res.data) {
+          this.survey = res.data;
         }
       });
   }

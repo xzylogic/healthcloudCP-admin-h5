@@ -6,7 +6,8 @@ const PATH = {
   getData: '/admin/folic/list',
   getCommunityAll: '/api/getAllCommunityByUserId',
   getDetail: '/admin/folic/details',
-  saveDetail: '/admin/folic/check'
+  saveDetail: '/admin/folic/check',
+  getSurvey: '/admin/folic/surveyResult'
 };
 
 @Injectable()
@@ -52,6 +53,10 @@ export class AppointmentService {
 
   saveDetail(id, status, reason) {
     return this.http.get(`${this.app.api_url}${PATH.saveDetail}?reservationId=${id}&checked=${status}&noCheckResult=${reason}`);
+  }
+
+  getSurvey(id) {
+    return this.http.get(`${this.app.api_url}${PATH.getSurvey}?reservationId=${id}`);
   }
 
   setAppointmentConfig() {
