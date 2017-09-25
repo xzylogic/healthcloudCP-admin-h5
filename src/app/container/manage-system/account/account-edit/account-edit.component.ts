@@ -185,17 +185,21 @@ export class AccountEditComponent implements OnInit {
   }
 
   resetPwd() {
-    // console.log(this.id);
-    this.accountService.resetPwd(this.id)
-      .subscribe(res => {
-        if (res.code === 0) {
-          HintDialog('初始化密码成功！', this.dialog);
-        } else {
-          HintDialog(res.msg || '初始化密码失败！', this.dialog);
+    HintDialog('确定要初始化密码？初始化后密码为：123456。', this.dialog).afterClosed()
+      .subscribe(result => {
+        if (result && result.key === 'confirm') {
+          this.accountService.resetPwd(this.id)
+            .subscribe(res => {
+              if (res.code === 0) {
+                HintDialog('初始化密码成功！', this.dialog);
+              } else {
+                HintDialog(res.msg || '初始化密码失败！', this.dialog);
+              }
+            }, err => {
+              console.log(err);
+              HintDialog(ERRMSG.saveError, this.dialog);
+            });
         }
-      }, err => {
-        console.log(err);
-        HintDialog(ERRMSG.saveError, this.dialog);
       });
   }
 
