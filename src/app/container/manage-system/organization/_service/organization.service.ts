@@ -134,7 +134,8 @@ export class OrganizationService {
         label: '中心简拼',
         value: data && data.nameForShort || '',
         required: true,
-        errMsg: '请填写中心简拼',
+        errMsg: '请填写中心简拼（1～6位小写英文字母）',
+        pattern: '^[a-z]{1,6}$',
         order: 2
       })
     );
@@ -253,7 +254,8 @@ export class OrganizationService {
         label: '站点简拼',
         value: data && data.nameForShort || '',
         required: true,
-        errMsg: '请填写站点简拼',
+        errMsg: '请填写站点简拼（1～6位小写英文字母）',
+        pattern: '^[a-z]{1,6}$',
         order: 2
       })
     );
