@@ -149,8 +149,9 @@ export class AccountService {
         key: 'loginname',
         label: '后台账号',
         value: data && data.loginname || '',
+        pattern: '^[a-z0-9]+$',
         required: true,
-        errMsg: '请填写用户后台账号'
+        errMsg: '请填写用户后台账号（小写英文字母或数字组成）'
       })
     );
     forms.push(
@@ -159,7 +160,8 @@ export class AccountService {
         label: '手机号码',
         value: data && data.telephone || '',
         required: true,
-        errMsg: '请填写用户手机号码'
+        pattern: '1[0-9]{10}',
+        errMsg: '请填写正确的11位手机号码'
       })
     );
     forms.push(

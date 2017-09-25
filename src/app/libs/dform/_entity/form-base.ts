@@ -27,6 +27,7 @@ export class FormBase<T> {
   controlType?: FormType; // Form类型
   errMsg?: string; // 错误提示
   order?: number; // 排序
+  pattern?: string;
 
   constructor(options: FormBase<T>) {
     this.value = options.value;
@@ -41,5 +42,6 @@ export class FormBase<T> {
     this.controlType = options.controlType || FormType.text;
     this.errMsg = options.errMsg || '';
     this.order = options.order || 1;
+    this.pattern = options.pattern || null;
   }
 }
