@@ -22,7 +22,7 @@ export class ArticleClassifyService {
   }
 
   getClassifies() {
-    return this.http.get(`${this.app.api_url}${PATH.getClassifies}`);
+    return this.http.get(`${this.app.api_url}${PATH.getClassifies}?timestamp=${new Date().valueOf()}`);
   }
 
   getClassify(id) {

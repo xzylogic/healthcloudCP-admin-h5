@@ -30,7 +30,7 @@ export class BannerService {
       query.startTime = start;
       query.endTime = end;
     }
-    return this.http.post(`${this.app.api_url}${PATH.getBanners}`, {
+    return this.http.post(`${this.app.api_url}${PATH.getBanners}?timestamp=${new Date().valueOf()}`, {
       number: page + 1,
       size: size,
       parameter: query
