@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -p 4204",
+    "start": "ng serve -p 4204 -e local -H 0.0.0.0",
     "copy": "cp -rf WEB-INF healthcloud-cp-admin",
     "build-dev": "ng build -prod -e dev -bh /healthcloud-cp-admin/ && npm run copy",
     "build-test": "ng build -prod -e test -bh /healthcloud-cp-admin/ && npm run copy",

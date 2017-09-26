@@ -1,4 +1,7 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output,
+  ViewChild
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { FormText } from '../../_entity/form-text';
@@ -36,6 +39,7 @@ export class LibInputDatetimeComponent implements OnInit, AfterViewInit {
   @ViewChild('datetime') datetime: ElementRef;
 
   constructor(
+    @Inject('app') private app,
     private cdr: ChangeDetectorRef
   ) {
   }
@@ -44,7 +48,7 @@ export class LibInputDatetimeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    laydate.path = '/assets/';
+    laydate.path = `${this.app.base}assets/`;
     laydate.render({
       elem: this.datetime.nativeElement,
       type: 'datetime',

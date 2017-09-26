@@ -7,3 +7,4 @@ export const app = {
   api_url: 'http://10.1.64.194/changping-internal',
   base: '/healthcloud-cp-admin/'
 };
+
