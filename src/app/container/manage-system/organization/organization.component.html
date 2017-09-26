@@ -37,7 +37,7 @@
                     remove
                   </md-icon>
                   <md-icon class="tree__icon block" *ngIf="menu.type!=3&&!menu.children">block</md-icon>
-                  <div *ngIf="menu.type==1">
+                  <div *ngIf="menu.type==1" class="tr_center">
                     <md-icon class="tree__icon type center">lens</md-icon>
                     <p class="tree__span" [class.active]="menu.active" (click)="newSite(menu.menuId, menu.menuName)">
                       {{menu.menuName}}
@@ -46,7 +46,7 @@
                       <md-icon aria-label="edit">mode_edit</md-icon>
                     </button>
                   </div>
-                  <div *ngIf="menu.type==2">
+                  <div *ngIf="menu.type==2" class="tr_center">
                     <md-icon class="tree__icon type site">lens</md-icon>
                     <p class="tree__span" [class.active]="menu.active"
                        (click)="newDepartment(menu.menuId, menu.menuName)">
@@ -56,7 +56,7 @@
                       <md-icon aria-label="edit">mode_edit</md-icon>
                     </button>
                   </div>
-                  <div *ngIf="menu.type==3">
+                  <div *ngIf="menu.type==3" class="tr_center">
                     <md-icon class="tree__icon type department">lens</md-icon>
                     <p class="tree__span last">
                       {{menu.menuName}}
@@ -79,7 +79,7 @@
                         remove
                       </md-icon>
                       <md-icon class="tree__icon block" *ngIf="subMenu.type!=3&&!subMenu.children">block</md-icon>
-                      <div *ngIf="subMenu.type==2">
+                      <div *ngIf="subMenu.type==2" class="tr_site">
                         <md-icon class="tree__icon type site">lens</md-icon>
                         <p class="tree__span" [class.active]="subMenu.active"
                            (click)="newDepartment(subMenu.menuId, subMenu.menuName)">
@@ -89,7 +89,7 @@
                           <md-icon aria-label="edit">mode_edit</md-icon>
                         </button>
                       </div>
-                      <div *ngIf="subMenu.type==3">
+                      <div *ngIf="subMenu.type==3" class="tr_site">
                         <md-icon class="tree__icon type department">lens</md-icon>
                         <p class="tree__span last">
                           {{subMenu.menuName}}
@@ -102,7 +102,7 @@
                     <ul *ngIf="subMenu.children&&subMenu.open" class="tree__list">
                       <li *ngFor="let sSubMenu of subMenu.children">
                         <!--部门-->
-                        <div class="clear tree__p">
+                        <div class="clear tree__p tr_department">
                           <md-icon class="tree__icon type department">lens</md-icon>
                           <p class="tree__span last">{{sSubMenu.menuName}}</p>
                           <button md-icon-button color="primary" (click)="updateDepartment(sSubMenu)">
