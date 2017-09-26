@@ -23,8 +23,7 @@
         "styles.scss",
         "../node_modules/flatpickr/dist/flatpickr.css",
         "../node_modules/angular-calendar/dist/css/angular-calendar.css",
-        "../node_modules/wangeditor/release/wangEditor.css",
-        "../node_modules/layui-laydate/dist/theme/default/laydate.css"
+        "../node_modules/wangeditor/release/wangEditor.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

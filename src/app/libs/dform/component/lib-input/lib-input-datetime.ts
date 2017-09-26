@@ -44,7 +44,7 @@ export class LibInputDatetimeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-
+    laydate.path = '/assets/';
     laydate.render({
       elem: this.datetime.nativeElement,
       type: 'datetime',
