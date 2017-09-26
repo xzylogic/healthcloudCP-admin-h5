@@ -59,7 +59,7 @@ export class ArticleClassifyService {
     return [
       new TableTitle({
         key: 'id',
-        name: '排序'
+        name: 'ID'
       }),
       new TableTitle({
         key: 'categoryName',

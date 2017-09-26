@@ -67,8 +67,7 @@ export class BannerService {
     return [
       new TableTitle({
         key: 'id',
-        name: '排序',
-        controlType: ControlType.index
+        name: 'ID',
       }),
       new TableTitle({
         key: 'mainTitle',
