@@ -69,8 +69,8 @@ export class ArticleHomeService {
   setArticleHomeTable() {
     return [
       new TableTitle({
-        key: 'id',
-        name: 'ID'
+        key: 'rank',
+        name: '排序'
       }),
       new TableTitle({
         key: 'title',

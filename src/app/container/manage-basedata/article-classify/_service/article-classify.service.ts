@@ -58,8 +58,8 @@ export class ArticleClassifyService {
   setArticleClassifyTable() {
     return [
       new TableTitle({
-        key: 'id',
-        name: 'ID'
+        key: 'rank',
+        name: '排序'
       }),
       new TableTitle({
         key: 'categoryName',

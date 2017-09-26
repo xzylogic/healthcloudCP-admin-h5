@@ -66,8 +66,8 @@ export class BannerService {
   setBannerTable() {
     return [
       new TableTitle({
-        key: 'id',
-        name: 'ID',
+        key: 'sequence',
+        name: '排序',
       }),
       new TableTitle({
         key: 'mainTitle',
