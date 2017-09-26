@@ -16,6 +16,7 @@ export class AppointmentDetailComponent implements OnInit {
   data: any;
   status: string;
   reason = '';
+  reasonRadio = '';
 
   constructor(
     @Inject('appointment') private appointmentService,
@@ -40,7 +41,7 @@ export class AppointmentDetailComponent implements OnInit {
         if (res.code === 0 && res.data) {
           this.data = res.data;
           this.status = res.data.status;
-          this.reason = res.data.cancellationReason;
+          this.reason = res.data.reason;
         }
       });
   }
@@ -51,19 +52,21 @@ export class AppointmentDetailComponent implements OnInit {
     if (this.status == '2') {
       msg += '正常接种？';
       this.reason = '';
+      this.reasonRadio = '';
     }
     if (this.status == '4') {
       msg += '接种取消？';
-      reason = `取消原因：${this.reason}`;
+      reason = `取消原因：${this.reasonRadio == '0' ? this.reason : this.reasonRadio}`;
     }
     if (this.status == '5') {
       msg += '接种爽约？';
       this.reason = '';
+      this.reasonRadio = '';
     }
     MessageDialog(msg, reason, this.dialog).afterClosed()
       .subscribe(result => {
         if (result && result.key === 'confirm') {
-          this.save(this.status, this.reason);
+          this.save(this.status, this.reasonRadio == '0' ? this.reason : this.reasonRadio);
         }
       });
   }

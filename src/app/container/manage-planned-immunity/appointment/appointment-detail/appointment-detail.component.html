@@ -36,15 +36,29 @@
             <md-radio-button value="5">接种爽约</md-radio-button>
           </md-radio-group>
         </div>
-        <div class="input-content">
-          <md-form-field *ngIf="status==4" style="width:280px">
-            <textarea mdInput rows="5" placeholder="取消原因" [(ngModel)]="reason" name="reason"
-                      style="resize: none" [disabled]="data.status!=1"></textarea>
+        <div class="input-content" *ngIf="data.status==1">
+          <div>
+            <md-radio-group *ngIf="status=='4'" [(ngModel)]="reasonRadio" name="option">
+              <md-radio-button value="身体不适">身体不适</md-radio-button>
+              <md-radio-button value="门诊时间错误">门诊时间错误</md-radio-button>
+              <md-radio-button value="未及时现场办">未及时现场办</md-radio-button>
+              <md-radio-button value="0">其他，请填写</md-radio-button>
+            </md-radio-group>
+          </div>
+          <md-form-field *ngIf="reasonRadio=='0'" style="width:280px;padding: 15px 0">
+                <textarea mdInput rows="5" placeholder="取消原因" [(ngModel)]="reason" name="reason"
+                          style="resize: none"></textarea>
+          </md-form-field>
+        </div>
+        <div class="input-content" *ngIf="data.status==4">
+          <md-form-field style="width:280px">
+                <textarea mdInput rows="5" placeholder="取消原因" [(ngModel)]="reason" name="reason"
+                          style="resize: none" disabled></textarea>
           </md-form-field>
         </div>
         <div class="input-content" *ngIf="data.status==1">
           <button md-raised-button color="primary" type="button" (click)="saveStatus()"
-                  [disabled]="!(status==2||status==5||(status==4&&reason))">保存
+                  [disabled]="!(status==2||status==5||(status==4&&(reasonRadio&&reasonRadio!='0'||reason)))">保存
           </button>
         </div>
       </form>
