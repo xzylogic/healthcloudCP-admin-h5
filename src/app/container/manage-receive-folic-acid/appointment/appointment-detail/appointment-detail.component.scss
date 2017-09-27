@@ -68,3 +68,35 @@
 .survey-answer.active {
   color: $color-primary;
 }
+
+.cycle_unchecked {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid $color-text-first;
+  border-radius: 12px;
+  position: relative;
+  top: 4px;
+}
+
+.cycle_checked {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid $color-primary;
+  border-radius: 12px;
+  position: relative;
+  top: 4px;
+}
+
+.cycle_checked_child {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border: 5px solid $color-primary;
+  border-radius: 5px;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+}

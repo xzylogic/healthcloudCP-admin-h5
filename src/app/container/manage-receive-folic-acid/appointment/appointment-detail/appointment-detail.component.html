@@ -58,29 +58,38 @@
         </div>
       </md-tab>
       <md-tab label="问卷调查">
-        <div *ngIf="survey" class="survey-container">
-          <h3 class="survey-title">北京市增补叶酸预防神经管缺陷项目知识调查问卷</h3>
-          <p class="survey-p">本调查不涉及个人隐私，主要目的是了解您对叶酸相关知识的知晓情况，为出生缺陷防治项目提供干预效果评价的证据性依据。</p>
-          <p class="survey-p">请认真填写每个问题，谢谢您的配合！</p>
-          <div class="survey-info">
-            <p><span style="padding-right: 50px">姓名：{{survey.name}}</span> 年龄：{{survey.age}}</p>
-            <p>现家庭住址：{{survey.presentAddr}} </p>
-            <p>叶酸领取地：{{survey.hospitalName}} </p>
+        <div #surveydiv>
+          <div *ngIf="survey" class="survey-container">
+            <h3 class="survey-title">北京市增补叶酸预防神经管缺陷项目知识调查问卷</h3>
+            <p class="survey-p">本调查不涉及个人隐私，主要目的是了解您对叶酸相关知识的知晓情况，为出生缺陷防治项目提供干预效果评价的证据性依据。</p>
+            <p class="survey-p">请认真填写每个问题，谢谢您的配合！</p>
+            <div class="survey-info">
+              <p><span style="padding-right: 50px">姓名：{{survey.name}}</span> 年龄：{{survey.age}}</p>
+              <p>现家庭住址：{{survey.presentAddr}} </p>
+              <p>叶酸领取地：{{survey.hospitalName}} </p>
+            </div>
+            <ul class="survey-list">
+              <li *ngFor="let obj of survey.surveyDtoList">
+                <p class="survey-question">{{obj.question}}</p>
+                <ul>
+                  <li *ngFor="let opt of obj.survey_option">
+                    <p class="survey-answer" [class.active]="opt.id==obj.answer">
+                      <!--<md-icon *ngIf="opt.id!=obj.answer">radio_button_unchecked</md-icon>-->
+                      <!--<md-icon *ngIf="opt.id==obj.answer">radio_button_checked</md-icon>-->
+                      <span *ngIf="opt.id!=obj.answer" class="cycle_unchecked"></span>
+                      <span *ngIf="opt.id==obj.answer" class="cycle_checked">
+                        <i class="cycle_checked_child"></i>
+                      </span>
+                      <span>{{opt.options}}</span>
+                    </p>
+                  </li>
+                </ul>
+              </li>
+            </ul>
           </div>
-          <ul class="survey-list">
-            <li *ngFor="let obj of survey.surveyDtoList">
-              <p class="survey-question">{{obj.question}}</p>
-              <ul>
-                <li *ngFor="let opt of obj.survey_option">
-                  <p class="survey-answer" [class.active]="opt.id==obj.answer">
-                    <md-icon *ngIf="opt.id!=obj.answer">radio_button_unchecked</md-icon>
-                    <md-icon *ngIf="opt.id==obj.answer">radio_button_checked</md-icon>
-                    <span>{{opt.options}}</span>
-                  </p>
-                </li>
-              </ul>
-            </li>
-          </ul>
+        </div>
+        <div style="padding: 0 15px 30px" *ngIf="survey">
+          <button md-raised-button color="primary" (click)="printSurvey(surveydiv)">打印</button>
         </div>
       </md-tab>
     </md-tab-group>

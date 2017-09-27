@@ -91,4 +91,14 @@ export class AppointmentDetailComponent implements OnInit {
         HintDialog(ERRMSG.netErrMsg, this.dialog);
       });
   }
+
+  printSurvey(survey) {
+    const my_window = window.open('打印窗口', '_blank');
+    my_window.document.write('<html><head>');
+    my_window.document.write(window.document.getElementsByTagName('head')[0].innerHTML);
+    my_window.document.write('</head><body>');
+    my_window.document.write(survey.innerHTML);
+    my_window.document.write('</body></html>');
+    my_window.print();
+  }
 }
