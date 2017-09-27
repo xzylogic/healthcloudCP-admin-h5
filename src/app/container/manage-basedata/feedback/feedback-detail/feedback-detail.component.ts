@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { ActivatedRoute } from '@angular/router';
 import { ERRMSG } from '../../../_store/static';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-feedback-detail',
@@ -32,6 +33,7 @@ export class FeedbackDetailComponent implements OnInit {
     this.feedbackService.getFeedback(id)
       .subscribe(res => {
         if (res.code === 0 && res.data) {
+          res.data.time = res.data.createTime ? moment(res.data.createTime).format('YYYY-MM-DD HH:mm') : '';
           this.data = res.data;
         } else {
           this.errMsg = res.msg || '啊哦！你要找的信息不存在～';

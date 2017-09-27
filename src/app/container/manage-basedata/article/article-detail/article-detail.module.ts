@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { MdDialogModule, MdListModule } from '@angular/material';
 
 import { ArticleDetailComponent } from './article-detail.component';
+import { PipeModule } from '../../../../libs/_pipe/pipe.module';
 
 @NgModule({
   imports: [
     CommonModule,
     MdDialogModule,
-    MdListModule
+    MdListModule,
+    PipeModule
   ],
   declarations: [
     ArticleDetailComponent

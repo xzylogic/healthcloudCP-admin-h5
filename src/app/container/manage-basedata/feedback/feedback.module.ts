@@ -6,6 +6,7 @@ import { LibModule } from '../../../libs/common/lib.module';
 import { DTableModule } from '../../../libs/dtable/dtable.module';
 import { LibInputModule } from '../../../libs/dform/lib-input.module';
 import { FeedbackDetailComponent } from './feedback-detail/feedback-detail.component';
+import { PipeModule } from '../../../libs/_pipe/pipe.module';
 
 const routes: Routes = [{
   path: '',
@@ -20,6 +21,7 @@ const routes: Routes = [{
     LibModule,
     DTableModule,
     LibInputModule,
+    PipeModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

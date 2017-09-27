@@ -28,7 +28,7 @@
         <div *ngSwitchCase="controlType.date" [style.minWidth.px]="title.minwidth" [style.maxWidth.px]="title.maxwidth"
              [ngStyle]="{'text-align': title.align}"
              class="table__content">
-          <span>{{list[title.key] | date:"yyyy/MM/dd HH:mm:ss"}}</span>
+          <span>{{list[title.key] | datex:"YYYY-MM-DD HH:mm:ss"}}</span>
         </div>
         <div *ngSwitchCase="controlType.image" class="table__image"
              [ngStyle]="{'text-align': title.align}">
