@@ -3,19 +3,30 @@ import { AppointmentComponent } from './appointment.component';
 import { RouterModule, Routes } from '@angular/router';
 import { LibModule } from '../../../libs/common/lib.module';
 import { AppointmentService } from './_service/appointment.service';
+import { DTableModule } from '../../../libs/dtable/dtable.module';
+import { DFormModule } from '../../../libs/dform/dform.module';
+import { MdGridListModule } from '@angular/material';
+import { AppointmentDetailComponent } from './appointment-detail/appointment-detail.component';
 
 const routes: Routes = [{
   path: '',
   component: AppointmentComponent
+}, {
+  path: 'detail/:id',
+  component: AppointmentDetailComponent
 }];
 
 @NgModule({
   imports: [
     LibModule,
+    DTableModule,
+    DFormModule,
+    MdGridListModule,
     RouterModule.forChild(routes)
   ],
   declarations: [
-    AppointmentComponent
+    AppointmentComponent,
+    AppointmentDetailComponent
   ],
   providers: [
     AppointmentService,

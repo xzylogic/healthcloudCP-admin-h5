@@ -1,17 +1,54 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { ControlType, TableTitle } from '../../../../libs/dtable/dtable.entity';
 
 const PATH = {
   getData: '/api/motherAndChildFile/checkMotherAndChildFileList',
   getCommunityAll: '/api/getAllCommunityByUserId',
-  getDetail: '/api/motherAndChildFile/save',
-  saveDetail: '/api/planImmunization/updateInfo'
+  getDetail: '/api/motherAndChildFile/check',
+  saveDetail: '/api/motherAndChildFile/updateInfo'
 };
 
 @Injectable()
 export class AppointmentService {
-  constructor() {
+  constructor(
+    @Inject('app') private app,
+    @Inject('auth') private auth,
+    @Inject('http') private http
+  ) {
+  }
+
+  getData(page, status?, num?, name?, date?, oId?) {
+    let query = `?flag=${page + 1}`;
+    if (status) {
+      query += `&status=${status}`;
+    }
+    if (name) {
+      query += `&name=${name}`;
+    }
+    if (num) {
+      query += `&motherAndChildFileNum=${num}`;
+    }
+    if (date) {
+      query += `&reservationDate=${date}`;
+    }
+    if (oId) {
+      query += `&organizationId=${oId}`;
+    }
+    return this.http.get(`${this.app.api_url}${PATH.getData}${query}`);
+  }
+
+  getCommunityAll() {
+    return this.http.get(`${this.app.api_url}${PATH.getCommunityAll}?userId=${this.auth.getAdminId()}`);
+  }
+
+  getDetail(id) {
+    return this.http.get(`${this.app.api_url}${PATH.getDetail}?id=${id}`);
+  }
+
+  saveDetail(id, status, reason) {
+    return this.http.post(
+      `${this.app.api_url}${PATH.saveDetail}?id=${id}&status=${status}&reason=${reason}&addUserId=${this.auth.getAdminId()}`, {});
   }
 
   setAppointmentConfig() {

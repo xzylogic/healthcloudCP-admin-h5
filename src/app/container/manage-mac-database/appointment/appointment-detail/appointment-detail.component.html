@@ -1,0 +1,161 @@
+<app-container [config]="containerConfig">
+  <div class="content">
+    <div class="detail-container">
+      <h3 class="detail-title">一、孕妇基本信息</h3>
+      <md-grid-list cols="6" gutterSize="15px" rowHeight="30px">
+        <md-grid-tile colspan="2"><p class="detail-content">姓名：{{data?.motherInfo?.name}}</p></md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">性别：{{data?.motherInfo?.sex}}</p></md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">出生日期：{{data?.motherInfo?.birthDate}}</p></md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">证件类型：{{data?.motherInfo?.cardNo}}</p></md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">证件号码：{{data?.motherInfo?.documentNumber}}</p></md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">国籍：{{data?.motherInfo?.nationality}}</p></md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">民族：{{data?.motherInfo?.nation}}</p></md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">文化程度：{{data?.motherInfo?.degreeEducation}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">职业：{{data?.motherInfo?.occupation}}</p></md-grid-tile>
+        <md-grid-tile colspan="6"><p class="detail-content">联系电话：{{data?.motherInfo?.contactNumber}}</p></md-grid-tile>
+        <md-grid-tile colspan="6"><p class="detail-content">户口所在地：{{data?.motherInfo?.permanentAddress}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="6"><p class="detail-content">现住地址：{{data?.motherInfo?.presentAddress}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">产检地点：{{data?.motherInfo?.inspectionPlace}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">
+          本市农业户籍：{{data?.motherInfo?.cityAgriculturalHouseholdRegister}}</p></md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">
+          农村孕产妇住院分娩补助：{{data?.motherInfo?.ruralPregnantWomenChildbirthAllowance}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="6"><p class="detail-content">产后休养地：{{data?.motherInfo?.postpartumCultivation}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="6"><p class="detail-content">产前检查补助：{{data?.motherInfo?.prenatalCareAllowance}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="6"><p class="detail-content">在京居住时间是否大于6个月：{{data?.motherInfo?.greaterThanSixMonths}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="6"><p class="detail-content">在京居住时间是否大于1年：{{data?.motherInfo?.greaterThanOneYears}}</p>
+        </md-grid-tile>
+      </md-grid-list>
+    </div>
+    <div class="detail-container">
+      <h3 class="detail-title">二、丈夫基本信息</h3>
+      <md-grid-list cols="6" gutterSize="15px" rowHeight="30px">
+        <md-grid-tile colspan="2"><p class="detail-content">姓名：{{data?.fatherInfo?.name}}</p></md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">性别：{{data?.fatherInfo?.sex}}</p></md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">出生日期：{{data?.fatherInfo?.birthDate}}</p></md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">证件类型：{{data?.fatherInfo?.cardNo}}</p></md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">证件号码：{{data?.fatherInfo?.documentNumber}}</p></md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">国籍：{{data?.fatherInfo?.nationality}}</p></md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">民族：{{data?.fatherInfo?.nation}}</p></md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">文化程度：{{data?.fatherInfo?.degreeEducation}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">职业：{{data?.fatherInfo?.occupation}}</p></md-grid-tile>
+        <md-grid-tile colspan="6"><p class="detail-content">联系电话：{{data?.fatherInfo?.contactNumber}}</p></md-grid-tile>
+        <md-grid-tile colspan="6"><p class="detail-content">户口所在地：{{data?.fatherInfo?.permanentAddress}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="6"><p class="detail-content">现住地址：{{data?.motherInfo?.presentAddress}}</p>
+        </md-grid-tile>
+      </md-grid-list>
+    </div>
+    <div class="detail-container">
+      <h3 class="detail-title">三、孕妇病史信息</h3>
+      <md-grid-list cols="6" gutterSize="15px" rowHeight="30px">
+        <md-grid-tile colspan="2"><p class="detail-content">身高：{{data?.gravidaMedicalHistory?.height}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">
+          孕前体重：{{data?.gravidaMedicalHistory?.preconceptionWeight}}</p></md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">BMI指数：{{data?.gravidaMedicalHistory?.bmiIndex}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">BMI分类：{{data?.gravidaMedicalHistory?.bmiType}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">血压：{{data?.gravidaMedicalHistory?.bloodPressure}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">
+          初检孕周：{{data?.gravidaMedicalHistory?.firstTrimesterPregnancyCycle}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">
+          末次月经：{{data?.gravidaMedicalHistory?.lastMenstrualPeriod}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">初诊日期：{{data?.gravidaMedicalHistory?.firstDiagnosisDate}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">
+          核实后预产期：{{data?.gravidaMedicalHistory?.verifiedDateConfinement}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">
+          预产期：{{data?.gravidaMedicalHistory?.expectedDateChildbirth}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">
+          B超核实：{{data?.gravidaMedicalHistory?.bmodeUltrasonographyVerify}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">孕次：{{data?.gravidaMedicalHistory?.pregnanciesNumber}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">
+          核实后末次月经：{{data?.fatherInfo?.verifiedDateLastMenstrualPeriod}}</p></md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">
+          建册孕周：{{data?.gravidaMedicalHistory?.booksGestationalWeeks}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">产次：{{data?.gravidaMedicalHistory?.productionTimes}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">阴道分娩：{{data?.gravidaMedicalHistory?.vaginalDelivery}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">刨宫产：{{data?.gravidaMedicalHistory?.planingPalace}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">
+          自然流产次数：{{data?.gravidaMedicalHistory?.spontaneousAbortionFrequency}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">
+          药物及人工产次数：{{data?.gravidaMedicalHistory?.drugsInducedAbortionNumber}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">
+          本次妊娠生情况：{{data?.gravidaMedicalHistory?.pregnancyCondition}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">叶酸服用情况：{{data?.gravidaMedicalHistory?.folicAcidIntake}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">是否规律：{{data?.gravidaMedicalHistory?.whetherRegular}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">
+          服药开始时间：{{data?.gravidaMedicalHistory?.takingMedicineStartTime}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">家族史：{{data?.gravidaMedicalHistory?.familyHistory}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">个人史：{{data?.gravidaMedicalHistory?.personalHistory}}</p>
+        </md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">既往史：{{data?.gravidaMedicalHistory?.pastHistory}}</p>
+        </md-grid-tile>
+      </md-grid-list>
+    </div>
+    <div class="detail-container">
+      <h3 class="detail-title">审核结果</h3>
+      <form class="form-content" *ngIf="data">
+        <div class="input-content">
+          <md-radio-group [(ngModel)]="status" name="status" [disabled]="data?.checked!=0">
+            <md-radio-button value="1">通过</md-radio-button>
+            <md-radio-button value="2">不通过</md-radio-button>
+          </md-radio-group>
+        </div>
+        <div class="input-content" *ngIf="data.checked==0">
+          <div>
+            <md-radio-group *ngIf="status=='2'" [(ngModel)]="reasonRadio" name="option">
+              <md-radio-button value="户籍不属于我中心管辖地段">户籍不属于我中心管辖地段</md-radio-button>
+              <md-radio-button value="资料提供不全">资料提供不全</md-radio-button>
+              <md-radio-button value="0">其他，请填写</md-radio-button>
+            </md-radio-group>
+          </div>
+          <md-form-field *ngIf="reasonRadio=='0'" style="width:280px;padding: 15px 0">
+                <textarea mdInput rows="5" placeholder="不通过原因" [(ngModel)]="reason" name="reason"
+                          style="resize: none"></textarea>
+          </md-form-field>
+        </div>
+        <div class="input-content" *ngIf="data.checked==2">
+          <md-form-field style="width:280px">
+                <textarea mdInput rows="5" placeholder="不通过原因" [(ngModel)]="reason" name="reason"
+                          style="resize: none" disabled></textarea>
+          </md-form-field>
+        </div>
+        <div class="input-content" *ngIf="data.checked==0">
+          <button md-raised-button color="primary" type="button" (click)="saveStatus()"
+                  [disabled]="!(status==1||(status==2&&(reasonRadio&&reasonRadio!='0'||reason)))">保存
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</app-container>
