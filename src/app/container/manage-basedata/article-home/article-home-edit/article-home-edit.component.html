@@ -1,13 +1,12 @@
 <app-container [config]="containerConfig">
   <div class="content">
-
     <form *ngIf="form" [formGroup]="form" (ngSubmit)="getValues(form.value)">
       <div class="input-container">
         <app-input-text [form]="form" [data]="config[0]" [(value)]="config[0].value"
                         (valueChange)="getValidName($event)"></app-input-text>
         <div class="ui middle aligned divided selection list" style="background-color: #fff">
           <div class="item" *ngFor="let result of thirdList;let i=index">
-            <div class="content" *ngIf="i<20">
+            <div class="content" *ngIf="i<10">
               <div class="header" (click)="selected(result)" style="cursor: pointer">{{result.title}}</div>
             </div>
           </div>

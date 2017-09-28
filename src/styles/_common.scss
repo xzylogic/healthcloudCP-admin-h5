@@ -11,6 +11,29 @@
   clear: both;
 }
 
+.w-e-button-container > button.gray.left {
+  display: none !important;
+}
+
+.article-content,
+.w-e-text-container {
+  ul, ol {
+    margin-left: 1.2em !important;
+  }
+
+  ul {
+    list-style: disc;
+  }
+
+  ol {
+    list-style: decimal;
+  }
+
+  li {
+    list-style: inherit !important;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
