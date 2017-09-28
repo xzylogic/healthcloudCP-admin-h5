@@ -24,7 +24,7 @@ export class ArticleService {
   }
 
   getClassifies() {
-    return this.http.get(`${this.app.api_url}${PATH.getClassifies}`);
+    return this.http.get(`${this.app.api_url}${PATH.getClassifies}?isVisable=0`);
   }
 
   getArticles(page, size, title, startTime, endTime, classifyId) {
