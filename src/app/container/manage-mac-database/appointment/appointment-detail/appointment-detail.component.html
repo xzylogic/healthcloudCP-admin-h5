@@ -2,11 +2,33 @@
   <div class="content">
     <div class="detail-container">
       <h3 class="detail-title">一、孕妇基本信息</h3>
-      <md-grid-list cols="6" gutterSize="15px" rowHeight="30px">
-        <md-grid-tile colspan="2"><p class="detail-content">姓名：{{data?.motherInfo?.name}}</p></md-grid-tile>
-        <md-grid-tile colspan="2"><p class="detail-content">性别：{{data?.motherInfo?.sex}}</p></md-grid-tile>
-        <md-grid-tile colspan="2"><p class="detail-content">出生日期：{{data?.motherInfo?.birthDate}}</p></md-grid-tile>
-        <md-grid-tile colspan="2"><p class="detail-content">证件类型：{{data?.motherInfo?.cardNo}}</p></md-grid-tile>
+      <!--<div class="grid-container">-->
+      <!--<div class="row">-->
+      <!--<div class="col-2">-->
+      <!--<p class="detail-content">姓名：{{data?.motherInfo?.name}}</p>-->
+      <!--</div>-->
+      <!--<div class="col-2">-->
+      <!--<p class="detail-content">性别：{{data?.motherInfo?.sex}}</p>-->
+      <!--</div>-->
+      <!--<div class="col-2">-->
+      <!--<p class="detail-content">出生日期：{{data?.motherInfo?.birthDate}}</p>-->
+      <!--</div>-->
+      <!--<div class="col-2">-->
+      <!--<p class="detail-content">证件类型：{{data?.motherInfo?.cardNo}}</p>-->
+      <!--</div>-->
+      <!--<div class="col-2">-->
+      <!--<p class="detail-content">证件号码：423565764329564936584367586437865784936578436578463785643875683745687346587{{data?.motherInfo?.documentNumber}}</p>-->
+      <!--</div>-->
+      <!--<div class="col-2">-->
+      <!--<p class="detail-content">国籍：{{data?.motherInfo?.nationality}}</p>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <md-grid-list  cols="6" gutterSize="15px"  rowHeight="30px">
+        <md-grid-tile colspan="2"></md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">姓名：{{data?.motherInfo?.name}}</md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">性别：{{data?.motherInfo?.sex}}</md-grid-tile>
+        <md-grid-tile colspan="2"><p class="detail-content">出生日期：{{data?.motherInfo?.birthDate}}</md-grid-tile>
         <md-grid-tile colspan="2"><p class="detail-content">证件号码：{{data?.motherInfo?.documentNumber}}</p></md-grid-tile>
         <md-grid-tile colspan="2"><p class="detail-content">国籍：{{data?.motherInfo?.nationality}}</p></md-grid-tile>
         <md-grid-tile colspan="2"><p class="detail-content">民族：{{data?.motherInfo?.nation}}</p></md-grid-tile>
