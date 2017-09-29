@@ -10,7 +10,8 @@ const PATH = {
   getArticleTitle: '/api/article/queryArticleByTitleName',
   getHomeArticles: '/home/article/list',
   getHomeArticle: '/home/article/detail',
-  saveHomeArticle: '/home/article/saveOrupdate'
+  saveHomeArticle: '/home/article/saveOrupdate',
+  changeStatus: '/home/article/updateStatusById'
 };
 
 @Injectable()
@@ -42,6 +43,10 @@ export class ArticleHomeService {
 
   getHomeArticle(id) {
     return this.http.get(`${this.app.api_url}${PATH.getHomeArticle}?id=${id}`);
+  }
+
+  changeStatus(id, status) {
+    return this.http.get(`${this.app.api_url}${PATH.changeStatus}?id=${id}&isVisable=${status}`);
   }
 
   saveHomeArticle(data) {
@@ -94,6 +99,10 @@ export class ArticleHomeService {
       }),
       new TableTitle({
         key: 'statusName',
+        name: '时间状态',
+      }),
+      new TableTitle({
+        key: 'visibleName',
         name: '状态',
       }),
       new TableTitle({

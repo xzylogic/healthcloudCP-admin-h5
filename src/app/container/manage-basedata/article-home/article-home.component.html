@@ -7,7 +7,7 @@
       <md-input-container floatPlaceholder="auto" style="margin-right: 1em">
         <input mdInput placeholder="文章标题" name="title" [(ngModel)]="title">
       </md-input-container>
-      <md-select placeholder="状态" [(ngModel)]="status" name="center"
+      <md-select placeholder="时间状态" [(ngModel)]="status" name="center"
                  style="width: 200px;margin-right: 1em">
         <md-option *ngFor="let opt of statusList" [value]="opt.id">{{opt.name}}</md-option>
       </md-select>

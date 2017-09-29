@@ -27,9 +27,6 @@ export class ArticleHomeComponent implements OnInit {
   }, {
     id: '3',
     name: '已结束'
-  }, {
-    id: '4',
-    name: '已下线'
   }];
 
   constructor(
@@ -83,16 +80,14 @@ export class ArticleHomeComponent implements OnInit {
       HintDialog(`你确定要${data.value.detail}${data.value.title}？`, this.dialog)
         .afterClosed().subscribe(res => {
         if (res && res.key === 'confirm') {
-          this.getValues(data.value);
+          this.changeStatus(data.value);
         }
       });
     }
   }
 
-  getValues(data) {
-    const formData: any = Object.assign(data);
-    formData.isVisable = formData.isVisable == 0 ? 1 : 0;
-    this.homeService.saveHomeArticle(formData)
+  changeStatus(data) {
+    this.homeService.changeStatus(data.id, data.isVisable == 0 ? 1 : 0)
       .subscribe(res => {
         if (res.code === 0) {
           HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {
@@ -123,11 +118,9 @@ export class ArticleHomeComponent implements OnInit {
         if (obj.status == 3) {
           obj.statusName = '已结束';
         }
-        if (obj.status == 4) {
-          obj.statusName = '已下线';
-        }
         obj.recommend = obj.isRecommend == 1 ? '推荐' : '不推荐';
         obj.detail = obj.isVisable == 0 ? '下线' : '上线';
+        obj.visibleName = obj.isVisable == 1 ? '已下线' : '已上线';
       });
     }
   }
