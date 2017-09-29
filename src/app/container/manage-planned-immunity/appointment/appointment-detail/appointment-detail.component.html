@@ -1,31 +1,71 @@
 <app-container [config]="containerConfig">
   <div class="content">
-    <div class="detail-container">
+    <div class="detail-container clear">
       <h3 class="detail-title">预约信息</h3>
-      <md-grid-list cols="6" gutterSize="15px" rowHeight="30px">
-        <md-grid-tile colspan="2"><p class="detail-content">宝宝姓名：{{data?.childDto?.name}}</p></md-grid-tile>
-        <md-grid-tile colspan="2"><p class="detail-content">性别：{{data?.childDto?.sex}}</p></md-grid-tile>
-        <md-grid-tile colspan="2"><p class="detail-content">出生日期：{{data?.childDto?.birthDate}}</p></md-grid-tile>
-        <md-grid-tile colspan="2"><p class="detail-content">证件类型：{{data?.childDto?.cardNo}}</p></md-grid-tile>
-        <md-grid-tile colspan="4"><p class="detail-content">证件号码：{{data?.childDto?.documentNumber}}</p></md-grid-tile>
-        <md-grid-tile colspan="6"><p class="detail-content">户籍地址：{{data?.childDto?.permanentAddress}}</p></md-grid-tile>
-        <md-grid-tile colspan="6"><p class="detail-content">家长姓名：{{data?.motherName}}</p></md-grid-tile>
-        <md-grid-tile colspan="6"><p class="detail-content">手机号：{{data?.motherTelephone}}</p></md-grid-tile>
-        <md-grid-tile colspan="6"><p class="detail-content">预约医院：{{data?.hospitalName}}</p></md-grid-tile>
-        <md-grid-tile colspan="6"><p class="detail-content">预约时间：{{data?.reservationDate}}
-          {{data?.reservationTimePeriod}}</p></md-grid-tile>
-        <md-grid-tile colspan="6"><p class="detail-content">预约单号：{{data?.planImmunizationNum}}</p></md-grid-tile>
-        <md-grid-tile colspan="6"><p class="detail-content">订单状态：
-          <span *ngIf="data?.status==1">预约中</span>
-          <span *ngIf="data?.status==2">正常接种</span>
-          <span *ngIf="data?.status==3">用户取消</span>
-          <span *ngIf="data?.status==4">接种取消</span>
-          <span *ngIf="data?.status==5">接种爽约</span>
-        </p>
-        </md-grid-tile>
-      </md-grid-list>
+      <div class="grid-container">
+        <div class="row">
+          <div class="col-2">
+            <p class="detail-content">宝宝姓名：{{data?.childDto?.name}}</p>
+          </div>
+          <div class="col-2">
+            <p class="detail-content">性别：{{data?.childDto?.sex}}</p>
+          </div>
+          <div class="col-2">
+            <p class="detail-content">出生日期：{{data?.childDto?.birthDate}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2">
+            <p class="detail-content">证件类型：{{data?.childDto?.cardNo}}</p>
+          </div>
+          <div class="col-4">
+            <p class="detail-content">证件号码：{{data?.childDto?.documentNumber}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <p class="detail-content">户籍地址：{{data?.childDto?.permanentAddress}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <p class="detail-content">家长姓名：{{data?.motherName}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <p class="detail-content">手机号：{{data?.motherTelephone}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <p class="detail-content">预约医院：{{data?.hospitalName}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <p class="detail-content">预约时间：{{data?.reservationDate}} {{data?.reservationTimePeriod}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <p class="detail-content">预约单号：{{data?.planImmunizationNum}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <p class="detail-content">订单状态：
+              <span *ngIf="data?.status==1">预约中</span>
+              <span *ngIf="data?.status==2">正常接种</span>
+              <span *ngIf="data?.status==3">用户取消</span>
+              <span *ngIf="data?.status==4">接种取消</span>
+              <span *ngIf="data?.status==5">接种爽约</span>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="detail-container">
+    <div class="detail-container clear">
       <h3 class="detail-title">预约登记</h3>
       <form class="form-content" *ngIf="data">
         <div class="input-content">

@@ -2,26 +2,42 @@
   <div class="content">
     <md-tab-group dynamicHeight="true">
       <md-tab label="预约详情">
-        <div class="detail-container">
+        <div class="detail-container clear">
           <h3 class="detail-title">预约信息</h3>
-          <md-grid-list cols="6" gutterSize="15px" rowHeight="30px">
-            <md-grid-tile colspan="2"><p class="detail-content">姓名：{{data?.name}}</p></md-grid-tile>
-            <md-grid-tile colspan="2"><p class="detail-content">性别：{{data?.sex}}</p></md-grid-tile>
-            <md-grid-tile colspan="2"><p class="detail-content">出生日期：{{data?.birthStr}}</p></md-grid-tile>
-            <md-grid-tile colspan="2"><p class="detail-content">证件类型：{{data?.cardTypeNo}}</p></md-grid-tile>
-            <md-grid-tile colspan="2"><p class="detail-content">证件号码：{{data?.cardNo}}</p></md-grid-tile>
-            <md-grid-tile colspan="2"><p class="detail-content">国籍：{{data?.nationality}}</p></md-grid-tile>
-            <md-grid-tile colspan="2"><p class="detail-content">民族：{{data?.nation}}</p></md-grid-tile>
-            <md-grid-tile colspan="2"><p class="detail-content">文化程度：{{data?.culture}}</p></md-grid-tile>
-            <md-grid-tile colspan="2"><p class="detail-content">职业：{{data?.profession}}</p></md-grid-tile>
-            <md-grid-tile colspan="6"><p class="detail-content">联系电话：{{data?.tel}}</p></md-grid-tile>
-            <md-grid-tile colspan="6"><p class="detail-content">户籍地址：{{data?.householdAddr}}</p></md-grid-tile>
-            <md-grid-tile colspan="6"><p class="detail-content">现住地址：{{data?.presentAddr}}</p></md-grid-tile>
-            <md-grid-tile colspan="6"><p class="detail-content">领取地点：{{data?.hospitalName}}</p></md-grid-tile>
-            <md-grid-tile colspan="6"><p class="detail-content">领取时间：{{data?.reservationTimeStr}}</p></md-grid-tile>
-          </md-grid-list>
+          <div class="grid-container">
+            <div class="row">
+              <div class="col-2"><p class="detail-content">姓名：{{data?.name}}</p></div>
+              <div class="col-2"><p class="detail-content">性别：{{data?.sex}}</p></div>
+              <div class="col-2"><p class="detail-content">出生日期：{{data?.birthStr}}</p></div>
+            </div>
+            <div class="row">
+              <div class="col-2"><p class="detail-content">证件类型：{{data?.cardTypeNo}}</p></div>
+              <div class="col-2"><p class="detail-content">证件号码：{{data?.cardNo}}</p></div>
+              <div class="col-2"><p class="detail-content">国籍：{{data?.nationality}}</p></div>
+            </div>
+            <div class="row">
+              <div class="col-2"><p class="detail-content">民族：{{data?.nation}}</p></div>
+              <div class="col-2"><p class="detail-content">文化程度：{{data?.culture}}</p></div>
+              <div class="col-2"><p class="detail-content">职业：{{data?.profession}}</p></div>
+            </div>
+            <div class="row">
+              <div class="col-6"><p class="detail-content">联系电话：{{data?.tel}}</p></div>
+            </div>
+            <div class="row">
+              <div class="col-6"><p class="detail-content">户籍地址：{{data?.householdAddr}}</p></div>
+            </div>
+            <div class="row">
+              <div class="col-6"><p class="detail-content">现住地址：{{data?.presentAddr}}</p></div>
+            </div>
+            <div class="row">
+              <div class="col-6"><p class="detail-content">领取地点：{{data?.hospitalName}}</p></div>
+            </div>
+            <div class="row">
+              <div class="col-6"><p class="detail-content">领取时间：{{data?.reservationTimeStr}}</p></div>
+            </div>
+          </div>
         </div>
-        <div class="detail-container">
+        <div class="detail-container clear">
           <h3 class="detail-title">审核结果</h3>
           <form class="form-content" *ngIf="data">
             <div class="input-content">
@@ -74,8 +90,6 @@
                 <ul>
                   <li *ngFor="let opt of obj.survey_option">
                     <p class="survey-answer" [class.active]="opt.id==obj.answer">
-                      <!--<md-icon *ngIf="opt.id!=obj.answer">radio_button_unchecked</md-icon>-->
-                      <!--<md-icon *ngIf="opt.id==obj.answer">radio_button_checked</md-icon>-->
                       <span *ngIf="opt.id!=obj.answer" class="cycle_unchecked"></span>
                       <span *ngIf="opt.id==obj.answer" class="cycle_checked">
                         <i class="cycle_checked_child"></i>

@@ -69,7 +69,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   getData(page) {
-    console.log(this.status);
+    // console.log(this.status);
     this.appointmentTable.reset(page);
     this.appointmentService.getData(
       page, this.appointmentTable.size, this.name,
@@ -95,7 +95,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   gotoHandle(data) {
-    console.log(data);
+    // console.log(data);
     if (data.key === 'edit') {
       this.router.navigate(['/receive-folic-acid/appointment/detail', data.value.reservationId]);
     }
@@ -181,6 +181,6 @@ export class AppointmentComponent implements OnInit {
       site.splice(0, 1);
     }
     this.siteList = site;
-    console.log(this.siteList);
+    // console.log(this.siteList);
   }
 }

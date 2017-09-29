@@ -109,60 +109,60 @@
 
 @media (max-width: 1128px) {
   .tr_center > .tree__span {
-    max-width: 210px;
+    max-width: 200px;
   }
   .tr_site > .tree__span {
-    max-width: 180px;
+    max-width: 170px;
   }
   .tr_department > .tree__span {
-    max-width: 150px;
+    max-width: 140px;
   }
 }
 
 @media (min-width: 1128px) and (max-width: 1228px) {
   .tr_center > .tree__span {
-    max-width: 250px;
+    max-width: 240px;
   }
   .tr_site > .tree__span {
-    max-width: 220px;
+    max-width: 210px;
   }
   .tr_department > .tree__span {
-    max-width: 190px;
+    max-width: 180px;
   }
 }
 
 @media (min-width: 1228px) and (max-width: 1279px) {
   .tr_center > .tree__span {
-    max-width: 300px;
+    max-width: 290px;
   }
   .tr_site > .tree__span {
-    max-width: 270px;
+    max-width: 260px;
   }
   .tr_department > .tree__span {
-    max-width: 240px;
+    max-width: 230px;
   }
 }
 
 @media (min-width: 1279px) and (max-width: 1345px) {
   .tr_center > .tree__span {
-    max-width: 328px;
+    max-width: 308px;
   }
   .tr_site > .tree__span {
-    max-width: 298px;
+    max-width: 278px;
   }
   .tr_department > .tree__span {
-    max-width: 268px;
+    max-width: 248px;
   }
 }
 
 @media (min-width: 1345px) {
   .tr_center > .tree__span {
-    max-width: 360px;
-  }
-  .tr_site > .tree__span {
     max-width: 330px;
   }
-  .tr_department > .tree__span {
+  .tr_site > .tree__span {
     max-width: 300px;
+  }
+  .tr_department > .tree__span {
+    max-width: 270px;
   }
 }

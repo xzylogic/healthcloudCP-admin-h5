@@ -49,7 +49,7 @@ export class HttpService {
     } else {
       path += `?timestamp=${new Date().valueOf()}`;
     }
-    return path;
+    return encodeURI(path);
   }
 
   /**

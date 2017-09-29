@@ -69,7 +69,7 @@ function handleInitNavAction(state: IMainState, action: InitNavAction): IMainSta
   stateCopy.navigation.forEach(obj => {
     if (obj.children) {
       obj.children.forEach(subObj => {
-        if (subObj.href.split('/')[1] === action.payload.path) {
+        if (subObj.href.split('/')[1] === action.payload.path || subObj.href.split('/')[2] === action.payload.path) {
           obj.open = true;
         }
       });

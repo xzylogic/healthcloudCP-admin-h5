@@ -103,7 +103,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   gotoHandle(data) {
-    console.log(data);
+    // console.log(data);
     if (data.key === 'edit') {
       this.router.navigate(['/planned-immunity/appointment/detail', data.value.id]);
     }
@@ -196,6 +196,6 @@ export class AppointmentComponent implements OnInit {
       site.splice(0, 1);
     }
     this.siteList = site;
-    console.log(this.siteList);
+    // console.log(this.siteList);
   }
 }

@@ -47,21 +47,16 @@ export class AppointmentDetailComponent implements OnInit {
   }
 
   saveStatus() {
-    let msg = `是否设置${this.data && this.data.childDto && this.data.childDto.name || ''}`;
+    let msg = `是否`;
     let reason = '';
     if (this.status == '2') {
-      msg += '正常接种？';
+      msg += '通过审核？';
       this.reason = '';
       this.reasonRadio = '';
     }
-    if (this.status == '4') {
-      msg += '接种取消？';
-      reason = `取消原因：${this.reasonRadio == '0' ? this.reason : this.reasonRadio}`;
-    }
-    if (this.status == '5') {
-      msg += '接种爽约？';
-      this.reason = '';
-      this.reasonRadio = '';
+    if (this.status == '3') {
+      msg += '不通过审核？';
+      reason = `不通过原因：${this.reasonRadio == '0' ? this.reason : this.reasonRadio}`;
     }
     MessageDialog(msg, reason, this.dialog).afterClosed()
       .subscribe(result => {

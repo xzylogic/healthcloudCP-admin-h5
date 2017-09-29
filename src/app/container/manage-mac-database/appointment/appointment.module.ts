@@ -5,8 +5,8 @@ import { LibModule } from '../../../libs/common/lib.module';
 import { AppointmentService } from './_service/appointment.service';
 import { DTableModule } from '../../../libs/dtable/dtable.module';
 import { DFormModule } from '../../../libs/dform/dform.module';
-import { MdGridListModule } from '@angular/material';
 import { AppointmentDetailComponent } from './appointment-detail/appointment-detail.component';
+import { PipeModule } from '../../../libs/_pipe/pipe.module';
 
 const routes: Routes = [{
   path: '',
@@ -21,7 +21,7 @@ const routes: Routes = [{
     LibModule,
     DTableModule,
     DFormModule,
-    MdGridListModule,
+    PipeModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

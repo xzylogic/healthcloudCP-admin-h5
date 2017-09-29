@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { DatexPipe } from './datex.pipe';
+import { YesornoPipe } from './yesorno.pipe';
 
 @NgModule({
   declarations: [
-    DatexPipe
+    DatexPipe,
+    YesornoPipe
   ],
   exports: [
-    DatexPipe
+    DatexPipe,
+    YesornoPipe
   ]
 })
 export class PipeModule {
