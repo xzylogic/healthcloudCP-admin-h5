@@ -120,6 +120,7 @@ export class ArticleService {
         value: data && data.title || '',
         required: true,
         errMsg: '请填写文章标题',
+        maxlength: 20,
         order: 1
       })
     );
@@ -130,6 +131,7 @@ export class ArticleService {
         value: data && data.brief || '',
         required: true,
         errMsg: '请填写文章描述',
+        maxlength: 30,
         order: 2
       })
     );
@@ -202,7 +204,8 @@ export class ArticleService {
         label: '预设阅读量',
         value: data && data.fakePv || '',
         required: true,
-        errMsg: '请填写预设阅读量',
+        errMsg: '请填写正确的预设阅读量（非负整数）',
+        pattern: `^[0-9]*$`,
         order: 9
       })
     );

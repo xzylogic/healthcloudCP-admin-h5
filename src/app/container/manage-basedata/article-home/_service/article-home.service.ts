@@ -161,7 +161,8 @@ export class ArticleHomeService {
         label: '文章排序',
         value: data && data.rank || '',
         required: true,
-        errMsg: '请填写文章排序'
+        pattern: `^[0-9]*$`,
+        errMsg: '请填写正确的文章排序（非负整数）'
       })
     );
     return forms.sort((a, b) => a.order - b.order);

@@ -105,6 +105,7 @@ export class ArticleClassifyService {
       label: '分类名称',
       value: data && data.categoryName || '',
       required: true,
+      errMsg: '请填写分类名称',
       order: 1
     }));
 
@@ -128,6 +129,8 @@ export class ArticleClassifyService {
       label: '分类排序',
       value: data && data.rank || '',
       required: true,
+      pattern: `^[0-9]*$`,
+      errMsg: '请填写正确的分类排序（非负整数）',
       order: 3
     }));
 

@@ -169,7 +169,8 @@ export class BannerService {
         label: '排序',
         value: data && data.sequence || '',
         required: true,
-        errMsg: '请填写排序'
+        pattern: `^[0-9]*$`,
+        errMsg: '请填写正确的排序（非负整数）'
       })
     );
     return forms.sort((a, b) => a.order - b.order);
