@@ -1,71 +1,75 @@
 <app-container [config]="containerConfig">
   <div class="content">
-
-    <div class="table-container clear">
-      <table class="table" *ngIf="listAm&&scheduleAm&&listPm&&schedulePm">
-        <thead>
-        <tr>
-          <th>排班时间</th>
-          <th>是否上班</th>
-          <th>号源库存</th>
-          <th>排班操作</th>
-          <th>原因</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let obj of scheduleAm;let i = index">
-          <td>{{obj.reservationTime}}</td>
-          <td>
-            <span *ngIf="obj.workState">上班</span>
-            <span *ngIf="!obj.workState">不上班</span>
-          </td>
-          <td>
-            <input type="number" name="date" [(ngModel)]="obj.stock" class="time-input" [disabled]="flag"
-                   (change)="resetNumber(scheduleAm, i)">
-          </td>
-          <td *ngIf="i===0" rowspan="3">
-            <button md-raised-button *ngIf="listAm.workState" [disabled]="flag" (click)="setAmWorkState(false)">不上班
-            </button>
-            <button md-raised-button *ngIf="!listAm.workState" [disabled]="flag" (click)="setAmWorkState(true)">上班
-            </button>
-          </td>
-          <td *ngIf="i===0" rowspan="3">
-            <md-form-field float="never" style="width: 100%">
+    <form #form="ngForm" (submit)="saveDate()" *ngIf="listAm&&scheduleAm&&listPm&&schedulePm">
+      <div class="table-container clear">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>排班时间</th>
+            <th>是否上班</th>
+            <th>号源库存</th>
+            <th>排班操作</th>
+            <th>原因</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let obj of scheduleAm;let i = index">
+            <td>{{obj.reservationTime}}</td>
+            <td>
+              <span *ngIf="obj.workState">上班</span>
+              <span *ngIf="!obj.workState">不上班</span>
+            </td>
+            <td>
+              <input type="text" name="am{{i}}" [(ngModel)]="obj.stock" class="time-input" [disabled]="flag"
+                     pattern="^[0-9]*$" #am{{i}}="ngModel"
+                     [class.error]="form.controls['am' + i]&&form.controls['am' + i].invalid">
+            </td>
+            <td *ngIf="i===0" rowspan="3">
+              <button md-raised-button *ngIf="listAm.workState" [disabled]="flag" (click)="setAmWorkState(false)">不上班
+              </button>
+              <button md-raised-button *ngIf="!listAm.workState" [disabled]="flag" (click)="setAmWorkState(true)">上班
+              </button>
+            </td>
+            <td *ngIf="i===0" rowspan="3">
+              <md-form-field float="never" style="width: 100%">
               <textarea style="width: 100%;height: 150px" mdInput placeholder="" [(ngModel)]="listAm.notice"
-                        maxlength="50" [disabled]="flag"></textarea>
-              <md-hint align="end">{{listAm.notice?.length}} / 50</md-hint>
-            </md-form-field>
-          </td>
-        </tr>
-        <tr *ngFor="let obj of schedulePm;let i = index">
-          <td>{{obj.reservationTime}}</td>
-          <td>
-            <span *ngIf="obj.workState">上班</span>
-            <span *ngIf="!obj.workState">不上班</span>
-          </td>
-          <td>
-            <input type="number" name="date" [(ngModel)]="obj.stock" class="time-input" [disabled]="flag"
-                   (change)="resetNumber(schedulePm, i)">
-          </td>
-          <td *ngIf="i===0" rowspan="3">
-            <button md-raised-button *ngIf="listPm.workState" [disabled]="flag" (click)="setPmWorkState(false)">不上班
-            </button>
-            <button md-raised-button *ngIf="!listPm.workState" [disabled]="flag" (click)="setPmWorkState(true)">上班
-            </button>
-          </td>
-          <td *ngIf="i===0" rowspan="3">
-            <md-form-field float="never" style="width: 100%">
+                        name="noteam" maxlength="50" [disabled]="flag"></textarea>
+                <md-hint align="end">{{listAm.notice?.length}} / 50</md-hint>
+              </md-form-field>
+            </td>
+          </tr>
+          <tr *ngFor="let obj of schedulePm;let i = index">
+            <td>{{obj.reservationTime}}</td>
+            <td>
+              <span *ngIf="obj.workState">上班</span>
+              <span *ngIf="!obj.workState">不上班</span>
+            </td>
+            <td>
+              <input type="text" name="pm{{i}}" [(ngModel)]="obj.stock" class="time-input" [disabled]="flag"
+                     pattern="^[0-9]*$" #pm{{i}}="ngModel"
+                     [class.error]="form.controls['pm' + i]&&form.controls['pm' + i].invalid">
+            </td>
+            <td *ngIf="i===0" rowspan="3">
+              <button md-raised-button *ngIf="listPm.workState" [disabled]="flag" (click)="setPmWorkState(false)">不上班
+              </button>
+              <button md-raised-button *ngIf="!listPm.workState" [disabled]="flag" (click)="setPmWorkState(true)">上班
+              </button>
+            </td>
+            <td *ngIf="i===0" rowspan="3">
+              <md-form-field float="never" style="width: 100%">
               <textarea style="width: 100%;height: 150px" mdInput placeholder="" [(ngModel)]="listPm.notice"
-                        maxlength="50" [disabled]="flag"></textarea>
-              <md-hint align="end">{{listPm.notice?.length}} / 50</md-hint>
-            </md-form-field>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="button-content">
-      <button md-raised-button color="primary" (click)="saveDate()" *ngIf="!flag">保存</button>
-    </div>
+                        name="notepm" maxlength="50" [disabled]="flag"></textarea>
+                <md-hint align="end">{{listPm.notice?.length}} / 50</md-hint>
+              </md-form-field>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="errMsg" *ngIf="!form.valid">* 请填写正确的号源（非负整数）</p>
+      <div class="button-content">
+        <button md-raised-button color="primary" type="submit" *ngIf="!flag" [disabled]="!form.valid">保存</button>
+      </div>
+    </form>
   </div>
 </app-container>

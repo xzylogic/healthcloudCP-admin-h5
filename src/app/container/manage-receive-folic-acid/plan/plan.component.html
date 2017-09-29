@@ -43,76 +43,86 @@
         </div>
       </md-tab>
       <md-tab label="号源维护">
-        <div class="table-container clear">
-          <table class="table" *ngIf="timeList1&&timeList2&&timeList3&&timeList4&&timeList5&&timeList6">
-            <thead>
-            <tr>
-              <th>
-                <div style="min-width:100px"></div>
-              </th>
-              <th>周日</th>
-              <th>周一</th>
-              <th>周二</th>
-              <th>周三</th>
-              <th>周四</th>
-              <th>周五</th>
-              <th>周六</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>08:00 - 09:00</td>
-              <td *ngFor="let obj of timeList1;let i = index">
-                <input class="time-input" type="number" name="stock1" [(ngModel)]="obj.stock"
-                       [disabled]="!obj.workState" (change)="resetNumber(timeList1, i)">
-              </td>
-            </tr>
-            <tr>
-              <td>09:00 - 10:00</td>
-              <td *ngFor="let obj of timeList2;let i = index">
-                <input class="time-input" type="number" name="stock1" [(ngModel)]="obj.stock"
-                       [disabled]="!obj.workState" (change)="resetNumber(timeList2, i)">
-              </td>
-            </tr>
-            <tr>
-              <td>10:00 - 11:00</td>
-              <td *ngFor="let obj of timeList3;let i = index">
-                <input class="time-input" type="number" name="stock1" [(ngModel)]="obj.stock"
-                       [disabled]="!obj.workState" (change)="resetNumber(timeList3, i)">
-              </td>
-            </tr>
-            <tr>
-              <td>13:00 - 14:00</td>
-              <td *ngFor="let obj of timeList4;let i = index">
-                <input class="time-input" type="number" name="stock1" [(ngModel)]="obj.stock"
-                       [disabled]="!obj.workState" (change)="resetNumber(timeList4, i)">
-              </td>
-            </tr>
-            <tr>
-              <td>14:00 - 15:00</td>
-              <td *ngFor="let obj of timeList5;let i = index">
-                <input class="time-input" type="number" name="stock1" [(ngModel)]="obj.stock"
-                       [disabled]="!obj.workState" (change)="resetNumber(timeList5, i)">
-              </td>
-            </tr>
-            <tr>
-              <td>15:00 - 16:00</td>
-              <td *ngFor="let obj of timeList6;let i = index">
-                <input class="time-input" type="number" name="stock1" [(ngModel)]="obj.stock"
-                       [disabled]="!obj.workState" (change)="resetNumber(timeList6, i)">
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-        <p>温馨提示：请设置排班表，再维护号源。
-          <span *ngIf="timeList1&&timeList2&&timeList3&&timeList4&&timeList5&&timeList6">
+        <form #form="ngForm" (submit)="saveTimeList(form)"
+              *ngIf="timeList1&&timeList2&&timeList3&&timeList4&&timeList5&&timeList6">
+          <div class="table-container clear">
+            <table class="table">
+              <thead>
+              <tr>
+                <th>
+                  <div style="min-width:100px"></div>
+                </th>
+                <th>周日</th>
+                <th>周一</th>
+                <th>周二</th>
+                <th>周三</th>
+                <th>周四</th>
+                <th>周五</th>
+                <th>周六</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>08:00 - 09:00</td>
+                <td *ngFor="let obj of timeList1;let i = index">
+                  <input class="time-input" type="text" name="stock1{{i}}" [(ngModel)]="obj.stock"
+                         [disabled]="!obj.workState" pattern="^[0-9]*$" #stock1{{i}}="ngModel"
+                         [class.error]="form.controls['stock1' + i]&&form.controls['stock1' + i].invalid">
+                </td>
+              </tr>
+              <tr>
+                <td>09:00 - 10:00</td>
+                <td *ngFor="let obj of timeList2;let i = index">
+                  <input class="time-input" type="text" name="stock2{{i}}" [(ngModel)]="obj.stock"
+                         [disabled]="!obj.workState" pattern="[0-9]*" #stock2{{i}}="ngModel"
+                         [class.error]="form.controls['stock2' + i]&&form.controls['stock2' + i].invalid">
+                </td>
+              </tr>
+              <tr>
+                <td>10:00 - 11:00</td>
+                <td *ngFor="let obj of timeList3;let i = index">
+                  <input class="time-input" type="text" name="stock3{{i}}" [(ngModel)]="obj.stock"
+                         [disabled]="!obj.workState" pattern="[0-9]*" #stock3{{i}}="ngModel"
+                         [class.error]="form.controls['stock3' + i]&&form.controls['stock3' + i].invalid">
+                </td>
+              </tr>
+              <tr>
+                <td>13:00 - 14:00</td>
+                <td *ngFor="let obj of timeList4;let i = index">
+                  <input class="time-input" type="text" name="stock4{{i}}" [(ngModel)]="obj.stock"
+                         [disabled]="!obj.workState" pattern="[0-9]*" #stock4{{i}}="ngModel"
+                         [class.error]="form.controls['stock4' + i]&&form.controls['stock4' + i].invalid">
+                </td>
+              </tr>
+              <tr>
+                <td>14:00 - 15:00</td>
+                <td *ngFor="let obj of timeList5;let i = index">
+                  <input class="time-input" type="text" name="stock5{{i}}" [(ngModel)]="obj.stock"
+                         [disabled]="!obj.workState" pattern="[0-9]*" #stock5{{i}}="ngModel"
+                         [class.error]="form.controls['stock5' + i]&&form.controls['stock5' + i].invalid">
+                </td>
+              </tr>
+              <tr>
+                <td>15:00 - 16:00</td>
+                <td *ngFor="let obj of timeList6;let i = index">
+                  <input class="time-input" type="text" name="stock6{{i}}" [(ngModel)]="obj.stock"
+                         [disabled]="!obj.workState" pattern="[0-9]*" #stock6{{i}}="ngModel"
+                         [class.error]="form.controls['stock6' + i]&&form.controls['stock6' + i].invalid">
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="errMsg" *ngIf="!form.valid">* 请填写正确的号源（非负整数）</p>
+          <p>温馨提示：请设置排班表，再维护号源。
+            <span *ngIf="timeList1&&timeList2&&timeList3&&timeList4&&timeList5&&timeList6">
             点击单元格直接编辑数字，无排班日期的时间不用设置号源。
           </span>
-        </p>
-        <div class="button-content" *ngIf="timeList1&&timeList2&&timeList3&&timeList4&&timeList5&&timeList6">
-          <button md-raised-button color="primary" (click)="saveTimeList()">保存</button>
-        </div>
+          </p>
+          <div class="button-content" *ngIf="timeList1&&timeList2&&timeList3&&timeList4&&timeList5&&timeList6">
+            <button md-raised-button color="primary" [disabled]="!form.valid" type="submit">保存</button>
+          </div>
+        </form>
       </md-tab>
       <md-tab label="排班日历表">
         <div class="tab-content">

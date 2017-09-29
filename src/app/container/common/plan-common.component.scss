@@ -127,3 +127,12 @@
 .tab-content {
   padding: 15px 0;
 }
+
+.errMsg {
+  color: $color-danger;
+  padding-bottom: 15px;
+}
+
+input.error {
+  border: 1px solid $color-danger;
+}
