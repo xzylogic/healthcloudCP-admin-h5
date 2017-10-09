@@ -9,6 +9,8 @@ import { routes as mdRoutes } from './manage-mac-database';
 import { routes as pfcRoutes } from './manage-pe-for-children';
 import { routes as piRoutes } from './manage-planned-immunity';
 import { routes as rfaRoutes } from './manage-receive-folic-acid';
+import { routes as preRoutes } from './manage-pregnancy-interview';
+import { routes as riRoutes } from './manage-receive-interview';
 import { AuthGuardService } from './_service/auth-guard.service';
 
 @NgModule({
@@ -30,6 +32,8 @@ import { AuthGuardService } from './_service/auth-guard.service';
         ...pfcRoutes,
         ...piRoutes,
         ...rfaRoutes,
+        ...preRoutes,
+        ...riRoutes,
       ]
     }, {
       path: '**',
