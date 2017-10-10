@@ -154,6 +154,5 @@ export class AccountComponent implements OnInit {
       site.splice(0, 1);
     }
     this.siteList = site;
-    console.log(this.siteList);
   }
 }

@@ -55,13 +55,8 @@ export class LibInputDatetimeComponent implements OnInit, AfterViewInit {
       range: this.data.options == 'range',
       value: this.value,
       done: (value, date, endDate) => {
-        console.log(value);
-        console.log(date);
-        console.log(endDate);
-        console.log(this.datetime);
         this.value = value;
         this.cdr.detectChanges();
-        console.log(this.value);
         this.valueChange.emit(this.value);
       }
     });

@@ -54,7 +54,6 @@ export class RoleComponent implements OnInit {
   }
 
   gotoHandle(res) {
-    console.log(res);
     if (res.key === 'edit' && res.value) {
       this.router.navigate(['/role/edit'], {queryParams: {id: res.value.roleId}});
     }

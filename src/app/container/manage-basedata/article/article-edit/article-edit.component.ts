@@ -67,7 +67,6 @@ export class ArticleEditComponent implements OnInit {
   }
 
   getValues(data) {
-    console.log(data);
     this.articleService.saveArticle(data)
       .subscribe(res => {
         if (res.code === 0) {

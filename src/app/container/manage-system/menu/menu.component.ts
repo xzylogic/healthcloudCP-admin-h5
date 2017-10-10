@@ -82,7 +82,6 @@ export class MenuComponent implements OnInit {
     this.unActive(this.menuList, parentId);
     this.form = null;
     this.title = '新增菜单';
-    console.log(parentId, parentName);
     this.form = this.menuService.setMenuFrom({
       parent: {parentId: parentId, parentName: parentName}
     });
@@ -93,14 +92,12 @@ export class MenuComponent implements OnInit {
     this.unActive(this.menuList, 0);
     this.form = null;
     this.title = '编辑菜单';
-    console.log(menu);
     this.form = this.menuService.setMenuFrom({data: menu});
     this.cdr.detectChanges();
   }
 
   deleteMenu(menuId, menuName) {
     HintDialog(`您确定要删除菜单：${menuName}?`, this.dialog).afterClosed().subscribe(res => {
-      console.log(res);
       if (res && res.key === 'confirm') {
         this.deleteAction(menuId);
       }
@@ -125,7 +122,6 @@ export class MenuComponent implements OnInit {
   }
 
   getValues(value) {
-    console.log(value);
     this.menuService.updateMenu(value)
       .subscribe(res => {
         if (res.code === 0) {

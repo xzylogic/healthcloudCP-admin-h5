@@ -37,7 +37,6 @@ export class MessageComponent implements OnInit {
         if (res.data && res.data.content && res.data.content.length === 0 && res.code === 0) {
           this.messageTable.errorMessage = ERRMSG.nullMsg;
         } else if (res.data && res.data.content && res.code === 0) {
-          console.log(res);
           this.messageTable.totalPage = res.data.extras.pageCount;
           this.messageTable.lists = res.data.content;
         } else {

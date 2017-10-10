@@ -4,7 +4,15 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'yesorno'
 })
 export class YesornoPipe implements PipeTransform {
-  transform(value: any, format: string = ''): string {
-    return value && (value == format ? '否' : '是') || '';
+  transform(value: any, format: Array<any> = [], option: Array<any> = []): string {
+    let result = value;
+    if (Array.isArray(format) && Array.isArray(option)) {
+      format.forEach((obj, i) => {
+        if (value == obj) {
+          result = option[i];
+        }
+      });
+    }
+    return result;
   }
 }

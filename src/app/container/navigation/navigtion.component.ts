@@ -54,8 +54,6 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   changePwd() {
-    console.log('change password');
-
     const config: DialogEdit = new DialogEdit({
       title: `修改密码`,
       form: [new FormText({

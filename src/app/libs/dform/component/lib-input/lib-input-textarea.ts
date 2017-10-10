@@ -35,7 +35,6 @@ export class LibInputTextareaComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log(this.value);
   }
 
   change() {

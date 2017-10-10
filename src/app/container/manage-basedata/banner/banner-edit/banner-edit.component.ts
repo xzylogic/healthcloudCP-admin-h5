@@ -48,7 +48,6 @@ export class BannerEditComponent implements OnInit {
     this.bannerService.getBanner(id)
       .subscribe(res => {
         if (res.code === 0 && res.data) {
-          // console.log(res.data);
           res.data.range = moment(res.data.startTime || new Date()).format('YYYY-MM-DD HH:mm:ss') +
             ' - ' + moment(res.data.endTime || new Date()).format('YYYY-MM-DD HH:mm:ss');
           this.config = this.bannerService.setBannerForm(res.data);

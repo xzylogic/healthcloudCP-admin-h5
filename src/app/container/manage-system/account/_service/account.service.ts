@@ -135,7 +135,6 @@ export class AccountService {
   }
 
   setAccountForm(data?): FormBase<any>[] {
-    // console.log(data && data.roleId);
     const forms: FormBase<any>[] = [];
     forms.push(
       new FormText({

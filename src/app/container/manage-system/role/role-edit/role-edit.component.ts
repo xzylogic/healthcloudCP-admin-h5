@@ -63,7 +63,6 @@ export class RoleEditComponent implements OnInit {
     }
     data.delFlag = 0;
     data.menuIds = data.menuIds.join(',');
-    console.log(data);
     this.roleService.updateRole(data)
       .subscribe(res => {
         if (res.code === 0) {

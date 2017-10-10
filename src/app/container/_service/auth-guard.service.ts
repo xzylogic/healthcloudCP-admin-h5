@@ -10,7 +10,6 @@ export class AuthGuardService implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    // console.log(state.url);
     const url: string = state.url;
     return this.checkLogin(url);
   }

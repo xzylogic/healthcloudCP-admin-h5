@@ -94,7 +94,6 @@ export class RoleService {
   }
 
   setRoleForm(tree, data?) {
-    console.log(tree);
     const forms: FormBase<any>[] = [];
     forms.push(
       new FormText({

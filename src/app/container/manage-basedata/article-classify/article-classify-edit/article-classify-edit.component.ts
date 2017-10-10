@@ -43,7 +43,6 @@ export class ArticleClassifyEditComponent implements OnInit {
   }
 
   getValues(data) {
-    console.log(data);
     this.classifyService.saveClassify(data)
       .subscribe(res => {
         if (res.code === 0) {

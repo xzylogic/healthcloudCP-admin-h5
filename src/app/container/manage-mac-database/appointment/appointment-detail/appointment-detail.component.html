@@ -56,34 +56,42 @@
             <p class="detail-content">产检地点：{{data?.motherInfo?.inspectionPlace}}</p>
           </div>
           <div class="col-2">
-            <p class="detail-content">本市农业户籍：{{data?.motherInfo?.cityAgriculturalHouseholdRegister | yesorno: '0'}}</p>
+            <p class="detail-content">本市农业户籍：
+              {{data?.motherInfo?.cityAgriculturalHouseholdRegister | yesorno:[0,1]:['否','是']}}
+            </p>
           </div>
           <div class="col-2">
-            <p class="detail-content">
-              农村孕产妇住院分娩补助：{{data?.motherInfo?.ruralPregnantWomenChildbirthAllowance | yesorno: '0'}}
+            <p class="detail-content">农村孕产妇住院分娩补助：
+              {{data?.motherInfo?.ruralPregnantWomenChildbirthAllowance | yesorno:[0,1]:['否','是']}}
             </p>
           </div>
         </div>
         <div class="row">
           <div class="col-6">
-            <p class="detail-content">
-              产后休养地：{{data&&data.motherInfo&&data.motherInfo.postpartumCultivation&&(data.motherInfo.postpartumCultivation==1?'本段':'外段')||''}}
+            <p class="detail-content">产后休养地：
+              {{data?.motherInfo?.postpartumCultivation | yesorno:[1,2]:['本段','外段']}}
             </p>
           </div>
         </div>
         <div class="row">
           <div class="col-6">
-            <p class="detail-content">产前检查补助：{{data?.motherInfo?.prenatalCareAllowance | yesorno: '0'}}</p>
+            <p class="detail-content">产前检查补助：
+              {{data?.motherInfo?.prenatalCareAllowance | yesorno:[0,1]:['否','是']}}
+            </p>
           </div>
         </div>
         <div class="row">
           <div class="col-6">
-            <p class="detail-content">在京居住时间是否大于6个月：{{data?.motherInfo?.greaterThanSixMonths | yesorno: '0'}}</p>
+            <p class="detail-content">在京居住时间是否大于6个月：
+              {{data?.motherInfo?.greaterThanSixMonths | yesorno:[0,1]:['否','是']}}
+            </p>
           </div>
         </div>
         <div class="row">
           <div class="col-6">
-            <p class="detail-content">在京居住时间是否大于1年：{{data?.motherInfo?.greaterThanOneYears | yesorno: '0'}}</p>
+            <p class="detail-content">在京居住时间是否大于1年：
+              {{data?.motherInfo?.greaterThanOneYears | yesorno:[0,1]:['否','是']}}
+            </p>
           </div>
         </div>
       </div>
@@ -183,8 +191,9 @@
             <p class="detail-content">预产期：{{data?.gravidaMedicalHistory?.expectedDateChildbirth}}</p>
           </div>
           <div class="col-2">
-            <p class="detail-content">B超核实：{{data?.gravidaMedicalHistory?.bmodeUltrasonographyVerify | yesorno:
-              '2'}}</p>
+            <p class="detail-content">B超核实：
+              {{data?.gravidaMedicalHistory?.bmodeUltrasonographyVerify | yesorno:[0,1]:['否','是']}}
+            </p>
           </div>
           <div class="col-2">
             <p class="detail-content">孕次：{{data?.gravidaMedicalHistory?.pregnanciesNumber}}</p>
@@ -217,48 +226,47 @@
           </div>
           <div class="col-2">
             <p class="detail-content">本次妊娠生情况：
-              <span
-                *ngIf="data&&data.gravidaMedicalHistory&&data.gravidaMedicalHistory.pregnancyCondition==1">第一胎</span>
-              <span *ngIf="data&&data.gravidaMedicalHistory&&data.gravidaMedicalHistory.pregnancyCondition==2">第二胎，且父母一方是独生子女</span>
-              <span *ngIf="data&&data.gravidaMedicalHistory&&data.gravidaMedicalHistory.pregnancyCondition==3">第二胎，且父母双方都不是独生子女</span>
-              <span *ngIf="data&&data.gravidaMedicalHistory&&data.gravidaMedicalHistory.pregnancyCondition==4">其他</span>
+              {{data?.gravidaMedicalHistory?.pregnancyCondition |
+              yesorno:[1,2,3,4]:['第一胎','第二胎，且父母一方是独生子女','第二胎，且父母双方都不是独生子女','其他']}}
             </p>
           </div>
           <div class="col-2">
             <p class="detail-content">叶酸服用情况：
-              {{data&&data.gravidaMedicalHistory&&data.gravidaMedicalHistory.folicAcidIntake&&(data.gravidaMedicalHistory.folicAcidIntake==0?'未服用':'服用')||''}}
+              {{data?.gravidaMedicalHistory?.folicAcidIntake | yesorno:[0,1]:['未服用','服用']}}
             </p>
           </div>
         </div>
         <div class="row">
           <div class="col-2">
-            <p class="detail-content">是否规律：{{data?.gravidaMedicalHistory?.whetherRegular | yesorno:'0'}}</p>
+            <p class="detail-content">是否规律：
+              {{data?.gravidaMedicalHistory?.whetherRegular | yesorno:[0,1]:['否','是']}}
+            </p>
           </div>
           <div class="col-2">
             <p class="detail-content">服药种类：
-              {{data&&data.gravidaMedicalHistory&&data.gravidaMedicalHistory.medicationsTakenTypes&&(data.gravidaMedicalHistory.medicationsTakenTypes==1?'单纯叶酸片':'多维片')||''}}
+              {{data?.gravidaMedicalHistory?.medicationsTakenTypes | yesorno:[1,2]:['单纯叶酸片','多维片']}}
             </p>
           </div>
           <div class="col-2">
             <p class="detail-content">服药开始时间：
-              {{data&&data.gravidaMedicalHistory&&data.gravidaMedicalHistory.takingMedicineStartTime&&(data.gravidaMedicalHistory.takingMedicineStartTime==1?'孕前':'孕后')||''}}
+              {{data?.gravidaMedicalHistory?.takingMedicineStartTime | yesorno:[1,2]:['孕前','孕后']}}
             </p>
           </div>
         </div>
         <div class="row">
           <div class="col-2">
             <p class="detail-content">家族史：
-              {{data&&data.gravidaMedicalHistory&&(data.gravidaMedicalHistory.familyHistory==1?'有':'无')}}
+              {{data?.gravidaMedicalHistory?.familyHistory | yesorno:[1,0]:['有','无']}}
             </p>
           </div>
           <div class="col-2">
             <p class="detail-content">个人史：
-              {{data&&data.gravidaMedicalHistory&&(data.gravidaMedicalHistory.personalHistory==1?'有':'无')}}
+              {{data?.gravidaMedicalHistory?.personalHistory | yesorno:[1,0]:['有','无']}}
             </p>
           </div>
           <div class="col-2">
             <p class="detail-content">既往史：
-              {{data&&data.gravidaMedicalHistory&&(data.gravidaMedicalHistory.pastHistory==1?'有':'无')}}
+              {{data?.gravidaMedicalHistory?.pastHistory}}
             </p>
           </div>
         </div>

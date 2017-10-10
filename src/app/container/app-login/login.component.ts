@@ -59,7 +59,6 @@ export class LoginComponent implements OnInit {
     if (value.name && value.password) {
       this.authService.login(value)
         .subscribe(res => {
-          console.log(res);
           if (res && res.code === 0 && res.data) {
             this.authService.setLocal(res.data);
             this.router.navigate([this.authService.redirectUrl]);
