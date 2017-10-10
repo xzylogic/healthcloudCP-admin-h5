@@ -8,21 +8,32 @@ module.exports = function (config) {
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
-      require('karma-jasmine-html-reporter'),
+      // require('karma-jasmine-html-reporter'),
+      require('karma-mocha-reporter'),
+      require('karma-htmlfile-reporter'),
       require('karma-coverage-istanbul-reporter'),
       require('@angular/cli/plugins/karma')
     ],
-    client:{
+    client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {
-      reports: [ 'html', 'lcovonly' ],
+      reports: ['html', 'lcovonly'],
       fixWebpackSourcePaths: true
     },
     angularCli: {
       environment: 'dev'
     },
-    reporters: ['progress', 'kjhtml'],
+    reporters: ['progress', 'mocha', 'html'],
+    htmlReporter: {
+      outputFile: '/Users/qiaoqianyu/xlabProjects/healthcloudCP-admin-h5/reporter/units.html',
+      // Optional
+      pageTitle: '单元测试结果',
+      subPageTitle: '昌平健康云医院后台',
+      groupSuites: true,
+      useCompactStyle: true,
+      useLegacyStyle: true
+    },
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,

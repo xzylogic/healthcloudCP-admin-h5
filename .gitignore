@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 /healthcloud-cp-admin
+/reporter
 
 # dependencies
 /node_modules
