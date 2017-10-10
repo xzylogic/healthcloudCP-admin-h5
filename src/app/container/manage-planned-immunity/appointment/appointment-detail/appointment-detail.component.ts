@@ -49,16 +49,16 @@ export class AppointmentDetailComponent implements OnInit {
   saveStatus() {
     let msg = `是否设置${this.data && this.data.childDto && this.data.childDto.name || ''}`;
     let reason = '';
-    if (this.status == '2') {
+    if (this.status == '1') {
       msg += '正常接种？';
       this.reason = '';
       this.reasonRadio = '';
     }
-    if (this.status == '4') {
+    if (this.status == '3') {
       msg += '接种取消？';
       reason = `取消原因：${this.reasonRadio == '0' ? this.reason : this.reasonRadio}`;
     }
-    if (this.status == '5') {
+    if (this.status == '4') {
       msg += '接种爽约？';
       this.reason = '';
       this.reasonRadio = '';

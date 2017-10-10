@@ -26,14 +26,14 @@ export class AppointmentComponent implements OnInit {
     id: '',
     name: '全部'
   }, {
+    id: 0,
+    name: '待处理'
+  }, {
     id: 1,
-    name: '待审核'
+    name: '已通过'
   }, {
     id: 2,
-    name: '未通过'
-  }, {
-    id: 4,
-    name: '已通过'
+    name: '已拒绝'
   }];
 
   constructor(
@@ -103,16 +103,16 @@ export class AppointmentComponent implements OnInit {
   formatData(data) {
     if (Array.isArray(data)) {
       data.forEach(obj => {
-        if (obj.status == 1) {
+        if (obj.status == 0) {
           obj.statusName = '待处理';
         }
-        if (obj.status == 2) {
+        if (obj.status == 1) {
           obj.statusName = '已通过';
         }
-        if (obj.status == 3) {
+        if (obj.status == 2) {
           obj.statusName = '已拒绝';
         }
-        obj.edit = obj.status == 1 ? '审核' : '查看';
+        obj.edit = obj.status == 0 ? '审核' : '查看';
       });
     }
   }

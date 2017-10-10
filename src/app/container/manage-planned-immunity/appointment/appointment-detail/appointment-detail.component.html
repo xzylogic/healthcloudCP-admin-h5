@@ -55,11 +55,11 @@
         <div class="row">
           <div class="col-6">
             <p class="detail-content">订单状态：
-              <span *ngIf="data?.status==1">预约中</span>
-              <span *ngIf="data?.status==2">正常接种</span>
-              <span *ngIf="data?.status==3">用户取消</span>
-              <span *ngIf="data?.status==4">接种取消</span>
-              <span *ngIf="data?.status==5">接种爽约</span>
+              <span *ngIf="data?.status==0">预约中</span>
+              <span *ngIf="data?.status==1">正常接种</span>
+              <span *ngIf="data?.status==2">用户取消</span>
+              <span *ngIf="data?.status==3">接种取消</span>
+              <span *ngIf="data?.status==4">接种爽约</span>
             </p>
           </div>
         </div>
@@ -69,16 +69,16 @@
       <h3 class="detail-title">预约登记</h3>
       <form class="form-content" *ngIf="data">
         <div class="input-content">
-          <md-radio-group [(ngModel)]="status" name="status" [disabled]="data?.status!==1">
-            <md-radio-button value="3" *ngIf="data?.status!==1">用户取消</md-radio-button>
-            <md-radio-button value="2">正常接种</md-radio-button>
-            <md-radio-button value="4">接种取消</md-radio-button>
-            <md-radio-button value="5">接种爽约</md-radio-button>
+          <md-radio-group [(ngModel)]="status" name="status" [disabled]="data?.status!==0">
+            <md-radio-button value="2" *ngIf="data?.status!==0">用户取消</md-radio-button>
+            <md-radio-button value="1">正常接种</md-radio-button>
+            <md-radio-button value="3">接种取消</md-radio-button>
+            <md-radio-button value="4">接种爽约</md-radio-button>
           </md-radio-group>
         </div>
-        <div class="input-content" *ngIf="data.status==1">
+        <div class="input-content" *ngIf="data.status==0">
           <div>
-            <md-radio-group *ngIf="status=='4'" [(ngModel)]="reasonRadio" name="option">
+            <md-radio-group *ngIf="status=='3'" [(ngModel)]="reasonRadio" name="option">
               <md-radio-button value="身体不适">身体不适</md-radio-button>
               <md-radio-button value="门诊时间错误">门诊时间错误</md-radio-button>
               <md-radio-button value="未及时现场办">未及时现场办</md-radio-button>
@@ -90,15 +90,15 @@
                           style="resize: none"></textarea>
           </md-form-field>
         </div>
-        <div class="input-content" *ngIf="data.status==4">
+        <div class="input-content" *ngIf="data.status==3">
           <md-form-field style="width:280px">
                 <textarea mdInput rows="5" placeholder="取消原因" [(ngModel)]="reason" name="reason"
                           style="resize: none" disabled></textarea>
           </md-form-field>
         </div>
-        <div class="input-content" *ngIf="data.status==1">
+        <div class="input-content" *ngIf="data.status==0">
           <button md-raised-button color="primary" type="button" (click)="saveStatus()"
-                  [disabled]="!(status==2||status==5||(status==4&&(reasonRadio&&reasonRadio!='0'||reason)))">保存
+                  [disabled]="!(status==1||status==4||(status==3&&(reasonRadio&&reasonRadio!='0'||reason)))">保存
           </button>
         </div>
       </form>

@@ -27,19 +27,19 @@ export class AppointmentComponent implements OnInit {
     id: '',
     name: '全部'
   }, {
-    id: 1,
+    id: 0,
     name: '待处理'
   }, {
-    id: 2,
+    id: 1,
     name: '正常体检'
   }, {
-    id: 4,
+    id: 3,
     name: '接种取消'
   }, {
-    id: 5,
+    id: 4,
     name: '接种爽约'
   }, {
-    id: 3,
+    id: 2,
     name: '用户取消'
   }];
 
@@ -111,22 +111,22 @@ export class AppointmentComponent implements OnInit {
   formatData(data) {
     if (Array.isArray(data)) {
       data.forEach(obj => {
-        if (obj.status == 1) {
+        if (obj.status == 0) {
           obj.statusName = '待处理';
         }
-        if (obj.status == 2) {
+        if (obj.status == 1) {
           obj.statusName = '正常接种';
         }
-        if (obj.status == 3) {
+        if (obj.status == 2) {
           obj.statusName = '用户取消';
         }
-        if (obj.status == 4) {
+        if (obj.status == 3) {
           obj.statusName = '接种取消';
         }
-        if (obj.status == 5) {
+        if (obj.status == 4) {
           obj.statusName = '接种爽约';
         }
-        obj.edit = obj.status == 1 ? '预约登记' : '查看';
+        obj.edit = obj.status == 0 ? '预约登记' : '查看';
         obj.childName = obj.childDto && obj.childDto.name;
       });
     }

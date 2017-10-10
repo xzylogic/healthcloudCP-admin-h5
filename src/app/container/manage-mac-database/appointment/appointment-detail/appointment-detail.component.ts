@@ -49,12 +49,12 @@ export class AppointmentDetailComponent implements OnInit {
   saveStatus() {
     let msg = `是否`;
     let reason = '';
-    if (this.status == '2') {
+    if (this.status == '1') {
       msg += '通过审核？';
       this.reason = '';
       this.reasonRadio = '';
     }
-    if (this.status == '3') {
+    if (this.status == '2') {
       msg += '不通过审核？';
       reason = `不通过原因：${this.reasonRadio == '0' ? this.reason : this.reasonRadio}`;
     }
