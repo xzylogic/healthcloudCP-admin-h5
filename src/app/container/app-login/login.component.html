@@ -1,17 +1,14 @@
-<md-toolbar class="login-toolbar" color="primary">
-  <h1>{{app.title}}</h1>
-</md-toolbar>
 <div class="login-container">
+  <h1 class="title"></h1>
   <form *ngIf="loginForm" class="login__form" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
-    <app-input-text class="login__form__input" [form]="loginForm"
-                    *ngFor="let data of loginLib" [data]="data"
-    ></app-input-text>
-    <button md-raised-button class="login__form__button" color="primary"
-            [disabled]="!loginForm.valid">登录
+    <app-input-text class="login__form__input" [form]="loginForm" *ngFor="let data of loginLib" [data]="data"></app-input-text>
+    <button md-raised-button class="login__form__button" color="primary" [disabled]="!loginForm.valid">登录
     </button>
+  </form>
+  <div class="footer">
     <div class="login__footer">
       <p>© {{date | date:'yyyy'}}</p>
-      <p>万达信息股份有限公司</p>
+      <p>北京市昌平区卫生和计划生育委员会</p>
     </div>
-  </form>
+  </div>
 </div>

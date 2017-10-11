@@ -6,7 +6,9 @@
   <span class="toolbar__spacer"></span>
   <span class="toolbar__info">你好，{{username | async}} ！</span>
   <span class="toolbar__pwd" (click)="changePwd()">修改密码</span>
-  <button md-mini-fab (click)="logout()">退出</button>
+  <span class="toolbar__logout">
+    <button md-mini-fab (click)="logout()"><md-icon>power_settings_new</md-icon></button>
+  </span>
 </md-toolbar>
 <md-sidenav-container class="app-container">
   <md-sidenav #sidenav mode="side" opened="true" class="app-nav">
