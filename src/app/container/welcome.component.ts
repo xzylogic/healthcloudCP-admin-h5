@@ -3,16 +3,11 @@ import { Component, Inject } from '@angular/core';
 @Component({
   selector: 'app-welcome',
   template: `
-    <p class="welcome-title">欢迎使用{{app.title}}</p>
+    <div class="welcome-container">
+      <div class=welcome></div>
+    </div>
   `,
-  styles: [`
-    .welcome-title {
-      padding: 100px 0;
-      color: #ddd;
-      font-size: 38px;
-      text-align: center;
-    }
-  `]
+  styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent {
   constructor(@Inject('app') public app) {

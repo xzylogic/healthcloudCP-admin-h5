@@ -127,7 +127,6 @@ export class AppointmentComponent implements OnInit {
           obj.statusName = '接种爽约';
         }
         obj.edit = obj.status == 0 ? '预约登记' : '查看';
-        obj.childName = obj.childDto && obj.childDto.name;
       });
     }
   }

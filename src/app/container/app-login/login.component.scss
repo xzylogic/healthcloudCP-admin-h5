@@ -1,7 +1,9 @@
 .login-container {
   position: relative;
   width: 100%;
+  min-width: 500px;
   height: 100vh;
+  min-height: 760px;
   background: #0867ec url(../../libs/theme/img/bg.png) no-repeat center center;
   .title {
     position: absolute;
@@ -73,12 +75,5 @@
     padding-top: 30px;
     color: #D0EFFA;
     font-size: 14px;
-  }
-}
-
-@media all and (max-width: 768px) {
-  .login__form {
-    width: 320px !important;
-    margin-left: -160px !important;
   }
 }

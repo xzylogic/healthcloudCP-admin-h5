@@ -81,7 +81,7 @@ export class AppointmentService {
       }),
       new TableTitle({
         name: '宝宝姓名',
-        key: 'childName'
+        key: 'name'
       }),
       new TableTitle({
         name: '家长姓名',
