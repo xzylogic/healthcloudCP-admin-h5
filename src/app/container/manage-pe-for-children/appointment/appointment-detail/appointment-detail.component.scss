@@ -1,0 +1,27 @@
+@import '../../../../libs/theme/theme';
+
+.detail-container {
+  padding-bottom: 30px;
+}
+
+.detail-title {
+  padding: 10px 0;
+  margin-bottom: 15px;
+  border-bottom: 2px solid $color-primary;
+  font-size: 24px;
+}
+
+.detail-content {
+  width: 100%;
+  padding: 5px 0;
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+.form-content {
+  padding: 15px;
+}
+
+.input-content {
+  padding-bottom: 25px;
+}

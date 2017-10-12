@@ -25,6 +25,7 @@
   }
   .toolbar__logout {
     margin-right: 16px;
+    cursor: pointer;
   }
   .toolbar__logout:after {
     content: '退出';

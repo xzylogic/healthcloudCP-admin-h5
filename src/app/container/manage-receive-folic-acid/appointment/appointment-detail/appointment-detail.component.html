@@ -54,7 +54,7 @@
                   <md-radio-button value="0">其他，请填写</md-radio-button>
                 </md-radio-group>
               </div>
-              <md-form-field *ngIf="reasonRadio=='0'" style="width:280px;padding: 15px 0">
+              <md-form-field *ngIf="reasonRadio=='0'&&status=='2'" style="width:280px;padding: 15px 0">
                 <textarea mdInput rows="5" placeholder="不通过原因" [(ngModel)]="reason" name="reason"
                           style="resize: none"></textarea>
               </md-form-field>
