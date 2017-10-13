@@ -142,9 +142,10 @@ export class OrganizationService {
     forms.push(
       new FormFile({
         key: 'imageUrl',
-        label: '中心图片',
+        label: '中心图片(请上传不大于20KB的JPG或者PNG图片)',
         value: data && data.imageUrl || '',
         order: 3,
+        size: 20,
         url: ''
       })
     );
@@ -262,9 +263,10 @@ export class OrganizationService {
     forms.push(
       new FormFile({
         key: 'imageUrl',
-        label: '站点图片',
+        label: '站点图片(请上传不大于20KB的JPG或者PNG图片)',
         value: data && data.imageUrl || '',
         order: 3,
+        size: 20,
         url: ''
       })
     );

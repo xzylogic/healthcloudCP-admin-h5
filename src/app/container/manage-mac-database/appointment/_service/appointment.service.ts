@@ -20,7 +20,7 @@ export class AppointmentService {
 
   getData(page, status?, num?, name?, date?, oId?) {
     let query = `?flag=${page + 1}`;
-    if (status) {
+    if (status || status == 0) {
       query += `&status=${status}`;
     }
     if (name) {

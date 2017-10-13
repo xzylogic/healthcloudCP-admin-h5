@@ -11,7 +11,7 @@ import { HintDialog } from '../../../dmodal/dialog.component';
   template: `
     <div [formGroup]="form">
       <div class="input_container">
-        <input class="input_content" #file type="file" (change)="uploadChange($event)">
+        <input class="input_content" #file type="file" accept="image/png,image/jpg,image/jpeg" (change)="uploadChange($event)">
         <span class="input_span">{{data.label}}</span>
         <input type="hidden" [formControlName]="data.key" [(ngModel)]="value" (change)="change()">
         <div class="upload_container">
@@ -58,40 +58,47 @@ export class LibInputFileComponent implements OnInit {
   // 上传图片操作
   uploadChange(files) {
     const myForm = new FormData();
-    this.uploadService.get(`${this.app.api_url}/admin/common/getQiniuToken`)
-      .subscribe(sres => {
-        if (sres.code === 0 && sres.data) {
-          this.domain = sres.data.domain;
-          myForm.append('file', files.target.files[0]);
-          myForm.append('token', sres.data.token);
-          myForm.append('key', (new Date()).valueOf().toString());
-          this.uploadService.upload('http://upload.qiniu.com', myForm)
-            .subscribe(res => {
-              if (res.key) {
-                HintDialog('上传图片成功！', this.dialog);
-                if (this.data.multiple === false) {
-                  this.value = `http://${this.domain}/${res.key}`;
-                } else {
-                  if (!this.value) {
-                    this.value = [];
+    const fileCopy = files.target.files[0];
+    if (this.data.size && fileCopy && (fileCopy.size > this.data.size * 1024)) {
+      HintDialog(`上传的图片不能超过${this.data.size}KB！`, this.dialog);
+    } else if (fileCopy && !(fileCopy.type == 'image/jpg' || fileCopy.type == 'image/jpeg' || fileCopy.type == 'image/png')) {
+      HintDialog(`请上传格式为JPG或者PNG的图片！`, this.dialog);
+    } else if (fileCopy) {
+      this.uploadService.get(`${this.app.api_url}/admin/common/getQiniuToken`)
+        .subscribe(sres => {
+          if (sres.code === 0 && sres.data) {
+            this.domain = sres.data.domain;
+            myForm.append('file', files.target.files[0]);
+            myForm.append('token', sres.data.token);
+            myForm.append('key', (new Date()).valueOf().toString());
+            this.uploadService.upload('http://upload.qiniu.com', myForm)
+              .subscribe(res => {
+                if (res.key) {
+                  HintDialog('上传图片成功！', this.dialog);
+                  if (this.data.multiple === false) {
+                    this.value = `http://${this.domain}/${res.key}`;
+                  } else {
+                    if (!this.value) {
+                      this.value = [];
+                    }
+                    this.value.push(`http://${this.domain}/${res.key}`);
                   }
-                  this.value.push(`///${this.domain}/${res.key}`);
+                  this.cdr.detectChanges();
+                } else {
+                  HintDialog(res.msg || '上传图片失败！', this.dialog);
                 }
-                this.cdr.detectChanges();
-              } else {
-                HintDialog(res.msg || '上传图片失败！', this.dialog);
-              }
-            }, err => {
-              console.log(err);
-              HintDialog('上传图片失败！', this.dialog);
-            });
-        } else {
-          HintDialog(sres.msg || '上传图片失败！', this.dialog);
-        }
-      }, err => {
-        console.log(err);
-        HintDialog('上传图片失败！', this.dialog);
-      });
+              }, err => {
+                console.log(err);
+                HintDialog('上传图片失败！', this.dialog);
+              });
+          } else {
+            HintDialog(sres.msg || '上传图片失败！', this.dialog);
+          }
+        }, err => {
+          console.log(err);
+          HintDialog('上传图片失败！', this.dialog);
+        });
+    }
   }
 
   fileDel(file ?: any) {

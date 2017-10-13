@@ -23,7 +23,7 @@ export class AppointmentService {
     if (planImmunizationNum) {
       query += `&planImmunizationNum=${planImmunizationNum}`;
     }
-    if (status) {
+    if (status || status == 0) {
       query += `&status=${status}`;
     }
     if (name) {

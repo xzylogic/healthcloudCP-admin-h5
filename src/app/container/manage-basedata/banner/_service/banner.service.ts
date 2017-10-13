@@ -114,10 +114,11 @@ export class BannerService {
     forms.push(
       new FormFile({
         key: 'imgUrl',
-        label: '图片',
+        label: '图片(请上传不大于150KB的JPG或者PNG图片，建议比例1：3)',
         value: data && data.imgUrl || '',
         required: true,
         url: '',
+        size: 150,
         errMsg: '请添加图片'
       })
     );

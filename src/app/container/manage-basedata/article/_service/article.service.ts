@@ -138,22 +138,24 @@ export class ArticleService {
     forms.push(
       new FormFile({
         key: 'thumb',
-        label: '图片',
+        label: '图片(请上传不大于150KB的JPG或者PNG图片)',
         value: data && data.thumb || '',
         required: true,
         url: '',
         errMsg: '',
+        size: 150,
         order: 3
       })
     );
     forms.push(
       new FormFile({
         key: 'recommImageUrl',
-        label: '推荐图片',
+        label: '推荐图片(请上传不大于150KB的JPG或者PNG图片，建议比例1：3)',
         value: data && data.recommImageUrl || '',
         required: false,
         url: '',
         errMsg: '',
+        size: 150,
         order: 4
       })
     );
