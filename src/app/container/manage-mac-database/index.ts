@@ -21,5 +21,5 @@ export const routes: Routes = [{
 }];
 
 export const stores = {
-  // doctor: createReducer('doctor', [0, 0, 0], {}),
+  'mac-database': createReducer('mac-database', [0], null),
 };

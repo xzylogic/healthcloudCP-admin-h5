@@ -5,11 +5,15 @@ import { createLogger } from 'redux-logger';
 import { environment } from '../../environments/environment';
 
 import { MainReducer } from './_store/main.reducer';
-// import { stores as doctorStores } from './manage-doctor';
+import { stores as mdStores } from './manage-mac-database';
+import { stores as rfaStores } from './manage-receive-folic-acid';
+import { stores as piStores } from './manage-planned-immunity';
 
 export const rootReducer = combineReducers({
   main: MainReducer,
-  // ...doctorStores,
+  ...mdStores,
+  ...rfaStores,
+  ...piStores,
 });
 
 @NgModule({
@@ -20,8 +24,7 @@ export class StoreModule {
     if (environment.production === true) {
       ngRedux.configureStore(rootReducer, {});
     } else {
-      ngRedux.configureStore(rootReducer, {});
-      // ngRedux.configureStore(rootReducer, {}, [createLogger()]);
+      ngRedux.configureStore(rootReducer, {}, [createLogger()]);
     }
   }
 }

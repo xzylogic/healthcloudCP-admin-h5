@@ -2,7 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { TableOption } from '../../../libs/dtable/dtable.entity';
 import { ERRMSG } from '../../_store/static';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { select } from '@angular-redux/store';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-receive-folic-acid-appointment',
@@ -11,6 +13,7 @@ import { Router } from '@angular/router';
 export class AppointmentComponent implements OnInit {
   containerConfig: ContainerConfig;
   appointmentTable: TableOption;
+  @select(['receive-folic-acid', 'data']) data: Observable<any>;
   name = '';
   cardNo = '';
   number = '';
@@ -36,8 +39,10 @@ export class AppointmentComponent implements OnInit {
   }];
 
   constructor(
+    @Inject('action') private action,
     @Inject('appointment') private appointmentService,
-    private router: Router
+    private router: Router,
+    private param: ActivatedRoute
   ) {
   }
 
@@ -47,8 +52,26 @@ export class AppointmentComponent implements OnInit {
       titles: this.appointmentService.setAppointmentTitles(),
       ifPage: true
     });
+    this.param.queryParams.subscribe(params => {
+      if (params && params.flag) {
+        this.data.subscribe(data => {
+          if (data) {
+            this.name = data.name;
+            this.cardNo = data.cardNo;
+            this.number = data.number;
+            this.status = data.status;
+            this.centerId = data.centerId;
+            this.siteId = data.siteId;
+            this.getData(data.page);
+          } else {
+            this.reset();
+          }
+        });
+      } else {
+        this.reset();
+      }
+    });
     this.getCommunityAll();
-    this.getData(0);
   }
 
   reset() {
@@ -95,6 +118,15 @@ export class AppointmentComponent implements OnInit {
 
   gotoHandle(data) {
     if (data.key === 'edit') {
+      this.action.dataChange('receive-folic-acid', {
+        name: this.name,
+        cardNo: this.cardNo,
+        number: this.number,
+        status: this.status,
+        centerId: this.centerId,
+        siteId: this.siteId,
+        page: this.appointmentTable.currentPage
+      });
       this.router.navigate(['/receive-folic-acid/appointment/detail', data.value.reservationId]);
     }
   }

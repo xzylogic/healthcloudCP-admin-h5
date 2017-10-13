@@ -73,7 +73,8 @@ export class AppointmentService {
       title: '叶酸领取预约',
       subTitle: '预约详情',
       ifHome: false,
-      homeRouter: '/receive-folic-acid/appointment'
+      homeRouter: '/receive-folic-acid/appointment',
+      query: {flag: 1}
     });
   }
 

@@ -65,7 +65,8 @@ export class AppointmentService {
       title: '母子建档预约',
       subTitle: '预约详情',
       ifHome: false,
-      homeRouter: '/mac-database/appointment'
+      homeRouter: '/mac-database/appointment',
+      query: {flag: 1}
     });
   }
 

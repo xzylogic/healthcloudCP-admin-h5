@@ -21,5 +21,5 @@ export const routes: Routes = [{
 }];
 
 export const stores = {
-  // doctor: createReducer('doctor', [0, 0, 0], {}),
+  'receive-folic-acid': createReducer('receive-folic-acid', [0], null),
 };

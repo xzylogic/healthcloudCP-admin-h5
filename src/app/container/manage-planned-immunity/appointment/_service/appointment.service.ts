@@ -68,7 +68,8 @@ export class AppointmentService {
       title: '计划免疫预约',
       subTitle: '预约详情',
       ifHome: false,
-      homeRouter: '/planned-immunity/appointment'
+      homeRouter: '/planned-immunity/appointment',
+      query: {flag: 1}
     });
   }
 

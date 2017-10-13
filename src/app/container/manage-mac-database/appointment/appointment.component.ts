@@ -1,9 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { TableOption } from '../../../libs/dtable/dtable.entity';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ERRMSG } from '../../_store/static';
 import * as moment from 'moment';
+import { Observable } from 'rxjs/Observable';
+import { select } from '@angular-redux/store';
 
 @Component({
   selector: 'app-mac-database-appointment',
@@ -12,6 +14,7 @@ import * as moment from 'moment';
 export class AppointmentComponent implements OnInit {
   containerConfig: ContainerConfig;
   appointmentTable: TableOption;
+  @select(['mac-database', 'data']) data: Observable<any>;
   date: Date;
   name = '';
   number = '';
@@ -37,8 +40,10 @@ export class AppointmentComponent implements OnInit {
   }];
 
   constructor(
+    @Inject('action') private action,
     @Inject('appointment') private appointmentService,
-    private router: Router
+    private router: Router,
+    private param: ActivatedRoute
   ) {
   }
 
@@ -48,8 +53,26 @@ export class AppointmentComponent implements OnInit {
       titles: this.appointmentService.setAppointmentTitles(),
       ifPage: true
     });
+    this.param.queryParams.subscribe(params => {
+      if (params && params.flag) {
+        this.data.subscribe(data => {
+          if (data) {
+            this.date = data.date;
+            this.name = data.name;
+            this.number = data.number;
+            this.status = data.status;
+            this.centerId = data.centerId;
+            this.siteId = data.siteId;
+            this.getData(data.page);
+          } else {
+            this.reset();
+          }
+        });
+      } else {
+        this.reset();
+      }
+    });
     this.getCommunityAll();
-    this.getData(0);
   }
 
   reset() {
@@ -96,6 +119,15 @@ export class AppointmentComponent implements OnInit {
 
   gotoHandle(data) {
     if (data.key === 'edit') {
+      this.action.dataChange('mac-database', {
+        date: this.date,
+        name: this.name,
+        number: this.number,
+        status: this.status,
+        centerId: this.centerId,
+        siteId: this.siteId,
+        page: this.appointmentTable.currentPage
+      });
       this.router.navigate(['/mac-database/appointment/detail', data.value.id]);
     }
   }
