@@ -3,7 +3,7 @@ export const environment = {
 };
 
 export const app = {
-  title: '昌平健康云医院后台',
+  title: '北京昌平健康云管理后台',
   api_url: 'http://10.1.64.195/changping-internal',
   base: '/healthcloud-cp-admin/'
 };
