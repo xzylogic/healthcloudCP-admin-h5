@@ -34,7 +34,7 @@ export class AppointmentComponent implements OnInit {
     name: '待处理'
   }, {
     id: 1,
-    name: '正常体检'
+    name: '正常接种'
   }, {
     id: 3,
     name: '接种取消'
