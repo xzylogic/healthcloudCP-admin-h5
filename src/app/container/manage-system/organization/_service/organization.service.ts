@@ -5,6 +5,7 @@ import { FormText } from '../../../../libs/dform/_entity/form-text';
 import { FormHidden } from '../../../../libs/dform/_entity/form-hidden';
 import { FormRadio } from '../../../../libs/dform/_entity/form-radio';
 import { FormFile } from '../../../../libs/dform/_entity/form-file';
+import { FormDropdown } from '../../../../libs/dform/_entity/form-dropdown';
 
 const PATH = {
   getMenus: '/api/getCommunityMenuByUserId',
@@ -360,13 +361,26 @@ export class OrganizationService {
       );
     }
     forms.push(
-      new FormText({
+      new FormDropdown({
         key: 'name',
         label: '科室名称',
         value: data && data.departmentName || '',
         required: true,
+        options: [{
+          id: '预防保健科',
+          name: '预防保健科'
+        }, {
+          id: '孕期保健科',
+          name: '孕期保健科'
+        }, {
+          id: '妇幼保健科',
+          name: '妇幼保健科'
+        }, {
+          id: '儿童保健科',
+          name: '儿童保健科'
+        }],
         // readonly: !!(data && data.departmentName),
-        errMsg: '请填写科室名称',
+        errMsg: '请选择科室名称',
         order: 1
       })
     );

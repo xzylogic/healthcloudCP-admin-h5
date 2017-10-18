@@ -10,7 +10,7 @@
               <button class="button" md-button color="primary" (click)="openData(menuList)">全部展开</button>
             </div>
             <div class="tree__des clear">
-              <span>部门<md-icon class="tree__icon type department">lens</md-icon></span>
+              <span>科室<md-icon class="tree__icon type department">lens</md-icon></span>
               <span>站点<md-icon class="tree__icon type site">lens</md-icon></span>
               <span>中心<md-icon class="tree__icon type center">lens</md-icon></span>
             </div>
@@ -103,7 +103,7 @@
                       </div>
                       <ul *ngIf="subMenu.children&&subMenu.open" class="tree__list">
                         <li *ngFor="let sSubMenu of subMenu.children">
-                          <!--部门-->
+                          <!--科室-->
                           <div class="clear tree__p tr_department">
                             <md-icon class="tree__icon type department">lens</md-icon>
                             <p class="tree__span last">{{sSubMenu.menuName}}</p>
@@ -128,7 +128,7 @@
                          *ngIf="menuList.type!=3&&(menuList.open&&menuList.children)">remove
                 </md-icon>
                 <md-icon class="tree__icon block" *ngIf="menuList.type!=3&&!menuList.children">block</md-icon>
-                <div *ngIf="menuList.type==1">
+                <div *ngIf="menuList.type==1" class="tr_main">
                   <md-icon class="tree__icon type center">lens</md-icon>
                   <p class="tree__span" [class.active]="menuList.active"
                      (click)="newSite(menuList.menuId, menuList.menuName)">
@@ -138,7 +138,7 @@
                     <md-icon aria-label="edit">mode_edit</md-icon>
                   </button>
                 </div>
-                <div *ngIf="menuList.type==2">
+                <div *ngIf="menuList.type==2" class="tr_main">
                   <md-icon class="tree__icon type site">lens</md-icon>
                   <p class="tree__span" [class.active]="menuList.active"
                      (click)="newDepartment(menuList.menuId, menuList.menuName)">
@@ -148,7 +148,7 @@
                     <md-icon aria-label="edit">mode_edit</md-icon>
                   </button>
                 </div>
-                <div *ngIf="menuList.type==3">
+                <div *ngIf="menuList.type==3" class="tr_main">
                   <md-icon class="tree__icon type department">lens</md-icon>
                   <p class="tree__span last">
                     {{menuList.menuName}}
@@ -169,7 +169,7 @@
                              *ngIf="subMenu.type!=3&&(subMenu.open&&subMenu.children)">remove
                     </md-icon>
                     <md-icon class="tree__icon block" *ngIf="subMenu.type!=3&&!subMenu.children">block</md-icon>
-                    <div *ngIf="subMenu.type==2">
+                    <div *ngIf="subMenu.type==2" class="tr_center">
                       <md-icon class="tree__icon type site">lens</md-icon>
                       <p class="tree__span" [class.active]="subMenu.active"
                          (click)="newDepartment(subMenu.menuId, subMenu.menuName)">
@@ -179,7 +179,7 @@
                         <md-icon aria-label="edit">mode_edit</md-icon>
                       </button>
                     </div>
-                    <div *ngIf="subMenu.type==3">
+                    <div *ngIf="subMenu.type==3" class="tr_center">
                       <md-icon class="tree__icon type department">lens</md-icon>
                       <p class="tree__span last">
                         {{subMenu.menuName}}
@@ -191,8 +191,8 @@
                   </div>
                   <ul *ngIf="subMenu.children&&subMenu.open" class="tree__list">
                     <li *ngFor="let sSubMenu of subMenu.children">
-                      <!--部门-->
-                      <div class="clear tree__p">
+                      <!--科室-->
+                      <div class="clear tree__p" class="tr_department">
                         <md-icon class="tree__icon type department">lens</md-icon>
                         <p class="tree__span last">{{sSubMenu.menuName}}</p>
                         <button md-icon-button color="primary" (click)="updateDepartment(sSubMenu)">
@@ -214,7 +214,7 @@
                          *ngIf="menuList.type!=3&&(menuList.open&&menuList.children)">remove
                 </md-icon>
                 <md-icon class="tree__icon block" *ngIf="menuList.type!=3&&!menuList.children">block</md-icon>
-                <div *ngIf="menuList.type==2">
+                <div *ngIf="menuList.type==2" class="tr_main">
                   <md-icon class="tree__icon type site">lens</md-icon>
                   <p class="tree__span" [class.active]="menuList.active"
                      (click)="newDepartment(menuList.menuId, menuList.menuName)">
@@ -224,7 +224,7 @@
                     <md-icon aria-label="edit">mode_edit</md-icon>
                   </button>
                 </div>
-                <div *ngIf="menuList.type==3">
+                <div *ngIf="menuList.type==3" class="tr_main">
                   <md-icon class="tree__icon type department">lens</md-icon>
                   <p class="tree__span last">
                     {{menuList.menuName}}
@@ -236,8 +236,8 @@
               </div>
               <ul *ngIf="menuList.children&&menuList.open" class="tree__list">
                 <li *ngFor="let sSubMenu of menuList.children">
-                  <!--部门-->
-                  <div class="clear tree__p">
+                  <!--科室-->
+                  <div class="clear tree__p tr_center">
                     <md-icon class="tree__icon type department">lens</md-icon>
                     <p class="tree__span last">{{sSubMenu.menuName}}</p>
                     <button md-icon-button color="primary" (click)="updateDepartment(sSubMenu)">
@@ -248,8 +248,8 @@
               </ul>
             </div>
             <div *ngIf="menuList&&menuList.level==3">
-              <!--部门-->
-              <div class="clear tree__p">
+              <!--科室-->
+              <div class="clear tree__p tr_main">
                 <md-icon class="tree__icon last">description</md-icon>
                 <p class="tree__span last">{{menuList.menuName}}</p>
                 <button md-icon-button color="primary" (click)="updateDepartment(menuList)">
@@ -273,7 +273,7 @@
                   <app-form [formDatas]="form" (formValues)="getValues($event)"></app-form>
                 </div>
               </md-tab>
-              <md-tab label="添加部门">
+              <md-tab label="添加科室">
                 <div style="padding: 15px 0;height: calc(100vh - 280px);overflow: auto">
                   <app-form [formDatas]="formTwo" (formValues)="getValues($event)"></app-form>
                 </div>
@@ -292,7 +292,7 @@
                   <app-form [formDatas]="formTwo" (formValues)="getValues($event)"></app-form>
                 </div>
               </md-tab>
-              <md-tab label="添加部门">
+              <md-tab label="添加科室">
                 <div style="padding: 15px 0;height: calc(100vh - 280px);overflow: auto">
                   <app-form [formDatas]="formThree" (formValues)="getValues($event)"></app-form>
                 </div>

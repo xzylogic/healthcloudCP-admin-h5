@@ -7,7 +7,7 @@ import { FormText } from '../../_entity/form-text';
   selector: 'app-input-text',
   template: `
     <div [formGroup]="form">
-      <md-input-container *ngIf="!data.maxlength" style="width: 100%" floatPlaceholder="always">
+      <md-input-container *ngIf="!data.maxlength&&data.type!='password'" style="width: 100%" floatPlaceholder="always">
         <input mdInput [type]="data.type"
                [placeholder]="data.label"
                [formControlName]="data.key"
@@ -18,6 +18,23 @@ import { FormText } from '../../_entity/form-text';
                (blur)="change()"
                (focus)="change()"
                (mousedown)="change()"
+               autocomplete="off"
+        >
+        <md-error>{{data.errMsg}}</md-error>
+      </md-input-container>
+      <md-input-container *ngIf="!data.maxlength&&data.type=='password'" style="width: 100%" floatPlaceholder="always">
+        <input mdInput [type]="'text'"
+               [placeholder]="data.label"
+               [formControlName]="data.key"
+               [(ngModel)]="value"
+               [readonly]="data.readonly"
+               (keyup)="change()"
+               (change)="change()"
+               (blur)="change()"
+               (focus)="change()"
+               (mousedown)="change()"
+               autocomplete="off"
+               onfocus="this.type='password'"
         >
         <md-error>{{data.errMsg}}</md-error>
       </md-input-container>
@@ -33,6 +50,7 @@ import { FormText } from '../../_entity/form-text';
                (blur)="change()"
                (focus)="change()"
                (mousedown)="change()"
+               autocomplete="off"
         >
         <md-hint align="end">{{value.length}} / {{data.maxlength}}</md-hint>
       </md-input-container>

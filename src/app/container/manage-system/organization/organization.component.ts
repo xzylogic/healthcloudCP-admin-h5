@@ -16,7 +16,7 @@ export class OrganizationComponent implements OnInit {
   formTwo: any;
   formThree: any;
   title = '';
-  flag: number; // 0 添加部门／修改所有 1 添加部门和站点 2 添加中心部门和站点
+  flag: number; // 0 添加科室／修改所有 1 添加科室和站点 2 添加中心科室和站点
 
   constructor(
     @Inject('organization') private organizationService,
@@ -136,7 +136,7 @@ export class OrganizationComponent implements OnInit {
     this.flag = 0;
     this.unActive(this.menuList, parentId);
     this.form = null;
-    this.title = '添加部门';
+    this.title = '添加科室';
     this.form = this.organizationService.setDepartmentForm(3, null, parentName, parentId);
     this.cdr.detectChanges();
   }
@@ -145,7 +145,7 @@ export class OrganizationComponent implements OnInit {
     this.flag = 0;
     this.unActive(this.menuList, 0);
     this.form = null;
-    this.title = '编辑部门';
+    this.title = '编辑科室';
     this.organizationService.getDepartment(menu.menuId)
       .subscribe(res => {
         if (res.data && res.code === 0) {

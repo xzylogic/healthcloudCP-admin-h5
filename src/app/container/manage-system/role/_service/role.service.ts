@@ -101,7 +101,6 @@ export class RoleService {
         label: '角色名称',
         value: data || '',
         required: true,
-        readonly: !!data,
         errMsg: '请填写角色名称'
       })
     );
