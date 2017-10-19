@@ -74,11 +74,13 @@ export class AccountEditComponent implements OnInit {
 
   getValues(data) {
     if (this.valid) {
-      const value = data;
-      const roleId = value.roleId;
-      const menuId = value.menuId;
-      delete value.roleId;
-      delete value.menuId;
+      const value: any = {};
+      value.username = data.username;
+      value.loginname = data.loginname;
+      value.telephone = data.telephone;
+      value.delFlag = data.delFlag;
+      const roleId = data.roleId;
+      const menuId = data.menuId;
       if (this.id) {
         value.userId = this.id;
       }

@@ -82,8 +82,8 @@ export class AuthService {
       })
     );
     if (Base64.decode(secretData[md5('menu')]) && isJSON(Base64.decode(secretData[md5('menu')]))) {
-      this.mainAction.setTree(JSON.parse(Base64.decode(secretData[md5('menu')])));
-      this.mainAction.setNav(JSON.parse(Base64.decode(secretData[md5('menu')])).children);
+      this.mainAction.setTree(JSON.parse(Base64.decode(secretData[md5('menu')])) || {});
+      this.mainAction.setNav(JSON.parse(Base64.decode(secretData[md5('menu')])).children || []);
     } else {
       this.mainAction.setTree({});
       this.mainAction.setNav([]);

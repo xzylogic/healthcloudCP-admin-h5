@@ -66,15 +66,18 @@ function handleSetNavAction(state: IMainState, action: SetNavAction): IMainState
 
 function handleInitNavAction(state: IMainState, action: InitNavAction): IMainState {
   const stateCopy = __assign(state);
-  stateCopy.navigation.forEach(obj => {
-    if (obj.children) {
-      obj.children.forEach(subObj => {
-        if (subObj.href.split('/')[1] === action.payload.path || subObj.href.split('/')[2] === action.payload.path) {
-          obj.open = true;
-        }
-      });
-    }
-  });
+  console.log(stateCopy.navigation);
+  if (Array.isArray(stateCopy.navigation)) {
+    stateCopy.navigation.forEach(obj => {
+      if (obj.children && Array.isArray(obj.children)) {
+        obj.children.forEach(subObj => {
+          if (subObj.href.split('/')[1] === action.payload.path || subObj.href.split('/')[2] === action.payload.path) {
+            obj.open = true;
+          }
+        });
+      }
+    });
+  }
   return stateCopy;
 }
 
