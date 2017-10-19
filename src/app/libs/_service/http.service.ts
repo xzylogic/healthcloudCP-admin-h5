@@ -66,7 +66,7 @@ export class HttpService {
    * @return {Observable}
    */
   get(path: string): Observable<any> {
-    return this.http.get(this.setTimestamps(path), {headers: this.headers})
+    return this.http.get(this.setTimestamps(path), {headers: this.headers, withCredentials: true})
       .map(HttpService.checkForError)
       .catch(err => Observable.throw(err))
       .map(HttpService.getJson);
@@ -79,7 +79,7 @@ export class HttpService {
    * @return {Observable}
    */
   post(path: string, body: any): Observable<any> {
-    return this.http.post(this.setTimestamps(path), HttpService.getBody(body), {headers: this.headers})
+    return this.http.post(this.setTimestamps(path), HttpService.getBody(body), {headers: this.headers, withCredentials: true})
       .map(HttpService.checkForError)
       .catch(err => Observable.throw(err))
       .map(HttpService.getJson);
@@ -92,7 +92,7 @@ export class HttpService {
    * @return {Observable}
    */
   put(path: string, body: any): Observable<any> {
-    return this.http.put(this.setTimestamps(path), HttpService.getBody(body), {headers: this.headers})
+    return this.http.put(this.setTimestamps(path), HttpService.getBody(body), {headers: this.headers, withCredentials: true})
       .map(HttpService.checkForError)
       .catch(err => Observable.throw(err))
       .map(HttpService.getJson);
@@ -104,7 +104,7 @@ export class HttpService {
    * @return {Observable}
    */
   delete(path: string): Observable<any> {
-    return this.http.delete(this.setTimestamps(path), {headers: this.headers})
+    return this.http.delete(this.setTimestamps(path), {headers: this.headers, withCredentials: true})
       .map(HttpService.checkForError)
       .catch(err => Observable.throw(err))
       .map(HttpService.getJson);
@@ -114,7 +114,7 @@ export class HttpService {
    * 上传图片
    */
   upload(path: string, data: any): Observable<any> {
-    return this.http.post(this.setTimestamps(path), data, {headers: new Headers({processData: false})})
+    return this.http.post(this.setTimestamps(path), data, {headers: new Headers({processData: false}), withCredentials: true})
       .map(HttpService.checkForError)
       .catch(err => Observable.throw(err))
       .map(HttpService.getJson);
