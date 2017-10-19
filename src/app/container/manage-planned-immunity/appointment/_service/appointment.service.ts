@@ -102,7 +102,7 @@ export class AppointmentService {
       }),
       new TableTitle({
         name: '所属机构',
-        key: 'departmentName'
+        key: 'hospitalName'
       }),
       new TableTitle({
         name: '订单状态',
