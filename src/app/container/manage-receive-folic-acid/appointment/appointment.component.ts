@@ -105,7 +105,7 @@ export class AppointmentComponent implements OnInit {
         } else if (res.code === 0 && res.data && res.data.data) {
           this.appointmentTable.totalPage = res.data.totalPages || '';
           this.appointmentTable.lists = res.data.data;
-          this.formatData(this.appointmentTable.lists);
+          this.formatData(this.appointmentTable.lists, res.data.operation);
         } else {
           this.appointmentTable.errorMessage = res.msg || ERRMSG.otherMsg;
         }
@@ -131,7 +131,7 @@ export class AppointmentComponent implements OnInit {
     }
   }
 
-  formatData(data) {
+  formatData(data, operation) {
     if (Array.isArray(data)) {
       data.forEach(obj => {
         if (obj.checked == 0) {
@@ -143,7 +143,7 @@ export class AppointmentComponent implements OnInit {
         if (obj.checked == 2) {
           obj.status = '审核未通过';
         }
-        obj.edit = obj.checked == 0 ? '审核' : '查看';
+        obj.edit = (obj.checked == 0 && operation == 1) ? '审核' : '查看';
       });
     }
   }

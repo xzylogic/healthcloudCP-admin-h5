@@ -1,9 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { select } from '@angular-redux/store';
-import { Observable } from 'rxjs/Observable';
-import { Menu } from '../../../_store/main.state';
 import { MdDialog } from '@angular/material';
 import { HintDialog } from '../../../../libs/dmodal/dialog.component';
 import { ERRMSG } from '../../../_store/static';
@@ -58,12 +55,16 @@ export class RoleEditComponent implements OnInit {
   }
 
   getValue(data) {
+    const formData: any = {};
     if (this.id) {
-      data.roleId = this.id;
+      formData.roleId = this.id;
     }
-    data.delFlag = 0;
-    data.menuIds = data.menuIds.join(',');
-    this.roleService.updateRole(data)
+    formData.delFlag = 0;
+    if (Array.isArray(data.menuIds)) {
+      formData.menuIds = data.menuIds.join(',');
+    }
+    formData.name = data.name;
+    this.roleService.updateRole(formData)
       .subscribe(res => {
         if (res.code === 0) {
           HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {

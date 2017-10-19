@@ -115,7 +115,7 @@ export class AppointmentComponent implements OnInit {
         } else if (res.code === 0 && res.data && res.data.content) {
           this.appointmentTable.totalPage = res.data.extras.totalPage || '';
           this.appointmentTable.lists = res.data.content;
-          this.formatData(this.appointmentTable.lists);
+          this.formatData(this.appointmentTable.lists, res.data.extras.operation);
         } else {
           this.appointmentTable.errorMessage = res.msg || ERRMSG.otherMsg;
         }
@@ -142,7 +142,7 @@ export class AppointmentComponent implements OnInit {
     }
   }
 
-  formatData(data) {
+  formatData(data, operation) {
     if (Array.isArray(data)) {
       data.forEach(obj => {
         if (obj.status == 0) {
@@ -160,7 +160,7 @@ export class AppointmentComponent implements OnInit {
         if (obj.status == 4) {
           obj.statusName = '接种爽约';
         }
-        obj.edit = obj.status == 0 ? '预约登记' : '查看';
+        obj.edit = (obj.status == 0 && operation == 1) ? '预约登记' : '查看';
       });
     }
   }
