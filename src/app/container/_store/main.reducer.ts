@@ -42,6 +42,8 @@ function handleSetAdminAction(state: IMainState, action: SetAdminAction): IMainS
   const stateCopy = __assign(state);
   stateCopy.adminId = action.payload.id;
   stateCopy.adminName = action.payload.name;
+  stateCopy.hospitalName = action.payload.hospitalName;
+  stateCopy.departmentName = action.payload.departmentName;
   return stateCopy;
 }
 
@@ -49,6 +51,8 @@ function handleDelAdminAction(state: IMainState, action: DelAdminAction): IMainS
   const stateCopy = __assign(state);
   stateCopy.adminId = 0;
   stateCopy.adminName = '';
+  stateCopy.hospitalName = '';
+  stateCopy.departmentName = '';
   return stateCopy;
 }
 
@@ -66,7 +70,6 @@ function handleSetNavAction(state: IMainState, action: SetNavAction): IMainState
 
 function handleInitNavAction(state: IMainState, action: InitNavAction): IMainState {
   const stateCopy = __assign(state);
-  console.log(stateCopy.navigation);
   if (Array.isArray(stateCopy.navigation)) {
     stateCopy.navigation.forEach(obj => {
       if (obj.children && Array.isArray(obj.children)) {

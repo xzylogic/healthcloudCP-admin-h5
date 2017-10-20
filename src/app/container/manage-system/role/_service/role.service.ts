@@ -107,7 +107,7 @@ export class RoleService {
     forms.push(
       new FormTree({
         key: 'menuIds',
-        label: '添加权限',
+        label: '菜单权限',
         value: [],
         required: true,
         options: tree || [],

@@ -6,6 +6,7 @@ const PATH = {
   saveWeekList: '/api/appointmentTime/saveWeek',
   getTimeList: '/api/appointmentTime/getWeekTimeList',
   saveTimeList: '/api/appointmentTime/saveWeekTime',
+  getCommunityAll: '/api/getAllCommunityByUserId',
   getDays: '/api/appointmentTime/getDates'
 };
 
@@ -13,28 +14,33 @@ const PATH = {
 export class PlanService {
   constructor(
     @Inject('app') private app,
+    @Inject('auth') private auth,
     @Inject('http') private http
   ) {
   }
 
-  getWeekList() {
-    return this.http.get(`${this.app.api_url}${PATH.getWeekList}?type=jd`);
+  getWeekList(orgId) {
+    return this.http.get(`${this.app.api_url}${PATH.getWeekList}?type=jd&organizationId=${orgId}`);
   }
 
   saveWeekList(data) {
     return this.http.post(`${this.app.api_url}${PATH.saveWeekList}`, data);
   }
 
-  getTimeList() {
-    return this.http.get(`${this.app.api_url}${PATH.getTimeList}?type=jd`);
+  getTimeList(orgId) {
+    return this.http.get(`${this.app.api_url}${PATH.getTimeList}?type=jd&organizationId=${orgId}`);
   }
 
   saveTimeList(data) {
     return this.http.post(`${this.app.api_url}${PATH.saveTimeList}`, data);
   }
 
-  getDays() {
-    return this.http.get(`${this.app.api_url}${PATH.getDays}?type=jd`);
+  getDays(orgId) {
+    return this.http.get(`${this.app.api_url}${PATH.getDays}?type=jd&organizationId=${orgId}`);
+  }
+
+  getCommunityAll() {
+    return this.http.get(`${this.app.api_url}${PATH.getCommunityAll}?userId=${this.auth.getAdminId()}`);
   }
 
   setPlanConfig() {

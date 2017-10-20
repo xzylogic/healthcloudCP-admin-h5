@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MdDialog } from '@angular/material';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
@@ -23,11 +23,20 @@ export class PlanComponent implements OnInit {
   timeList4: any;
   timeList5: any;
   timeList6: any;
+  centerId = '';
+  siteId = '';
+  centerList: Array<any>;
+  siteList: Array<any>;
+  departmentList: Array<any>;
+  communityList: Array<any>;
+  orgName = '';
+  orgNameRecord = '';
 
   events: CalendarEvent[] = [];
 
   constructor(
     @Inject('plan') private planService,
+    @Inject('auth') private auth,
     private dialog: MdDialog,
     private router: Router,
     private route: ActivatedRoute
@@ -47,10 +56,26 @@ export class PlanComponent implements OnInit {
         this.viewDate = new Date(res.date);
       }
     });
+    this.getCommunityAll();
+    this.orgName = this.auth.getHospitalName();
+    if (this.auth.getDepartmentName()) {
+      this.orgName += ' - ' + this.auth.getDepartmentName();
+    }
+  }
+
+  reset() {
+
+  }
+
+  search() {
+    this.orgName = this.orgNameRecord;
+    this.getWeekList();
+    this.getTimeList();
+    this.getDays();
   }
 
   getWeekList() {
-    this.planService.getWeekList()
+    this.planService.getWeekList(this.siteId || this.centerId)
       .subscribe(res => {
         if (res.code === 0 && res.data && res.data.content) {
           const week = res.data.content;
@@ -61,7 +86,7 @@ export class PlanComponent implements OnInit {
   }
 
   getTimeList() {
-    this.planService.getTimeList()
+    this.planService.getTimeList(this.siteId || this.centerId)
       .subscribe(res => {
         if (res.code === 0 && res.data && res.data.content) {
           const time = res.data.content;
@@ -121,7 +146,7 @@ export class PlanComponent implements OnInit {
   }
 
   getDays() {
-    this.planService.getDays()
+    this.planService.getDays(this.siteId || this.centerId)
       .subscribe(res => {
         if (res.code === 0 && res.data) {
           this.events = this.resetEvents(res.data);
@@ -154,6 +179,88 @@ export class PlanComponent implements OnInit {
     const num = list[i].stock;
     if (isNaN(Number(num)) || num < 0) {
       list[i].stock = 0;
+    }
+  }
+
+  getCommunityAll() {
+    this.planService.getCommunityAll()
+      .subscribe(res => {
+        if (res.code === 0 && res.data) {
+          this.communityList = res.data;
+          this.getCenter(res.data);
+          this.getSite(res.data);
+          this.getDepartment(res.data);
+        }
+      });
+  }
+
+  // 获取中心列表
+  getCenter(list) {
+    if (Array.isArray(list)) {
+      const center = [];
+      list.forEach(obj => {
+        if (obj.type == 1) {
+          center.push(obj);
+        }
+      });
+      this.centerList = center;
+    }
+  }
+
+  // 获取站点列表
+  getSite(list) {
+    if (Array.isArray(list)) {
+      const center = [];
+      list.forEach(obj => {
+        if (obj.type == 2) {
+          center.push(obj);
+        }
+      });
+      this.siteList = center;
+    }
+  }
+
+  // 获取部门列表
+  getDepartment(list) {
+    if (Array.isArray(list)) {
+      const center = [];
+      list.forEach(obj => {
+        if (obj.type == 3) {
+          center.push(obj);
+        }
+      });
+      this.departmentList = center;
+    }
+  }
+
+  centerChange(data) {
+    if (Array.isArray(this.centerList)) {
+      this.centerList.forEach(obj => {
+        if (obj.menuId == data.value) {
+          this.orgNameRecord = obj.name;
+        }
+      });
+    }
+    this.siteId = '';
+    const site = [{menuId: '', name: '无'}];
+    this.communityList.forEach(obj => {
+      if (obj.parentId === data.value && obj.type == 2) {
+        site.push(obj);
+      }
+    });
+    if (site.length !== 1) {
+      site.splice(0, 1);
+    }
+    this.siteList = site;
+  }
+
+  siteChange(data) {
+    if (Array.isArray(this.siteList)) {
+      this.siteList.forEach(obj => {
+        if (obj.menuId == data.value) {
+          this.orgNameRecord = obj.name;
+        }
+      });
     }
   }
 }

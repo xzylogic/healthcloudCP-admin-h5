@@ -18,10 +18,14 @@ export class Menu {
 export class Admin {
   id: number;
   name: string;
+  hospitalName: string;
+  departmentName: string;
 
   constructor(obj?: Admin) {
     this.id = obj && obj.id || 0;
     this.name = obj && obj.name || '';
+    this.hospitalName = obj && obj.hospitalName || '';
+    this.departmentName = obj && obj.departmentName || '';
   }
 }
 

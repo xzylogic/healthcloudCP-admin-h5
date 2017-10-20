@@ -21,7 +21,9 @@ export class AuthService {
   // store the URL so we can redirect after logging in
   redirectUrl = '';
   @select(['main', 'adminName']) adminName: Observable<string>;
-  @select(['main', 'adminId']) adminId: Observable<number>;
+  @select(['main', 'adminId']) adminId: Observable<string>;
+  @select(['main', 'hospitalName']) hospitalName: Observable<string>;
+  @select(['main', 'departmentName']) departmentName: Observable<string>;
 
   constructor(
     private router: Router,
@@ -65,9 +67,16 @@ export class AuthService {
     secretData[md5('sessionId')] = Base64.encode(data.sessionId);
     secretData[md5('userId')] = Base64.encode(data.userId);
     secretData[md5('userName')] = Base64.encode(data.userName);
+    secretData[md5('hospitalName')] = Base64.encode(data.hospitalName || '');
+    secretData[md5('departmentName')] = Base64.encode(data.departmentName || '');
     secretData[md5('menu')] = Base64.encode(JSON.stringify(data.menu));
     this.setJwt(JSON.stringify(secretData));
-    this.mainAction.setAdmin(new Admin({id: data.userId, name: data.userName}));
+    this.mainAction.setAdmin(new Admin({
+      id: data.userId,
+      name: data.userName,
+      hospitalName: data.hospitalName || '',
+      departmentName: data.departmentName || ''
+    }));
     this.mainAction.setTree(data.menu || {});
     this.mainAction.setNav(data.menu && data.menu.children || []);
     this.httpService.setHeaders({'sessionId': data.sessionId, 'userId': data.userId});
@@ -78,7 +87,9 @@ export class AuthService {
     this.mainAction.setAdmin(
       new Admin({
         id: Base64.decode(secretData[md5('userId')]),
-        name: Base64.decode(secretData[md5('userName')])
+        name: Base64.decode(secretData[md5('userName')]),
+        hospitalName: Base64.decode(secretData[md5('hospitalName')]),
+        departmentName: Base64.decode(secretData[md5('departmentName')])
       })
     );
     if (Base64.decode(secretData[md5('menu')]) && isJSON(Base64.decode(secretData[md5('menu')]))) {
@@ -107,11 +118,27 @@ export class AuthService {
     return name;
   }
 
-  getAdminId(): number {
-    let id: number;
+  getAdminId(): string {
+    let id: string;
     this.adminId.subscribe(res => {
       id = res;
     });
     return id;
+  }
+
+  getHospitalName(): string {
+    let name: string;
+    this.hospitalName.subscribe(res => {
+      name = res;
+    });
+    return name;
+  }
+
+  getDepartmentName(): string {
+    let name: string;
+    this.departmentName.subscribe(res => {
+      name = res;
+    });
+    return name;
   }
 }
