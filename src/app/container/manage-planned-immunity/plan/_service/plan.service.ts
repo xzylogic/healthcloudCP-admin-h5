@@ -18,25 +18,36 @@ export class PlanService {
     @Inject('http') private http
   ) {
   }
-
-  getWeekList() {
-    return this.http.get(`${this.app.api_url}${PATH.getWeekList}?type=jm`);
+  getWeekList(orgId) {
+    let query = '?type=jm';
+    if (orgId) {
+      query += `&organizationId=${orgId}`;
+    }
+    return this.http.get(`${this.app.api_url}${PATH.getWeekList}${query}`);
   }
 
   saveWeekList(data) {
     return this.http.post(`${this.app.api_url}${PATH.saveWeekList}`, data);
   }
 
-  getTimeList() {
-    return this.http.get(`${this.app.api_url}${PATH.getTimeList}?type=jm`);
+  getTimeList(orgId) {
+    let query = '?type=jm';
+    if (orgId) {
+      query += `&organizationId=${orgId}`;
+    }
+    return this.http.get(`${this.app.api_url}${PATH.getTimeList}${query}`);
   }
 
   saveTimeList(data) {
     return this.http.post(`${this.app.api_url}${PATH.saveTimeList}`, data);
   }
 
-  getDays() {
-    return this.http.get(`${this.app.api_url}${PATH.getDays}?type=jm`);
+  getDays(orgId) {
+    let query = '?type=jm';
+    if (orgId) {
+      query += `&organizationId=${orgId}`;
+    }
+    return this.http.get(`${this.app.api_url}${PATH.getDays}${query}`);
   }
 
   getCommunity() {

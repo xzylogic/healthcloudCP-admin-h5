@@ -21,6 +21,7 @@ export class PlanCommonComponent implements OnInit, OnDestroy {
   schedulePm: any;
   flag = true;
   operation: any;
+  orgName: any;
 
   constructor(
     @Inject('plancommon') private planCommonService,
@@ -69,6 +70,7 @@ export class PlanCommonComponent implements OnInit, OnDestroy {
           if (res.code === 0 && res.data && res.data.content) {
             this.flag = res.data.more;
             this.operation = res.data.extras.operation;
+            this.orgName = res.data.extras.hospitalName;
             this.listAm = res.data.content[0] || {};
             this.scheduleAm = res.data.content[0] && res.data.content[0].schedulingDateTimeDtos || [];
             this.listPm = res.data.content[1] || {};

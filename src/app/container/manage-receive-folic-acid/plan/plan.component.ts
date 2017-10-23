@@ -35,6 +35,7 @@ export class PlanComponent implements OnInit {
   orgNameRecord = '';
   operationWeek: any;
   operationTime: any;
+  show: any;
 
   events: CalendarEvent[] = [];
 
@@ -97,6 +98,7 @@ export class PlanComponent implements OnInit {
       .subscribe(res => {
         if (res.code === 0 && res.data && res.data.content) {
           this.operationWeek = res.data.extras.operation;
+          this.show = res.data.extras.isExist;
           const week = res.data.content;
           this.weekListAm = week[0].length === 7 ? week[0] : defalutWeekList[0];
           this.weekListPm = week[1].length === 7 ? week[1] : defalutWeekList[1];
@@ -109,6 +111,7 @@ export class PlanComponent implements OnInit {
       .subscribe(res => {
         if (res.code === 0 && res.data && res.data.content) {
           this.operationTime = res.data.extras.operation;
+          this.show = res.data.extras.isExist;
           const time = res.data.content;
           if (time[0] && time[0].length === 7 &&
             time[1] && time[1].length === 7 &&
@@ -207,8 +210,6 @@ export class PlanComponent implements OnInit {
           this.communityList = res.data;
           this.getCenter(res.data);
           this.getSite(res.data);
-          console.log(this.centerList);
-          console.log(this.siteList);
         }
       });
   }

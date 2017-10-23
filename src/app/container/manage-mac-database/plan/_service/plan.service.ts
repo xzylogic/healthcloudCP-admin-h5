@@ -20,7 +20,11 @@ export class PlanService {
   }
 
   getWeekList(orgId) {
-    return this.http.get(`${this.app.api_url}${PATH.getWeekList}?type=jd&organizationId=${orgId}`);
+    let query = '?type=jd';
+    if (orgId) {
+      query += `&organizationId=${orgId}`;
+    }
+    return this.http.get(`${this.app.api_url}${PATH.getWeekList}${query}`);
   }
 
   saveWeekList(data) {
@@ -28,7 +32,11 @@ export class PlanService {
   }
 
   getTimeList(orgId) {
-    return this.http.get(`${this.app.api_url}${PATH.getTimeList}?type=jd&organizationId=${orgId}`);
+    let query = '?type=jd';
+    if (orgId) {
+      query += `&organizationId=${orgId}`;
+    }
+    return this.http.get(`${this.app.api_url}${PATH.getTimeList}${query}`);
   }
 
   saveTimeList(data) {
@@ -36,7 +44,11 @@ export class PlanService {
   }
 
   getDays(orgId) {
-    return this.http.get(`${this.app.api_url}${PATH.getDays}?type=jd&organizationId=${orgId}`);
+    let query = '?type=jd';
+    if (orgId) {
+      query += `&organizationId=${orgId}`;
+    }
+    return this.http.get(`${this.app.api_url}${PATH.getDays}${query}`);
   }
 
   getCommunity() {

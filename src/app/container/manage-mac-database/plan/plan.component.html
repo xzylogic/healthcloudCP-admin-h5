@@ -22,7 +22,10 @@
     <div style="padding: 30px 0 15px 0">
       <h2>排班及号源维护 - {{orgName}}</h2>
     </div>
-    <md-tab-group dynamicHeight="true" [selectedIndex]="tab">
+    <div style="padding: 30px;text-align: center" *ngIf="show=='false'">
+      该机构无排班及号源信息
+    </div>
+    <md-tab-group dynamicHeight="true" [selectedIndex]="tab" *ngIf="show!='false'">
       <md-tab label="排班表">
         <div class="table-container clear">
           <table class="table" *ngIf="weekListAm&&weekListPm">
@@ -141,7 +144,8 @@
             点击单元格直接编辑数字，无排班日期的时间不用设置号源。
           </span>
           </p>
-          <div class="button-content" *ngIf="timeList1&&timeList2&&timeList3&&timeList4&&timeList5&&timeList6&&(operationTime==1)">
+          <div class="button-content"
+               *ngIf="timeList1&&timeList2&&timeList3&&timeList4&&timeList5&&timeList6&&(operationTime==1)">
             <button md-raised-button color="primary" [disabled]="!form.valid" type="submit">保存</button>
           </div>
         </form>

@@ -22,7 +22,10 @@
     <div style="padding: 30px 0 15px 0">
       <h2>排班及号源维护 - {{orgName}}</h2>
     </div>
-    <md-tab-group dynamicHeight="true" [selectedIndex]="tab">
+    <div style="padding: 30px;text-align: center" *ngIf="show=='false'">
+      该机构无排班及号源信息
+    </div>
+    <md-tab-group dynamicHeight="true" [selectedIndex]="tab" *ngIf="show!='false'">
       <md-tab label="排班表">
         <div class="table-container clear">
           <table class="table" *ngIf="weekListAm&&weekListPm">
