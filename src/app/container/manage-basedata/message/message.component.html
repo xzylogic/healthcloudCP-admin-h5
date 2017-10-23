@@ -8,7 +8,6 @@
       </div>
       <div *ngIf="messageTable.lists">
         <div style="padding: 10px 25px">
-          <button md-raised-button color="primary" (click)="delSelected()">删除</button>
           <button md-raised-button color="primary" (click)="readSelected()">设为已读</button>
         </div>
         <table class="table">
@@ -17,6 +16,7 @@
             <th>
               <md-checkbox [(ngModel)]="allChecked" (change)="getAllChecked()"></md-checkbox>
             </th>
+            <th>序号</th>
             <th>消息内容</th>
             <th>消息类型</th>
             <th>是否已读</th>
@@ -25,9 +25,12 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let obj of messageTable.lists">
+          <tr *ngFor="let obj of messageTable.lists;let i=index">
             <td>
               <md-checkbox [(ngModel)]="obj.checked"></md-checkbox>
+            </td>
+            <td>
+              <span>{{i + 1 + (messageTable.currentPage * 10)}}</span>
             </td>
             <td>
               <span [class.primary]="obj.is_read==0">{{obj.content}}</span>
@@ -49,7 +52,7 @@
               <span>{{obj.create_time | date: 'yyyy-MM-dd HH:mm'}}</span>
             </td>
             <td>
-              <span (click)="gotoHandle(obj.id)" class="table__option" style="padding: 0 10px">删除</span>
+              <span (click)="gotoDetail(obj.type,obj.id)" class="table__option" style="padding: 0 10px">查看</span>
             </td>
           </tr>
           </tbody>

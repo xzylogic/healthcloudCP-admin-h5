@@ -4,6 +4,7 @@ import { TableOption } from '../../../libs/dtable/dtable.entity';
 import { ERRMSG } from '../../_store/static';
 import { HintDialog } from '../../../libs/dmodal/dialog.component';
 import { MdDialog } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-message',
@@ -17,6 +18,7 @@ export class MessageComponent implements OnInit {
 
   constructor(
     @Inject('message') private messageService,
+    private router: Router,
     private dialog: MdDialog
   ) {
   }
@@ -122,5 +124,37 @@ export class MessageComponent implements OnInit {
         console.log(err);
         HintDialog(ERRMSG.netErrMsg, this.dialog);
       });
+  }
+
+  readMessageS(id) {
+    this.messageService.readMessage(id)
+      .subscribe(res => {
+        if (res.code === 0) {
+          console.log('success');
+        } else {
+          console.log('error');
+        }
+      }, err => {
+        console.log(err);
+      });
+  }
+
+  gotoDetail(type, id) {
+    if (type == 7) {
+      this.readMessageS(id);
+      this.router.navigate(['/mac-database/appointment/detail', id]);
+    }
+    if (type == 1) {
+      this.readMessageS(id);
+      this.router.navigate(['/planned-immunity/appointment/detail', id]);
+    }
+    if (type == 2) {
+      this.readMessageS(id);
+      this.router.navigate(['/pe-for-children/appointment/detail', id]);
+    }
+    if (type == 3) {
+      this.readMessageS(id);
+      this.router.navigate(['/receive-folic-acid/appointment/detail', id]);
+    }
   }
 }
