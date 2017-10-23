@@ -1,10 +1,12 @@
-import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MdDialog } from '@angular/material';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { HintDialog } from '../../../libs/dmodal/dialog.component';
 import { ERRMSG } from '../../_store/static';
 import { CalendarEvent } from 'angular-calendar';
+import { select } from '@angular-redux/store';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-receive-folic-acid-plan',
@@ -13,6 +15,7 @@ import { CalendarEvent } from 'angular-calendar';
 })
 export class PlanComponent implements OnInit {
   containerConfig: ContainerConfig;
+  @select(['receive-folic-acid-plan', 'data']) data: Observable<any>;
   viewDate: Date = new Date();
   tab = 0;
   weekListAm: any;
@@ -23,11 +26,22 @@ export class PlanComponent implements OnInit {
   timeList4: any;
   timeList5: any;
   timeList6: any;
+  centerId = '';
+  siteId = '';
+  centerList: Array<any>;
+  siteList: Array<any>;
+  communityList: Array<any>;
+  orgName = '';
+  orgNameRecord = '';
+  operationWeek: any;
+  operationTime: any;
 
   events: CalendarEvent[] = [];
 
   constructor(
+    @Inject('action') private action,
     @Inject('plan') private planService,
+    @Inject('auth') private auth,
     private dialog: MdDialog,
     private router: Router,
     private route: ActivatedRoute
@@ -36,9 +50,6 @@ export class PlanComponent implements OnInit {
 
   ngOnInit() {
     this.containerConfig = this.planService.setPlanConfig();
-    this.getWeekList();
-    this.getTimeList();
-    this.getDays();
     this.route.queryParams.subscribe(res => {
       if (res.tab) {
         this.tab = res.tab;
@@ -46,13 +57,46 @@ export class PlanComponent implements OnInit {
       if (res.date) {
         this.viewDate = new Date(res.date);
       }
+      if (res.flag) {
+        this.data.subscribe(data => {
+          if (data) {
+            this.siteId = data.siteId;
+            this.centerId = data.centerId;
+            this.orgName = data.orgName;
+            this.orgNameRecord = '';
+            this.search();
+          } else {
+            this.reset();
+          }
+        });
+      } else {
+        this.reset();
+      }
     });
+    this.getCommunityAll();
+  }
+
+  reset() {
+    this.siteId = '';
+    this.centerId = '';
+    this.orgName = this.auth.getDepartmentName() ?
+      `${this.auth.getHospitalName()} - ${this.auth.getDepartmentName()}` : this.auth.getHospitalName();
+    this.orgNameRecord = '';
+    this.search();
+  }
+
+  search() {
+    this.orgName = this.orgNameRecord || this.orgName;
+    this.getWeekList();
+    this.getTimeList();
+    this.getDays();
   }
 
   getWeekList() {
-    this.planService.getWeekList()
+    this.planService.getWeekList(this.siteId || this.centerId)
       .subscribe(res => {
         if (res.code === 0 && res.data && res.data.content) {
+          this.operationWeek = res.data.extras.operation;
           const week = res.data.content;
           this.weekListAm = week[0].length === 7 ? week[0] : defalutWeekList[0];
           this.weekListPm = week[1].length === 7 ? week[1] : defalutWeekList[1];
@@ -61,9 +105,10 @@ export class PlanComponent implements OnInit {
   }
 
   getTimeList() {
-    this.planService.getTimeList()
+    this.planService.getTimeList(this.siteId || this.centerId)
       .subscribe(res => {
         if (res.code === 0 && res.data && res.data.content) {
+          this.operationTime = res.data.extras.operation;
           const time = res.data.content;
           if (time[0] && time[0].length === 7 &&
             time[1] && time[1].length === 7 &&
@@ -121,7 +166,7 @@ export class PlanComponent implements OnInit {
   }
 
   getDays() {
-    this.planService.getDays()
+    this.planService.getDays(this.siteId || this.centerId)
       .subscribe(res => {
         if (res.code === 0 && res.data) {
           this.events = this.resetEvents(res.data);
@@ -147,13 +192,81 @@ export class PlanComponent implements OnInit {
   }
 
   handleDayClick(date) {
-    this.router.navigate(['/receive-folic-acid/plan/edit', date, 'ys']);
+    this.action.dataChange('receive-folic-acid-plan', {
+      siteId: this.siteId,
+      centerId: this.centerId,
+      orgName: this.orgName
+    });
+    this.router.navigate(['/receive-folic-acid/plan/edit', date, 'ys'], {queryParams: {org: this.siteId || this.centerId}});
   }
 
-  resetNumber(list, i) {
-    const num = list[i].stock;
-    if (isNaN(Number(num)) || num < 0) {
-      list[i].stock = 0;
+  getCommunityAll() {
+    this.planService.getCommunity()
+      .subscribe(res => {
+        if (res.code === 0 && res.data) {
+          this.communityList = res.data;
+          this.getCenter(res.data);
+          this.getSite(res.data);
+          console.log(this.centerList);
+          console.log(this.siteList);
+        }
+      });
+  }
+
+  // 获取中心列表
+  getCenter(list) {
+    if (Array.isArray(list)) {
+      const center = [];
+      list.forEach(obj => {
+        if (obj.type == 1) {
+          center.push(obj);
+        }
+      });
+      this.centerList = center;
+    }
+  }
+
+  // 获取站点列表
+  getSite(list) {
+    if (Array.isArray(list)) {
+      const center = [];
+      list.forEach(obj => {
+        if (obj.type == 2) {
+          center.push(obj);
+        }
+      });
+      this.siteList = center;
+    }
+  }
+
+  centerChange(data) {
+    if (Array.isArray(this.centerList)) {
+      this.centerList.forEach(obj => {
+        if (obj.menuId == data.value) {
+          this.orgNameRecord = obj.name;
+        }
+      });
+    }
+    this.siteId = '';
+    const site = [{menuId: '', name: '无'}];
+    this.communityList.forEach(obj => {
+      if (obj.parentId === data.value && obj.type == 2) {
+        site.push(obj);
+      }
+    });
+    if (site.length !== 1) {
+      site.splice(0, 1);
+    }
+    this.siteList = site;
+  }
+
+  siteChange(data) {
+    if (Array.isArray(this.siteList)) {
+      this.siteList.forEach(obj => {
+        if (obj.menuId == data.value) {
+          this.orgNameRecord = obj.name;
+        }
+      });
     }
   }
 }

@@ -14,8 +14,12 @@ export class PlanCommonService {
   ) {
   }
 
-  getDefault(type, date) {
-    return this.http.get(`${this.app.api_url}${PATH.getDefault}?type=${type}&dates=${date}`);
+  getDefault(type, date, org) {
+    let query = `?type=${type}&dates=${date}`;
+    if (org) {
+      query += `&organizationId=${org}`;
+    }
+    return this.http.get(`${this.app.api_url}${PATH.getDefault}${query}`);
   }
 
   saveDefault(data) {
@@ -28,7 +32,7 @@ export class PlanCommonService {
       subTitle: `特殊日期设置：${date}`,
       ifHome: false,
       homeRouter: router,
-      query: {tab: 2, date: date}
+      query: {tab: 2, date: date, flag: true}
     });
   }
 }

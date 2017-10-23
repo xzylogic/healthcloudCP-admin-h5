@@ -20,20 +20,20 @@
               <span *ngIf="!obj.workState">不上班</span>
             </td>
             <td>
-              <input type="text" name="am{{i}}" [(ngModel)]="obj.stock" class="time-input" [disabled]="flag"
+              <input type="text" name="am{{i}}" [(ngModel)]="obj.stock" class="time-input" [disabled]="flag||(operation!=1)"
                      pattern="^[0-9]*$" #am{{i}}="ngModel"
                      [class.error]="form.controls['am' + i]&&form.controls['am' + i].invalid">
             </td>
             <td *ngIf="i===0" rowspan="3">
-              <button md-raised-button *ngIf="listAm.workState" [disabled]="flag" (click)="setAmWorkState(false)">不上班
+              <button md-raised-button *ngIf="listAm.workState" [disabled]="flag||(operation!=1)" (click)="setAmWorkState(false)">不上班
               </button>
-              <button md-raised-button *ngIf="!listAm.workState" [disabled]="flag" (click)="setAmWorkState(true)">上班
+              <button md-raised-button *ngIf="!listAm.workState" [disabled]="flag||(operation!=1)" (click)="setAmWorkState(true)">上班
               </button>
             </td>
             <td *ngIf="i===0" rowspan="3">
               <md-form-field float="never" style="width: 100%">
               <textarea style="width: 100%;height: 150px" mdInput placeholder="" [(ngModel)]="listAm.notice"
-                        name="noteam" maxlength="50" [disabled]="flag"></textarea>
+                        name="noteam" maxlength="50" [disabled]="flag||(operation!=1)"></textarea>
                 <md-hint align="end">{{listAm.notice?.length}} / 50</md-hint>
               </md-form-field>
             </td>
@@ -45,20 +45,20 @@
               <span *ngIf="!obj.workState">不上班</span>
             </td>
             <td>
-              <input type="text" name="pm{{i}}" [(ngModel)]="obj.stock" class="time-input" [disabled]="flag"
+              <input type="text" name="pm{{i}}" [(ngModel)]="obj.stock" class="time-input" [disabled]="flag||(operation!=1)"
                      pattern="^[0-9]*$" #pm{{i}}="ngModel"
                      [class.error]="form.controls['pm' + i]&&form.controls['pm' + i].invalid">
             </td>
             <td *ngIf="i===0" rowspan="3">
-              <button md-raised-button *ngIf="listPm.workState" [disabled]="flag" (click)="setPmWorkState(false)">不上班
+              <button md-raised-button *ngIf="listPm.workState" [disabled]="flag||(operation!=1)" (click)="setPmWorkState(false)">不上班
               </button>
-              <button md-raised-button *ngIf="!listPm.workState" [disabled]="flag" (click)="setPmWorkState(true)">上班
+              <button md-raised-button *ngIf="!listPm.workState" [disabled]="flag||(operation!=1)" (click)="setPmWorkState(true)">上班
               </button>
             </td>
             <td *ngIf="i===0" rowspan="3">
               <md-form-field float="never" style="width: 100%">
               <textarea style="width: 100%;height: 150px" mdInput placeholder="" [(ngModel)]="listPm.notice"
-                        name="notepm" maxlength="50" [disabled]="flag"></textarea>
+                        name="notepm" maxlength="50" [disabled]="flag||(operation!=1)"></textarea>
                 <md-hint align="end">{{listPm.notice?.length}} / 50</md-hint>
               </md-form-field>
             </td>
@@ -66,9 +66,9 @@
           </tbody>
         </table>
       </div>
-      <p class="errMsg" *ngIf="!form.valid&&!flag">* 请填写正确的号源（非负整数）</p>
+      <p class="errMsg" *ngIf="!form.valid&&!flag&&operation==1">* 请填写正确的号源（非负整数）</p>
       <div class="button-content">
-        <button md-raised-button color="primary" type="submit" *ngIf="!flag" [disabled]="!form.valid">保存</button>
+        <button md-raised-button color="primary" type="submit" *ngIf="!flag" [disabled]="!form.valid||(operation!=1)">保存</button>
       </div>
     </form>
   </div>

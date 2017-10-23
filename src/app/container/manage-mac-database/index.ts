@@ -22,4 +22,5 @@ export const routes: Routes = [{
 
 export const stores = {
   'mac-database': createReducer('mac-database', [0], null),
+  'mac-database-plan': createReducer('mac-database-plan', [0], null),
 };

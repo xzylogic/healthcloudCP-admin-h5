@@ -5,6 +5,8 @@ import { ContainerConfig } from '../../../libs/common/container/container.compon
 import { HintDialog } from '../../../libs/dmodal/dialog.component';
 import { ERRMSG } from '../../_store/static';
 import { CalendarEvent } from 'angular-calendar';
+import { select } from '@angular-redux/store';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-mac-database-plan',
@@ -13,6 +15,7 @@ import { CalendarEvent } from 'angular-calendar';
 })
 export class PlanComponent implements OnInit {
   containerConfig: ContainerConfig;
+  @select(['mac-database-plan', 'data']) data: Observable<any>;
   viewDate: Date = new Date();
   tab = 0;
   weekListAm: any;
@@ -27,14 +30,16 @@ export class PlanComponent implements OnInit {
   siteId = '';
   centerList: Array<any>;
   siteList: Array<any>;
-  departmentList: Array<any>;
   communityList: Array<any>;
   orgName = '';
   orgNameRecord = '';
+  operationWeek: any;
+  operationTime: any;
 
   events: CalendarEvent[] = [];
 
   constructor(
+    @Inject('action') private action,
     @Inject('plan') private planService,
     @Inject('auth') private auth,
     private dialog: MdDialog,
@@ -45,9 +50,6 @@ export class PlanComponent implements OnInit {
 
   ngOnInit() {
     this.containerConfig = this.planService.setPlanConfig();
-    this.getWeekList();
-    this.getTimeList();
-    this.getDays();
     this.route.queryParams.subscribe(res => {
       if (res.tab) {
         this.tab = res.tab;
@@ -55,20 +57,36 @@ export class PlanComponent implements OnInit {
       if (res.date) {
         this.viewDate = new Date(res.date);
       }
+      if (res.flag) {
+        this.data.subscribe(data => {
+          if (data) {
+            this.siteId = data.siteId;
+            this.centerId = data.centerId;
+            this.orgName = data.orgName;
+            this.orgNameRecord = '';
+            this.search();
+          } else {
+            this.reset();
+          }
+        });
+      } else {
+        this.reset();
+      }
     });
     this.getCommunityAll();
-    this.orgName = this.auth.getHospitalName();
-    if (this.auth.getDepartmentName()) {
-      this.orgName += ' - ' + this.auth.getDepartmentName();
-    }
   }
 
   reset() {
-
+    this.siteId = '';
+    this.centerId = '';
+    this.orgName = this.auth.getDepartmentName() ?
+      `${this.auth.getHospitalName()} - ${this.auth.getDepartmentName()}` : this.auth.getHospitalName();
+    this.orgNameRecord = '';
+    this.search();
   }
 
   search() {
-    this.orgName = this.orgNameRecord;
+    this.orgName = this.orgNameRecord || this.orgName;
     this.getWeekList();
     this.getTimeList();
     this.getDays();
@@ -78,6 +96,7 @@ export class PlanComponent implements OnInit {
     this.planService.getWeekList(this.siteId || this.centerId)
       .subscribe(res => {
         if (res.code === 0 && res.data && res.data.content) {
+          this.operationWeek = res.data.extras.operation;
           const week = res.data.content;
           this.weekListAm = week[0].length === 7 ? week[0] : defalutWeekList[0];
           this.weekListPm = week[1].length === 7 ? week[1] : defalutWeekList[1];
@@ -89,6 +108,7 @@ export class PlanComponent implements OnInit {
     this.planService.getTimeList(this.siteId || this.centerId)
       .subscribe(res => {
         if (res.code === 0 && res.data && res.data.content) {
+          this.operationTime = res.data.extras.operation;
           const time = res.data.content;
           if (time[0] && time[0].length === 7 &&
             time[1] && time[1].length === 7 &&
@@ -172,24 +192,23 @@ export class PlanComponent implements OnInit {
   }
 
   handleDayClick(date) {
-    this.router.navigate(['/mac-database/plan/edit', date, 'jd']);
-  }
-
-  resetNumber(list, i) {
-    const num = list[i].stock;
-    if (isNaN(Number(num)) || num < 0) {
-      list[i].stock = 0;
-    }
+    this.action.dataChange('mac-database-plan', {
+      siteId: this.siteId,
+      centerId: this.centerId,
+      orgName: this.orgName
+    });
+    this.router.navigate(['/mac-database/plan/edit', date, 'jd'], {queryParams: {org: this.siteId || this.centerId}});
   }
 
   getCommunityAll() {
-    this.planService.getCommunityAll()
+    this.planService.getCommunity()
       .subscribe(res => {
         if (res.code === 0 && res.data) {
           this.communityList = res.data;
           this.getCenter(res.data);
           this.getSite(res.data);
-          this.getDepartment(res.data);
+          console.log(this.centerList);
+          console.log(this.siteList);
         }
       });
   }
@@ -217,19 +236,6 @@ export class PlanComponent implements OnInit {
         }
       });
       this.siteList = center;
-    }
-  }
-
-  // 获取部门列表
-  getDepartment(list) {
-    if (Array.isArray(list)) {
-      const center = [];
-      list.forEach(obj => {
-        if (obj.type == 3) {
-          center.push(obj);
-        }
-      });
-      this.departmentList = center;
     }
   }
 

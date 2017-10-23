@@ -6,7 +6,7 @@ const PATH = {
   saveWeekList: '/api/appointmentTime/saveWeek',
   getTimeList: '/api/appointmentTime/getWeekTimeList',
   saveTimeList: '/api/appointmentTime/saveWeekTime',
-  getCommunityAll: '/api/getAllCommunityByUserId',
+  getCommunity: '/api/appointmentTime/getAllCommunityByUserId',
   getDays: '/api/appointmentTime/getDates'
 };
 
@@ -39,8 +39,8 @@ export class PlanService {
     return this.http.get(`${this.app.api_url}${PATH.getDays}?type=jd&organizationId=${orgId}`);
   }
 
-  getCommunityAll() {
-    return this.http.get(`${this.app.api_url}${PATH.getCommunityAll}?userId=${this.auth.getAdminId()}`);
+  getCommunity() {
+    return this.http.get(`${this.app.api_url}${PATH.getCommunity}?userId=${this.auth.getAdminId()}&type=jd`);
   }
 
   setPlanConfig() {

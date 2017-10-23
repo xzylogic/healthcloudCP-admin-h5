@@ -20,6 +20,7 @@ export class PlanCommonComponent implements OnInit, OnDestroy {
   listPm: any;
   schedulePm: any;
   flag = true;
+  operation: any;
 
   constructor(
     @Inject('plancommon') private planCommonService,
@@ -62,16 +63,19 @@ export class PlanCommonComponent implements OnInit, OnDestroy {
   }
 
   getDefault() {
-    this.planCommonService.getDefault(this.type, this.date)
-      .subscribe(res => {
-        if (res.code === 0 && res.data && res.data.content) {
-          this.flag = res.data.more;
-          this.listAm = res.data.content[0] || {};
-          this.scheduleAm = res.data.content[0] && res.data.content[0].schedulingDateTimeDtos || [];
-          this.listPm = res.data.content[1] || {};
-          this.schedulePm = res.data.content[1] && res.data.content[1].schedulingDateTimeDtos || [];
-        }
-      });
+    this.route.queryParams.subscribe(param => {
+      this.planCommonService.getDefault(this.type, this.date, param.org || '')
+        .subscribe(res => {
+          if (res.code === 0 && res.data && res.data.content) {
+            this.flag = res.data.more;
+            this.operation = res.data.extras.operation;
+            this.listAm = res.data.content[0] || {};
+            this.scheduleAm = res.data.content[0] && res.data.content[0].schedulingDateTimeDtos || [];
+            this.listPm = res.data.content[1] || {};
+            this.schedulePm = res.data.content[1] && res.data.content[1].schedulingDateTimeDtos || [];
+          }
+        });
+    });
   }
 
   setAmWorkState(status) {
@@ -106,12 +110,5 @@ export class PlanCommonComponent implements OnInit, OnDestroy {
         console.log(err);
         HintDialog(ERRMSG.netErrMsg, this.dialog);
       });
-  }
-
-  resetNumber(list, i) {
-    const num = list[i].stock;
-    if (isNaN(Number(num)) || num < 0) {
-      list[i].stock = 0;
-    }
   }
 }

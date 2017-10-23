@@ -22,4 +22,5 @@ export const routes: Routes = [{
 
 export const stores = {
   'planned-immunity': createReducer('planned-immunity', [0], null),
+  'planned-immunity-plan': createReducer('planned-immunity-plan', [0], null),
 };

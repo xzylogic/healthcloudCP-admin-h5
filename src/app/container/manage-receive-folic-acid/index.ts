@@ -22,4 +22,5 @@ export const routes: Routes = [{
 
 export const stores = {
   'receive-folic-acid': createReducer('receive-folic-acid', [0], null),
+  'receive-folic-acid-plan': createReducer('receive-folic-acid-plan', [0], null),
 };

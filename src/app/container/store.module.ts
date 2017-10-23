@@ -8,12 +8,14 @@ import { MainReducer } from './_store/main.reducer';
 import { stores as mdStores } from './manage-mac-database';
 import { stores as rfaStores } from './manage-receive-folic-acid';
 import { stores as piStores } from './manage-planned-immunity';
+import { stores as pfcStores } from './manage-pe-for-children';
 
 export const rootReducer = combineReducers({
   main: MainReducer,
   ...mdStores,
   ...rfaStores,
   ...piStores,
+  ...pfcStores,
 });
 
 @NgModule({

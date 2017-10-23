@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { MdButtonModule, MdCheckboxModule, MdTabsModule } from '@angular/material';
 import { PlanComponent } from './plan.component';
 import { PlanService } from './_service/plan.service';
 import { LibModule } from '../../../libs/common/lib.module';
 import { PlanCommonModule } from '../../common/plan-common.module';
+import { DFormModule } from '../../../libs/dform/dform.module';
 
 const routes: Routes = [{
   path: '',
@@ -23,7 +23,7 @@ const routes: Routes = [{
     MdTabsModule,
     MdButtonModule,
     MdCheckboxModule,
-    FormsModule,
+    DFormModule,
     PlanCommonModule,
     RouterModule.forChild(routes)
   ],
