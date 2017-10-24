@@ -2,12 +2,14 @@
   <div class="content">
     <div style="padding: 0 16px 16px" class="clear">
       <md-select *ngIf="centerList&&centerList.length!==0" placeholder="中心" [(ngModel)]="centerId" name="center"
-                 style="width: 200px;margin-right: 1em" (change)="centerChange($event)">
+                 style="width: 860px;margin-right: 1em" (change)="centerChange($event)">
         <md-option *ngFor="let opt of centerList" [value]="opt.menuId">{{opt.name}}</md-option>
       </md-select>
+    </div>
+    <div style="padding: 0 16px 16px">
       <md-select *ngIf="siteList&&siteList.length!==0" placeholder="站点" [(ngModel)]="siteId" name="site"
                  (change)="siteChange($event)"
-                 style="width: 200px;margin-right: 1em">
+                 style="width: 860px;margin-right: 1em">
         <md-option *ngFor="let opt of siteList" [value]="opt.menuId">{{opt.name}}</md-option>
       </md-select>
       <button *ngIf="(centerList&&centerList.length!==0)||(siteList&&siteList.length!==0)" md-icon-button
@@ -144,7 +146,8 @@
             点击单元格直接编辑数字，无排班日期的时间不用设置号源。
           </span>
           </p>
-          <div class="button-content" *ngIf="timeList1&&timeList2&&timeList3&&timeList4&&timeList5&&timeList6&&(operationTime==1)">
+          <div class="button-content"
+               *ngIf="timeList1&&timeList2&&timeList3&&timeList4&&timeList5&&timeList6&&(operationTime==1)">
             <button md-raised-button color="primary" [disabled]="!form.valid" type="submit">保存</button>
           </div>
         </form>
