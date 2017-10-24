@@ -4,7 +4,8 @@ import { ControlType, TableTitle } from '../../../../libs/dtable/dtable.entity';
 
 const PATH = {
   getData: '/admin/folic/list',
-  getCommunityAll: '/api/getAllCommunityByUserId',
+  // getCommunityAll: '/api/getAllCommunityByUserId',
+  getCommunityAll: '/api/appointmentTime/getAllCommunityByUserId',
   getDetail: '/admin/folic/details',
   saveDetail: '/admin/folic/check',
   getSurvey: '/admin/folic/surveyResult'
@@ -44,7 +45,7 @@ export class AppointmentService {
   }
 
   getCommunityAll() {
-    return this.http.get(`${this.app.api_url}${PATH.getCommunityAll}?userId=${this.auth.getAdminId()}`);
+    return this.http.get(`${this.app.api_url}${PATH.getCommunityAll}?userId=${this.auth.getAdminId()}&type=ys`);
   }
 
   getDetail(id) {

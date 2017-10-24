@@ -25,8 +25,8 @@ export class MessageService {
     });
   }
 
-  getMessage() {
-    return this.http.get(`${this.app.api_url}${PATH.getMessage}?uid=${this.auth.getAdminId()}`);
+  getMessage(page) {
+    return this.http.get(`${this.app.api_url}${PATH.getMessage}?flag=${page + 1}&uid=${this.auth.getAdminId()}`);
   }
 
   delMessage(ids) {

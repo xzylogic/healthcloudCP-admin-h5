@@ -4,7 +4,8 @@ import { ControlType, TableTitle } from '../../../../libs/dtable/dtable.entity';
 
 const PATH = {
   getData: '/api/motherAndChildFile/checkMotherAndChildFileList',
-  getCommunityAll: '/api/getAllCommunityByUserId',
+  // getCommunityAll: '/api/getAllCommunityByUserId',
+  getCommunityAll: '/api/appointmentTime/getAllCommunityByUserId',
   getDetail: '/api/motherAndChildFile/check',
   saveDetail: '/api/motherAndChildFile/updateInfo'
 };
@@ -39,7 +40,7 @@ export class AppointmentService {
   }
 
   getCommunityAll() {
-    return this.http.get(`${this.app.api_url}${PATH.getCommunityAll}?userId=${this.auth.getAdminId()}`);
+    return this.http.get(`${this.app.api_url}${PATH.getCommunityAll}?userId=${this.auth.getAdminId()}&type=jd`);
   }
 
   getDetail(id) {
