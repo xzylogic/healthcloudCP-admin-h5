@@ -14,18 +14,20 @@
         <md-input-container floatPlaceholder="auto" style="margin-right: 1em">
           <input mdInput placeholder="预约单号" name="number" [(ngModel)]="number">
         </md-input-container>
-      </div>
-      <div>
         <md-select placeholder="订单状态" [(ngModel)]="status" name="status"
                    style="width: 200px;margin-right: 1em">
           <md-option *ngFor="let opt of statusList" [value]="opt.id">{{opt.name}}</md-option>
         </md-select>
+      </div>
+      <div>
         <md-select *ngIf="centerList&&centerList.length!==0" placeholder="中心" [(ngModel)]="centerId" name="center"
-                   style="width: 200px;margin-right: 1em" (change)="centerChange($event)">
+                   style="width: 860px;margin-right: 1em" (change)="centerChange($event)">
           <md-option *ngFor="let opt of centerList" [value]="opt.menuId">{{opt.name}}</md-option>
         </md-select>
+      </div>
+      <div style="margin-top: 15px">
         <md-select *ngIf="siteList&&siteList.length!==0" placeholder="站点" [(ngModel)]="siteId" name="site"
-                   style="width: 200px;margin-right: 1em">
+                   style="width: 860px;margin-right: 1em">
           <md-option *ngFor="let opt of siteList" [value]="opt.menuId">{{opt.name}}</md-option>
         </md-select>
         <button md-icon-button color="primary" type="button" (click)="search()">
