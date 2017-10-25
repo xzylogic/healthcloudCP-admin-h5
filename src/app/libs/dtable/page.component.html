@@ -6,6 +6,7 @@
     <md-icon>chevron_left</md-icon>
   </a>
   <a class="item" *ngFor="let item of pageList" [class.active]="item-1 == page"
+     [class.disable]="item=='...'"
      (click)="getCurrentPage(item)">{{item}}</a>
   <a class="item icon" (click)="getNextPage()">
     <md-icon>chevron_right</md-icon>

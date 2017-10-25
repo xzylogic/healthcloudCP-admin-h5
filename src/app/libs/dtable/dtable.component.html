@@ -11,7 +11,7 @@
         <div *ngSwitchCase="controlType.index" [style.minWidth.px]="title.minwidth" [style.maxWidth.px]="title.maxwidth"
              [ngStyle]="{'text-align': title.align}"
              class="table__content">
-          <span>{{i+1}}</span>
+          <span>{{i + 1 + table.currentPage * table.size}}</span>
         </div>
         <div *ngSwitchCase="controlType.text" [style.minWidth.px]="title.minwidth" [style.maxWidth.px]="title.maxwidth"
              [ngStyle]="{'text-align': title.align}"
@@ -58,6 +58,7 @@
     <md-icon>chevron_left</md-icon>
   </a>
   <a class="item" *ngFor="let page of pageList" [class.active]="page-1==table.currentPage"
+     [class.disable]="page=='...'"
      (click)="getCurrentPage(page)">{{page}}</a>
   <a class="item icon" (click)="getNextPage()">
     <md-icon>chevron_right</md-icon>

@@ -93,7 +93,7 @@ export class AppointmentDetailComponent implements OnInit {
   }
 
   printSurvey(survey) {
-    let my_window = window.open('print', '_blank');
+    const my_window = window.open('print', '_blank');
     my_window.document.write('<html><head>');
     my_window.document.write(window.document.getElementsByTagName('head')[0].innerHTML);
     my_window.document.write('</head><body>');

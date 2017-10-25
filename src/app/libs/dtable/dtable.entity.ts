@@ -46,7 +46,7 @@ export class TableOption {
     ifPage?: boolean
   }) {
     this._titles = obj && obj.titles || null;
-    this._size = obj && obj.size || 20;
+    this._size = obj && obj.size || 10;
     this._ifPage = obj && obj.ifPage || false;
     this._lists = null;
     this._totalPage = 0;

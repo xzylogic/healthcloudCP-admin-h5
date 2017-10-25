@@ -131,10 +131,21 @@
 
 .page__items > .item:hover {
   color: $color-primary;
-  background-color: $color-light !important;
+  background-color: $color-light;
 }
 
 .page__items > .item.active {
   color: $color-primary !important;
   text-decoration: underline !important;
 }
+
+.page__items > .item.disable {
+  cursor: initial;
+}
+
+.page__items > .item.disable:hover {
+  color: $color-text-third !important;
+  background-color: $color-white !important;
+}
+
+
