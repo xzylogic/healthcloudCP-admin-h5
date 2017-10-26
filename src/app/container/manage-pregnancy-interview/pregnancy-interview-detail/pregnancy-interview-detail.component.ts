@@ -7,6 +7,8 @@ import { ContainerConfig } from '../../../libs/common/container/container.compon
 })
 export class PregnancyInterviewDetailComponent implements OnInit {
   containerConfig: ContainerConfig;
+  formData: any;
+  id: any;
 
   constructor(
     @Inject('interview') private interviewService
@@ -15,5 +17,22 @@ export class PregnancyInterviewDetailComponent implements OnInit {
 
   ngOnInit() {
     this.containerConfig = this.interviewService.setPregnancyInterviewDetailConfig();
+    this.getDetail();
+  }
+
+  getDetail() {
+    this.interviewService.getDetail(123)
+      .subscribe(res => {
+        console.log(res);
+        if (res.code == 0 && res.data) {
+          this.formData = res.data;
+        }
+      }, err => {
+        console.log(err);
+      });
+  }
+
+  getValue(form) {
+    console.log(form);
   }
 }

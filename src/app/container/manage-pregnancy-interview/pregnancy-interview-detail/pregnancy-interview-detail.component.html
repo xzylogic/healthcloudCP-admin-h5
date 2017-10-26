@@ -1,5 +1,67 @@
 <app-container [config]="containerConfig">
   <div class="content">
     孕期随访详情
+    <form *ngIf="formData" #f="ngForm" (ngSubmit)="getValue(f.value)">
+      <div *ngFor="let form of formData">
+        <div *ngIf="form.type==1">1
+          <label>{{form.name}}</label>
+          <md-radio-group [(ngModel)]="form.content" [name]="form.id">
+            <md-radio-button *ngFor="let opt of form.option" [value]="opt.id">
+              {{opt.value}}
+            </md-radio-button>
+          </md-radio-group>
+        </div>
+        <div *ngIf="form.type==2">2
+          <label>{{form.name}}</label>
+          <md-radio-group [(ngModel)]="form.content" [name]="form.id">
+            <div *ngFor="let opt of form.option">
+              <md-radio-button [value]="opt.id">
+                {{opt.value}}
+              </md-radio-button>
+              <div *ngIf="form.child&&opt.bind==form.child.id&&form.content==opt.id">
+                <label>{{form.child.name}}</label>
+                <md-radio-group [(ngModel)]="form.child.content" [name]="form.child.id">
+                  <md-radio-button *ngFor="let sopt of form.child.option" [value]="sopt.id">
+                    {{sopt.value}}
+                  </md-radio-button>
+                </md-radio-group>
+              </div>
+            </div>
+          </md-radio-group>
+        </div>
+        <div *ngIf="form.type==3">3
+          <label>{{form.name}}</label>
+          <md-radio-group [(ngModel)]="form.content" [name]="form.id">
+            <md-radio-button *ngFor="let opt of form.option" [value]="opt.id">
+              {{opt.value}}
+            </md-radio-button>
+          </md-radio-group>
+        </div>
+        <div *ngIf="form.type==4">4
+          <label>{{form.name}}</label>
+          <md-radio-group [(ngModel)]="form.content" [name]="form.id">
+            <div *ngFor="let opt of form.option">
+              <md-radio-button [value]="opt.id">
+                {{opt.value}}
+              </md-radio-button>
+              <div *ngIf="opt.bind==form.id&&form.content==opt.id">
+                <md-form-field>
+                  <input mdInput placeholder="" name="{{form.id}}key" [(ngModel)]="form['child']">
+                </md-form-field>
+              </div>
+            </div>
+          </md-radio-group>
+        </div>
+        <div *ngIf="form.type==5">5
+          <label>{{form.name}}</label>
+          <md-radio-group [(ngModel)]="form.content" [name]="form.id">
+            <md-radio-button *ngFor="let opt of form.option" [value]="opt.id">
+              {{opt.value}}
+            </md-radio-button>
+          </md-radio-group>
+        </div>
+      </div>
+      <button md-raised-button color="primary" type="submit">提交</button>
+    </form>
   </div>
 </app-container>

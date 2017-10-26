@@ -180,7 +180,7 @@ export class AccountService {
         label: '角色',
         value: data && data.roleId || '',
         required: true,
-        errMsg: '请选择账号角色'
+        errMsg: '请选择账号角色',
       })
     );
     forms.push(

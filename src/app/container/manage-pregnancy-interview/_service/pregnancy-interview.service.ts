@@ -1,6 +1,11 @@
 import { Inject, Injectable } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 
+const PATH = {
+  getDataList: '',
+  getDataDetail: ''
+};
+
 @Injectable()
 export class PregnancyInterviewService {
   constructor(
@@ -25,6 +30,10 @@ export class PregnancyInterviewService {
       ifHome: false,
       homeRouter: '/pregnancy-interview'
     });
+  }
+
+  getDetail(id) {
+    return this.http.get('json/form.json');
   }
 
 }

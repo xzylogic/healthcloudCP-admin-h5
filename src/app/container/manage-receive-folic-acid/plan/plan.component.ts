@@ -83,6 +83,8 @@ export class PlanComponent implements OnInit {
     this.orgName = this.auth.getDepartmentName() ?
       `${this.auth.getHospitalName()} - 孕期保健科` : this.auth.getHospitalName();
     this.orgNameRecord = '';
+    this.getSite(this.communityList);
+    this.getCenter(this.communityList);
     this.search();
   }
 
