@@ -1,0 +1,27 @@
+.content_type {
+  padding: 10px 15px;
+  md-radio-button {
+    padding-right: 15px;
+  }
+}
+
+.content_form {
+  position: relative;
+  padding: 30px 15px;
+  md-radio-button {
+    padding: 0 15px;
+  }
+}
+
+.content_input {
+  position: relative;
+  padding: 10px 0;
+  .float {
+    float: left;
+  }
+  .input {
+    position: absolute;
+    left: 0;
+    top: 45px;
+  }
+}

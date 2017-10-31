@@ -3,12 +3,15 @@ import { ContainerConfig } from '../../../libs/common/container/container.compon
 
 @Component({
   selector: 'app-pregnancy-interview-detail',
-  templateUrl: './pregnancy-interview-detail.component.html'
+  templateUrl: './pregnancy-interview-detail.component.html',
+  styleUrls: ['./pregnancy-interview-detail.component.scss']
 })
 export class PregnancyInterviewDetailComponent implements OnInit {
   containerConfig: ContainerConfig;
   formData: any;
-  id: any;
+  userId: any;
+  pregnancyPeriod = 0;
+  pregnancyState = [1, 1, 1, 1, 1];
 
   constructor(
     @Inject('interview') private interviewService
@@ -21,11 +24,11 @@ export class PregnancyInterviewDetailComponent implements OnInit {
   }
 
   getDetail() {
-    this.interviewService.getDetail(123)
+    this.interviewService.getDetail(123, 123)
       .subscribe(res => {
         console.log(res);
         if (res.code == 0 && res.data) {
-          this.formData = res.data;
+          this.formData = res.data.followDuringPregnancyQuestionnairesDto || [];
         }
       }, err => {
         console.log(err);
@@ -33,6 +36,18 @@ export class PregnancyInterviewDetailComponent implements OnInit {
   }
 
   getValue(form) {
-    console.log(form);
+    console.log({data: JSON.stringify(form)});
+  }
+
+  getName(str): string {
+    let result = '';
+    result = str.split('#')[0];
+    return result;
+  }
+
+  getUnit(str): string {
+    let result = '';
+    result = str.split('#')[1];
+    return result;
   }
 }

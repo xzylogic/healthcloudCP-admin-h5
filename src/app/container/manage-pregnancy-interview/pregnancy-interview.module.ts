@@ -5,7 +5,7 @@ import { PregnancyInterviewComponent } from './pregnancy-interview.component';
 import { PregnancyInterviewService } from './_service/pregnancy-interview.service';
 import { PregnancyInterviewDetailComponent } from './pregnancy-interview-detail/pregnancy-interview-detail.component';
 import { FormsModule } from '@angular/forms';
-import { MdCheckboxModule, MdInputModule, MdRadioModule } from '@angular/material';
+import { MdButtonModule, MdCheckboxModule, MdDatepickerModule, MdInputModule, MdRadioModule, MdTabsModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 
 const routes: Routes = [{
@@ -24,6 +24,9 @@ const routes: Routes = [{
     MdCheckboxModule,
     MdInputModule,
     MdRadioModule,
+    MdButtonModule,
+    MdTabsModule,
+    MdDatepickerModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

@@ -3,7 +3,7 @@ import { ContainerConfig } from '../../../libs/common/container/container.compon
 
 const PATH = {
   getDataList: '',
-  getDataDetail: ''
+  getDataDetail: '/api/followDuringPregnancy/getList'
 };
 
 @Injectable()
@@ -32,8 +32,8 @@ export class PregnancyInterviewService {
     });
   }
 
-  getDetail(id) {
-    return this.http.get('json/form.json');
+  getDetail(id, hospitalId) {
+    return this.http.get(`${this.app.api_url}${PATH.getDataDetail}?addUserId=1&hospitalId=11111`);
   }
 
 }

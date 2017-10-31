@@ -1,67 +1,208 @@
 <app-container [config]="containerConfig">
   <div class="content">
-    孕期随访详情
-    <form *ngIf="formData" #f="ngForm" (ngSubmit)="getValue(f.value)">
-      <div *ngFor="let form of formData">
-        <div *ngIf="form.type==1">1
-          <label>{{form.name}}</label>
-          <md-radio-group [(ngModel)]="form.content" [name]="form.id">
-            <md-radio-button *ngFor="let opt of form.option" [value]="opt.id">
-              {{opt.value}}
+    <md-tab-group *ngIf="formData" [(selectedIndex)]="pregnancyPeriod">
+      <md-tab [label]="data.pregnancyPeriod" *ngFor="let data of formData">
+        <div class="content_type">填写类型：{{data.type}}</div>
+        <div class="content_type">填写时间：{{data.createDate}}</div>
+        <div class="content_type">随访结果：
+          <md-radio-group [(ngModel)]="pregnancyState[pregnancyPeriod]">
+            <md-radio-button [value]="data.questionDtoLilst[0].id">
+              {{data.questionDtoLilst[0].resultStatus}}
+            </md-radio-button>
+            <md-radio-button [value]="data.questionDtoLilst[1].id">
+              {{data.questionDtoLilst[1].resultStatus}}
             </md-radio-button>
           </md-radio-group>
         </div>
-        <div *ngIf="form.type==2">2
-          <label>{{form.name}}</label>
-          <md-radio-group [(ngModel)]="form.content" [name]="form.id">
-            <div *ngFor="let opt of form.option">
-              <md-radio-button [value]="opt.id">
-                {{opt.value}}
-              </md-radio-button>
-              <div *ngIf="form.child&&opt.bind==form.child.id&&form.content==opt.id">
-                <label>{{form.child.name}}</label>
-                <md-radio-group [(ngModel)]="form.child.content" [name]="form.child.id">
-                  <md-radio-button *ngFor="let sopt of form.child.option" [value]="sopt.id">
-                    {{sopt.value}}
+        <div class="content_form">
+          <form #f0="ngForm" (ngSubmit)="getValue(f0.value)" *ngIf="pregnancyState[pregnancyPeriod]==1">
+            <div *ngFor="let form of data.questionDtoLilst[0].questionDtoList">
+              <div class="content_input clear" *ngIf="form.type==1">
+                <label>{{form.name}}</label>
+                <md-radio-group [(ngModel)]="form.value" [name]="form.id">
+                  <md-radio-button *ngFor="let opt of form.option" [value]="opt.id">
+                    {{opt.value}}
                   </md-radio-button>
                 </md-radio-group>
               </div>
-            </div>
-          </md-radio-group>
-        </div>
-        <div *ngIf="form.type==3">3
-          <label>{{form.name}}</label>
-          <md-radio-group [(ngModel)]="form.content" [name]="form.id">
-            <md-radio-button *ngFor="let opt of form.option" [value]="opt.id">
-              {{opt.value}}
-            </md-radio-button>
-          </md-radio-group>
-        </div>
-        <div *ngIf="form.type==4">4
-          <label>{{form.name}}</label>
-          <md-radio-group [(ngModel)]="form.content" [name]="form.id">
-            <div *ngFor="let opt of form.option">
-              <md-radio-button [value]="opt.id">
-                {{opt.value}}
-              </md-radio-button>
-              <div *ngIf="opt.bind==form.id&&form.content==opt.id">
-                <md-form-field>
-                  <input mdInput placeholder="" name="{{form.id}}key" [(ngModel)]="form['child']">
+              <div class="content_input clear" *ngIf="form.type==2" style="height:80px;">
+                <label class="float">{{form.name}}</label>
+                <div *ngFor="let opt of form.option">
+                  <md-radio-group [(ngModel)]="form.value" [name]="form.id">
+                    <md-radio-button [value]="opt.id" class="float">{{opt.value}}</md-radio-button>
+                  </md-radio-group>
+                  <div *ngIf="form.child&&opt.bind==form.child.id&&form.value==opt.id" class="input">
+                    <label>{{form.child.name}}</label>
+                    <md-radio-group [(ngModel)]="form.child.content" [name]="form.child.id">
+                      <md-radio-button *ngFor="let sopt of form.child.option" [value]="sopt.id">
+                        {{sopt.value}}
+                      </md-radio-button>
+                    </md-radio-group>
+                  </div>
+                </div>
+              </div>
+              <div class="content_input clear" *ngIf="form.type==3" style="height:110px;">
+                <label class="float">{{form.name}}</label>
+                <div *ngFor="let opt of form.option">
+                  <md-radio-group [(ngModel)]="form.value" [name]="form.id">
+                    <md-radio-button [value]="opt.id" class="float">{{opt.value}}</md-radio-button>
+                  </md-radio-group>
+                  <div *ngIf="form.child&&opt.bind==form.child.id&&form.value==opt.id"
+                       class="input">
+                    <div style="display: inline-block;position: relative">{{getName(form.child.name)}}</div>
+                    <md-form-field style="width: 150px;padding: 0 10px">
+                      <input mdInput [placeholder]="" name="{{form.child.id}}"
+                             [(ngModel)]="form.child.value">
+                    </md-form-field>
+                    <div style="display: inline-block;position: relative">{{getUnit(form.child.name)}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="content_input clear" *ngIf="form.type==4" style="height:150px;">
+                <label class="float">{{form.name}}</label>
+                <div *ngFor="let opt of form.option">
+                  <md-radio-group [(ngModel)]="form.value" [name]="form.id">
+                    <md-radio-button [value]="opt.id" class="float">{{opt.value}}</md-radio-button>
+                  </md-radio-group>
+                  <div *ngIf="opt.bind==form.id&&form.value==opt.id"
+                       class="input">
+                    <md-form-field style="width: 300px">
+                      <textarea mdInput [placeholder]="form.displayWords" name="{{form.id}}key"
+                                [(ngModel)]="form['child']"></textarea>
+                    </md-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="content_input clear" *ngIf="form.type==5" style="height:110px;">
+                <label class="float">{{form.name}}</label>
+                <div *ngFor="let opt of form.option">
+                  <md-radio-group [(ngModel)]="form.value" [name]="form.id">
+                    <md-radio-button [value]="opt.id" class="float">{{opt.value}}</md-radio-button>
+                  </md-radio-group>
+                  <div *ngIf="form.child&&opt.bind==form.child.id&&form.value==opt.id"
+                       class="input clear">
+                    <div style="display: inline-block;position: relative">{{getName(form.child.name)}}</div>
+                    <md-form-field style="width: 80px;padding: 0 10px">
+                      <input mdInput [placeholder]="" name="{{form.child.id}}high"
+                             [(ngModel)]="form.child.valueH">
+                    </md-form-field>
+                    <div style="display: inline-block;position: relative">/</div>
+                    <md-form-field style="width: 80px;padding: 0 10px">
+                      <input mdInput [placeholder]="" name="{{form.child.id}}low"
+                             [(ngModel)]="form.child.valueL">
+                    </md-form-field>
+                    <div style="display: inline-block;position: relative">{{getUnit(form.child.name)}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="content_input" *ngIf="form.type==6">
+                <md-form-field style="width: 300px">
+                  <input mdInput [placeholder]="form.name" name="{{form.id}}"
+                         [(ngModel)]="form.value">
                 </md-form-field>
               </div>
             </div>
-          </md-radio-group>
+            <button md-raised-button color="primary" type="submit">提交</button>
+          </form>
+          <form #f1="ngForm" (ngSubmit)="getValue(f1.value)" *ngIf="pregnancyState[pregnancyPeriod]!=1">
+            <div *ngFor="let form of data.questionDtoLilst[1].questionDtoList">
+              <div class="content_input clear" *ngIf="form.type==1">
+                <label>{{form.name}}</label>
+                <md-radio-group [(ngModel)]="form.value" [name]="form.id">
+                  <md-radio-button *ngFor="let opt of form.option" [value]="opt.id">
+                    {{opt.value}}
+                  </md-radio-button>
+                </md-radio-group>
+              </div>
+              <div class="content_input clear" *ngIf="form.type==2" style="height:80px;">
+                <label class="float">{{form.name}}</label>
+                <div *ngFor="let opt of form.option">
+                  <md-radio-group [(ngModel)]="form.value" [name]="form.id">
+                    <md-radio-button [value]="opt.id" class="float">{{opt.value}}</md-radio-button>
+                  </md-radio-group>
+                  <div *ngIf="form.child&&opt.bind==form.child.id&&form.value==opt.id" class="input">
+                    <label>{{form.child.name}}</label>
+                    <md-radio-group [(ngModel)]="form.child.content" [name]="form.child.id">
+                      <md-radio-button *ngFor="let sopt of form.child.option" [value]="sopt.id">
+                        {{sopt.value}}
+                      </md-radio-button>
+                    </md-radio-group>
+                  </div>
+                </div>
+              </div>
+              <div class="content_input clear" *ngIf="form.type==3" style="height:110px;">
+                <label class="float">{{form.name}}</label>
+                <div *ngFor="let opt of form.option">
+                  <md-radio-group [(ngModel)]="form.value" [name]="form.id">
+                    <md-radio-button [value]="opt.id" class="float">{{opt.value}}</md-radio-button>
+                  </md-radio-group>
+                  <div *ngIf="form.child&&opt.bind==form.child.id&&form.value==opt.id"
+                       class="input">
+                    <div style="display: inline-block;position: relative">{{getName(form.child.name)}}</div>
+                    <md-form-field style="width: 150px;padding: 0 10px">
+                      <input mdInput [placeholder]="" name="{{form.child.id}}"
+                             [(ngModel)]="form.child.value">
+                    </md-form-field>
+                    <div style="display: inline-block;position: relative">{{getUnit(form.child.name)}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="content_input clear" *ngIf="form.type==4" style="height:150px;">
+                <label class="float">{{form.name}}</label>
+                <div *ngFor="let opt of form.option">
+                  <md-radio-group [(ngModel)]="form.value" [name]="form.id">
+                    <md-radio-button [value]="opt.id" class="float">{{opt.value}}</md-radio-button>
+                  </md-radio-group>
+                  <div *ngIf="opt.bind==form.id&&form.value==opt.id"
+                       class="input">
+                    <md-form-field style="width: 300px">
+                      <textarea mdInput [placeholder]="form.displayWords" name="{{form.id}}key"
+                                [(ngModel)]="form['child']"></textarea>
+                    </md-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="content_input clear" *ngIf="form.type==5" style="height:110px;">
+                <label class="float">{{form.name}}</label>
+                <div *ngFor="let opt of form.option">
+                  <md-radio-group [(ngModel)]="form.value" [name]="form.id">
+                    <md-radio-button [value]="opt.id" class="float">{{opt.value}}</md-radio-button>
+                  </md-radio-group>
+                  <div *ngIf="form.child&&opt.bind==form.child.id&&form.value==opt.id"
+                       class="input clear">
+                    <div style="display: inline-block;position: relative">{{getName(form.child.name)}}</div>
+                    <md-form-field style="width: 80px;padding: 0 10px">
+                      <input mdInput [placeholder]="" name="{{form.child.id}}high"
+                             [(ngModel)]="form.child.valueH">
+                    </md-form-field>
+                    <div style="display: inline-block;position: relative">/</div>
+                    <md-form-field style="width: 80px;padding: 0 10px">
+                      <input mdInput [placeholder]="" name="{{form.child.id}}low"
+                             [(ngModel)]="form.child.valueL">
+                    </md-form-field>
+                    <div style="display: inline-block;position: relative">{{getUnit(form.child.name)}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="content_input" *ngIf="form.type==6">
+                <md-form-field>
+                  <input mdInput [placeholder]="form.name" name="{{form.id}}"
+                         [(ngModel)]="form.value">
+                </md-form-field>
+              </div>
+              <div class="content_input" *ngIf="form.type==7">
+                <md-form-field>
+                  <input mdInput [mdDatepicker]="picker" [placeholder]="form.name"
+                         name="{{form.id}}" [(ngModel)]="form.value">
+                  <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+                  <md-datepicker #picker></md-datepicker>
+                </md-form-field>
+              </div>
+            </div>
+            <button md-raised-button color="primary" type="submit" style="margin-top: 30px">提交</button>
+          </form>
         </div>
-        <div *ngIf="form.type==5">5
-          <label>{{form.name}}</label>
-          <md-radio-group [(ngModel)]="form.content" [name]="form.id">
-            <md-radio-button *ngFor="let opt of form.option" [value]="opt.id">
-              {{opt.value}}
-            </md-radio-button>
-          </md-radio-group>
-        </div>
-      </div>
-      <button md-raised-button color="primary" type="submit">提交</button>
-    </form>
+      </md-tab>
+    </md-tab-group>
   </div>
 </app-container>
