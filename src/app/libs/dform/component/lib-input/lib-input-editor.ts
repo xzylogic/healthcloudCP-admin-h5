@@ -40,7 +40,7 @@ export class LibInputEditorComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.editor = new WangEditor(this.editorRef.nativeElement);
     // 关闭粘贴样式的过滤
-    this.editor.customConfig.pasteFilterStyle = false;
+    this.editor.customConfig.pasteFilterStyle = true;
     // 使用 base64 保存图片
     this.editor.customConfig.uploadImgShowBase64 = true;
     this.editor.customConfig.onchange = (html) => {
