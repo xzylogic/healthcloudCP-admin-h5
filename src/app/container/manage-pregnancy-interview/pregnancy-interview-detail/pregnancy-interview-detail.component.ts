@@ -1,5 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
+import { MdDialog } from '@angular/material';
+import { HintDialog } from '../../../libs/dmodal/dialog.component';
+import { ERRMSG } from '../../_store/static';
 
 @Component({
   selector: 'app-pregnancy-interview-detail',
@@ -14,6 +17,8 @@ export class PregnancyInterviewDetailComponent implements OnInit {
   pregnancyState = [1, 1, 1, 1, 1];
 
   constructor(
+    @Inject('auth') private auth,
+    private dialog: MdDialog,
     @Inject('interview') private interviewService
   ) {
   }
@@ -29,6 +34,7 @@ export class PregnancyInterviewDetailComponent implements OnInit {
         console.log(res);
         if (res.code == 0 && res.data) {
           this.formData = res.data.followDuringPregnancyQuestionnairesDto || [];
+          this.userId = res.data.addUserId;
         }
       }, err => {
         console.log(err);
@@ -36,7 +42,27 @@ export class PregnancyInterviewDetailComponent implements OnInit {
   }
 
   getValue(form) {
-    console.log({data: JSON.stringify(form)});
+    console.log(form);
+    const formData = {
+      userId: this.userId,
+      pregnancyPeriod: this.formData[this.pregnancyPeriod].pregnancyPeriodId,
+      pregnancyState: this.pregnancyState[this.pregnancyPeriod],
+      answer: JSON.stringify(form),
+      doctorId: this.auth.getAdminId()
+    };
+    console.log(JSON.stringify(formData));
+    this.interviewService.saveDetail(formData)
+      .subscribe(res => {
+        console.log(res);
+        if (res.code === 0) {
+          HintDialog(res.msg || '提交成功！', this.dialog);
+        } else {
+          HintDialog(res.msg || '提交失败！', this.dialog);
+        }
+      }, err => {
+        console.log(err);
+        HintDialog(ERRMSG.netErrMsg, this.dialog);
+      });
   }
 
   getName(str): string {
