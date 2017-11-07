@@ -24,7 +24,8 @@ export * from './dtable.entity';
     MdButtonModule,
     MdIconModule,
     DTableComponent,
-    DPageComponent
+    DPageComponent,
+    PipeModule
   ]
 })
 export class DTableModule {

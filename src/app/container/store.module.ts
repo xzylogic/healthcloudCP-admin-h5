@@ -9,6 +9,8 @@ import { stores as mdStores } from './manage-mac-database';
 import { stores as rfaStores } from './manage-receive-folic-acid';
 import { stores as piStores } from './manage-planned-immunity';
 import { stores as pfcStores } from './manage-pe-for-children';
+import { stores as riStores } from './manage-receive-interview';
+import { stores as priStores } from './manage-pregnancy-interview';
 
 export const rootReducer = combineReducers({
   main: MainReducer,
@@ -16,6 +18,8 @@ export const rootReducer = combineReducers({
   ...rfaStores,
   ...piStores,
   ...pfcStores,
+  ...riStores,
+  ...priStores,
 });
 
 @NgModule({
