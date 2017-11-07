@@ -9,7 +9,7 @@ export class YesornoPipe implements PipeTransform {
     if (Array.isArray(format) && Array.isArray(option)) {
       format.forEach((obj, i) => {
         if (value == obj) {
-          result = option[i];
+          result = option[i] || result;
         }
       });
     }

@@ -7,6 +7,7 @@ import { ContainerConfig } from '../../../libs/common/container/container.compon
 })
 export class ReceiveInterviewDetailComponent implements OnInit {
   containerConfig: ContainerConfig;
+  formThree: any = {};
 
   constructor(
     @Inject('interview') private interviewService
@@ -15,5 +16,9 @@ export class ReceiveInterviewDetailComponent implements OnInit {
 
   ngOnInit() {
     this.containerConfig = this.interviewService.setReceiveInterviewDetailConfig();
+  }
+
+  getValue(value) {
+    console.log(value);
   }
 }

@@ -3,11 +3,11 @@ import { ContainerConfig } from '../../../../libs/common/container/container.com
 import { ControlType, TableTitle } from '../../../../libs/dtable/dtable.entity';
 
 const PATH = {
-  getData: '/api/planImmunization/checkPlanImmunizationList',
+  getData: '/api/childExamination/getChildExaminationList',
   // getCommunityAll: '/api/getAllCommunityByUserId',
   getCommunityAll: '/api/appointmentTime/getAllCommunityByUserId',
-  getDetail: '/api/planImmunization/check',
-  saveDetail: '/api/planImmunization/updateInfo'
+  getDetail: '/api/childExamination/check',
+  saveDetail: '/api/childExamination/updateInfo'
 };
 
 @Injectable()
@@ -22,7 +22,7 @@ export class AppointmentService {
   getData(page, planImmunizationNum?, status?, name?, reservationDate?, telephone?, organizationId?) {
     let query = `?flag=${page + 1}`;
     if (planImmunizationNum) {
-      query += `&planImmunizationNum=${planImmunizationNum}`;
+      query += `&childExaminationNum=${planImmunizationNum}`;
     }
     if (status || status == 0) {
       query += `&status=${status}`;

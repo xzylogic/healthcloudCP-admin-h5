@@ -19,6 +19,9 @@ export const routes: Routes = [{
 }, {
   path: 'message',
   loadChildren: 'app/container/manage-basedata/message/message.module#MessageModule'
+}, {
+  path: 'health-file',
+  loadChildren: 'app/container/manage-basedata/health-file/health-file.module#HealthFileModule'
 }];
 
 export const stores = {

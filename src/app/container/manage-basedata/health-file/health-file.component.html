@@ -1,0 +1,103 @@
+<app-container [config]="containerConfig">
+  <div class="content">
+    <md-tab-group>
+      <md-tab label="基本信息">
+        <div class="tab-content">
+          <div class="grid-container">
+            <div class="row">
+              <div class="col-3">
+                <p class="detail-content">姓名：{{basicInfo?.name}}</p>
+              </div>
+              <div class="col-3">
+                <p class="detail-content">性别：{{basicInfo?.sex}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-3">
+                <p class="detail-content">出生日期：{{basicInfo?.birthday}}</p>
+              </div>
+              <div class="col-3">
+                <p class="detail-content">证件类型：{{basicInfo?.cardType}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-3">
+                <p class="detail-content">证件号码：{{basicInfo?.card}}</p>
+              </div>
+              <div class="col-3">
+                <p class="detail-content">国籍：{{basicInfo?.nationality}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-3">
+                <p class="detail-content">民族：{{basicInfo?.nation}}</p>
+              </div>
+              <div class="col-3">
+                <p class="detail-content">联系电话：{{basicInfo?.phone}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-3">
+                <p class="detail-content">社区：{{basicInfo?.community}}</p>
+              </div>
+              <div class="col-3">
+                <p class="detail-content">街道：{{basicInfo?.street}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <p class="detail-content">居委会：{{basicInfo?.committee}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <p class="detail-content">户口所在地：{{basicInfo?.permanentAddress}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <p class="detail-content">现住地址：{{basicInfo?.presentAddress}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </md-tab>
+      <md-tab label="门诊就诊记录">
+        <div *ngIf="outpatientInfo.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="outpatientInfo"
+              (handleEmmit)="gotoHandle($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </md-tab>
+      <md-tab label="住院就诊记录">
+        <div *ngIf="hospitalizationInfo.lists">
+          <div class="content__table">
+            <app-lib-table
+              [table]="hospitalizationInfo"
+              (handleEmmit)="gotoHandle($event)"
+            ></app-lib-table>
+          </div>
+        </div>
+      </md-tab>
+      <md-tab label="病史信息">
+        <div class="tab-content" *ngIf="medicalHistoryInfo">
+          <div class="grid-container">
+            <div class="row history" *ngFor="let info of medicalHistoryInfo">
+              <div class="col-1">
+                <p class="detail-content" style="text-align: center">{{info.medicalHistoryName}}</p>
+              </div>
+              <div class="col-5">
+                <p class="detail-content" *ngFor="let sub of info.value" style="padding-right: 15px">
+                  {{sub}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </md-tab>
+    </md-tab-group>
+  </div>
+</app-container>

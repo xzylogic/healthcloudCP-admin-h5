@@ -1,5 +1,37 @@
 <app-container [config]="containerConfig">
   <div class="content">
-    孕期随访详情
+    <md-tab-group [selectedIndex]="'0'">
+      <md-tab [label]="'三个月随访'">
+        <div class="content_type">填写类型：</div>
+        <div class="content_type">填写时间：</div>
+        <form #f="ngForm" (ngSubmit)="getValue(f.value)">
+          <div>
+            <md-form-field style="width: 300px">
+              <input mdInput [mdDatepicker]="pickers" [placeholder]="'开始服用时间'" name="startTime"
+                     [(ngModel)]="formThree.startTime">
+              <md-datepicker-toggle mdSuffix [for]="pickers"></md-datepicker-toggle>
+              <md-datepicker #pickers></md-datepicker>
+            </md-form-field>
+          </div>
+          <div>
+            <md-form-field style="width: 300px">
+              <input mdInput [mdDatepicker]="pickere" [placeholder]="'停止服用时间'" name="endTime"
+                     [(ngModel)]="formThree.endTime">
+              <md-datepicker-toggle mdSuffix [for]="pickere"></md-datepicker-toggle>
+              <md-datepicker #pickere></md-datepicker>
+            </md-form-field>
+          </div>
+          <div>
+            <md-form-field style="width: 300px">
+              <input mdInput [placeholder]="'服用天数（单位：天）'" name="takeDay" [(ngModel)]="formThree.takeDay">
+            </md-form-field>
+          </div>
+        </form>
+      </md-tab>
+      <md-tab [label]="'六个月随访'">
+        <div class="content_type">填写类型：</div>
+        <div class="content_type">填写时间：</div>
+      </md-tab>
+    </md-tab-group>
   </div>
 </app-container>

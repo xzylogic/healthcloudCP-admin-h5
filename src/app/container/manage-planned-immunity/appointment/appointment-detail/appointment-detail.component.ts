@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { ActivatedRoute } from '@angular/router';
 import { HintDialog, MessageDialog } from '../../../../libs/dmodal/dialog.component';
@@ -10,7 +10,11 @@ import { ERRMSG } from '../../../_store/static';
   templateUrl: './appointment-detail.component.html',
   styleUrls: ['./appointment-detail.component.scss']
 })
-export class AppointmentDetailComponent implements OnInit {
+export class AppointmentDetailComponent implements OnInit, OnDestroy {
+  routerSubscribe: any;
+  detailSubscribe: any;
+  updateSubscribe: any;
+  dialogSubscribe: any;
   containerConfig: ContainerConfig;
   id: string;
   data: any;
@@ -27,7 +31,7 @@ export class AppointmentDetailComponent implements OnInit {
 
   ngOnInit() {
     this.containerConfig = this.appointmentService.setAppointmentDetailConfig();
-    this.route.params.subscribe(route => {
+    this.routerSubscribe = this.route.params.subscribe(route => {
       if (route.id) {
         this.id = route.id;
         this.getDetail(route.id);
@@ -35,8 +39,23 @@ export class AppointmentDetailComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    if (this.routerSubscribe) {
+      this.routerSubscribe.unsubscribe();
+    }
+    if (this.detailSubscribe) {
+      this.detailSubscribe.unsubscribe();
+    }
+    if (this.updateSubscribe) {
+      this.updateSubscribe.unsubscribe();
+    }
+    if (this.dialogSubscribe) {
+      this.dialogSubscribe.unsubscribe();
+    }
+  }
+
   getDetail(id) {
-    this.appointmentService.getDetail(id)
+    this.detailSubscribe = this.appointmentService.getDetail(id)
       .subscribe(res => {
         if (res.code === 0 && res.data) {
           this.data = res.data;
@@ -63,7 +82,7 @@ export class AppointmentDetailComponent implements OnInit {
       this.reason = '';
       this.reasonRadio = '';
     }
-    MessageDialog(msg, reason, this.dialog).afterClosed()
+    this.dialogSubscribe = MessageDialog(msg, reason, this.dialog).afterClosed()
       .subscribe(result => {
         if (result && result.key === 'confirm') {
           this.save(this.status, this.reasonRadio == '0' ? this.reason : this.reasonRadio);
@@ -72,7 +91,7 @@ export class AppointmentDetailComponent implements OnInit {
   }
 
   save(status, reason) {
-    this.appointmentService.saveDetail(this.id, status, reason)
+    this.updateSubscribe = this.appointmentService.saveDetail(this.id, status, reason)
       .subscribe(res => {
         if (res.code === 0) {
           HintDialog(res.msg || '操作成功！', this.dialog);
