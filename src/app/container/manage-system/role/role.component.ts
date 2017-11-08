@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { TableOption } from '../../../libs/dtable/dtable.entity';
 import { HintDialog } from '../../../libs/dmodal/dialog.component';
@@ -16,7 +16,7 @@ export class RoleComponent implements OnInit {
 
   constructor(
     @Inject('role') private roleService,
-    private dialog: MdDialog,
+    private dialog: MatDialog,
     private router: Router
   ) {
   }

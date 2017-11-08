@@ -5,7 +5,7 @@ import { LibModule } from '../../../libs/common/lib.module';
 import { AppointmentService } from './_service/appointment.service';
 import { DTableModule } from '../../../libs/dtable/dtable.module';
 import { DFormModule } from '../../../libs/dform/dform.module';
-import { MdTabsModule } from '@angular/material';
+import { MatTabsModule } from '@angular/material';
 import { AppointmentDetailComponent } from './appointment-detail/appointment-detail.component';
 
 const routes: Routes = [{
@@ -21,7 +21,7 @@ const routes: Routes = [{
     LibModule,
     DTableModule,
     DFormModule,
-    MdTabsModule,
+    MatTabsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

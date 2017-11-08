@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { HintDialog } from '../../../libs/dmodal/dialog.component';
 import { ERRMSG } from '../../_store/static';
 
@@ -18,7 +18,7 @@ export class PregnancyInterviewDetailComponent implements OnInit {
 
   constructor(
     @Inject('auth') private auth,
-    private dialog: MdDialog,
+    private dialog: MatDialog,
     @Inject('interview') private interviewService
   ) {
   }

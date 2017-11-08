@@ -2,36 +2,36 @@
   <div class="content">
     <form style="padding: 0 16px 16px" class="clear">
       <div>
-        <md-input-container floatPlaceholder="auto" style="margin-right: 1em">
-          <input mdInput placeholder="姓名" name="name" [(ngModel)]="name">
-        </md-input-container>
-        <md-input-container floatPlaceholder="auto" style="margin-right: 1em">
-          <input mdInput placeholder="证件号码" name="cardNo" [(ngModel)]="cardNo">
-        </md-input-container>
-        <md-input-container floatPlaceholder="auto" style="margin-right: 1em">
-          <input mdInput placeholder="预约单号" name="number" [(ngModel)]="number">
-        </md-input-container>
-        <md-select placeholder="订单状态" [(ngModel)]="status" name="status"
+        <mat-input-container floatPlaceholder="auto" style="margin-right: 1em">
+          <input matInput placeholder="姓名" name="name" [(ngModel)]="name">
+        </mat-input-container>
+        <mat-input-container floatPlaceholder="auto" style="margin-right: 1em">
+          <input matInput placeholder="证件号码" name="cardNo" [(ngModel)]="cardNo">
+        </mat-input-container>
+        <mat-input-container floatPlaceholder="auto" style="margin-right: 1em">
+          <input matInput placeholder="预约单号" name="number" [(ngModel)]="number">
+        </mat-input-container>
+        <mat-select placeholder="订单状态" [(ngModel)]="status" name="status"
                    style="width: 200px;margin-right: 1em">
-          <md-option *ngFor="let opt of statusList" [value]="opt.id">{{opt.name}}</md-option>
-        </md-select>
+          <mat-option *ngFor="let opt of statusList" [value]="opt.id">{{opt.name}}</mat-option>
+        </mat-select>
       </div>
       <div>
-        <md-select *ngIf="centerList&&centerList.length!==0" placeholder="中心" [(ngModel)]="centerId" name="center"
+        <mat-select *ngIf="centerList&&centerList.length!==0" placeholder="中心" [(ngModel)]="centerId" name="center"
                    style="width: 860px;margin-right: 1em" (change)="centerChange($event)" (onOpen)="centerChange({value:centerId})">
-          <md-option *ngFor="let opt of centerList" [value]="opt.menuId">{{opt.name}}</md-option>
-        </md-select>
+          <mat-option *ngFor="let opt of centerList" [value]="opt.menuId">{{opt.name}}</mat-option>
+        </mat-select>
       </div>
       <div style="margin-top: 15px">
-        <md-select *ngIf="siteList&&siteList.length!==0" placeholder="站点" [(ngModel)]="siteId" name="site"
+        <mat-select *ngIf="siteList&&siteList.length!==0" placeholder="站点" [(ngModel)]="siteId" name="site"
                    style="width: 860px;margin-right: 1em">
-          <md-option *ngFor="let opt of siteList" [value]="opt.menuId">{{opt.name}}</md-option>
-        </md-select>
-        <button md-icon-button color="primary" type="button" (click)="search()">
-          <md-icon>search</md-icon>
+          <mat-option *ngFor="let opt of siteList" [value]="opt.menuId">{{opt.name}}</mat-option>
+        </mat-select>
+        <button mat-icon-button color="primary" type="button" (click)="search()">
+          <mat-icon>search</mat-icon>
         </button>
-        <button md-icon-button color="primary" type="button" (click)="reset()">
-          <md-icon>autorenew</md-icon>
+        <button mat-icon-button color="primary" type="button" (click)="reset()">
+          <mat-icon>autorenew</mat-icon>
         </button>
       </div>
     </form>

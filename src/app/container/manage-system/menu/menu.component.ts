@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { HintDialog } from '../../../libs/dmodal/dialog.component';
 import { ERRMSG } from '../../_store/static';
 
@@ -17,7 +17,7 @@ export class MenuComponent implements OnInit {
 
   constructor(
     @Inject('menu') private menuService,
-    private dialog: MdDialog,
+    private dialog: MatDialog,
     private cdr: ChangeDetectorRef
   ) {
   }

@@ -8,17 +8,19 @@ import { FormDropdown } from '../../_entity/form-dropdown';
   template: `
     <div [formGroup]="form">
       <div class="input_container">
-        <md-select style="width: 100%"
-                   [placeholder]="data.label"
-                   [formControlName]="data.key"
-                   [(ngModel)]="value"
-                   (change)="change()"
-                   floatPlaceholder="always"
-        >
-          <md-option *ngFor="let opt of data.options" [value]="opt.id">
-            {{opt.name}}
-          </md-option>
-        </md-select>
+        <mat-form-field>
+          <mat-select style="width: 100%"
+                      [placeholder]="data.label"
+                      [formControlName]="data.key"
+                      [(ngModel)]="value"
+                      (change)="change()"
+                      floatPlaceholder="always"
+          >
+            <mat-option *ngFor="let opt of data.options" [value]="opt.id">
+              {{opt.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
   `,

@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { ActivatedRoute } from '@angular/router';
 import { HintDialog, MessageDialog } from '../../../../libs/dmodal/dialog.component';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { ERRMSG } from '../../../_store/static';
 
 @Component({
@@ -24,7 +24,7 @@ export class AppointmentDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject('appointment') private appointmentService,
-    private dialog: MdDialog,
+    private dialog: MatDialog,
     private route: ActivatedRoute
   ) {
   }

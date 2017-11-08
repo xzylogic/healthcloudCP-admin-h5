@@ -5,7 +5,7 @@ import { OrganizationService } from './_service/organization.service';
 import { LibModule } from '../../../libs/common/lib.module';
 import { CommonModule } from '@angular/common';
 import { DFormModule } from '../../../libs/dform/dform.module';
-import { MdButtonModule, MdGridListModule, MdTabsModule } from '@angular/material';
+import { MatButtonModule, MatGridListModule, MatTabsModule } from '@angular/material';
 
 const routes: Routes = [{
   path: '',
@@ -17,9 +17,9 @@ const routes: Routes = [{
     CommonModule,
     LibModule,
     DFormModule,
-    MdGridListModule,
-    MdButtonModule,
-    MdTabsModule,
+    MatGridListModule,
+    MatButtonModule,
+    MatTabsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

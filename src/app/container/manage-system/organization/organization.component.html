@@ -6,22 +6,22 @@
           <div class="container" style="overflow: auto">
             <div class="tree__title clear">
               <h3 class="p">医院机构列表</h3>
-              <button class="button" md-button color="primary" (click)="offData(menuList)">全部折叠</button>
-              <button class="button" md-button color="primary" (click)="openData(menuList)">全部展开</button>
+              <button class="button" mat-button color="primary" (click)="offData(menuList)">全部折叠</button>
+              <button class="button" mat-button color="primary" (click)="openData(menuList)">全部展开</button>
             </div>
             <div class="tree__des clear">
-              <span>科室<md-icon class="tree__icon type department">lens</md-icon></span>
-              <span>站点<md-icon class="tree__icon type site">lens</md-icon></span>
-              <span>中心<md-icon class="tree__icon type center">lens</md-icon></span>
+              <span>科室<mat-icon class="tree__icon type department">lens</mat-icon></span>
+              <span>站点<mat-icon class="tree__icon type site">lens</mat-icon></span>
+              <span>中心<mat-icon class="tree__icon type center">lens</mat-icon></span>
             </div>
             <div *ngIf="menuList&&menuList.level==0">
               <!--昌平卫计委-->
               <div class="clear tree__p">
-                <md-icon class="tree__icon" (click)="toggle(menuList)" *ngIf="!menuList.open&&menuList.children">add
-                </md-icon>
-                <md-icon class="tree__icon" (click)="toggle(menuList)" *ngIf="menuList.open&&menuList.children">remove
-                </md-icon>
-                <md-icon class="tree__icon block" *ngIf="!menuList.children">block</md-icon>
+                <mat-icon class="tree__icon" (click)="toggle(menuList)" *ngIf="!menuList.open&&menuList.children">add
+                </mat-icon>
+                <mat-icon class="tree__icon" (click)="toggle(menuList)" *ngIf="menuList.open&&menuList.children">remove
+                </mat-icon>
+                <mat-icon class="tree__icon block" *ngIf="!menuList.children">block</mat-icon>
                 <p class="tree__span" [class.active]="menuList.active"
                    (click)="newCenter(menuList.menuId,menuList.menuName)">
                   {{menuList.menuName}}
@@ -31,40 +31,40 @@
                 <li *ngFor="let menu of menuList.children">
                   <!--中心-->
                   <div class="clear tree__p">
-                    <md-icon class="tree__icon" (click)="toggle(menu)"
+                    <mat-icon class="tree__icon" (click)="toggle(menu)"
                              *ngIf="menu.type!=3&&(!menu.open&&menu.children)">
                       add
-                    </md-icon>
-                    <md-icon class="tree__icon" (click)="toggle(menu)" *ngIf="menu.type!=3&&(menu.open&&menu.children)">
+                    </mat-icon>
+                    <mat-icon class="tree__icon" (click)="toggle(menu)" *ngIf="menu.type!=3&&(menu.open&&menu.children)">
                       remove
-                    </md-icon>
-                    <md-icon class="tree__icon block" *ngIf="menu.type!=3&&!menu.children">block</md-icon>
+                    </mat-icon>
+                    <mat-icon class="tree__icon block" *ngIf="menu.type!=3&&!menu.children">block</mat-icon>
                     <div *ngIf="menu.type==1" class="tr_center">
-                      <md-icon class="tree__icon type center">lens</md-icon>
+                      <mat-icon class="tree__icon type center">lens</mat-icon>
                       <p class="tree__span" [class.active]="menu.active" (click)="newSite(menu.menuId, menu.menuName)">
                         {{menu.menuName}}
                       </p>
-                      <button md-icon-button color="primary" (click)="updateCenter(menu)">
-                        <md-icon aria-label="edit">mode_edit</md-icon>
+                      <button mat-icon-button color="primary" (click)="updateCenter(menu)">
+                        <mat-icon aria-label="edit">mode_edit</mat-icon>
                       </button>
                     </div>
                     <div *ngIf="menu.type==2" class="tr_center">
-                      <md-icon class="tree__icon type site">lens</md-icon>
+                      <mat-icon class="tree__icon type site">lens</mat-icon>
                       <p class="tree__span" [class.active]="menu.active"
                          (click)="newDepartment(menu.menuId, menu.menuName)">
                         {{menu.menuName}}
                       </p>
-                      <button md-icon-button color="primary" (click)="updateSite(menu)">
-                        <md-icon aria-label="edit">mode_edit</md-icon>
+                      <button mat-icon-button color="primary" (click)="updateSite(menu)">
+                        <mat-icon aria-label="edit">mode_edit</mat-icon>
                       </button>
                     </div>
                     <div *ngIf="menu.type==3" class="tr_center">
-                      <md-icon class="tree__icon type department">lens</md-icon>
+                      <mat-icon class="tree__icon type department">lens</mat-icon>
                       <p class="tree__span last">
                         {{menu.menuName}}
                       </p>
-                      <button md-icon-button color="primary" (click)="updateDepartment(menu)">
-                        <md-icon aria-label="edit">mode_edit</md-icon>
+                      <button mat-icon-button color="primary" (click)="updateDepartment(menu)">
+                        <mat-icon aria-label="edit">mode_edit</mat-icon>
                       </button>
                     </div>
                   </div>
@@ -72,32 +72,32 @@
                     <li *ngFor="let subMenu of menu.children">
                       <!--站点-->
                       <div class="clear tree__p">
-                        <md-icon class="tree__icon" (click)="toggle(subMenu)"
+                        <mat-icon class="tree__icon" (click)="toggle(subMenu)"
                                  *ngIf="subMenu.type!=3&&(!subMenu.open&&subMenu.children)">
                           add
-                        </md-icon>
-                        <md-icon class="tree__icon" (click)="toggle(subMenu)"
+                        </mat-icon>
+                        <mat-icon class="tree__icon" (click)="toggle(subMenu)"
                                  *ngIf="subMenu.type!=3&&(subMenu.open&&subMenu.children)">
                           remove
-                        </md-icon>
-                        <md-icon class="tree__icon block" *ngIf="subMenu.type!=3&&!subMenu.children">block</md-icon>
+                        </mat-icon>
+                        <mat-icon class="tree__icon block" *ngIf="subMenu.type!=3&&!subMenu.children">block</mat-icon>
                         <div *ngIf="subMenu.type==2" class="tr_site">
-                          <md-icon class="tree__icon type site">lens</md-icon>
+                          <mat-icon class="tree__icon type site">lens</mat-icon>
                           <p class="tree__span" [class.active]="subMenu.active"
                              (click)="newDepartment(subMenu.menuId, subMenu.menuName)">
                             {{subMenu.menuName}}
                           </p>
-                          <button md-icon-button color="primary" (click)="updateSite(subMenu)">
-                            <md-icon aria-label="edit">mode_edit</md-icon>
+                          <button mat-icon-button color="primary" (click)="updateSite(subMenu)">
+                            <mat-icon aria-label="edit">mode_edit</mat-icon>
                           </button>
                         </div>
                         <div *ngIf="subMenu.type==3" class="tr_site">
-                          <md-icon class="tree__icon type department">lens</md-icon>
+                          <mat-icon class="tree__icon type department">lens</mat-icon>
                           <p class="tree__span last">
                             {{subMenu.menuName}}
                           </p>
-                          <button md-icon-button color="primary" (click)="updateDepartment(subMenu)">
-                            <md-icon aria-label="edit">mode_edit</md-icon>
+                          <button mat-icon-button color="primary" (click)="updateDepartment(subMenu)">
+                            <mat-icon aria-label="edit">mode_edit</mat-icon>
                           </button>
                         </div>
                       </div>
@@ -105,10 +105,10 @@
                         <li *ngFor="let sSubMenu of subMenu.children">
                           <!--科室-->
                           <div class="clear tree__p tr_department">
-                            <md-icon class="tree__icon type department">lens</md-icon>
+                            <mat-icon class="tree__icon type department">lens</mat-icon>
                             <p class="tree__span last">{{sSubMenu.menuName}}</p>
-                            <button md-icon-button color="primary" (click)="updateDepartment(sSubMenu)">
-                              <md-icon aria-label="edit">mode_edit</md-icon>
+                            <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)">
+                              <mat-icon aria-label="edit">mode_edit</mat-icon>
                             </button>
                           </div>
                         </li>
@@ -121,40 +121,40 @@
             <div *ngIf="menuList&&menuList.level==1">
               <!--中心-->
               <div class="clear tree__p">
-                <md-icon class="tree__icon" (click)="toggle(menuList)"
+                <mat-icon class="tree__icon" (click)="toggle(menuList)"
                          *ngIf="menuList.type!=3&&(!menuList.open&&menuList.children)">add
-                </md-icon>
-                <md-icon class="tree__icon" (click)="toggle(menuList)"
+                </mat-icon>
+                <mat-icon class="tree__icon" (click)="toggle(menuList)"
                          *ngIf="menuList.type!=3&&(menuList.open&&menuList.children)">remove
-                </md-icon>
-                <md-icon class="tree__icon block" *ngIf="menuList.type!=3&&!menuList.children">block</md-icon>
+                </mat-icon>
+                <mat-icon class="tree__icon block" *ngIf="menuList.type!=3&&!menuList.children">block</mat-icon>
                 <div *ngIf="menuList.type==1" class="tr_main">
-                  <md-icon class="tree__icon type center">lens</md-icon>
+                  <mat-icon class="tree__icon type center">lens</mat-icon>
                   <p class="tree__span" [class.active]="menuList.active"
                      (click)="newSite(menuList.menuId, menuList.menuName)">
                     {{menuList.menuName}}
                   </p>
-                  <button md-icon-button color="primary" (click)="updateCenter(menuList)">
-                    <md-icon aria-label="edit">mode_edit</md-icon>
+                  <button mat-icon-button color="primary" (click)="updateCenter(menuList)">
+                    <mat-icon aria-label="edit">mode_edit</mat-icon>
                   </button>
                 </div>
                 <div *ngIf="menuList.type==2" class="tr_main">
-                  <md-icon class="tree__icon type site">lens</md-icon>
+                  <mat-icon class="tree__icon type site">lens</mat-icon>
                   <p class="tree__span" [class.active]="menuList.active"
                      (click)="newDepartment(menuList.menuId, menuList.menuName)">
                     {{menuList.menuName}}
                   </p>
-                  <button md-icon-button color="primary" (click)="updateSite(menuList)">
-                    <md-icon aria-label="edit">mode_edit</md-icon>
+                  <button mat-icon-button color="primary" (click)="updateSite(menuList)">
+                    <mat-icon aria-label="edit">mode_edit</mat-icon>
                   </button>
                 </div>
                 <div *ngIf="menuList.type==3" class="tr_main">
-                  <md-icon class="tree__icon type department">lens</md-icon>
+                  <mat-icon class="tree__icon type department">lens</mat-icon>
                   <p class="tree__span last">
                     {{menuList.menuName}}
                   </p>
-                  <button md-icon-button color="primary" (click)="updateDepartment(menuList)">
-                    <md-icon aria-label="edit">mode_edit</md-icon>
+                  <button mat-icon-button color="primary" (click)="updateDepartment(menuList)">
+                    <mat-icon aria-label="edit">mode_edit</mat-icon>
                   </button>
                 </div>
               </div>
@@ -162,30 +162,30 @@
                 <li *ngFor="let subMenu of menuList.children">
                   <!--站点-->
                   <div class="clear tree__p">
-                    <md-icon class="tree__icon" (click)="toggle(subMenu)"
+                    <mat-icon class="tree__icon" (click)="toggle(subMenu)"
                              *ngIf="subMenu.type!=3&&(!subMenu.open&&subMenu.children)">add
-                    </md-icon>
-                    <md-icon class="tree__icon" (click)="toggle(subMenu)"
+                    </mat-icon>
+                    <mat-icon class="tree__icon" (click)="toggle(subMenu)"
                              *ngIf="subMenu.type!=3&&(subMenu.open&&subMenu.children)">remove
-                    </md-icon>
-                    <md-icon class="tree__icon block" *ngIf="subMenu.type!=3&&!subMenu.children">block</md-icon>
+                    </mat-icon>
+                    <mat-icon class="tree__icon block" *ngIf="subMenu.type!=3&&!subMenu.children">block</mat-icon>
                     <div *ngIf="subMenu.type==2" class="tr_center">
-                      <md-icon class="tree__icon type site">lens</md-icon>
+                      <mat-icon class="tree__icon type site">lens</mat-icon>
                       <p class="tree__span" [class.active]="subMenu.active"
                          (click)="newDepartment(subMenu.menuId, subMenu.menuName)">
                         {{subMenu.menuName}}
                       </p>
-                      <button md-icon-button color="primary" (click)="updateSite(subMenu)">
-                        <md-icon aria-label="edit">mode_edit</md-icon>
+                      <button mat-icon-button color="primary" (click)="updateSite(subMenu)">
+                        <mat-icon aria-label="edit">mode_edit</mat-icon>
                       </button>
                     </div>
                     <div *ngIf="subMenu.type==3" class="tr_center">
-                      <md-icon class="tree__icon type department">lens</md-icon>
+                      <mat-icon class="tree__icon type department">lens</mat-icon>
                       <p class="tree__span last">
                         {{subMenu.menuName}}
                       </p>
-                      <button md-icon-button color="primary" (click)="updateDepartment(subMenu)">
-                        <md-icon aria-label="edit">mode_edit</md-icon>
+                      <button mat-icon-button color="primary" (click)="updateDepartment(subMenu)">
+                        <mat-icon aria-label="edit">mode_edit</mat-icon>
                       </button>
                     </div>
                   </div>
@@ -193,10 +193,10 @@
                     <li *ngFor="let sSubMenu of subMenu.children">
                       <!--科室-->
                       <div class="clear tree__p" class="tr_department">
-                        <md-icon class="tree__icon type department">lens</md-icon>
+                        <mat-icon class="tree__icon type department">lens</mat-icon>
                         <p class="tree__span last">{{sSubMenu.menuName}}</p>
-                        <button md-icon-button color="primary" (click)="updateDepartment(sSubMenu)">
-                          <md-icon aria-label="edit">mode_edit</md-icon>
+                        <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)">
+                          <mat-icon aria-label="edit">mode_edit</mat-icon>
                         </button>
                       </div>
                     </li>
@@ -207,30 +207,30 @@
             <div *ngIf="menuList&&menuList.level==2">
               <!--站点-->
               <div class="clear tree__p">
-                <md-icon class="tree__icon" (click)="toggle(menuList)"
+                <mat-icon class="tree__icon" (click)="toggle(menuList)"
                          *ngIf="menuList.type!=3&&(!menuList.open&&menuList.children)">add
-                </md-icon>
-                <md-icon class="tree__icon" (click)="toggle(menuList)"
+                </mat-icon>
+                <mat-icon class="tree__icon" (click)="toggle(menuList)"
                          *ngIf="menuList.type!=3&&(menuList.open&&menuList.children)">remove
-                </md-icon>
-                <md-icon class="tree__icon block" *ngIf="menuList.type!=3&&!menuList.children">block</md-icon>
+                </mat-icon>
+                <mat-icon class="tree__icon block" *ngIf="menuList.type!=3&&!menuList.children">block</mat-icon>
                 <div *ngIf="menuList.type==2" class="tr_main">
-                  <md-icon class="tree__icon type site">lens</md-icon>
+                  <mat-icon class="tree__icon type site">lens</mat-icon>
                   <p class="tree__span" [class.active]="menuList.active"
                      (click)="newDepartment(menuList.menuId, menuList.menuName)">
                     {{menuList.menuName}}
                   </p>
-                  <button md-icon-button color="primary" (click)="updateSite(menuList)">
-                    <md-icon aria-label="edit">mode_edit</md-icon>
+                  <button mat-icon-button color="primary" (click)="updateSite(menuList)">
+                    <mat-icon aria-label="edit">mode_edit</mat-icon>
                   </button>
                 </div>
                 <div *ngIf="menuList.type==3" class="tr_main">
-                  <md-icon class="tree__icon type department">lens</md-icon>
+                  <mat-icon class="tree__icon type department">lens</mat-icon>
                   <p class="tree__span last">
                     {{menuList.menuName}}
                   </p>
-                  <button md-icon-button color="primary" (click)="updateDepartment(menuList)">
-                    <md-icon aria-label="edit">mode_edit</md-icon>
+                  <button mat-icon-button color="primary" (click)="updateDepartment(menuList)">
+                    <mat-icon aria-label="edit">mode_edit</mat-icon>
                   </button>
                 </div>
               </div>
@@ -238,10 +238,10 @@
                 <li *ngFor="let sSubMenu of menuList.children">
                   <!--科室-->
                   <div class="clear tree__p tr_center">
-                    <md-icon class="tree__icon type department">lens</md-icon>
+                    <mat-icon class="tree__icon type department">lens</mat-icon>
                     <p class="tree__span last">{{sSubMenu.menuName}}</p>
-                    <button md-icon-button color="primary" (click)="updateDepartment(sSubMenu)">
-                      <md-icon aria-label="edit">mode_edit</md-icon>
+                    <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)">
+                      <mat-icon aria-label="edit">mode_edit</mat-icon>
                     </button>
                   </div>
                 </li>
@@ -250,10 +250,10 @@
             <div *ngIf="menuList&&menuList.level==3">
               <!--科室-->
               <div class="clear tree__p tr_main">
-                <md-icon class="tree__icon type department last">lens</md-icon>
+                <mat-icon class="tree__icon type department last">lens</mat-icon>
                 <p class="tree__span last">{{menuList.menuName}}</p>
-                <button md-icon-button color="primary" (click)="updateDepartment(menuList)">
-                  <md-icon aria-label="edit">mode_edit</md-icon>
+                <button mat-icon-button color="primary" (click)="updateDepartment(menuList)">
+                  <mat-icon aria-label="edit">mode_edit</mat-icon>
                 </button>
               </div>
             </div>
@@ -267,37 +267,37 @@
             <app-form [formDatas]="form" (formValues)="getValues($event)"></app-form>
           </div>
           <div class="container" *ngIf="form&&formTwo&&flag==1">
-            <md-tab-group dynamicHeight="true">
-              <md-tab label="添加站点">
+            <mat-tab-group dynamicHeight="true">
+              <mat-tab label="添加站点">
                 <div style="padding: 15px 0;height: calc(100vh - 280px);overflow: auto">
                   <app-form [formDatas]="form" (formValues)="getValues($event)"></app-form>
                 </div>
-              </md-tab>
-              <md-tab label="添加科室">
+              </mat-tab>
+              <mat-tab label="添加科室">
                 <div style="padding: 15px 0;height: calc(100vh - 280px);overflow: auto">
                   <app-form [formDatas]="formTwo" (formValues)="getValues($event)"></app-form>
                 </div>
-              </md-tab>
-            </md-tab-group>
+              </mat-tab>
+            </mat-tab-group>
           </div>
           <div class="container" *ngIf="form&&formTwo&&formThree&&flag==2">
-            <md-tab-group dynamicHeight="true">
-              <md-tab label="添加中心">
+            <mat-tab-group dynamicHeight="true">
+              <mat-tab label="添加中心">
                 <div style="padding: 15px 0;height: calc(100vh - 280px);overflow: auto">
                   <app-form [formDatas]="form" (formValues)="getValues($event)"></app-form>
                 </div>
-              </md-tab>
-              <md-tab label="添加站点">
+              </mat-tab>
+              <mat-tab label="添加站点">
                 <div style="padding: 15px 0;height: calc(100vh - 280px);overflow: auto">
                   <app-form [formDatas]="formTwo" (formValues)="getValues($event)"></app-form>
                 </div>
-              </md-tab>
-              <md-tab label="添加科室">
+              </mat-tab>
+              <mat-tab label="添加科室">
                 <div style="padding: 15px 0;height: calc(100vh - 280px);overflow: auto">
                   <app-form [formDatas]="formThree" (formValues)="getValues($event)"></app-form>
                 </div>
-              </md-tab>
-            </md-tab-group>
+              </mat-tab>
+            </mat-tab-group>
           </div>
         </div>
       </div>

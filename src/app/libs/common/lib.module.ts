@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { MdIconModule } from '@angular/material';
+import { MatIconModule } from '@angular/material';
 
 import { ContainerComponent } from './container/container.component';
 import { SearchComponent } from './search/search.component';
@@ -12,7 +12,7 @@ import { SearchService } from './search/search.service';
   imports: [
     FormsModule,
     CommonModule,
-    MdIconModule,
+    MatIconModule,
     RouterModule
   ],
   declarations: [
@@ -24,7 +24,7 @@ import { SearchService } from './search/search.service';
     {provide: 'search', useClass: SearchService},
   ],
   exports: [
-    MdIconModule,
+    MatIconModule,
     FormsModule,
     ContainerComponent,
     SearchComponent

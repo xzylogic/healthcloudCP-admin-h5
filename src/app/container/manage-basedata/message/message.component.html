@@ -8,13 +8,13 @@
       </div>
       <div *ngIf="messageTable.lists">
         <div style="padding: 10px 25px">
-          <button md-raised-button color="primary" (click)="readSelected()">设为已读</button>
+          <button mat-raised-button color="primary" (click)="readSelected()">设为已读</button>
         </div>
         <table class="table">
           <thead>
           <tr>
             <th>
-              <md-checkbox [(ngModel)]="allChecked" (change)="getAllChecked()"></md-checkbox>
+              <mat-checkbox [(ngModel)]="allChecked" (change)="getAllChecked()"></mat-checkbox>
             </th>
             <th>序号</th>
             <th>消息内容</th>
@@ -27,7 +27,7 @@
           <tbody>
           <tr *ngFor="let obj of messageTable.lists;let i=index">
             <td>
-              <md-checkbox [(ngModel)]="obj.checked"></md-checkbox>
+              <mat-checkbox [(ngModel)]="obj.checked"></mat-checkbox>
             </td>
             <td>
               <span>{{i + 1 + (messageTable.currentPage * 10)}}</span>

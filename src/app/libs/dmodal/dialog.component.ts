@@ -1,23 +1,23 @@
 import { Component, Inject } from '@angular/core';
-import { MD_DIALOG_DATA, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogConfig, MatDialogRef } from '@angular/material';
 
 import { DialogOptions } from './dialog.entity';
 
 @Component({
   selector: 'app-dialog',
   template: `
-    <h1 md-dialog-title>{{option.title}}</h1>
-    <div md-dialog-content>
+    <h1 mat-dialog-title>{{option.title}}</h1>
+    <div mat-dialog-content>
       {{option.message}}
       <div *ngIf="option.forms.length!=0">
-        <md-input-container *ngFor="let item of option.forms" style="width: 100%">
-          <textarea mdInput [placeholder]="item.label" [(ngModel)]="item.value"></textarea>
-        </md-input-container>
+        <mat-input-container *ngFor="let item of option.forms" style="width: 100%">
+          <textarea matInput [placeholder]="item.label" [(ngModel)]="item.value"></textarea>
+        </mat-input-container>
       </div>
     </div>
-    <div md-dialog-actions style="float: right;">
+    <div mat-dialog-actions style="float: right;">
       <div style="margin: 20px 0">
-        <button *ngFor="let btn of option.buttons" color="{{btn.color}}" md-raised-button style="margin-left: 15px"
+        <button *ngFor="let btn of option.buttons" color="{{btn.color}}" mat-raised-button style="margin-left: 15px"
                 (click)="dialogRef.close({key:btn.key,value:option.forms || ''})">
           {{btn.value}}
         </button>
@@ -29,15 +29,15 @@ export class DialogComponent {
   option: DialogOptions = new DialogOptions();
 
   constructor(
-    @Inject(MD_DIALOG_DATA) public data: any,
-    public dialogRef: MdDialogRef<DialogComponent>
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<DialogComponent>
   ) {
     this.option = this.data;
   }
 }
 
 export function HintDialog(msg, dialog) {
-  const option: MdDialogConfig = <MdDialogConfig>{
+  const option: MatDialogConfig = <MatDialogConfig>{
     data: new DialogOptions(
       {
         title: '提示信息',
@@ -54,7 +54,7 @@ export function HintDialog(msg, dialog) {
 }
 
 export function MessageDialog(title, msg, dialog) {
-  const option: MdDialogConfig = <MdDialogConfig>{
+  const option: MatDialogConfig = <MatDialogConfig>{
     data: new DialogOptions(
       {
         title: title,
@@ -71,7 +71,7 @@ export function MessageDialog(title, msg, dialog) {
 }
 
 export function ActionDialog(config: DialogOptions, dialog) {
-  const option: MdDialogConfig = <MdDialogConfig>{
+  const option: MatDialogConfig = <MatDialogConfig>{
     data: config,
     width: '500px'
   };

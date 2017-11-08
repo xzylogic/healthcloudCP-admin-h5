@@ -1,21 +1,22 @@
 <app-container [config]="containerConfig">
   <div class="addition">
-    <button md-raised-button (click)="newData()" >添加首页资讯</button>
+    <button mat-raised-button (click)="newData()">添加首页资讯</button>
   </div>
   <div class="content">
     <form style="padding: 0 16px">
-      <md-input-container floatPlaceholder="auto" style="margin-right: 1em">
-        <input mdInput placeholder="文章标题" name="title" [(ngModel)]="title">
-      </md-input-container>
-      <md-select placeholder="时间状态" [(ngModel)]="status" name="center"
-                 style="width: 200px;margin-right: 1em">
-        <md-option *ngFor="let opt of statusList" [value]="opt.id">{{opt.name}}</md-option>
-      </md-select>
-     <button md-icon-button color="primary" type="button" (click)="getHomeArticles(0)">
-        <md-icon>search</md-icon>
+      <mat-input-container floatPlaceholder="auto" style="margin-right: 1em">
+        <input matInput placeholder="文章标题" name="title" [(ngModel)]="title">
+      </mat-input-container>
+      <mat-form-field>
+        <mat-select placeholder="时间状态" [(ngModel)]="status" name="center">
+          <mat-option *ngFor="let opt of statusList" [value]="opt.id">{{opt.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-icon-button color="primary" type="button" (click)="getHomeArticles(0)">
+        <mat-icon>search</mat-icon>
       </button>
-      <button md-icon-button color="primary" type="button" (click)="reset()">
-        <md-icon>autorenew</md-icon>
+      <button mat-icon-button color="primary" type="button" (click)="reset()">
+        <mat-icon>autorenew</mat-icon>
       </button>
     </form>
     <div *ngIf="!homeArticleTable.lists&&homeArticleTable.loading">Loading...</div>

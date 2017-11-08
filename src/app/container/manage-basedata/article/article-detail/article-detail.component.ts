@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Inject, ViewChild } from '@angular/core';
-import { MD_DIALOG_DATA, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogConfig, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-article-detail',
@@ -11,8 +11,8 @@ export class ArticleDetailComponent implements AfterViewInit {
   @ViewChild('inner') inner: ElementRef;
 
   constructor(
-    @Inject(MD_DIALOG_DATA) public data: any,
-    public dialogRef: MdDialogRef<ArticleDetailComponent>
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<ArticleDetailComponent>
   ) {
     this.option.title = this.data.title || '';
     this.option.time = this.data.updateTime || new Date();
@@ -25,7 +25,7 @@ export class ArticleDetailComponent implements AfterViewInit {
 }
 
 export function ShowDetail(data, dialog) {
-  const option: MdDialogConfig = <MdDialogConfig>{
+  const option: MatDialogConfig = <MatDialogConfig>{
     data: data,
     width: '375px'
   };

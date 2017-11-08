@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { DFormControlService } from '../../../../libs/dform/_service/form-control.service';
 import { HintDialog } from '../../../../libs/dmodal/dialog.component';
 import { ERRMSG } from '../../../_store/static';
@@ -22,7 +22,7 @@ export class BannerEditComponent implements OnInit {
   constructor(
     @Inject('banner') private bannerService,
     private route: ActivatedRoute,
-    private dialog: MdDialog,
+    private dialog: MatDialog,
     private router: Router,
     private fcs: DFormControlService,
     private cdr: ChangeDetectorRef

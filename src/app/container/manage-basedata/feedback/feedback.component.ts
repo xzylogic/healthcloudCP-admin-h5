@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { TableOption } from '../../../libs/dtable/dtable.entity';
 import { Router } from '@angular/router';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { ERRMSG } from '../../_store/static';
 
 @Component({
@@ -17,7 +17,7 @@ export class FeedbackComponent implements OnInit {
 
   constructor(
     @Inject('feedback') private feedbackService,
-    private dialog: MdDialog,
+    private dialog: MatDialog,
     private router: Router
   ) {
   }

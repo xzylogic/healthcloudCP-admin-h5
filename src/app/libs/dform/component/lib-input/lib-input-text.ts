@@ -7,8 +7,8 @@ import { FormText } from '../../_entity/form-text';
   selector: 'app-input-text',
   template: `
     <div [formGroup]="form">
-      <md-input-container *ngIf="!data.maxlength&&data.type!='password'" style="width: 100%" floatPlaceholder="always">
-        <input mdInput [type]="data.type"
+      <mat-input-container *ngIf="!data.maxlength&&data.type!='password'" style="width: 100%" floatPlaceholder="always">
+        <input matInput [type]="data.type"
                [placeholder]="data.label"
                [formControlName]="data.key"
                [(ngModel)]="value"
@@ -20,10 +20,10 @@ import { FormText } from '../../_entity/form-text';
                (mousedown)="change()"
                autocomplete="off"
         >
-        <md-error>{{data.errMsg}}</md-error>
-      </md-input-container>
-      <md-input-container *ngIf="!data.maxlength&&data.type=='password'" style="width: 100%" floatPlaceholder="always">
-        <input mdInput [type]="'text'"
+        <mat-error>{{data.errMsg}}</mat-error>
+      </mat-input-container>
+      <mat-input-container *ngIf="!data.maxlength&&data.type=='password'" style="width: 100%" floatPlaceholder="always">
+        <input matInput [type]="'text'"
                [placeholder]="data.label"
                [formControlName]="data.key"
                [(ngModel)]="value"
@@ -36,10 +36,10 @@ import { FormText } from '../../_entity/form-text';
                autocomplete="off"
                onfocus="this.type='password'"
         >
-        <md-error>{{data.errMsg}}</md-error>
-      </md-input-container>
-      <md-input-container *ngIf="data.maxlength" style="width: 100%" floatPlaceholder="always">
-        <input mdInput [type]="data.type"
+        <mat-error>{{data.errMsg}}</mat-error>
+      </mat-input-container>
+      <mat-input-container *ngIf="data.maxlength" style="width: 100%" floatPlaceholder="always">
+        <input matInput [type]="data.type"
                [maxlength]="data.maxlength"
                [placeholder]="data.label"
                [formControlName]="data.key"
@@ -52,8 +52,8 @@ import { FormText } from '../../_entity/form-text';
                (mousedown)="change()"
                autocomplete="off"
         >
-        <md-hint align="end">{{value.length}} / {{data.maxlength}}</md-hint>
-      </md-input-container>
+        <mat-hint align="end">{{value.length}} / {{data.maxlength}}</mat-hint>
+      </mat-input-container>
     </div>
   `
 })

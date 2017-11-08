@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { TableOption } from '../../../libs/dtable/dtable.entity';
 import { ERRMSG } from '../../_store/static';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { HintDialog } from '../../../libs/dmodal/dialog.component';
 
@@ -31,7 +31,7 @@ export class ArticleHomeComponent implements OnInit {
 
   constructor(
     @Inject('home') private homeService,
-    private dialog: MdDialog,
+    private dialog: MatDialog,
     private router: Router
   ) {
   }

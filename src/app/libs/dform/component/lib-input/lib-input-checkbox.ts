@@ -9,12 +9,12 @@ import { FormCheckbox } from '../../_entity/form-checkbox';
     <div [formGroup]="form">
       <div class="input_container">
         <section calss="input_content">
-          <md-checkbox class="check_content"
+          <mat-checkbox class="check_content"
                        *ngFor="let opt of data.options"
                        [(checked)]="opt.checked"
                        (change)="getChecked($event, opt.id)"
           >{{opt.name}}
-          </md-checkbox>
+          </mat-checkbox>
         </section>
         <span class="input_span">{{data.label}}</span>
         <input type="hidden" [formControlName]="data.key" [(ngModel)]="value" (change)="change()">

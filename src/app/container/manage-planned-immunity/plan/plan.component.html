@@ -1,25 +1,25 @@
 <app-container [config]="containerConfig">
   <div class="content">
     <div style="padding: 0 16px 16px" class="clear">
-      <md-select *ngIf="centerList&&centerList.length!==0" placeholder="中心" [(ngModel)]="centerId" name="center"
+      <mat-select *ngIf="centerList&&centerList.length!==0" placeholder="中心" [(ngModel)]="centerId" name="center"
                  style="width: 860px;margin-right: 1em" (change)="centerChange($event)"
                  (onOpen)="centerChange({value:centerId})">
-        <md-option *ngFor="let opt of centerList" [value]="opt.menuId">{{opt.name}}</md-option>
-      </md-select>
+        <mat-option *ngFor="let opt of centerList" [value]="opt.menuId">{{opt.name}}</mat-option>
+      </mat-select>
     </div>
     <div style="padding: 0 16px 16px">
-      <md-select *ngIf="siteList&&siteList.length!==0" placeholder="站点" [(ngModel)]="siteId" name="site"
+      <mat-select *ngIf="siteList&&siteList.length!==0" placeholder="站点" [(ngModel)]="siteId" name="site"
                  (change)="siteChange($event)"
                  style="width: 860px;margin-right: 1em">
-        <md-option *ngFor="let opt of siteList" [value]="opt.menuId">{{opt.name}}</md-option>
-      </md-select>
-      <button *ngIf="(centerList&&centerList.length!==0)||(siteList&&siteList.length!==0)" md-icon-button
+        <mat-option *ngFor="let opt of siteList" [value]="opt.menuId">{{opt.name}}</mat-option>
+      </mat-select>
+      <button *ngIf="(centerList&&centerList.length!==0)||(siteList&&siteList.length!==0)" mat-icon-button
               color="primary" type="button" (click)="search()">
-        <md-icon>search</md-icon>
+        <mat-icon>search</mat-icon>
       </button>
-      <button *ngIf="(centerList&&centerList.length!==0)||(siteList&&siteList.length!==0)" md-icon-button
+      <button *ngIf="(centerList&&centerList.length!==0)||(siteList&&siteList.length!==0)" mat-icon-button
               color="primary" type="button" (click)="reset()">
-        <md-icon>autorenew</md-icon>
+        <mat-icon>autorenew</mat-icon>
       </button>
     </div>
     <div style="padding: 30px 0 15px 0">
@@ -28,8 +28,8 @@
     <div style="padding: 30px;text-align: center" *ngIf="show=='false'">
       该机构无排班及号源信息
     </div>
-    <md-tab-group dynamicHeight="true" [selectedIndex]="tab" *ngIf="show!='false'">
-      <md-tab label="排班表">
+    <mat-tab-group dynamicHeight="true" [selectedIndex]="tab" *ngIf="show!='false'">
+      <mat-tab label="排班表">
         <div class="table-container clear">
           <table class="table" *ngIf="weekListAm&&weekListPm">
             <thead>
@@ -48,29 +48,29 @@
             <tr>
               <td>上午</td>
               <td *ngFor="let obj of weekListAm">
-                <md-checkbox [(ngModel)]="obj.workState" [disabled]="operationWeek!=1"></md-checkbox>
+                <mat-checkbox [(ngModel)]="obj.workState" [disabled]="operationWeek!=1"></mat-checkbox>
               </td>
             </tr>
             <tr>
               <td>下午</td>
               <td *ngFor="let obj of weekListPm">
-                <md-checkbox [(ngModel)]="obj.workState" [disabled]="operationWeek!=1"></md-checkbox>
+                <mat-checkbox [(ngModel)]="obj.workState" [disabled]="operationWeek!=1"></mat-checkbox>
               </td>
             </tr>
             </tbody>
           </table>
         </div>
         <p>温馨提示：请设置排班表，再维护号源。
-          <md-icon class="icon">check_box_outline_blank</md-icon>
+          <mat-icon class="icon">check_box_outline_blank</mat-icon>
           表示不上班，
-          <md-icon class="icon">check_box</md-icon>
+          <mat-icon class="icon">check_box</mat-icon>
           表示上班
         </p>
         <div class="button-content" *ngIf="operationWeek==1">
-          <button md-raised-button color="primary" (click)="saveWeekList()">保存</button>
+          <button mat-raised-button color="primary" (click)="saveWeekList()">保存</button>
         </div>
-      </md-tab>
-      <md-tab label="号源维护">
+      </mat-tab>
+      <mat-tab label="号源维护">
         <form #form="ngForm" (submit)="saveTimeList(form)"
               *ngIf="timeList1&&timeList2&&timeList3&&timeList4&&timeList5&&timeList6">
           <div class="table-container clear">
@@ -149,11 +149,11 @@
           </p>
           <div class="button-content"
                *ngIf="timeList1&&timeList2&&timeList3&&timeList4&&timeList5&&timeList6&&(operationTime==1)">
-            <button md-raised-button color="primary" [disabled]="!form.valid" type="submit">保存</button>
+            <button mat-raised-button color="primary" [disabled]="!form.valid" type="submit">保存</button>
           </div>
         </form>
-      </md-tab>
-      <md-tab label="排班日历表">
+      </mat-tab>
+      <mat-tab label="排班日历表">
         <div class="tab-content">
           <app-calendar [viewDate]="viewDate"
                         [events]="events"
@@ -161,7 +161,7 @@
           </app-calendar>
           <p style="padding: 1em 0">温馨提示：特殊节假日请选择具体日期单独设置</p>
         </div>
-      </md-tab>
-    </md-tab-group>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 </app-container>

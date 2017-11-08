@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { HintDialog } from '../../../libs/dmodal/dialog.component';
 import { ERRMSG } from '../../_store/static';
@@ -43,7 +43,7 @@ export class PlanComponent implements OnInit {
     @Inject('action') private action,
     @Inject('plan') private planService,
     @Inject('auth') private auth,
-    private dialog: MdDialog,
+    private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute
   ) {

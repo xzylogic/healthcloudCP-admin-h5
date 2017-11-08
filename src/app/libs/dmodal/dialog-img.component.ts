@@ -1,11 +1,11 @@
 import { Component, Inject } from '@angular/core';
-import { MD_DIALOG_DATA, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogConfig, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-dialog-img',
   template: `
-    <h1 md-dialog-title>{{option.title}}</h1>
-    <div md-dialog-content>
+    <h1 mat-dialog-title>{{option.title}}</h1>
+    <div mat-dialog-content>
       <img [src]="option.image" alt="{{option.title}}">
     </div>
   `
@@ -14,15 +14,15 @@ export class DialogImgComponent {
   option: { title: string, image: string } = {title: '', image: ''};
 
   constructor(
-    @Inject(MD_DIALOG_DATA) public data: any,
-    public dialogRef: MdDialogRef<DialogImgComponent>
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<DialogImgComponent>
   ) {
     this.option = this.data;
   }
 }
 
 export function ImageDialog(title, image, dialog) {
-  const option: MdDialogConfig = <MdDialogConfig>{
+  const option: MatDialogConfig = <MatDialogConfig>{
     data: {title: title, image: image}
   };
   return dialog.open(DialogImgComponent, option);

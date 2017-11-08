@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { HintDialog } from '../../../libs/dmodal/dialog.component';
 import { ERRMSG } from '../../_store/static';
 
@@ -18,7 +18,7 @@ export class ReceiveInterviewDetailComponent implements OnInit {
 
   constructor(
     @Inject('interview') private interviewService,
-    private dialog: MdDialog,
+    private dialog: MatDialog,
     private route: ActivatedRoute
   ) {
   }

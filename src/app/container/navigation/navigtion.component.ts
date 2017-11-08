@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { select } from '@angular-redux/store';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { Menu } from '../_store/main.state';
 import { DialogEdit } from '../../libs/dmodal/dialog.entity';
 import { FormText } from '../../libs/dform/_entity/form-text';
@@ -22,7 +22,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject('app') public app,
     @Inject('nav') private navService,
     @Inject('auth') private authService,
-    private dialog: MdDialog
+    private dialog: MatDialog
   ) {
   }
 

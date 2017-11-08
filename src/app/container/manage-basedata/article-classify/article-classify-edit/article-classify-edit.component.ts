@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { HintDialog } from '../../../../libs/dmodal/dialog.component';
 import { ERRMSG } from '../../../_store/static';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-article-classify-edit',
@@ -15,7 +15,7 @@ export class ArticleClassifyEditComponent implements OnInit {
 
   constructor(
     @Inject('classify') private classifyService,
-    private dialog: MdDialog,
+    private dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router
   ) {

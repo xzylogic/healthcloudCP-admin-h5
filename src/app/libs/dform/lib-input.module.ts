@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MdButtonModule, MdIconModule,
-  MdInputModule, MdRadioModule,
-  MdCheckboxModule, MdSelectModule,
-  MdGridListModule, MdDatepickerModule, DateAdapter, NativeDateAdapter, MD_DATE_FORMATS, MdNativeDateModule, MdDatepickerIntl
+  MatButtonModule, MatIconModule,
+  MatInputModule, MatRadioModule,
+  MatCheckboxModule, MatSelectModule,
+  MatGridListModule, MatDatepickerModule, MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS
 } from '@angular/material';
 
 import { HttpService } from '../_service/http.service';
@@ -22,21 +22,21 @@ import { LibInputTimeComponent } from './component/lib-input/lib-input-time';
 import { LibInputTextareaComponent } from './component/lib-input/lib-input-textarea';
 import { LibInputHiddenComponent } from './component/lib-input/lib-input-hidden';
 import { LibInputTreeComponent } from './component/lib-input/lib-input-tree';
+import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    MdButtonModule,
-    MdIconModule,
-    MdInputModule,
-    MdRadioModule,
-    MdCheckboxModule,
-    MdSelectModule,
-    MdGridListModule,
-    MdDatepickerModule,
-    MdNativeDateModule
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatGridListModule,
+    MatDatepickerModule,
   ],
   declarations: [
     LibInputTextComponent,
@@ -55,21 +55,27 @@ import { LibInputTreeComponent } from './component/lib-input/lib-input-tree';
   providers: [
     DFormControlService,
     HttpService,
-    {provide: DateAdapter, useClass: NativeDateAdapter},
-    // {provide: MdDatepickerIntl, useClass: MyIntl},
+    // The locale would typically be provided on the root module of your application. We do it at
+    // the component level here, due to limitations of our example generation script.
+    {provide: MAT_DATE_LOCALE, useValue: 'zh-CN'},
+
+    // `MomentDateAdapter` and `MAT_MOMENT_DATE_FORMATS` can be automatically provided by importing
+    // `MatMomentDateModule` in your applications root module. We provide it at the component level
+    // here, due to limitations of our example generation script.
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
   ],
   exports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    MdButtonModule,
-    MdIconModule,
-    MdInputModule,
-    MdRadioModule,
-    MdCheckboxModule,
-    MdSelectModule,
-    MdDatepickerModule,
-    MdNativeDateModule,
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatDatepickerModule,
     LibInputTextComponent,
     LibInputCheckboxComponent,
     LibInputDateComponent,

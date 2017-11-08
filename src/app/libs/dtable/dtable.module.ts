@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MdButtonModule, MdIconModule } from '@angular/material';
+import { MatButtonModule, MatIconModule } from '@angular/material';
 
 import { DTableComponent } from './dtable.component';
 import { DPageComponent } from './page.component';
@@ -11,8 +11,8 @@ export * from './dtable.entity';
 @NgModule({
   imports: [
     CommonModule,
-    MdButtonModule,
-    MdIconModule,
+    MatButtonModule,
+    MatIconModule,
     PipeModule
   ],
   declarations: [
@@ -21,8 +21,8 @@ export * from './dtable.entity';
   ],
   exports: [
     CommonModule,
-    MdButtonModule,
-    MdIconModule,
+    MatButtonModule,
+    MatIconModule,
     DTableComponent,
     DPageComponent,
     PipeModule

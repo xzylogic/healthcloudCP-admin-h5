@@ -1,14 +1,14 @@
 <div class="clear" style="padding: 1em 0">
   <h2 style="float: left">{{ viewDate | calendarDate:(view + 'ViewTitle'):'zh-cn' }}</h2>
   <div style="float: right" class="clear">
-    <button md-mini-fab (click)="today()" style="float: left;margin: 0 5px">今天</button>
-    <button md-mini-fab color="primary" (click)="decrement()" [disabled]="prevBtnDisabled"
+    <button mat-mini-fab (click)="today()" style="float: left;margin: 0 5px">今天</button>
+    <button mat-mini-fab color="primary" (click)="decrement()" [disabled]="prevBtnDisabled"
             style="float: left;margin: 0 5px">
-      <md-icon>chevron_left</md-icon>
+      <mat-icon>chevron_left</mat-icon>
     </button>
-    <button md-mini-fab color="primary" (click)="increment()" [disabled]="nextBtnDisabled"
+    <button mat-mini-fab color="primary" (click)="increment()" [disabled]="nextBtnDisabled"
             style="float: left;margin: 0 5px">
-      <md-icon>chevron_right</md-icon>
+      <mat-icon>chevron_right</mat-icon>
     </button>
   </div>
 </div>

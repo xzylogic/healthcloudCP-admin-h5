@@ -1,7 +1,7 @@
 <app-container [config]="containerConfig">
   <div class="content">
-    <md-tab-group>
-      <md-tab label="基本信息">
+    <mat-tab-group>
+      <mat-tab label="基本信息">
         <div class="tab-content">
           <div class="grid-container">
             <div class="row">
@@ -61,8 +61,8 @@
             </div>
           </div>
         </div>
-      </md-tab>
-      <md-tab label="门诊就诊记录">
+      </mat-tab>
+      <mat-tab label="门诊就诊记录">
         <div *ngIf="outpatientInfo.lists">
           <div class="content__table">
             <app-lib-table
@@ -71,8 +71,8 @@
             ></app-lib-table>
           </div>
         </div>
-      </md-tab>
-      <md-tab label="住院就诊记录">
+      </mat-tab>
+      <mat-tab label="住院就诊记录">
         <div *ngIf="hospitalizationInfo.lists">
           <div class="content__table">
             <app-lib-table
@@ -81,8 +81,8 @@
             ></app-lib-table>
           </div>
         </div>
-      </md-tab>
-      <md-tab label="病史信息">
+      </mat-tab>
+      <mat-tab label="病史信息">
         <div class="tab-content" *ngIf="medicalHistoryInfo">
           <div class="grid-container">
             <div class="row history" *ngFor="let info of medicalHistoryInfo">
@@ -97,7 +97,7 @@
             </div>
           </div>
         </div>
-      </md-tab>
-    </md-tab-group>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 </app-container>

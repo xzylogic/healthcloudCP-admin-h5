@@ -81,7 +81,7 @@
   width: 100%;
   padding: 0 16px;
   font-size: 15px;
-  md-icon {
+  mat-icon {
     position: absolute;
     right: -5px;
     -webkit-transition: all .2s ease;
@@ -91,7 +91,7 @@
   }
 }
 
-.nav__item.open md-icon {
+.nav__item.open mat-icon {
   transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   -webkit-transform: rotate(90deg);
@@ -114,12 +114,12 @@
 }
 
 .nav__title {
-  md-chip-list {
+  mat-chip-list {
     position: absolute;
     right: 32px;
     top: 19px;
   }
-  md-chip {
+  mat-chip {
     padding: 0;
     width: 10px;
     height: 10px;
@@ -127,18 +127,18 @@
 }
 
 .nav-sub__title {
-  md-chip-list {
+  mat-chip-list {
     position: absolute;
     right: 0;
     top: 12px;
   }
-  md-chip {
+  mat-chip {
     padding: 4px 5px;
     font-size: 12px;
   }
 }
 
-md-chip:focus {
+mat-chip:focus {
   outline: none;
 }
 

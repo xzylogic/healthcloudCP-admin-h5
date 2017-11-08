@@ -2,7 +2,7 @@
   <h1 class="title"></h1>
   <form *ngIf="loginForm" class="login__form" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
     <app-input-text class="login__form__input" [form]="loginForm" *ngFor="let data of loginLib" [data]="data"></app-input-text>
-    <button md-raised-button class="login__form__button" color="primary" [disabled]="!loginForm.valid">登录
+    <button mat-raised-button class="login__form__button" color="primary" [disabled]="!loginForm.valid">登录
     </button>
   </form>
   <div class="footer">

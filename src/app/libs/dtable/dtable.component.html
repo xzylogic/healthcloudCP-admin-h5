@@ -57,18 +57,18 @@
 </div>
 <div class="page__items" *ngIf="table.ifPage&&table.totalPage">
   <a class="item icon" (click)="getFirstPage()">
-    <md-icon>first_page</md-icon>
+    <mat-icon>first_page</mat-icon>
   </a>
   <a class="item icon" (click)="getPrePage()">
-    <md-icon>chevron_left</md-icon>
+    <mat-icon>chevron_left</mat-icon>
   </a>
   <a class="item" *ngFor="let page of pageList" [class.active]="page-1==table.currentPage"
      [class.disable]="page=='...'"
      (click)="getCurrentPage(page)">{{page}}</a>
   <a class="item icon" (click)="getNextPage()">
-    <md-icon>chevron_right</md-icon>
+    <mat-icon>chevron_right</mat-icon>
   </a>
   <a class="item icon" (click)="getLastPage()">
-    <md-icon>last_page</md-icon>
+    <mat-icon>last_page</mat-icon>
   </a>
 </div>

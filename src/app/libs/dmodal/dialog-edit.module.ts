@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MdDialog, MdDialogModule } from '@angular/material';
+import { MatDialog, MatDialogModule } from '@angular/material';
 import { DFormModule } from '../dform/dform.module';
 import { DialogEditComponent } from './dialog-edit.component';
 
@@ -7,7 +7,7 @@ export * from './dialog-edit.component';
 
 @NgModule({
   imports: [
-    MdDialogModule,
+    MatDialogModule,
     DFormModule
   ],
   declarations: [
@@ -18,11 +18,11 @@ export * from './dialog-edit.component';
   ],
   exports: [
     DFormModule,
-    MdDialogModule,
+    MatDialogModule,
     DialogEditComponent,
   ],
   providers: [
-    MdDialog
+    MatDialog
   ]
 })
 export class LibDialogEditModule {

@@ -1,9 +1,9 @@
 <div class="main__content" *ngIf="config">
   <div class="content__location">
-    <md-icon *ngIf="!config.ifHome" class="location__item" [routerLink]="config.homeRouter" [queryParams]="config.query">arrow_back</md-icon>
+    <mat-icon *ngIf="!config.ifHome" class="location__item" [routerLink]="config.homeRouter" [queryParams]="config.query">arrow_back</mat-icon>
     <span class="location__item">{{config.title}}</span>
     <span class="location__item span">
-      <md-icon>chevron_right</md-icon>
+      <mat-icon>chevron_right</mat-icon>
     </span>
     <span class="location__item">{{config.subTitle}}</span>
   </div>

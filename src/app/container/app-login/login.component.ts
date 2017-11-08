@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 import { FormText } from '../../libs/dform/_entity/form-text';
 import { HintDialog } from '../../libs/dmodal/dialog.component';
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     @Inject('auth') private authService,
     private fb: FormBuilder,
     private router: Router,
-    private dialog: MdDialog,
+    private dialog: MatDialog,
     private cdr: ChangeDetectorRef
   ) {
   }

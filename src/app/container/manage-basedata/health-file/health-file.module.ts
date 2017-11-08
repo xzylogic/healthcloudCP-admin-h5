@@ -4,7 +4,7 @@ import { HealthFileService } from './_service/health-file.service';
 import { RouterModule, Routes } from '@angular/router';
 import { LibModule } from '../../../libs/common/lib.module';
 import { DTableModule } from '../../../libs/dtable/dtable.module';
-import { MdTabsModule } from '@angular/material';
+import { MatTabsModule } from '@angular/material';
 
 const routes: Routes = [{
   path: ':id',
@@ -15,7 +15,7 @@ const routes: Routes = [{
   imports: [
     LibModule,
     DTableModule,
-    MdTabsModule,
+    MatTabsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

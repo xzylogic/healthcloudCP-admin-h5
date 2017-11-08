@@ -1,34 +1,34 @@
 <app-container [config]="containerConfig">
   <div class="addition">
-    <button md-raised-button (click)="newData()">添加账号</button>
+    <button mat-raised-button (click)="newData()">添加账号</button>
   </div>
   <div class="content">
     <form style="padding: 0 16px">
       <div>
-        <md-input-container floatPlaceholder="auto" style="margin-right: 1em;width: 400px">
-          <input mdInput placeholder="姓名" name="username" [(ngModel)]="username">
-        </md-input-container>
-        <md-input-container floatPlaceholder="auto" style="margin-right: 1em;width: 400px">
-          <input mdInput placeholder="手机号码" name="telephone" [(ngModel)]="telephone">
-        </md-input-container>
+        <mat-input-container floatPlaceholder="auto" style="margin-right: 1em;width: 400px">
+          <input matInput placeholder="姓名" name="username" [(ngModel)]="username">
+        </mat-input-container>
+        <mat-input-container floatPlaceholder="auto" style="margin-right: 1em;width: 400px">
+          <input matInput placeholder="手机号码" name="telephone" [(ngModel)]="telephone">
+        </mat-input-container>
       </div>
       <div style="margin-bottom: 16px">
-        <md-select *ngIf="centerList&&centerList.length!==0" placeholder="中心" [(ngModel)]="centerId" name="center"
+        <mat-select *ngIf="centerList&&centerList.length!==0" placeholder="中心" [(ngModel)]="centerId" name="center"
                    style="width: 820px;margin-right: 1em" (change)="centerChange($event)"
                    (onOpen)="centerChange({value:centerId})">
-          <md-option *ngFor="let opt of centerList" [value]="opt.menuId">{{opt.name}}</md-option>
-        </md-select>
+          <mat-option *ngFor="let opt of centerList" [value]="opt.menuId">{{opt.name}}</mat-option>
+        </mat-select>
       </div>
       <div style="margin-bottom: 16px">
-        <md-select *ngIf="siteList&&siteList.length!==0" placeholder="站点" [(ngModel)]="siteId" name="site"
+        <mat-select *ngIf="siteList&&siteList.length!==0" placeholder="站点" [(ngModel)]="siteId" name="site"
                    style="width: 820px;margin-right: 1em">
-          <md-option *ngFor="let opt of siteList" [value]="opt.menuId">{{opt.name}}</md-option>
-        </md-select>
-        <button md-icon-button color="primary" type="button" (click)="search()">
-          <md-icon>search</md-icon>
+          <mat-option *ngFor="let opt of siteList" [value]="opt.menuId">{{opt.name}}</mat-option>
+        </mat-select>
+        <button mat-icon-button color="primary" type="button" (click)="search()">
+          <mat-icon>search</mat-icon>
         </button>
-        <button md-icon-button color="primary" type="button" (click)="reset()">
-          <md-icon>autorenew</md-icon>
+        <button mat-icon-button color="primary" type="button" (click)="reset()">
+          <mat-icon>autorenew</mat-icon>
         </button>
       </div>
     </form>

@@ -3,7 +3,7 @@ import { ContainerConfig } from '../../../../libs/common/container/container.com
 import { FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { DFormControlService } from '../../../../libs/dform/_service/form-control.service';
 import { ERRMSG } from '../../../_store/static';
 import { HintDialog } from '../../../../libs/dmodal/dialog.component';
@@ -25,7 +25,7 @@ export class ArticleHomeEditComponent implements OnInit {
   constructor(
     @Inject('home') private homeService,
     private route: ActivatedRoute,
-    private dialog: MdDialog,
+    private dialog: MatDialog,
     private router: Router,
     private fcs: DFormControlService,
     private cdr: ChangeDetectorRef

@@ -6,7 +6,7 @@ import { ReceiveInterviewService } from './_service/receive-interview.service';
 import { ReceiveInterviewDetailComponent } from './receive-interview-detail/receive-interview-detail.component';
 import { DTableModule } from '../../libs/dtable/dtable.module';
 import { DFormModule } from '../../libs/dform/dform.module';
-import { MdTabsModule } from '@angular/material';
+import { MatTabsModule } from '@angular/material';
 
 const routes: Routes = [{
   path: '',
@@ -21,7 +21,7 @@ const routes: Routes = [{
     LibModule,
     DTableModule,
     DFormModule,
-    MdTabsModule,
+    MatTabsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

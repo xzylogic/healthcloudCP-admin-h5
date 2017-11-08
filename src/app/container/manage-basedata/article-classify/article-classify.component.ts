@@ -3,7 +3,7 @@ import { ContainerConfig } from '../../../libs/common/container/container.compon
 import { TableOption } from '../../../libs/dtable/dtable.entity';
 import { ERRMSG } from '../../_store/static';
 import { Router } from '@angular/router';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { HintDialog } from '../../../libs/dmodal/dialog.component';
 
 @Component({
@@ -17,7 +17,7 @@ export class ArticleClassifyComponent implements OnInit {
   constructor(
     @Inject('classify') private classifyService,
     private router: Router,
-    private dialog: MdDialog
+    private dialog: MatDialog
   ) {
   }
 

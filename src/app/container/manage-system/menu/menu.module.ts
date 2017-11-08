@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { MdButtonModule, MdGridListModule } from '@angular/material';
+import { MatButtonModule, MatGridListModule } from '@angular/material';
 import { MenuComponent } from './menu.component';
 import { MenuService } from './_service/menu.service';
 import { LibModule } from '../../../libs/common/lib.module';
@@ -17,8 +17,8 @@ const routes: Routes = [{
     CommonModule,
     LibModule,
     DFormModule,
-    MdGridListModule,
-    MdButtonModule,
+    MatGridListModule,
+    MatButtonModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

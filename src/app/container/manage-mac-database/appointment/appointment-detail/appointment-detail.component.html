@@ -276,32 +276,32 @@
       <h3 class="detail-title">审核结果</h3>
       <form class="form-content" *ngIf="data">
         <div class="input-content">
-          <md-radio-group [(ngModel)]="status" name="status" [disabled]="data?.status!=0||data.operation==0">
-            <md-radio-button value="1">通过</md-radio-button>
-            <md-radio-button value="2">不通过</md-radio-button>
-          </md-radio-group>
+          <mat-radio-group [(ngModel)]="status" name="status" [disabled]="data?.status!=0||data.operation==0">
+            <mat-radio-button value="1">通过</mat-radio-button>
+            <mat-radio-button value="2">不通过</mat-radio-button>
+          </mat-radio-group>
         </div>
         <div class="input-content" *ngIf="data.status==0&&data.operation==1">
           <div>
-            <md-radio-group *ngIf="status=='2'" [(ngModel)]="reasonRadio" name="option">
-              <md-radio-button value="户籍不属于我中心管辖地段">户籍不属于我中心管辖地段</md-radio-button>
-              <md-radio-button value="资料提供不全">资料提供不全</md-radio-button>
-              <md-radio-button value="0">其他，请填写</md-radio-button>
-            </md-radio-group>
+            <mat-radio-group *ngIf="status=='2'" [(ngModel)]="reasonRadio" name="option">
+              <mat-radio-button value="户籍不属于我中心管辖地段">户籍不属于我中心管辖地段</mat-radio-button>
+              <mat-radio-button value="资料提供不全">资料提供不全</mat-radio-button>
+              <mat-radio-button value="0">其他，请填写</mat-radio-button>
+            </mat-radio-group>
           </div>
-          <md-form-field *ngIf="reasonRadio=='0'&&status=='2'" style="width:280px;padding: 15px 0">
-                <textarea mdInput rows="5" placeholder="不通过原因" [(ngModel)]="reason" name="reason"
+          <mat-form-field *ngIf="reasonRadio=='0'&&status=='2'" style="width:280px;padding: 15px 0">
+                <textarea matInput rows="5" placeholder="不通过原因" [(ngModel)]="reason" name="reason"
                           style="resize: none"></textarea>
-          </md-form-field>
+          </mat-form-field>
         </div>
         <div class="input-content" *ngIf="data.status==2">
-          <md-form-field style="width:280px">
-                <textarea mdInput rows="5" placeholder="不通过原因" [(ngModel)]="reason" name="reason"
+          <mat-form-field style="width:280px">
+                <textarea matInput rows="5" placeholder="不通过原因" [(ngModel)]="reason" name="reason"
                           style="resize: none" disabled></textarea>
-          </md-form-field>
+          </mat-form-field>
         </div>
         <div class="input-content" *ngIf="data.status==0&&data.operation==1">
-          <button md-raised-button color="primary" type="button" (click)="saveStatus()"
+          <button mat-raised-button color="primary" type="button" (click)="saveStatus()"
                   [disabled]="!(status==1||(status==2&&(reasonRadio&&reasonRadio!='0'||reason)))">保存
           </button>
         </div>

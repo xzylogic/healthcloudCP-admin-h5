@@ -7,7 +7,7 @@ import { PregnancyInterviewDetailComponent } from './pregnancy-interview-detail/
 import { CommonModule } from '@angular/common';
 import { DFormModule } from '../../libs/dform/dform.module';
 import { DTableModule } from '../../libs/dtable/dtable.module';
-import { MdTabsModule } from '@angular/material';
+import { MatTabsModule } from '@angular/material';
 
 const routes: Routes = [{
   path: '',
@@ -23,7 +23,7 @@ const routes: Routes = [{
     LibModule,
     DFormModule,
     DTableModule,
-    MdTabsModule,
+    MatTabsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

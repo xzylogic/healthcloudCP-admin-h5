@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { TableOption } from '../../../libs/dtable/dtable.entity';
 import { Router } from '@angular/router';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { ERRMSG } from '../../_store/static';
 import { ShowDetail } from './article-detail/article-detail.component';
 
@@ -20,7 +20,7 @@ export class ArticleComponent implements OnInit {
 
   constructor(
     @Inject('article') private articleService,
-    private dialog: MdDialog,
+    private dialog: MatDialog,
     private router: Router
   ) {
   }

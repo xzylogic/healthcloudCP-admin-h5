@@ -3,7 +3,7 @@ import { ContainerConfig } from '../../../libs/common/container/container.compon
 import { TableOption } from '../../../libs/dtable/dtable.entity';
 import { ERRMSG } from '../../_store/static';
 import { HintDialog } from '../../../libs/dmodal/dialog.component';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,7 +19,7 @@ export class MessageComponent implements OnInit {
   constructor(
     @Inject('message') private messageService,
     private router: Router,
-    private dialog: MdDialog
+    private dialog: MatDialog
   ) {
   }
 

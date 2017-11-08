@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MdDialogModule, MdListModule } from '@angular/material';
+import { MatDialogModule, MatListModule } from '@angular/material';
 
 import { ArticleDetailComponent } from './article-detail.component';
 import { PipeModule } from '../../../../libs/_pipe/pipe.module';
@@ -8,8 +8,8 @@ import { PipeModule } from '../../../../libs/_pipe/pipe.module';
 @NgModule({
   imports: [
     CommonModule,
-    MdDialogModule,
-    MdListModule,
+    MatDialogModule,
+    MatListModule,
     PipeModule
   ],
   declarations: [

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MdButtonModule, MdDialog, MdDialogModule, MdInputModule } from '@angular/material';
+import { MatButtonModule, MatDialog, MatDialogModule, MatInputModule } from '@angular/material';
 
 import { DialogComponent } from './dialog.component';
 import { DialogImgComponent } from './dialog-img.component';
@@ -14,9 +14,9 @@ export * from './dialog-img.component';
   imports: [
     CommonModule,
     FormsModule,
-    MdDialogModule,
-    MdInputModule,
-    MdButtonModule
+    MatDialogModule,
+    MatInputModule,
+    MatButtonModule
   ],
   declarations: [
     DialogComponent,
@@ -29,14 +29,14 @@ export * from './dialog-img.component';
   exports: [
     CommonModule,
     FormsModule,
-    MdDialogModule,
-    MdInputModule,
-    MdButtonModule,
+    MatDialogModule,
+    MatInputModule,
+    MatButtonModule,
     DialogComponent,
     DialogImgComponent
   ],
   providers: [
-    MdDialog
+    MatDialog
   ]
 })
 export class LibDialogModule {

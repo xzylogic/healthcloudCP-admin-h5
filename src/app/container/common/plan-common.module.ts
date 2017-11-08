@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MdButtonModule, MdCheckboxModule, MdInputModule, MdTabsModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatInputModule, MatTabsModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PlanCommonComponent } from './plan-common.component';
@@ -18,10 +18,10 @@ const routes: Routes = [{
   imports: [
     CommonModule,
     LibModule,
-    MdTabsModule,
-    MdButtonModule,
-    MdCheckboxModule,
-    MdInputModule,
+    MatTabsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatInputModule,
     FormsModule,
     CalendarModule.forRoot(),
     RouterModule.forChild(routes)
