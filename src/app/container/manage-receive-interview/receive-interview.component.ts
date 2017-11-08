@@ -114,8 +114,8 @@ export class ReceiveInterviewComponent implements OnInit {
   formatData(data) {
     if (data && Array.isArray(data)) {
       data.forEach(obj => {
-        obj.statusName = obj.followStatus == 0 ? '待随访' : '已随访';
-        obj.edit = obj.followStatus == 0 ? '登记' : '查看';
+        obj.statusName = obj.followStatus == 1 ? '已随访' : '待随访';
+        obj.edit = obj.followStatus == 1 ? '查看' : '登记';
       });
     }
   }

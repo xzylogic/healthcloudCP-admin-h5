@@ -4,9 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { PregnancyInterviewComponent } from './pregnancy-interview.component';
 import { PregnancyInterviewService } from './_service/pregnancy-interview.service';
 import { PregnancyInterviewDetailComponent } from './pregnancy-interview-detail/pregnancy-interview-detail.component';
-import { FormsModule } from '@angular/forms';
-import { MdButtonModule, MdCheckboxModule, MdDatepickerModule, MdInputModule, MdRadioModule, MdTabsModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
+import { DFormModule } from '../../libs/dform/dform.module';
+import { DTableModule } from '../../libs/dtable/dtable.module';
+import { MdTabsModule } from '@angular/material';
 
 const routes: Routes = [{
   path: '',
@@ -20,13 +21,9 @@ const routes: Routes = [{
   imports: [
     CommonModule,
     LibModule,
-    FormsModule,
-    MdCheckboxModule,
-    MdInputModule,
-    MdRadioModule,
-    MdButtonModule,
+    DFormModule,
+    DTableModule,
     MdTabsModule,
-    MdDatepickerModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

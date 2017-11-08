@@ -7,6 +7,8 @@ const PATH = {
   getDetail: '/folic/followup/details',
   // getCommunityAll: '/api/getAllCommunityByUserId',
   getCommunityAll: '/api/appointmentTime/getAllCommunityByUserId',
+  saveDetail: '/folic/followup/save',
+  delDetail: '/folic/followup/delete'
 
 };
 
@@ -45,6 +47,14 @@ export class ReceiveInterviewService {
 
   getDataDetail(card) {
     return this.http.get(`${this.app.api_url}${PATH.getDetail}?personcard=${card}`);
+  }
+
+  saveDetail(data) {
+    return this.http.post(`${this.app.api_url}${PATH.saveDetail}`, data);
+  }
+
+  delDetail(id) {
+    return this.http.get(`${this.app.api_url}${PATH.delDetail}?id=${id}`);
   }
 
   setReceiveInterviewConfig() {

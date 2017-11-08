@@ -3,17 +3,52 @@ import { ContainerConfig } from '../../../libs/common/container/container.compon
 import { ControlType, TableTitle } from '../../../libs/dtable/dtable.entity';
 
 const PATH = {
-  getDataList: '',
+  getDataList: '/api/followDuringPregnancy/checkFollowDuringPregnancyList',
   getDataDetail: '/api/followDuringPregnancy/getList',
-  saveDetail: '/api/followDuringPregnancy/save'
+  saveDetail: '/api/followDuringPregnancy/save',
+  // getCommunityAll: '/api/getAllCommunityByUserId',
+  getCommunityAll: '/api/appointmentTime/getAllCommunityByUserId',
 };
 
 @Injectable()
 export class PregnancyInterviewService {
   constructor(
     @Inject('app') private app,
+    @Inject('auth') private auth,
     @Inject('http') private http,
   ) {
+  }
+
+  getCommunityAll() {
+    return this.http.get(`${this.app.api_url}${PATH.getCommunityAll}?userId=${this.auth.getAdminId()}&type=ys`);
+  }
+
+  getData(page, size, name, tel, period, status, hospital) {
+    let query = `?flag=${page}`;
+    if (name) {
+      query += `&name=${name}`;
+    }
+    if (tel) {
+      query += `&telephone=${tel}`;
+    }
+    if (period) {
+      query += `&pregnancyPeriod=${period}`;
+    }
+    if (status) {
+      query += `&status=${status - 1}`;
+    }
+    if (hospital) {
+      query += `&organizationId=${hospital}`;
+    }
+    return this.http.get(`${this.app.api_url}${PATH.getDataList}${query}`);
+  }
+
+  getDetail(id, hospitalId) {
+    return this.http.get(`${this.app.api_url}${PATH.getDataDetail}?addUserId=1&hospitalId=111`);
+  }
+
+  saveDetail(data) {
+    return this.http.post(`${this.app.api_url}${PATH.saveDetail}`, data);
   }
 
   setPregnancyInterviewConfig() {
@@ -32,18 +67,6 @@ export class PregnancyInterviewService {
       ifHome: false,
       homeRouter: '/pregnancy-interview'
     });
-  }
-
-  getData() {
-    return this.http.get(`${this.app.api_url}${PATH.getDataList}`);
-  }
-
-  getDetail(id, hospitalId) {
-    return this.http.get(`${this.app.api_url}${PATH.getDataDetail}?addUserId=1&hospitalId=111`);
-  }
-
-  saveDetail(data) {
-    return this.http.post(`${this.app.api_url}${PATH.saveDetail}`, data);
   }
 
   setTitles() {

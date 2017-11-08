@@ -1,97 +1,113 @@
 <app-container [config]="containerConfig">
   <div class="content">
     <md-tab-group [selectedIndex]="'0'">
-      <md-tab [label]="data.questionnairesType | yesorno:[3,6]:['三个月随访','六个月随访']" *ngFor="let data of initData">
-        <div *ngIf="data.isEditor==1" class="content_type">填写类型：{{data.type}}</div>
-        <div *ngIf="data.isEditor==1" class="content_type">填写时间：{{data.time}}</div>
-        <form #f="ngForm" (ngSubmit)="getValue(f.value)" *ngIf="data.isEditor==0">
-          <div>
-            <md-form-field style="width: 300px">
-              <input mdInput [mdDatepicker]="pickers" [placeholder]="'开始服用时间'" name="startTime"
-                     [(ngModel)]="formThree.startTime">
-              <md-datepicker-toggle mdSuffix [for]="pickers"></md-datepicker-toggle>
-              <md-datepicker #pickers></md-datepicker>
-            </md-form-field>
+      <md-tab *ngFor="let data of initData;let i=index"
+              [label]="data.questionnairesType | yesorno:[3,6]:['三个月随访','六个月随访']">
+        <div class="tab-content">
+          <div *ngIf="data.isEditor==1">
+            <div class="input-type">
+              填写类型：{{data.fillTime}}
+            </div>
+            <div class="input-type">
+              填写时间：{{data.fillType | yesorno:[1,2]:['在线随访','电话随访']}}
+            </div>
           </div>
-          <div>
-            <md-form-field style="width: 300px">
-              <input mdInput [mdDatepicker]="pickere" [placeholder]="'停止服用时间'" name="endTime"
-                     [(ngModel)]="formThree.endTime">
-              <md-datepicker-toggle mdSuffix [for]="pickere"></md-datepicker-toggle>
-              <md-datepicker #pickere></md-datepicker>
-            </md-form-field>
-          </div>
-          <div>
-            <md-form-field style="width: 300px">
-              <input mdInput [placeholder]="'服用天数（单位：天）'" name="takeDay" [(ngModel)]="formThree.takeDay">
-            </md-form-field>
-          </div>
-          <div>
-            <label>是否受孕</label>
-            <md-radio-group [(ngModel)]="formThree.ispregnant" name="ispregnant">
-              <md-radio-button [value]="1" class="float">是</md-radio-button>
-              <md-radio-button [value]="0" class="float">否</md-radio-button>
-            </md-radio-group>
-          </div>
-          <div *ngIf="formThree.ispregnant==1">
-            <md-form-field style="width: 300px">
-              <input mdInput [placeholder]="'服药后第几个月怀孕'" name="afterTakePregnantMonth"
-                     [(ngModel)]="formThree.afterTakePregnantMonth">
-            </md-form-field>
-          </div>
-          <div *ngIf="formThree.ispregnant==1">
-            <md-form-field style="width: 300px">
-              <input mdInput [mdDatepicker]="pickerx" [placeholder]="'末次月经时间'" name="lastPeriodTime"
-                     [(ngModel)]="formThree.lastPeriodTime">
-              <md-datepicker-toggle mdSuffix [for]="pickerx"></md-datepicker-toggle>
-              <md-datepicker #pickerx></md-datepicker>
-            </md-form-field>
-          </div>
-          <div>
-            <label>妊娠结果</label>
-            <md-radio-group [(ngModel)]="formThree.pregnancyStatus" name="pregnancyStatus">
-              <md-radio-button [value]="1" class="float">分娩</md-radio-button>
-              <md-radio-button [value]="0" class="float">流产</md-radio-button>
-            </md-radio-group>
-          </div>
-          <div *ngIf="formThree.pregnancyStatus==1">
-            <md-form-field style="width: 300px">
-              <input mdInput [mdDatepicker]="pickery" [placeholder]="'分娩时间'" name="deliveryTime"
-                     [(ngModel)]="formThree.deliveryTime">
-              <md-datepicker-toggle mdSuffix [for]="pickery"></md-datepicker-toggle>
-              <md-datepicker #pickery></md-datepicker>
-            </md-form-field>
-          </div>
-          <div *ngIf="formThree.pregnancyStatus==0">
-            <md-form-field style="width: 300px">
-              <input mdInput [mdDatepicker]="pickerz" [placeholder]="'流产时间'" name="abortionDate"
-                     [(ngModel)]="formThree.abortionDate">
-              <md-datepicker-toggle mdSuffix [for]="pickerz"></md-datepicker-toggle>
-              <md-datepicker #pickerz></md-datepicker>
-            </md-form-field>
-          </div>
-          <div *ngIf="formThree.pregnancyStatus==1">
-            <label>分娩类型</label>
-            <md-radio-group [(ngModel)]="formThree.deliveryType" name="deliveryType">
-              <md-radio-button [value]="0" class="float">活产</md-radio-button>
-              <md-radio-button [value]="1" class="float">死胎</md-radio-button>
-              <md-radio-button [value]="2" class="float">死产</md-radio-button>
-            </md-radio-group>
-          </div>
-          <div *ngIf="formThree.pregnancyStatus==1">
-            <label>新生儿有无畸形</label>
-            <md-radio-group [(ngModel)]="formThree.isBirthDefect" name="isBirthDefect">
-              <md-radio-button [value]="1" class="float">有</md-radio-button>
-              <md-radio-button [value]="0" class="float">无</md-radio-button>
-            </md-radio-group>
-          </div>
-          <div *ngIf="formThree.pregnancyStatus==1&&formThree.isBirthDefect==1">
-            <md-form-field style="width: 300px">
-              <input mdInput [placeholder]="'畸形类型'" name="defectType"
-                     [(ngModel)]="formThree.defectType">
-            </md-form-field>
-          </div>
-        </form>
+          <form #f="ngForm" (ngSubmit)="getValue(f.value,i)">
+            <div class="input-content">
+              <md-form-field style="width: 300px">
+                <input mdInput [mdDatepicker]="pickers" [placeholder]="'开始服用时间'" name="startTime{{i}}"
+                       [(ngModel)]="data.startTime" [disabled]="data.isEditor!=0">
+                <md-datepicker-toggle mdSuffix [for]="pickers"></md-datepicker-toggle>
+                <md-datepicker #pickers></md-datepicker>
+              </md-form-field>
+            </div>
+            <div class="input-content">
+              <md-form-field style="width: 300px">
+                <input mdInput [mdDatepicker]="pickere" [placeholder]="'停止服用时间'" name="endTime{{i}}"
+                       [(ngModel)]="data.endTime" [disabled]="data.isEditor!=0">
+                <md-datepicker-toggle mdSuffix [for]="pickere"></md-datepicker-toggle>
+                <md-datepicker #pickere></md-datepicker>
+              </md-form-field>
+            </div>
+            <div class="input-content">
+              <md-form-field style="width: 300px">
+                <input mdInput [placeholder]="'服用天数（单位：天）'" name="takeDay{{i}}" [(ngModel)]="data.takeDay"
+                       [disabled]="data.isEditor!=0">
+              </md-form-field>
+            </div>
+            <div class="input-content">
+              <label>是否受孕</label>
+              <md-radio-group [(ngModel)]="data.ispregnant" name="ispregnant{{i}}" [disabled]="data.isEditor!=0">
+                <md-radio-button [value]="1" class="float">是</md-radio-button>
+                <md-radio-button [value]="0" class="float">否</md-radio-button>
+              </md-radio-group>
+            </div>
+            <div class="input-content" *ngIf="data.ispregnant==1">
+              <md-form-field style="width: 300px">
+                <input mdInput [placeholder]="'服药后第几个月怀孕'" name="afterTakePregnantMonth{{i}}"
+                       [(ngModel)]="data.afterTakePregnantMonth" [disabled]="data.isEditor!=0">
+              </md-form-field>
+            </div>
+            <div class="input-content" *ngIf="data.ispregnant==1">
+              <md-form-field style="width: 300px">
+                <input mdInput [mdDatepicker]="pickerx" [placeholder]="'末次月经时间'" name="lastPeriodTime{{i}}"
+                       [(ngModel)]="data.lastPeriodTime" [disabled]="data.isEditor!=0">
+                <md-datepicker-toggle mdSuffix [for]="pickerx"></md-datepicker-toggle>
+                <md-datepicker #pickerx></md-datepicker>
+              </md-form-field>
+            </div>
+            <div class="input-content" *ngIf="data.questionnairesType==6">
+              <label>妊娠结果</label>
+              <md-radio-group [(ngModel)]="data.pregnancyStatus" name="pregnancyStatus{{i}}"
+                              [disabled]="data.isEditor!=0">
+                <md-radio-button [value]="1" class="float">分娩</md-radio-button>
+                <md-radio-button [value]="0" class="float">流产</md-radio-button>
+              </md-radio-group>
+            </div>
+            <div class="input-content" *ngIf="data.pregnancyStatus==1&&data.questionnairesType==6">
+              <md-form-field style="width: 300px">
+                <input mdInput [mdDatepicker]="pickery" [placeholder]="'分娩时间'" name="deliveryTime{{i}}"
+                       [(ngModel)]="data.deliveryTime" [disabled]="data.isEditor!=0">
+                <md-datepicker-toggle mdSuffix [for]="pickery"></md-datepicker-toggle>
+                <md-datepicker #pickery></md-datepicker>
+              </md-form-field>
+            </div>
+            <div class="input-content" *ngIf="data.pregnancyStatus==0&&data.questionnairesType==6">
+              <md-form-field style="width: 300px">
+                <input mdInput [mdDatepicker]="pickerz" [placeholder]="'流产时间'" name="abortionDate{{i}}"
+                       [(ngModel)]="data.abortionDate" [disabled]="data.isEditor!=0">
+                <md-datepicker-toggle mdSuffix [for]="pickerz"></md-datepicker-toggle>
+                <md-datepicker #pickerz></md-datepicker>
+              </md-form-field>
+            </div>
+            <div class="input-content" *ngIf="data.pregnancyStatus==1&&data.questionnairesType==6">
+              <label>分娩类型</label>
+              <md-radio-group [(ngModel)]="data.deliveryType" name="deliveryType{{i}}" [disabled]="data.isEditor!=0">
+                <md-radio-button [value]="0" class="float">活产</md-radio-button>
+                <md-radio-button [value]="1" class="float">死胎</md-radio-button>
+                <md-radio-button [value]="2" class="float">死产</md-radio-button>
+              </md-radio-group>
+            </div>
+            <div class="input-content" *ngIf="data.pregnancyStatus==1&&data.questionnairesType==6">
+              <label>新生儿有无畸形</label>
+              <md-radio-group [(ngModel)]="data.isBirthDefect" name="isBirthDefect{{i}}" [disabled]="data.isEditor!=0">
+                <md-radio-button [value]="1" class="float">有</md-radio-button>
+                <md-radio-button [value]="0" class="float">无</md-radio-button>
+              </md-radio-group>
+            </div>
+            <div class="input-content"
+                 *ngIf="data.pregnancyStatus==1&&data.isBirthDefect==1&&data.questionnairesType==6">
+              <md-form-field style="width: 300px">
+                <input mdInput [placeholder]="'畸形类型'" name="defectType{{i}}"
+                       [(ngModel)]="data.defectType" [disabled]="data.isEditor!=0">
+              </md-form-field>
+            </div>
+            <div class="input-content">
+              <button md-raised-button color="primary" type="submit" *ngIf="data.isEditor==0">保存</button>
+              <button md-raised-button color="primary" type="button" *ngIf="data.isEditor==1">删除</button>
+            </div>
+          </form>
+        </div>
       </md-tab>
     </md-tab-group>
   </div>
