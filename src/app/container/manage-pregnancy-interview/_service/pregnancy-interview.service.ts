@@ -3,7 +3,7 @@ import { ContainerConfig } from '../../../libs/common/container/container.compon
 import { ControlType, TableTitle } from '../../../libs/dtable/dtable.entity';
 
 const PATH = {
-  getDataList: '/api/followDuringPregnancy/checkFollowDuringPregnancyList',
+  getDataList: '/api/followDuringPregnancy/checkList',
   getDataDetail: '/api/followDuringPregnancy/getList',
   saveDetail: '/api/followDuringPregnancy/save',
   // getCommunityAll: '/api/getAllCommunityByUserId',
@@ -24,7 +24,7 @@ export class PregnancyInterviewService {
   }
 
   getData(page, size, name, tel, period, status, hospital) {
-    let query = `?flag=${page}`;
+    let query = `?flag=${page + 1}`;
     if (name) {
       query += `&name=${name}`;
     }

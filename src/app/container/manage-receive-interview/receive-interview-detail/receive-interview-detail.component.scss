@@ -1,3 +1,5 @@
+@import '../../../libs/theme/theme';
+
 .input-content {
   padding: 15px 0;
   label, mat-radio-button {
@@ -12,3 +14,22 @@
 .tab-content {
   padding: 15px;
 }
+
+.detail-container {
+  padding-bottom: 30px;
+}
+
+.detail-title {
+  padding: 10px 0;
+  margin-bottom: 15px;
+  border-bottom: 2px solid $color-primary;
+  font-size: 18px;
+}
+
+.detail-content {
+  width: 100%;
+  padding: 5px 0;
+  line-height: 1.5;
+  word-break: break-all;
+}
+

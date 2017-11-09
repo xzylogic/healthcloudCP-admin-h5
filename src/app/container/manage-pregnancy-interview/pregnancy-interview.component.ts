@@ -121,7 +121,9 @@ export class PregnancyInterviewComponent implements OnInit {
     )
       .subscribe(res => {
         this.interviewTable.loading = false;
-        if (res.code == 0 && res.data && res.data.content && res.data.extras) {
+        if (res.code == 0 && res.data && res.data.content && res.data.content.length == 0) {
+          this.interviewTable.errorMessage = ERRMSG.nullMsg;
+        } else if (res.code == 0 && res.data && res.data.content && res.data.extras) {
           this.interviewTable.totalPage = res.data.extras.totalPage;
           this.formatData(res.data.content);
           this.interviewTable.lists = res.data.content;
@@ -130,6 +132,7 @@ export class PregnancyInterviewComponent implements OnInit {
         }
       }, err => {
         this.interviewTable.loading = false;
+        this.interviewTable.errorMessage = ERRMSG.netErrMsg;
         console.log(err);
       });
   }
@@ -154,7 +157,7 @@ export class PregnancyInterviewComponent implements OnInit {
         siteId: this.siteId,
         page: this.interviewTable.currentPage
       });
-      this.router.navigate(['/receive-interview/detail', res.value.personperiod]);
+      this.router.navigate(['/receive-interview/detail', res.value.id]);
     }
   }
 

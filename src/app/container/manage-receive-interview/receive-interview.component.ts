@@ -98,7 +98,9 @@ export class ReceiveInterviewComponent implements OnInit {
     )
       .subscribe(res => {
         this.interviewTable.loading = false;
-        if (res.data && res.totalPages) {
+        if (res.data && res.data.length == 0) {
+          this.interviewTable.errorMessage = ERRMSG.nullMsg;
+        } else if (res.data && res.totalPages) {
           this.interviewTable.totalPage = res.totalPages;
           this.formatData(res.data);
           this.interviewTable.lists = res.data;
@@ -107,6 +109,7 @@ export class ReceiveInterviewComponent implements OnInit {
         }
       }, err => {
         this.interviewTable.loading = false;
+        this.interviewTable.errorMessage = ERRMSG.netErrMsg;
         console.log(err);
       });
   }

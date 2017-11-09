@@ -2,111 +2,132 @@
   <div class="content">
     <mat-tab-group [selectedIndex]="'0'">
       <mat-tab *ngFor="let data of initData;let i=index"
-              [label]="data.questionnairesType | yesorno:[3,6]:['三个月随访','六个月随访']">
+               [label]="data.questionnairesType | yesorno:[3,6]:['三个月随访','六个月随访']">
         <div class="tab-content">
-          <div *ngIf="data.isEditor==1">
-            <div class="input-type">
-              填写类型：{{data.fillTime}}
-            </div>
-            <div class="input-type">
-              填写时间：{{data.fillType | yesorno:[1,2]:['在线随访','电话随访']}}
+          <div class="detail-container clear">
+            <h3 class="detail-title">随访人基本信息</h3>
+            <div class="grid-container">
+              <div class="row">
+                <div class="col-2">
+                  <p class="detail-content">姓名：{{data.userName}}</p>
+                </div>
+                <div class="col-2">
+                  <p class="detail-content">性别：{{data.sex}}</p>
+                </div>
+                <div class="col-2">
+                  <p class="detail-content">证件号码：{{data.personcard}}</p>
+                </div>
+              </div>
+              <div class="row" *ngIf="data.isEditor==1">
+                <div class="col-2">
+                  <p class="detail-content">填写类型：{{data.fillTime}}</p>
+                </div>
+                <div class="col-4">
+                  <p class="detail-content">填写时间：{{data.fillType | yesorno:[1,2]:['在线随访','电话随访']}}</p>
+                </div>
+              </div>
             </div>
           </div>
-          <form #f="ngForm" (ngSubmit)="getValue(f.value,i)">
-            <div class="input-content">
-              <mat-form-field style="width: 300px">
-                <input matInput [matDatepicker]="pickers" [placeholder]="'开始服用时间'" name="startTime{{i}}"
-                       [(ngModel)]="data.startTime" [disabled]="data.isEditor!=0">
-                <mat-datepicker-toggle matSuffix [for]="pickers"></mat-datepicker-toggle>
-                <mat-datepicker #pickers></mat-datepicker>
-              </mat-form-field>
+          <div class="detail-container clear">
+            <h3 class="detail-title">随访问卷内容</h3>
+            <div class="tab-content">
+              <form #f="ngForm" (ngSubmit)="getValue(f.value,i)">
+                <div>
+                  <mat-form-field style="width: 300px">
+                    <input matInput [matDatepicker]="pickers" [placeholder]="'开始服用时间'" name="startTime{{i}}"
+                           [(ngModel)]="data.startTime" [disabled]="data.isEditor!=0">
+                    <mat-datepicker-toggle matSuffix [for]="pickers"></mat-datepicker-toggle>
+                    <mat-datepicker #pickers></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field style="width: 300px">
+                    <input matInput [matDatepicker]="pickere" [placeholder]="'停止服用时间'" name="endTime{{i}}"
+                           [(ngModel)]="data.endTime" [disabled]="data.isEditor!=0">
+                    <mat-datepicker-toggle matSuffix [for]="pickere"></mat-datepicker-toggle>
+                    <mat-datepicker #pickere></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field style="width: 300px">
+                    <input matInput [placeholder]="'服用天数（单位：天）'" name="takeDay{{i}}" [(ngModel)]="data.takeDay"
+                           [disabled]="data.isEditor!=0">
+                  </mat-form-field>
+                </div>
+                <div class="input-content">
+                  <label>是否受孕</label>
+                  <mat-radio-group [(ngModel)]="data.ispregnant" name="ispregnant{{i}}" [disabled]="data.isEditor!=0">
+                    <mat-radio-button [value]="1" class="float">是</mat-radio-button>
+                    <mat-radio-button [value]="0" class="float">否</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div *ngIf="data.ispregnant==1">
+                  <mat-form-field style="width: 300px">
+                    <input matInput [placeholder]="'服药后第几个月怀孕'" name="afterTakePregnantMonth{{i}}"
+                           [(ngModel)]="data.afterTakePregnantMonth" [disabled]="data.isEditor!=0">
+                  </mat-form-field>
+                </div>
+                <div *ngIf="data.ispregnant==1">
+                  <mat-form-field style="width: 300px">
+                    <input matInput [matDatepicker]="pickerx" [placeholder]="'末次月经时间'" name="lastPeriodTime{{i}}"
+                           [(ngModel)]="data.lastPeriodTime" [disabled]="data.isEditor!=0">
+                    <mat-datepicker-toggle matSuffix [for]="pickerx"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerx></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="input-content" *ngIf="data.questionnairesType==6">
+                  <label>妊娠结果</label>
+                  <mat-radio-group [(ngModel)]="data.pregnancyStatus" name="pregnancyStatus{{i}}"
+                                   [disabled]="data.isEditor!=0">
+                    <mat-radio-button [value]="1" class="float">分娩</mat-radio-button>
+                    <mat-radio-button [value]="0" class="float">流产</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div *ngIf="data.pregnancyStatus==1&&data.questionnairesType==6">
+                  <mat-form-field style="width: 300px">
+                    <input matInput [matDatepicker]="pickery" [placeholder]="'分娩时间'" name="deliveryTime{{i}}"
+                           [(ngModel)]="data.deliveryTime" [disabled]="data.isEditor!=0">
+                    <mat-datepicker-toggle matSuffix [for]="pickery"></mat-datepicker-toggle>
+                    <mat-datepicker #pickery></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div *ngIf="data.pregnancyStatus==0&&data.questionnairesType==6">
+                  <mat-form-field style="width: 300px">
+                    <input matInput [matDatepicker]="pickerz" [placeholder]="'流产时间'" name="abortionDate{{i}}"
+                           [(ngModel)]="data.abortionDate" [disabled]="data.isEditor!=0">
+                    <mat-datepicker-toggle matSuffix [for]="pickerz"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerz></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="input-content" *ngIf="data.pregnancyStatus==1&&data.questionnairesType==6">
+                  <label>分娩类型</label>
+                  <mat-radio-group [(ngModel)]="data.deliveryType" name="deliveryType{{i}}"
+                                   [disabled]="data.isEditor!=0">
+                    <mat-radio-button [value]="0" class="float">活产</mat-radio-button>
+                    <mat-radio-button [value]="1" class="float">死胎</mat-radio-button>
+                    <mat-radio-button [value]="2" class="float">死产</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div class="input-content" *ngIf="data.pregnancyStatus==1&&data.questionnairesType==6">
+                  <label>新生儿有无畸形</label>
+                  <mat-radio-group [(ngModel)]="data.isBirthDefect" name="isBirthDefect{{i}}"
+                                   [disabled]="data.isEditor!=0">
+                    <mat-radio-button [value]="1" class="float">有</mat-radio-button>
+                    <mat-radio-button [value]="0" class="float">无</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div *ngIf="data.pregnancyStatus==1&&data.isBirthDefect==1&&data.questionnairesType==6">
+                  <mat-form-field style="width: 300px">
+                    <input matInput [placeholder]="'畸形类型'" name="defectType{{i}}"
+                           [(ngModel)]="data.defectType" [disabled]="data.isEditor!=0">
+                  </mat-form-field>
+                </div>
+                <div class="input-content" *ngIf="data.isEditor==0">
+                  <button mat-raised-button color="primary" type="submit">保存</button>
+                </div>
+              </form>
             </div>
-            <div class="input-content">
-              <mat-form-field style="width: 300px">
-                <input matInput [matDatepicker]="pickere" [placeholder]="'停止服用时间'" name="endTime{{i}}"
-                       [(ngModel)]="data.endTime" [disabled]="data.isEditor!=0">
-                <mat-datepicker-toggle matSuffix [for]="pickere"></mat-datepicker-toggle>
-                <mat-datepicker #pickere></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <div class="input-content">
-              <mat-form-field style="width: 300px">
-                <input matInput [placeholder]="'服用天数（单位：天）'" name="takeDay{{i}}" [(ngModel)]="data.takeDay"
-                       [disabled]="data.isEditor!=0">
-              </mat-form-field>
-            </div>
-            <div class="input-content">
-              <label>是否受孕</label>
-              <mat-radio-group [(ngModel)]="data.ispregnant" name="ispregnant{{i}}" [disabled]="data.isEditor!=0">
-                <mat-radio-button [value]="1" class="float">是</mat-radio-button>
-                <mat-radio-button [value]="0" class="float">否</mat-radio-button>
-              </mat-radio-group>
-            </div>
-            <div class="input-content" *ngIf="data.ispregnant==1">
-              <mat-form-field style="width: 300px">
-                <input matInput [placeholder]="'服药后第几个月怀孕'" name="afterTakePregnantMonth{{i}}"
-                       [(ngModel)]="data.afterTakePregnantMonth" [disabled]="data.isEditor!=0">
-              </mat-form-field>
-            </div>
-            <div class="input-content" *ngIf="data.ispregnant==1">
-              <mat-form-field style="width: 300px">
-                <input matInput [matDatepicker]="pickerx" [placeholder]="'末次月经时间'" name="lastPeriodTime{{i}}"
-                       [(ngModel)]="data.lastPeriodTime" [disabled]="data.isEditor!=0">
-                <mat-datepicker-toggle matSuffix [for]="pickerx"></mat-datepicker-toggle>
-                <mat-datepicker #pickerx></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <div class="input-content" *ngIf="data.questionnairesType==6">
-              <label>妊娠结果</label>
-              <mat-radio-group [(ngModel)]="data.pregnancyStatus" name="pregnancyStatus{{i}}"
-                              [disabled]="data.isEditor!=0">
-                <mat-radio-button [value]="1" class="float">分娩</mat-radio-button>
-                <mat-radio-button [value]="0" class="float">流产</mat-radio-button>
-              </mat-radio-group>
-            </div>
-            <div class="input-content" *ngIf="data.pregnancyStatus==1&&data.questionnairesType==6">
-              <mat-form-field style="width: 300px">
-                <input matInput [matDatepicker]="pickery" [placeholder]="'分娩时间'" name="deliveryTime{{i}}"
-                       [(ngModel)]="data.deliveryTime" [disabled]="data.isEditor!=0">
-                <mat-datepicker-toggle matSuffix [for]="pickery"></mat-datepicker-toggle>
-                <mat-datepicker #pickery></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <div class="input-content" *ngIf="data.pregnancyStatus==0&&data.questionnairesType==6">
-              <mat-form-field style="width: 300px">
-                <input matInput [matDatepicker]="pickerz" [placeholder]="'流产时间'" name="abortionDate{{i}}"
-                       [(ngModel)]="data.abortionDate" [disabled]="data.isEditor!=0">
-                <mat-datepicker-toggle matSuffix [for]="pickerz"></mat-datepicker-toggle>
-                <mat-datepicker #pickerz></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <div class="input-content" *ngIf="data.pregnancyStatus==1&&data.questionnairesType==6">
-              <label>分娩类型</label>
-              <mat-radio-group [(ngModel)]="data.deliveryType" name="deliveryType{{i}}" [disabled]="data.isEditor!=0">
-                <mat-radio-button [value]="0" class="float">活产</mat-radio-button>
-                <mat-radio-button [value]="1" class="float">死胎</mat-radio-button>
-                <mat-radio-button [value]="2" class="float">死产</mat-radio-button>
-              </mat-radio-group>
-            </div>
-            <div class="input-content" *ngIf="data.pregnancyStatus==1&&data.questionnairesType==6">
-              <label>新生儿有无畸形</label>
-              <mat-radio-group [(ngModel)]="data.isBirthDefect" name="isBirthDefect{{i}}" [disabled]="data.isEditor!=0">
-                <mat-radio-button [value]="1" class="float">有</mat-radio-button>
-                <mat-radio-button [value]="0" class="float">无</mat-radio-button>
-              </mat-radio-group>
-            </div>
-            <div class="input-content"
-                 *ngIf="data.pregnancyStatus==1&&data.isBirthDefect==1&&data.questionnairesType==6">
-              <mat-form-field style="width: 300px">
-                <input matInput [placeholder]="'畸形类型'" name="defectType{{i}}"
-                       [(ngModel)]="data.defectType" [disabled]="data.isEditor!=0">
-              </mat-form-field>
-            </div>
-            <div class="input-content">
-              <button mat-raised-button color="primary" type="submit" *ngIf="data.isEditor==0">保存</button>
-              <button mat-raised-button color="primary" type="button" *ngIf="data.isEditor==1">删除</button>
-            </div>
-          </form>
+          </div>
         </div>
       </mat-tab>
     </mat-tab-group>
