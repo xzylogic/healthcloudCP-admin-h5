@@ -41,7 +41,7 @@ export class HealthFileService {
     return new ContainerConfig({
       title: '健康档案',
       subTitle: '健康档案详情',
-      ifHome: true,
+      ifHome: false,
       homeRouter: '/health-file'
     });
   }

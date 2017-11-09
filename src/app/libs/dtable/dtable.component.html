@@ -18,6 +18,14 @@
              class="table__content">
           <span>{{list[title.key] == 0 ? list[title.key] : list[title.key] || ''}}</span>
         </div>
+        <div *ngSwitchCase="controlType.option" [style.minWidth.px]="title.minwidth"
+             [style.maxWidth.px]="title.maxwidth" [ngStyle]="{'text-align': title.align}"
+             class="table__content clear">
+          <span style="padding-right: 15px">{{list[title.key] == 0 ? list[title.key] : list[title.key] || ''}}</span>
+          <mat-icon (click)="gotoHandle(title.key,list)" style="float: right;cursor: pointer">
+            {{title.option || 'help_outline'}}
+          </mat-icon>
+        </div>
         <div *ngSwitchCase="controlType.pipe" [style.minWidth.px]="title.minwidth" [style.maxWidth.px]="title.maxwidth"
              [ngStyle]="{'text-align': title.align}"
              class="table__content">

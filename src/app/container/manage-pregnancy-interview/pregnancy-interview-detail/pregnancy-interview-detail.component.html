@@ -1,124 +1,158 @@
 <app-container [config]="containerConfig">
   <div class="content">
     <mat-tab-group *ngIf="formData" [(selectedIndex)]="pregnancyPeriod">
-      <mat-tab [label]="data.pregnancyPeriod" *ngFor="let data of formData">
-        <div class="content_type">填写类型：{{data.type}}</div>
-        <div class="content_type">填写时间：{{data.createDate}}</div>
-        <div class="content_type">随访结果：
-          <mat-radio-group [(ngModel)]="pregnancyState[pregnancyPeriod]" [disabled]="data.status==1">
-            <mat-radio-button [value]="content.pregnancyStateId" *ngFor="let content of data.questionDtoList">
-              {{content.pregnancyState}}
-            </mat-radio-button>
-          </mat-radio-group>
-        </div>
-        <div class="content_form">
-          <div *ngFor="let content of data.questionDtoList">
-            <form #f="ngForm" (ngSubmit)="getValue(f.value)"
-                  *ngIf="pregnancyState[pregnancyPeriod]==content.pregnancyStateId">
-              <div *ngFor="let form of content.questionDtoList;let i=index">
-                <div class="content_input clear" *ngIf="form.type==1">
-                  <label>{{i+1}}. {{form.name}}</label>
-                  <mat-radio-group [(ngModel)]="form.optionValue" [name]="form.id" [disabled]="data.status==1">
-                    <mat-radio-button *ngFor="let opt of form.option" [value]="opt.id">
-                      {{opt.value}}
-                    </mat-radio-button>
-                  </mat-radio-group>
+      <mat-tab [label]="data.pregnancyPeriod" *ngFor="let data of formDataDto">
+        <div class="tab-content">
+          <div class="detail-container clear">
+            <h3 class="detail-title">随访人基本信息</h3>
+            <div class="grid-container">
+              <div class="row">
+                <div class="col-2">
+                  <p class="detail-content">姓名：{{formData.name}}</p>
                 </div>
-                <div class="content_input clear" *ngIf="form.type==2">
-                  <label class="float">{{i+1}}. {{form.name}}</label>
-                  <div *ngFor="let opt of form.option">
-                    <mat-radio-group [(ngModel)]="form.optionValue" [name]="form.id" [disabled]="data.status==1">
-                      <mat-radio-button [value]="opt.id" class="float">{{opt.value}}</mat-radio-button>
-                    </mat-radio-group>
-                  </div>
-                  <div *ngFor="let opt of form.option;let j=index" class="clear">
-                    <div *ngIf="form.child&&opt.bind==form.child.id&&form.optionValue==opt.id" style="padding: 20px 0">
-                      <label>{{i+1}}-{{j+1}}. {{form.child.name}}</label>
-                      <mat-radio-group [(ngModel)]="form.child.content" [name]="form.child.id"
-                                      [disabled]="data.status==1">
-                        <mat-radio-button *ngFor="let sopt of form.child.option" [value]="sopt.id">
-                          {{sopt.value}}
-                        </mat-radio-button>
-                      </mat-radio-group>
-                    </div>
-                  </div>
+                <div class="col-2">
+                  <p class="detail-content">联系电话：{{formData.telephone}}</p>
                 </div>
-                <div class="content_input clear" *ngIf="form.type==3">
-                  <label class="float">{{i+1}}. {{form.name}}</label>
-                  <div *ngFor="let opt of form.option">
-                    <mat-radio-group [(ngModel)]="form.optionValue" [name]="form.id" [disabled]="data.status==1">
-                      <mat-radio-button [value]="opt.id" class="float">{{opt.value}}</mat-radio-button>
-                    </mat-radio-group>
-                  </div>
-                  <div *ngFor="let opt of form.option" class="clear">
-                    <div *ngIf="form.child&&opt.bind==form.child.id&&form.optionValue==opt.id">
-                      <div style="display: inline-block;position: relative">{{getName(form.child.name)}}</div>
-                      <mat-form-field style="width: 150px;padding: 0 10px">
-                        <input matInput [placeholder]="" name="{{form.child.id}}"
-                               [(ngModel)]="form.child.optionValue" [disabled]="data.status==1">
-                      </mat-form-field>
-                      <div style="display: inline-block;position: relative">{{getUnit(form.child.name)}}</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="content_input clear" *ngIf="form.type==4">
-                  <label class="float">{{i+1}}. {{form.name}}</label>
-                  <div *ngFor="let opt of form.option">
-                    <mat-radio-group [(ngModel)]="form.optionValue" [name]="form.id" [disabled]="data.status==1">
-                      <mat-radio-button [value]="opt.id" class="float">{{opt.value}}</mat-radio-button>
-                    </mat-radio-group>
-                  </div>
-                  <div *ngFor="let opt of form.option" class="clear">
-                    <div *ngIf="opt.bind==form.id&&form.optionValue==opt.id" style="padding: 20px 0">
-                      <mat-form-field style="width: 300px">
-                      <textarea matInput [placeholder]="form.displayWords" name="{{form.id}}key"
-                                [(ngModel)]="form.content" [disabled]="data.status==1"></textarea>
-                      </mat-form-field>
-                    </div>
-                  </div>
-                </div>
-                <div class="content_input clear" *ngIf="form.type==5">
-                  <label class="float">{{i+1}}. {{form.name}}</label>
-                  <div *ngFor="let opt of form.option" class="float">
-                    <mat-radio-group [(ngModel)]="form.optionValue" [name]="form.id" [disabled]="data.status==1">
-                      <mat-radio-button [value]="opt.id" class="float">{{opt.value}}</mat-radio-button>
-                    </mat-radio-group>
-                  </div>
-                  <div *ngFor="let opt of form.option" class="clear">
-                    <div *ngIf="form.child&&opt.bind==form.child.id&&form.optionValue==opt.id">
-                      <div style="display: inline-block;position: relative">{{getName(form.child.name)}}</div>
-                      <mat-form-field style="width: 80px;padding: 0 10px">
-                        <input matInput [placeholder]="" name="{{form.child.id}}high"
-                               [(ngModel)]="form.child.answers&&form.child.answers[0]" [disabled]="data.status==1">
-                      </mat-form-field>
-                      <div style="display: inline-block;position: relative">/</div>
-                      <mat-form-field style="width: 80px;padding: 0 10px">
-                        <input matInput [placeholder]="" name="{{form.child.id}}low"
-                               [(ngModel)]="form.child.answers&&form.child.answers[1]" [disabled]="data.status==1">
-                      </mat-form-field>
-                      <div style="display: inline-block;position: relative">{{getUnit(form.child.name)}}</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="content_input" *ngIf="form.type==6">
-                  <mat-form-field style="width: 300px">
-                    <input matInput placeholder="{{i+1}}. {{form.name}}" name="{{form.id}}"
-                           [(ngModel)]="form.optionValue" [disabled]="data.status==1">
-                  </mat-form-field>
-                </div>
-                <div class="content_input" *ngIf="form.type==7">
-                  <mat-form-field style="width: 300px">
-                    <input matInput [matDatepicker]="picker" placeholder="{{i+1}}. {{form.name}}" name="{{form.id}}"
-                           [(ngModel)]="form.optionValue" [disabled]="data.status==1">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
+                <div class="col-2">
+                  <p class="detail-content">证件号码：{{formData.documentNumber}}</p>
                 </div>
               </div>
-              <button mat-raised-button color="primary" type="submit" *ngIf="data.status!=1" style="margin-top: 30px">
-                提交
-              </button>
-            </form>
+              <div class="row" *ngIf="data.status==1">
+                <div class="col-2">
+                  <p class="detail-content">填写类型：{{data.type}}</p>
+                </div>
+                <div class="col-4">
+                  <p class="detail-content">填写时间：{{data.createDate}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="detail-container clear">
+            <h3 class="detail-title">随访问卷内容</h3>
+            <div class="tab-content">
+              <div class="content_type">随访结果：
+                <mat-radio-group [(ngModel)]="pregnancyState[pregnancyPeriod]" [disabled]="data.status==1">
+                  <mat-radio-button [value]="content.pregnancyStateId" *ngFor="let content of data.questionDtoList">
+                    {{content.pregnancyState}}
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="content_form">
+                <div *ngFor="let content of data.questionDtoList">
+                  <form #f="ngForm" (ngSubmit)="getValue(f.value)"
+                        *ngIf="pregnancyState[pregnancyPeriod]==content.pregnancyStateId">
+                    <div *ngFor="let form of content.questionDtoList;let i=index">
+                      <div class="content_input clear" *ngIf="form.type==1">
+                        <label>{{i+1}}. {{form.name}}</label>
+                        <mat-radio-group [(ngModel)]="form.optionValue" [name]="form.id" [disabled]="data.status==1">
+                          <mat-radio-button *ngFor="let opt of form.option" [value]="opt.id">
+                            {{opt.value}}
+                          </mat-radio-button>
+                        </mat-radio-group>
+                      </div>
+                      <div class="content_input clear" *ngIf="form.type==2">
+                        <label class="float">{{i+1}}. {{form.name}}</label>
+                        <div *ngFor="let opt of form.option">
+                          <mat-radio-group [(ngModel)]="form.optionValue" [name]="form.id" [disabled]="data.status==1">
+                            <mat-radio-button [value]="opt.id" class="float">{{opt.value}}</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                        <div *ngFor="let opt of form.option;let j=index" class="clear">
+                          <div *ngIf="form.child&&opt.bind==form.child.id&&form.optionValue==opt.id"
+                               style="padding: 20px 0">
+                            <label>{{i+1}}-{{j+1}}. {{form.child.name}}</label>
+                            <mat-radio-group [(ngModel)]="form.child.content" [name]="form.child.id"
+                                             [disabled]="data.status==1">
+                              <mat-radio-button *ngFor="let sopt of form.child.option" [value]="sopt.id">
+                                {{sopt.value}}
+                              </mat-radio-button>
+                            </mat-radio-group>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="content_input clear" *ngIf="form.type==3">
+                        <label class="float">{{i+1}}. {{form.name}}</label>
+                        <div *ngFor="let opt of form.option">
+                          <mat-radio-group [(ngModel)]="form.optionValue" [name]="form.id" [disabled]="data.status==1">
+                            <mat-radio-button [value]="opt.id" class="float">{{opt.value}}</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                        <div *ngFor="let opt of form.option" class="clear">
+                          <div *ngIf="form.child&&opt.bind==form.child.id&&form.optionValue==opt.id">
+                            <div style="display: inline-block;position: relative">{{getName(form.child.name)}}</div>
+                            <mat-form-field style="width: 150px;padding: 0 10px">
+                              <input matInput [placeholder]="" name="{{form.child.id}}"
+                                     [(ngModel)]="form.child.optionValue" [disabled]="data.status==1">
+                            </mat-form-field>
+                            <div style="display: inline-block;position: relative">{{getUnit(form.child.name)}}</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="content_input clear" *ngIf="form.type==4">
+                        <label class="float">{{i+1}}. {{form.name}}</label>
+                        <div *ngFor="let opt of form.option">
+                          <mat-radio-group [(ngModel)]="form.optionValue" [name]="form.id" [disabled]="data.status==1">
+                            <mat-radio-button [value]="opt.id" class="float">{{opt.value}}</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                        <div *ngFor="let opt of form.option" class="clear">
+                          <div *ngIf="opt.bind==form.id&&form.optionValue==opt.id" style="padding: 20px 0">
+                            <mat-form-field style="width: 300px">
+                      <textarea matInput [placeholder]="form.displayWords" name="{{form.id}}key"
+                                [(ngModel)]="form.content" [disabled]="data.status==1"></textarea>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="content_input clear" *ngIf="form.type==5">
+                        <label class="float">{{i+1}}. {{form.name}}</label>
+                        <div *ngFor="let opt of form.option" class="float">
+                          <mat-radio-group [(ngModel)]="form.optionValue" [name]="form.id" [disabled]="data.status==1">
+                            <mat-radio-button [value]="opt.id" class="float">{{opt.value}}</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                        <div *ngFor="let opt of form.option" class="clear">
+                          <div *ngIf="form.child&&opt.bind==form.child.id&&form.optionValue==opt.id">
+                            <div style="display: inline-block;position: relative">{{getName(form.child.name)}}</div>
+                            <mat-form-field style="width: 80px;padding: 0 10px">
+                              <input matInput [placeholder]="" name="{{form.child.id}}high"
+                                     [(ngModel)]="form.child.answers&&form.child.answers[0]"
+                                     [disabled]="data.status==1">
+                            </mat-form-field>
+                            <div style="display: inline-block;position: relative">/</div>
+                            <mat-form-field style="width: 80px;padding: 0 10px">
+                              <input matInput [placeholder]="" name="{{form.child.id}}low"
+                                     [(ngModel)]="form.child.answers&&form.child.answers[1]"
+                                     [disabled]="data.status==1">
+                            </mat-form-field>
+                            <div style="display: inline-block;position: relative">{{getUnit(form.child.name)}}</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="content_input" *ngIf="form.type==6">
+                        <mat-form-field style="width: 300px">
+                          <input matInput placeholder="{{i+1}}. {{form.name}}" name="{{form.id}}"
+                                 [(ngModel)]="form.optionValue" [disabled]="data.status==1">
+                        </mat-form-field>
+                      </div>
+                      <div class="content_input" *ngIf="form.type==7">
+                        <mat-form-field style="width: 300px">
+                          <input matInput [matDatepicker]="picker" placeholder="{{i+1}}. {{form.name}}"
+                                 name="{{form.id}}"
+                                 [(ngModel)]="form.optionValue" [disabled]="data.status==1">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <button mat-raised-button color="primary" type="submit" *ngIf="data.status!=1"
+                            style="margin-top: 30px">
+                      提交
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </mat-tab>

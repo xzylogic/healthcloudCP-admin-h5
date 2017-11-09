@@ -4,12 +4,6 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { FormText } from '../../_entity/form-text';
-
-// declare var require;
-// const Flatpickr = require('flatpickr');
-// const ZH = require('flatpickr/dist/l10n/zh.js').zh;
-
 import * as laydate from 'layui-laydate/';
 import { FormDatetime } from '../../_entity/form-datetime';
 
@@ -60,15 +54,5 @@ export class LibInputDatetimeComponent implements OnInit, AfterViewInit {
         this.valueChange.emit(this.value);
       }
     });
-    // const date = new Flatpickr(this.datetime.nativeElement, {
-    //   'locale': ZH,
-    //   'enableTime': true,
-    //   'time_24hr': true,
-    //   'defaultDate': this.value || ''
-    // });
   }
-
-  // change() {
-  //   this.valueChange.emit(this.value);
-  // }
 }

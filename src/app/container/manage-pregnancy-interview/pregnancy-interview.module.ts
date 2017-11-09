@@ -13,7 +13,7 @@ const routes: Routes = [{
   path: '',
   component: PregnancyInterviewComponent
 }, {
-  path: 'detail',
+  path: 'detail/:id',
   component: PregnancyInterviewDetailComponent
 }];
 

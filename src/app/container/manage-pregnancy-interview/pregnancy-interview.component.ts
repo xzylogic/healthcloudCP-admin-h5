@@ -13,7 +13,7 @@ import { ERRMSG } from '../_store/static';
 export class PregnancyInterviewComponent implements OnInit {
   containerConfig: ContainerConfig;
   interviewTable: TableOption;
-  @select(['receive-interview', 'data']) data: Observable<any>;
+  @select(['pregnancy-interview', 'data']) data: Observable<any>;
   name = '';
   telephone = '';
   period = '';
@@ -148,7 +148,7 @@ export class PregnancyInterviewComponent implements OnInit {
 
   gotoHandle(res) {
     if (res.key === 'edit') {
-      this.action.dataChange('receive-interview', {
+      this.action.dataChange('pregnancy-interview', {
         name: this.name,
         telephone: this.telephone,
         period: this.period,
@@ -157,7 +157,7 @@ export class PregnancyInterviewComponent implements OnInit {
         siteId: this.siteId,
         page: this.interviewTable.currentPage
       });
-      this.router.navigate(['/receive-interview/detail', res.value.id]);
+      this.router.navigate(['/pregnancy-interview/detail', res.value.id]);
     }
   }
 

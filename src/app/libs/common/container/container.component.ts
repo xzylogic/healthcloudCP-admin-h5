@@ -23,4 +23,8 @@ export class ContainerConfig {
 })
 export class ContainerComponent {
   @Input() config: ContainerConfig;
+
+  back() {
+    history.go(-1);
+  }
 }

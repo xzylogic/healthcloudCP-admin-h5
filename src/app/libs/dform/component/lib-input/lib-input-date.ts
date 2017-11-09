@@ -3,9 +3,8 @@ import { FormGroup } from '@angular/forms';
 
 import { FormDate } from '../../_entity/form-date';
 
-declare var require;
-const Flatpickr = require('flatpickr');
-const ZH = require('flatpickr/dist/l10n/zh.js').zh;
+import flatpickr from 'flatpickr';
+import { Mandarin } from 'flatpickr/dist/l10n/zh.js';
 
 @Component({
   selector: 'app-input-date',
@@ -40,15 +39,15 @@ export class LibInputDateComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     if (this.data && this.data.options) {
-      const date = new Flatpickr(this.date.nativeElement, {
-        'locale': ZH,
+      const date = flatpickr(this.date.nativeElement, {
+        'locale': Mandarin,
         'defaultDate': this.value || '',
         'minDate': this.data.options.minDate || '',
         'maxDate': this.data.options.maxDate || '',
       });
     } else {
-      const date = new Flatpickr(this.date.nativeElement, {
-        'locale': ZH,
+      const date = flatpickr(this.date.nativeElement, {
+        'locale': Mandarin,
         'defaultDate': this.value || '',
       });
     }

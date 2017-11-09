@@ -2,9 +2,8 @@ import { AfterViewInit, Component, EventEmitter, HostBinding, Input, OnInit, Out
 
 export enum SearchType {date, range}
 
-declare let require;
-const Flatpickr = require('flatpickr');
-const ZH = require('flatpickr/dist/l10n/zh.js').zh;
+import flatpickr from 'flatpickr';
+import { Mandarin } from 'flatpickr/dist/l10n/zh.js';
 
 @Component({
   selector: 'app-search',
@@ -58,14 +57,14 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     if (this.type == this.SearchType.date) {
-      const date = new Flatpickr(this.date.nativeElement, {
-        'locale': ZH,
+      const date = flatpickr(this.date.nativeElement, {
+        'locale': Mandarin,
         'defaultDate': this.value || ''
       });
     }
     if (this.type == this.SearchType.range) {
-      const range = new Flatpickr(this.range.nativeElement, {
-        'locale': ZH,
+      const range = flatpickr(this.range.nativeElement, {
+        'locale': Mandarin,
         'mode': 'range',
         'defaultDate': this.value || ''
       });

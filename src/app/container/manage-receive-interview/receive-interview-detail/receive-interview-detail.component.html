@@ -20,10 +20,10 @@
               </div>
               <div class="row" *ngIf="data.isEditor==1">
                 <div class="col-2">
-                  <p class="detail-content">填写类型：{{data.fillTime}}</p>
+                  <p class="detail-content">填写类型：{{data.fillType | yesorno:[1,2]:['在线随访','电话随访']}}</p>
                 </div>
                 <div class="col-4">
-                  <p class="detail-content">填写时间：{{data.fillType | yesorno:[1,2]:['在线随访','电话随访']}}</p>
+                  <p class="detail-content">填写时间：{{data.fillTime}}</p>
                 </div>
               </div>
             </div>

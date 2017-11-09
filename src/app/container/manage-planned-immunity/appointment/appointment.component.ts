@@ -127,7 +127,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   gotoHandle(data) {
-    if (data.key === 'edit') {
+    if (data.key === 'edit' && data.value && data.value.id) {
       this.action.dataChange('planned-immunity', {
         telephone: this.telephone,
         date: this.date,
@@ -139,6 +139,19 @@ export class AppointmentComponent implements OnInit {
         page: this.appointmentTable.currentPage
       });
       this.router.navigate(['/planned-immunity/appointment/detail', data.value.id]);
+    }
+    if (data.key === 'name' && data.value && data.value.documentNumber) {
+      this.action.dataChange('planned-immunity', {
+        telephone: this.telephone,
+        date: this.date,
+        name: this.name,
+        number: this.number,
+        status: this.status,
+        centerId: this.centerId,
+        siteId: this.siteId,
+        page: this.appointmentTable.currentPage
+      });
+      this.router.navigate(['/health-file', data.value.documentNumber]);
     }
   }
 

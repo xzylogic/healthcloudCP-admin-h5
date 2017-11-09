@@ -83,7 +83,13 @@ export class AppointmentService {
       }),
       new TableTitle({
         name: '宝宝姓名',
-        key: 'name'
+        key: 'name',
+        controlType: ControlType.option,
+        option: 'insert_drive_file'
+      }),
+      new TableTitle({
+        name: '宝宝生日',
+        key: 'birthDate'
       }),
       new TableTitle({
         name: '家长姓名',

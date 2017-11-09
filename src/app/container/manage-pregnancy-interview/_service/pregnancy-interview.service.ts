@@ -43,8 +43,8 @@ export class PregnancyInterviewService {
     return this.http.get(`${this.app.api_url}${PATH.getDataList}${query}`);
   }
 
-  getDetail(id, hospitalId) {
-    return this.http.get(`${this.app.api_url}${PATH.getDataDetail}?addUserId=1&hospitalId=111`);
+  getDetail(id) {
+    return this.http.get(`${this.app.api_url}${PATH.getDataDetail}?id=${id}`);
   }
 
   saveDetail(data) {
@@ -82,15 +82,11 @@ export class PregnancyInterviewService {
       }),
       new TableTitle({
         name: '联系电话',
-        key: 'phone'
+        key: 'telephone'
       }),
       new TableTitle({
         name: '随访阶段',
-        key: 'pregnancyPeriod'
-      }),
-      new TableTitle({
-        name: '已随访次数',
-        key: 'times'
+        key: 'pregnancyPeriodStr'
       }),
       new TableTitle({
         name: '所属机构',
@@ -98,7 +94,12 @@ export class PregnancyInterviewService {
       }),
       new TableTitle({
         name: '随访状态',
-        key: 'status'
+        key: 'status',
+        controlType: ControlType.pipe,
+        option: {
+          key: [0, 1, 2],
+          value: ['待随访', '在线随访', '电话随访']
+        }
       }),
       new TableTitle({
         name: '操作',
