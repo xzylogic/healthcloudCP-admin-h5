@@ -4,15 +4,16 @@
   </div>
   <div class="content">
     <form style="padding: 0 16px">
-      <mat-form-field floatPlaceholder="auto" style="margin-right: 1em">
+      <mat-form-field floatPlaceholder="always" style="margin-right: 1em">
         <input matInput placeholder="文章标题" name="title" [(ngModel)]="title">
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field floatPlaceholder="always" style="margin-right: 1em">
         <mat-select placeholder="资讯分类" [(ngModel)]="classifyId" name="center">
           <mat-option *ngFor="let opt of classifyList" [value]="opt.id">{{opt.categoryName}}</mat-option>
         </mat-select>
       </mat-form-field>
-      <app-search style="margin-right: 1em" [type]="'1'" [label]="'请选择日期范围'" [(value)]="queryTime"></app-search>
+      <app-search style="width:300px;margin-right: 1em;" [type]="'1'" [label]="'请选择日期范围'"
+                  [(value)]="queryTime"></app-search>
       <button mat-icon-button color="primary" type="button" (click)="getArticles(0)">
         <mat-icon>search</mat-icon>
       </button>

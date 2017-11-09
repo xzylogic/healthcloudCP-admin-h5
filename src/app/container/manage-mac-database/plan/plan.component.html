@@ -1,31 +1,32 @@
 <app-container [config]="containerConfig">
   <div class="content">
-    <div style="padding: 0 16px 16px" class="clear">
-      <mat-select *ngIf="centerList&&centerList.length!==0" placeholder="中心" [(ngModel)]="centerId" name="center"
-                 style="width: 860px;margin-right: 1em" (change)="centerChange($event)" (onOpen)="centerChange({value:centerId})">
+    <mat-form-field floatPlaceholder="always" *ngIf="centerList&&centerList.length!==0"
+                    style="width: 80%;margin-right: 1em">
+      <mat-select placeholder="中心" [(ngModel)]="centerId" name="center" (change)="centerChange($event)"
+                  (onOpen)="centerChange({value:centerId})">
         <mat-option *ngFor="let opt of centerList" [value]="opt.menuId">{{opt.name}}</mat-option>
       </mat-select>
-    </div>
-    <div style="padding: 0 16px 16px">
+    </mat-form-field>
+    <mat-form-field floatPlaceholder="always" *ngIf="centerList&&centerList.length!==0"
+                    style="width: 80%;margin-right: 1em">
       <mat-select *ngIf="siteList&&siteList.length!==0" placeholder="站点" [(ngModel)]="siteId" name="site"
-                 (change)="siteChange($event)"
-                 style="width: 860px;margin-right: 1em">
+                  (change)="siteChange($event)">
         <mat-option *ngFor="let opt of siteList" [value]="opt.menuId">{{opt.name}}</mat-option>
       </mat-select>
-      <button *ngIf="(centerList&&centerList.length!==0)||(siteList&&siteList.length!==0)" mat-icon-button
-              color="primary" type="button" (click)="search()">
-        <mat-icon>search</mat-icon>
-      </button>
-      <button *ngIf="(centerList&&centerList.length!==0)||(siteList&&siteList.length!==0)" mat-icon-button
-              color="primary" type="button" (click)="reset()">
-        <mat-icon>autorenew</mat-icon>
-      </button>
-    </div>
+    </mat-form-field>
+    <button *ngIf="(centerList&&centerList.length!==0)||(siteList&&siteList.length!==0)" mat-icon-button
+            color="primary" type="button" (click)="search()">
+      <mat-icon>search</mat-icon>
+    </button>
+    <button *ngIf="(centerList&&centerList.length!==0)||(siteList&&siteList.length!==0)" mat-icon-button
+            color="primary" type="button" (click)="reset()">
+      <mat-icon>autorenew</mat-icon>
+    </button>
     <div style="padding: 30px 0 15px 0">
       <h2>排班及号源维护 - {{orgName}}</h2>
-    </div>
-    <div style="padding: 30px;text-align: center" *ngIf="show=='false'">
-      该机构无排班及号源信息
+      <div style="padding: 30px;text-align: center" *ngIf="show=='false'">
+        该机构无排班及号源信息
+      </div>
     </div>
     <mat-tab-group dynamicHeight="true" [selectedIndex]="tab" *ngIf="show!='false'">
       <mat-tab label="排班表">

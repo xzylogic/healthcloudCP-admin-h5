@@ -1,10 +1,11 @@
 <app-container [config]="containerConfig">
   <div class="content">
     <form style="padding: 0 16px">
-      <mat-input-container floatPlaceholder="auto" style="margin-right: 1em">
+      <mat-input-container floatPlaceholder="always" style="margin-right: 1em">
         <input matInput placeholder="联系电话" name="tel" [(ngModel)]="tel">
       </mat-input-container>
-      <app-search style="margin-right: 1em" [type]="'1'" [label]="'请选择提交时间'" [(value)]="queryTime"></app-search>
+      <app-search style="width: 300px;margin-right: 1em" [type]="'1'" [label]="'请选择提交时间'"
+                  [(value)]="queryTime"></app-search>
       <button mat-icon-button color="primary" type="button" (click)="getFeedbacks(0)">
         <mat-icon>search</mat-icon>
       </button>

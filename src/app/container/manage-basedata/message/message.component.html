@@ -50,7 +50,7 @@
               <span *ngIf="obj.is_read==0" class="red">未读</span>
             </td>
             <td>
-              <span>{{obj.create_time | date: 'yyyy-MM-dd HH:mm'}}</span>
+              <span>{{obj.create_time | datex: 'YYYY-MM-DD HH:mm'}}</span>
             </td>
             <td>
               <span (click)="gotoDetail(obj.type,obj.id)" class="table__option" style="padding: 0 10px">查看</span>

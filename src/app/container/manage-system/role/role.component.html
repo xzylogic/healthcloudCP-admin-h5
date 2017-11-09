@@ -4,9 +4,9 @@
   </div>
   <div class="content">
     <form>
-      <mat-input-container>
+      <mat-form-field floatPlaceholder="always">
         <input matInput type="text" placeholder="角色名称搜索" name="queryKey" [(ngModel)]="roleTable.queryKey">
-      </mat-input-container>
+      </mat-form-field>
       <button mat-icon-button color="primary" type="button" (click)="getRoles()">
         <mat-icon>search</mat-icon>
       </button>

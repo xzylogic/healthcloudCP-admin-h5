@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 export enum SearchType {date, range}
 
@@ -17,24 +17,31 @@ const ZH = require('flatpickr/dist/l10n/zh.js').zh;
       >
       <span class="input_span">{{label}}</span>
     </div>
-    <div class="mat-input-container mat-form-field" style="width: 250px" *ngIf="type==SearchType.range">
-      <div class="mat-input-wrapper mat-form-field-wrapper">
-        <div class="mat-input-flex mat-form-field-flex">
-          <div class="mat-input-infix mat-form-field-infix input__format">
-            <input class="input__content"
-                   [placeholder]="label"
-                   (change)="change()"
-                   [(ngModel)]="value" #range
-            >
-          </div>
+    <div class="mat-input-wrapper mat-form-field-wrapper" *ngIf="type==SearchType.range">
+      <div class="mat-input-flex mat-form-field-flex">
+        <div class="mat-input-infix mat-form-field-infix">
+          <input class="mat-input-element"
+                 [placeholder]="label"
+                 (change)="change()"
+                 [(ngModel)]="value" #range
+          >
+          <span
+            class="mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper mat-form-field-can-float mat-form-field-should-float">
+            <label class="mat-input-placeholder mat-form-field-placeholder"
+                   style="display: block;"
+            >{{label}}</label>
+          </span>
+        </div>
+        <div class="mat-input-underline mat-form-field-underline">
+          <span class="mat-input-ripple mat-form-field-ripple"></span>
         </div>
       </div>
-      <!--<span class="input_span">{{label}}</span>-->
     </div>
   `,
   styleUrls: ['../../dform/component/lib-input/lib-input.scss']
 })
 export class SearchComponent implements OnInit, AfterViewInit {
+  @HostBinding('class') hostClass = 'mat-input-container mat-form-field';
   @Input() type: SearchType;
   @Input() label: string;
   @Input() value: any;

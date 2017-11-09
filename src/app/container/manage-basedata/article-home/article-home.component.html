@@ -4,10 +4,10 @@
   </div>
   <div class="content">
     <form style="padding: 0 16px">
-      <mat-input-container floatPlaceholder="auto" style="margin-right: 1em">
+      <mat-input-container floatPlaceholder="always" style="margin-right: 1em">
         <input matInput placeholder="文章标题" name="title" [(ngModel)]="title">
       </mat-input-container>
-      <mat-form-field>
+      <mat-form-field floatPlaceholder="always" style="margin-right: 1em">
         <mat-select placeholder="时间状态" [(ngModel)]="status" name="center">
           <mat-option *ngFor="let opt of statusList" [value]="opt.id">{{opt.name}}</mat-option>
         </mat-select>

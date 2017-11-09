@@ -3,34 +3,33 @@
     <button mat-raised-button (click)="newData()">添加账号</button>
   </div>
   <div class="content">
-    <form style="padding: 0 16px">
-      <div>
-        <mat-input-container floatPlaceholder="auto" style="margin-right: 1em;width: 400px">
-          <input matInput placeholder="姓名" name="username" [(ngModel)]="username">
-        </mat-input-container>
-        <mat-input-container floatPlaceholder="auto" style="margin-right: 1em;width: 400px">
-          <input matInput placeholder="手机号码" name="telephone" [(ngModel)]="telephone">
-        </mat-input-container>
-      </div>
-      <div style="margin-bottom: 16px">
-        <mat-select *ngIf="centerList&&centerList.length!==0" placeholder="中心" [(ngModel)]="centerId" name="center"
-                   style="width: 820px;margin-right: 1em" (change)="centerChange($event)"
-                   (onOpen)="centerChange({value:centerId})">
+    <form class="clear" style="padding: 0 16px">
+      <mat-form-field floatPlaceholder="always" style="float:left;width: 40%;padding-right: 1em">
+        <input matInput placeholder="姓名" name="username" [(ngModel)]="username">
+      </mat-form-field>
+      <mat-form-field floatPlaceholder="always" style="float:left;margin-right: 1em;width: 40%">
+        <input matInput placeholder="手机号码" name="telephone" [(ngModel)]="telephone">
+      </mat-form-field>
+      <mat-form-field floatPlaceholder="always" style="float:left;margin-right: 1em;width: 80%"
+                      *ngIf="centerList&&centerList.length!==0">
+        <mat-select placeholder="中心" [(ngModel)]="centerId" name="center"
+                    (change)="centerChange($event)"
+                    (onOpen)="centerChange({value:centerId})">
           <mat-option *ngFor="let opt of centerList" [value]="opt.menuId">{{opt.name}}</mat-option>
         </mat-select>
-      </div>
-      <div style="margin-bottom: 16px">
-        <mat-select *ngIf="siteList&&siteList.length!==0" placeholder="站点" [(ngModel)]="siteId" name="site"
-                   style="width: 820px;margin-right: 1em">
+      </mat-form-field>
+      <mat-form-field floatPlaceholder="always" style="float:left;margin-right: 1em;width: 80%"
+                      *ngIf="siteList&&siteList.length!==0">
+        <mat-select placeholder="站点" [(ngModel)]="siteId" name="site">
           <mat-option *ngFor="let opt of siteList" [value]="opt.menuId">{{opt.name}}</mat-option>
         </mat-select>
-        <button mat-icon-button color="primary" type="button" (click)="search()">
-          <mat-icon>search</mat-icon>
-        </button>
-        <button mat-icon-button color="primary" type="button" (click)="reset()">
-          <mat-icon>autorenew</mat-icon>
-        </button>
-      </div>
+      </mat-form-field>
+      <button style="float:left" mat-icon-button color="primary" type="button" (click)="search()">
+        <mat-icon>search</mat-icon>
+      </button>
+      <button style="float:left" mat-icon-button color="primary" type="button" (click)="reset()">
+        <mat-icon>autorenew</mat-icon>
+      </button>
     </form>
     <div *ngIf="!accountTable.lists&&accountTable.loading">Loading...</div>
     <div *ngIf="!accountTable.lists&&!accountTable.loading&&!!accountTable.errorMessage" class="center">

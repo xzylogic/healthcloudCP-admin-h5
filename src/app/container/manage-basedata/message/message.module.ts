@@ -5,6 +5,7 @@ import { MessageService } from './_service/message.service';
 import { LibModule } from '../../../libs/common/lib.module';
 import { DTableModule } from '../../../libs/dtable/dtable.module';
 import { MatCheckboxModule } from '@angular/material';
+import { PipeModule } from '../../../libs/_pipe/pipe.module';
 
 const routes: Routes = [{
   path: '',
@@ -16,6 +17,7 @@ const routes: Routes = [{
     LibModule,
     DTableModule,
     MatCheckboxModule,
+    PipeModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

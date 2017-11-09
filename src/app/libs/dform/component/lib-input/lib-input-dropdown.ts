@@ -8,9 +8,8 @@ import { FormDropdown } from '../../_entity/form-dropdown';
   template: `
     <div [formGroup]="form">
       <div class="input_container">
-        <mat-form-field>
-          <mat-select style="width: 100%"
-                      [placeholder]="data.label"
+        <mat-form-field style="width: 100%">
+          <mat-select [placeholder]="data.label"
                       [formControlName]="data.key"
                       [(ngModel)]="value"
                       (change)="change()"
