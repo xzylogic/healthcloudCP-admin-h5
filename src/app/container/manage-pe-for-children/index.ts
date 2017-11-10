@@ -10,11 +10,11 @@ export const routes: Routes = [{
       pathMatch: 'full'
     },
     {
-      path: 'plan',
+      path: 'plan/:menu',
       loadChildren: 'app/container/manage-pe-for-children/plan/plan.module#PFCPlanModule'
     },
     {
-      path: 'appointment',
+      path: 'appointment/:menu',
       loadChildren: 'app/container/manage-pe-for-children/appointment/appointment.module#PFCAppointmentModule'
     }
   ]

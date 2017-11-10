@@ -10,11 +10,11 @@ export const routes: Routes = [{
       pathMatch: 'full'
     },
     {
-      path: 'plan',
+      path: 'plan/:menu',
       loadChildren: 'app/container/manage-receive-folic-acid/plan/plan.module#RFAPlanModule'
     },
     {
-      path: 'appointment',
+      path: 'appointment/:menu',
       loadChildren: 'app/container/manage-receive-folic-acid/appointment/appointment.module#RFAAppointmentModule'
     }
   ]

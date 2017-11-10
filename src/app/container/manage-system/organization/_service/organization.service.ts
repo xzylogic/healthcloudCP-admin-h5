@@ -398,10 +398,10 @@ export class OrganizationService {
     forms.push(
       new FormTextarea({
         key: 'warmPrompt',
-        label: '温馨提示内容',
+        label: '温馨提示',
         value: data && data.warmPrompt || '',
         required: true,
-        errMsg: '请填写温馨提示内容',
+        errMsg: '请填写温馨提示',
         order: 3
       })
     );

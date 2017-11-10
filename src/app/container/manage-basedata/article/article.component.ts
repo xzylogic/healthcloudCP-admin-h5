@@ -1,7 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { TableOption } from '../../../libs/dtable/dtable.entity';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ERRMSG } from '../../_store/static';
 import { ShowDetail } from './article-detail/article-detail.component';
@@ -10,7 +10,9 @@ import { ShowDetail } from './article-detail/article-detail.component';
   selector: 'app-article',
   templateUrl: './article.component.html'
 })
-export class ArticleComponent implements OnInit {
+export class ArticleComponent implements OnInit, OnDestroy {
+  paramsMenu: string;
+  paramsSubscribe: any;
   containerConfig: ContainerConfig;
   articleTable: TableOption;
   title = '';
@@ -21,18 +23,30 @@ export class ArticleComponent implements OnInit {
   constructor(
     @Inject('article') private articleService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit() {
-    this.containerConfig = this.articleService.setArticleConfig();
-    this.articleTable = new TableOption({
-      titles: this.articleService.setArticleTable(),
-      ifPage: true
+    this.paramsSubscribe = this.route.params.subscribe(route => {
+      if (route.menu) {
+        this.paramsMenu = route.menu;
+        this.containerConfig = this.articleService.setArticleConfig(route.menu);
+        this.articleTable = new TableOption({
+          titles: this.articleService.setArticleTable(),
+          ifPage: true
+        });
+        this.getClassifyList();
+        this.reset();
+      }
     });
-    this.getClassifyList();
-    this.reset();
+  }
+
+  ngOnDestroy() {
+    if (this.paramsSubscribe) {
+      this.paramsSubscribe.unsubscribe();
+    }
   }
 
   reset() {
@@ -70,7 +84,7 @@ export class ArticleComponent implements OnInit {
 
   gotoHandle(data) {
     if (data.key === 'edit') {
-      this.router.navigate(['/article/edit'], {queryParams: {id: data.value.id}});
+      this.router.navigate(['article', this.paramsMenu, 'edit'], {queryParams: {id: data.value.id}});
     }
     if (data.key === 'detail') {
       this.articleService.getArticle(data.value.id)
@@ -83,7 +97,7 @@ export class ArticleComponent implements OnInit {
   }
 
   newData() {
-    this.router.navigate(['/article/edit']);
+    this.router.navigate(['article', this.paramsMenu, 'edit']);
   }
 
   getClassifyList() {

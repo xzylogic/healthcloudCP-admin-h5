@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
@@ -10,7 +10,10 @@ import { ShowDetail } from '../article-detail/article-detail.component';
   selector: 'app-article-edit',
   templateUrl: './article-edit.component.html'
 })
-export class ArticleEditComponent implements OnInit {
+export class ArticleEditComponent implements OnInit, OnDestroy {
+  paramsMenu: string;
+  paramsSubscribe: any;
+  queryParamsSubscribe: any;
   containerConfig: ContainerConfig;
   errMsg = '';
   form: any;
@@ -25,33 +28,53 @@ export class ArticleEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(res => {
-      if (res.id) {
-        this.containerConfig = this.articleService.setArticleEditConfig(true);
-      } else {
-        this.containerConfig = this.articleService.setArticleEditConfig(false);
-      }
-      this.articleService.getClassifies()
-        .subscribe(list => {
-          if (list.code === 0 && list.data) {
-            const data = [];
-            list.data.forEach(obj => {
-              data.push({
-                id: obj.id,
-                name: obj.categoryName
-              });
-            });
-            this.classifyList = data;
-            if (res.id) {
-              this.getArticle(res.id);
-            } else {
-              this.form = this.articleService.setArticleForm(
-                this.classifyList
-              );
-            }
+    this.paramsSubscribe = this.route.params.subscribe(route => {
+      if (route.menus) {
+        this.paramsMenu = route.menu;
+        this.queryParamsSubscribe = this.route.queryParams.subscribe(res => {
+          if (res.id) {
+            this.containerConfig = this.articleService.setArticleEditConfig(true, route.menu);
+          } else {
+            this.containerConfig = this.articleService.setArticleEditConfig(false, route.menu);
           }
+          this.setInit(res.id);
         });
+      }
     });
+  }
+
+  ngOnDestroy() {
+    if (this.paramsSubscribe) {
+      this.paramsSubscribe.unsubscribe();
+    }
+  }
+
+  setInit(id) {
+    this.articleService.getClassifies()
+      .subscribe(list => {
+        if (list.code === 0 && list.data) {
+          const data = [];
+          list.data.forEach(obj => {
+            data.push({
+              id: obj.id,
+              name: obj.categoryName
+            });
+          });
+          this.classifyList = data;
+          if (id) {
+            this.getArticle(id);
+          } else {
+            this.form = this.articleService.setArticleForm(
+              this.classifyList
+            );
+          }
+        } else {
+          this.errMsg = '获取文章分类列表数据错误，请刷新重试！';
+        }
+      }, err => {
+        console.log(err);
+        this.errMsg = '获取文章分类列表出现网络错误，请刷新重试！';
+      });
   }
 
   getArticle(id) {
@@ -71,7 +94,7 @@ export class ArticleEditComponent implements OnInit {
       .subscribe(res => {
         if (res.code === 0) {
           HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {
-            this.router.navigate(['/article']);
+            this.router.navigate(['article', this.paramsMenu]);
           });
         } else {
           HintDialog(res.msg || ERRMSG.saveError, this.dialog);

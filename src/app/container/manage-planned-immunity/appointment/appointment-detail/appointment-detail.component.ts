@@ -30,9 +30,9 @@ export class AppointmentDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.containerConfig = this.appointmentService.setAppointmentDetailConfig();
     this.routerSubscribe = this.route.params.subscribe(route => {
-      if (route.id) {
+      if (route.id && route.menu) {
+        this.containerConfig = this.appointmentService.setAppointmentDetailConfig(route.menu);
         this.id = route.id;
         this.getDetail(route.id);
       }

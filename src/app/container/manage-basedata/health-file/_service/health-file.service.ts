@@ -72,6 +72,10 @@ export class HealthFileService {
         }
       }),
       new TableTitle({
+        name: '就诊科室',
+        key: 'department'
+      }),
+      new TableTitle({
         name: '诊断名称',
         key: 'diagnosis'
       }),
@@ -107,12 +111,16 @@ export class HealthFileService {
         key: 'hospitalName'
       }),
       new TableTitle({
-        name: '科室',
+        name: '入院科室',
         key: 'department'
       }),
       new TableTitle({
         name: '诊断名称',
         key: 'diagnosis'
+      }),
+      new TableTitle({
+        name: '出院医嘱',
+        key: 'doctorEnjoin'
       }),
       // new TableTitle({
       //   name: '操作',

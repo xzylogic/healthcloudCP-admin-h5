@@ -1,11 +1,11 @@
-<div class="table-container">
+<div class="table-container clear">
   <table class="table" *ngIf="table">
     <thead>
     <tr>
       <th *ngFor="let title of table.titles">{{title.name}}</th>
     </tr>
     </thead>
-    <tbody *ngIf="table.lists">
+    <tbody *ngIf="table.lists&&table.lists.length!=0">
     <tr *ngFor="let list of table.lists;let i=index">
       <td *ngFor="let title of table.titles" [ngSwitch]="title.controlType" data-title="{{title.name}}">
         <div *ngSwitchCase="controlType.index" [style.minWidth.px]="title.minwidth" [style.maxWidth.px]="title.maxwidth"
@@ -62,21 +62,22 @@
     </tr>
     </tbody>
   </table>
-</div>
-<div class="page__items" *ngIf="table.ifPage&&table.totalPage">
-  <a class="item icon" (click)="getFirstPage()">
-    <mat-icon>first_page</mat-icon>
-  </a>
-  <a class="item icon" (click)="getPrePage()">
-    <mat-icon>chevron_left</mat-icon>
-  </a>
-  <a class="item" *ngFor="let page of pageList" [class.active]="page-1==table.currentPage"
-     [class.disable]="page=='...'"
-     (click)="getCurrentPage(page)">{{page}}</a>
-  <a class="item icon" (click)="getNextPage()">
-    <mat-icon>chevron_right</mat-icon>
-  </a>
-  <a class="item icon" (click)="getLastPage()">
-    <mat-icon>last_page</mat-icon>
-  </a>
+  <div class="container-error" *ngIf="table.lists&&table.lists.length==0">暂无数据</div>
+  <div class="page__items" *ngIf="table.ifPage&&table.totalPage&&table.lists&&table.lists.length!=0">
+    <a class="item icon" (click)="getFirstPage()">
+      <mat-icon>first_page</mat-icon>
+    </a>
+    <a class="item icon" (click)="getPrePage()">
+      <mat-icon>chevron_left</mat-icon>
+    </a>
+    <a class="item" *ngFor="let page of pageList" [class.active]="page-1==table.currentPage"
+       [class.disable]="page=='...'"
+       (click)="getCurrentPage(page)">{{page}}</a>
+    <a class="item icon" (click)="getNextPage()">
+      <mat-icon>chevron_right</mat-icon>
+    </a>
+    <a class="item icon" (click)="getLastPage()">
+      <mat-icon>last_page</mat-icon>
+    </a>
+  </div>
 </div>

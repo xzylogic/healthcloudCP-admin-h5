@@ -2,22 +2,22 @@ import { Routes } from '@angular/router';
 import { createReducer } from '../_store/api/api.reducer';
 
 export const routes: Routes = [{
-  path: 'article',
+  path: 'article/:menu',
   loadChildren: 'app/container/manage-basedata/article/article.module#ArticleModule'
 }, {
-  path: 'article-classify',
+  path: 'article-classify/:menu',
   loadChildren: 'app/container/manage-basedata/article-classify/article-classify.module#ArticleClassifyModule'
 }, {
-  path: 'article-home',
+  path: 'article-home/:menu',
   loadChildren: 'app/container/manage-basedata/article-home/article-home.module#ArticleHomeModule'
 }, {
-  path: 'banner',
+  path: 'banner/:menu',
   loadChildren: 'app/container/manage-basedata/banner/banner.module#BannerModule'
 }, {
-  path: 'feedback',
+  path: 'feedback/:menu',
   loadChildren: 'app/container/manage-basedata/feedback/feedback.module#FeedbackModule'
 }, {
-  path: 'message',
+  path: 'message/:menu',
   loadChildren: 'app/container/manage-basedata/message/message.module#MessageModule'
 }, {
   path: 'health-file',

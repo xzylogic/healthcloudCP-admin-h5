@@ -4,7 +4,7 @@ export class ContainerConfig {
   title: string;
   subTitle: string;
   ifHome: boolean;
-  homeRouter: string;
+  homeRouter: any;
   back?: boolean;
   query?: any;
 

@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { createReducer } from '../_store/api/api.reducer';
 
 export const routes: Routes = [{
-  path: 'receive-interview',
+  path: 'receive-interview/:menu',
   children: [
     {
       path: '',

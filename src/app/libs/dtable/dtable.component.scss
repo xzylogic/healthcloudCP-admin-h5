@@ -1,12 +1,5 @@
 @import '../theme/theme';
 
-:host:before,
-:host:after {
-  display: table;
-  content: '';
-  clear: both;
-}
-
 .table-container {
   width: 100%;
   margin-bottom: 16px;
@@ -116,6 +109,7 @@
 .page__items {
   display: flex;
   float: right;
+  margin-bottom: 16px;
 }
 
 .page__items > .item {

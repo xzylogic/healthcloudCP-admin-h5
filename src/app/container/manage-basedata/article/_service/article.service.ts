@@ -9,10 +9,10 @@ import { FormEditor } from '../../../../libs/dform/_entity/form-editor';
 import { FormDropdown } from '../../../../libs/dform/_entity/form-dropdown';
 
 const PATH = {
-  getArticles: '/api/article/list',
-  getArticle: '/api/article/info',
-  saveArticle: '/api/article/saveOrUpdate',
-  getClassifies: '/api/article/categoryList',
+  getArticles: '/api/article/list', // 获取文章列表
+  getArticle: '/api/article/info', // 获取文章详情
+  saveArticle: '/api/article/saveOrUpdate', // 新增/编辑文章详情
+  getClassifies: '/api/article/categoryList', // 获取文章分类列表（不分页）
 };
 
 @Injectable()
@@ -23,10 +23,23 @@ export class ArticleService {
   ) {
   }
 
+  /**
+   * 获取文章分类列表（默认取启用的数据）
+   * isVisable | 0 启用 1 禁用
+   */
   getClassifies() {
     return this.http.get(`${this.app.api_url}${PATH.getClassifies}?isVisable=0`);
   }
 
+  /**
+   * 获取文章列表数据
+   * @param page 当前页码（默认从0开始，接口从1开始，故+1）
+   * @param size 每页数据个数（table默认为10）
+   * @param title 文章标题
+   * @param startTime 开始时间
+   * @param endTime 结束时间
+   * @param classifyId 文章分类id
+   */
   getArticles(page, size, title, startTime, endTime, classifyId) {
     return this.http.post(`${this.app.api_url}${PATH.getArticles}`, {
       number: page + 1,
@@ -40,32 +53,55 @@ export class ArticleService {
     });
   }
 
+  /**
+   * 获取文章详情
+   * @param id
+   */
   getArticle(id) {
     return this.http.get(`${this.app.api_url}${PATH.getArticle}?id=${id}`);
   }
 
+  /**
+   * 新增/编辑文章详情
+   * @param data
+   */
   saveArticle(data) {
     return this.http.post(`${this.app.api_url}${PATH.saveArticle}`, data);
   }
 
-  setArticleConfig() {
+  /**
+   * 配置文章库列表页
+   * @param menu 菜单id
+   * @returns {ContainerConfig}
+   */
+  setArticleConfig(menu) {
     return new ContainerConfig({
       title: '资讯管理',
       subTitle: '文章库',
       ifHome: true,
-      homeRouter: '/article'
+      homeRouter: ['/article', menu]
     });
   }
 
-  setArticleEditConfig(flag) {
+  /**
+   * 配置文章库详情页
+   * @param flag | true 编辑 false 新增
+   * @param menu 菜单id
+   * @returns {ContainerConfig}
+   */
+  setArticleEditConfig(flag, menu) {
     return new ContainerConfig({
       title: '资讯管理',
       subTitle: flag ? '编辑文章' : '新增文章',
       ifHome: false,
-      homeRouter: '/article'
+      homeRouter: ['/article', menu]
     });
   }
 
+  /**
+   * 配置文章列表title
+   * @returns {TableTitle[]}
+   */
   setArticleTable() {
     return [
       new TableTitle({
@@ -100,6 +136,12 @@ export class ArticleService {
     ];
   }
 
+  /**
+   * 配置文章编辑表单
+   * @param classifyList
+   * @param data
+   * @returns {FormBase<any>[]}
+   */
   setArticleForm(classifyList, data?) {
     const forms: FormBase<any>[] = [];
     if (data && data.id) {
@@ -141,7 +183,6 @@ export class ArticleService {
         label: '图片(请上传不大于150KB的JPG或者PNG图片)',
         value: data && data.thumb || '',
         required: true,
-        url: '',
         errMsg: '',
         size: 150,
         order: 3
@@ -153,7 +194,6 @@ export class ArticleService {
         label: '推荐图片(请上传不大于150KB的JPG或者PNG图片，建议比例1：3)',
         value: data && data.recommImageUrl || '',
         required: false,
-        url: '',
         errMsg: '',
         size: 150,
         order: 4
@@ -204,7 +244,7 @@ export class ArticleService {
       new FormText({
         key: 'fakePv',
         label: '预设阅读量',
-        value: data && data.fakePv || '',
+        value: data && (data.fakePv == 0 ? data.fakePv : data.fakePv || ''),
         required: true,
         errMsg: '请填写正确的预设阅读量（非负整数）',
         pattern: `^[0-9]*$`,

@@ -13,6 +13,7 @@ export class Menu {
   href?: string;
   children?: Menu[];
   open?: boolean;
+  activate?: boolean;
 }
 
 export class Admin {

@@ -16,6 +16,7 @@ import { HintDialog } from '../../../libs/dmodal/dialog.component';
 export class AppointmentComponent implements OnInit {
   containerConfig: ContainerConfig;
   appointmentTable: TableOption;
+  paramMenu: string;
   @select(['planned-immunity', 'data']) data: Observable<any>;
   telephone = '';
   date: Date;
@@ -62,6 +63,11 @@ export class AppointmentComponent implements OnInit {
     this.appointmentTable = new TableOption({
       titles: this.appointmentService.setAppointmentTitles(),
       ifPage: true
+    });
+    this.param.params.subscribe(route => {
+      if (route.menu) {
+        this.paramMenu = route.menu;
+      }
     });
     this.param.queryParams.subscribe(params => {
       if (params && params.flag) {
@@ -141,7 +147,7 @@ export class AppointmentComponent implements OnInit {
         siteId: this.siteId,
         page: this.appointmentTable.currentPage
       });
-      this.router.navigate(['/planned-immunity/appointment/detail', data.value.id]);
+      this.router.navigate(['/planned-immunity', 'appointment', this.paramMenu, 'detail', data.value.id]);
     }
     if (data.key === 'name' && data.value && data.value.documentNumber) {
       this.action.dataChange('planned-immunity', {
@@ -154,7 +160,7 @@ export class AppointmentComponent implements OnInit {
         siteId: this.siteId,
         page: this.appointmentTable.currentPage
       });
-      this.router.navigate(['/health-file', data.value.documentNumber]);
+      this.router.navigate(['health-file', data.value.documentNumber]);
     }
     if (data.key === 'name' && data.value && !data.value.documentNumber) {
       HintDialog('该用户无健康档案信息！', this.dialog);
@@ -236,16 +242,18 @@ export class AppointmentComponent implements OnInit {
   }
 
   centerChange(data) {
-    this.siteId = '';
-    const site = [{menuId: '', name: '无'}];
-    this.communityList.forEach(obj => {
-      if (obj.parentId === data.value && obj.type == 2) {
-        site.push(obj);
+    if (data.value) {
+      this.siteId = '';
+      const site = [{menuId: '', name: '无'}];
+      this.communityList.forEach(obj => {
+        if (obj.parentId === data.value && obj.type == 2) {
+          site.push(obj);
+        }
+      });
+      if (site.length !== 1) {
+        site.splice(0, 1);
       }
-    });
-    if (site.length !== 1) {
-      site.splice(0, 1);
+      this.siteList = site;
     }
-    this.siteList = site;
   }
 }

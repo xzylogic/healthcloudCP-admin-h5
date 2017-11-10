@@ -64,12 +64,12 @@ export class AppointmentService {
     });
   }
 
-  setAppointmentDetailConfig() {
+  setAppointmentDetailConfig(route) {
     return new ContainerConfig({
       title: '计划免疫预约',
       subTitle: '预约详情',
       ifHome: false,
-      homeRouter: '/planned-immunity/appointment',
+      homeRouter: ['/planned-immunity', 'appointment', route],
       query: {flag: 1}
     });
   }
