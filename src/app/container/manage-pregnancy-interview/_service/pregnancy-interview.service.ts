@@ -94,7 +94,7 @@ export class PregnancyInterviewService {
       }),
       new TableTitle({
         name: '随访状态',
-        key: 'status',
+        key: 'state',
         controlType: ControlType.pipe,
         option: {
           key: [0, 1, 2],
