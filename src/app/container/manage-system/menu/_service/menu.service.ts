@@ -57,7 +57,7 @@ export class MenuService {
           label: '父菜单id',
           value: req.parent.parentId,
           required: true,
-          order: 0
+          order: 100
         })
       );
     }
@@ -74,13 +74,24 @@ export class MenuService {
       forms.push(
         new FormHidden({
           key: 'menuId',
-          label: '父菜单id',
+          label: '菜单id',
           value: req.data.menuId,
           required: true,
-          order: 0
+          order: 100
         })
       );
     }
+    forms.push(
+      new FormText({
+        key: 'name',
+        label: '菜单类型',
+        value: req && req.data && req.data.type || '',
+        required: true,
+        errMsg: '请填写菜单名称',
+        order: 1
+      })
+    );
+
     forms.push(
       new FormText({
         key: 'name',

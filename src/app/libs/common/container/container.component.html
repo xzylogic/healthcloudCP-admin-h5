@@ -1,7 +1,12 @@
 <div class="main__content" *ngIf="config">
   <div class="content__location">
-    <mat-icon *ngIf="!config.ifHome"
+    <mat-icon *ngIf="!config.ifHome&&config.back"
               class="location__item" (click)="back()">arrow_back
+    </mat-icon>
+    <mat-icon *ngIf="!config.ifHome&&!config.back"
+              class="location__item"
+              [routerLink]="config.homeRouter"
+              [queryParams]="config.query">arrow_back
     </mat-icon>
     <!--<span class="location__item"-->
     <!--[routerLink]="config.homeRouter"-->

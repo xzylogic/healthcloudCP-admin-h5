@@ -6,6 +6,8 @@ import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
+import { MatDialog } from '@angular/material';
+import { HintDialog } from '../../../libs/dmodal/dialog.component';
 
 @Component({
   selector: 'app-planned-immunity-appointment',
@@ -50,6 +52,7 @@ export class AppointmentComponent implements OnInit {
     @Inject('action') private action,
     @Inject('appointment') private appointmentService,
     private router: Router,
+    private dialog: MatDialog,
     private param: ActivatedRoute
   ) {
   }
@@ -152,6 +155,9 @@ export class AppointmentComponent implements OnInit {
         page: this.appointmentTable.currentPage
       });
       this.router.navigate(['/health-file', data.value.documentNumber]);
+    }
+    if (data.key === 'name' && data.value && !data.value.documentNumber) {
+      HintDialog('该用户无健康档案信息！', this.dialog);
     }
   }
 

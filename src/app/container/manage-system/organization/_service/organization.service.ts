@@ -6,6 +6,7 @@ import { FormHidden } from '../../../../libs/dform/_entity/form-hidden';
 import { FormRadio } from '../../../../libs/dform/_entity/form-radio';
 import { FormFile } from '../../../../libs/dform/_entity/form-file';
 import { FormDropdown } from '../../../../libs/dform/_entity/form-dropdown';
+import { FormTextarea } from '../../../../libs/dform/_entity/form-textarea';
 
 const PATH = {
   getMenus: '/api/getCommunityMenuByUserId',
@@ -392,6 +393,16 @@ export class OrganizationService {
         required: true,
         errMsg: '请填写科室简称',
         order: 2
+      })
+    );
+    forms.push(
+      new FormTextarea({
+        key: 'warmPrompt',
+        label: '温馨提示内容',
+        value: data && data.warmPrompt || '',
+        required: true,
+        errMsg: '请填写温馨提示内容',
+        order: 3
       })
     );
     forms.push(

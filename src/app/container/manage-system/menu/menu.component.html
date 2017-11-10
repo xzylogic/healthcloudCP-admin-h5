@@ -15,9 +15,6 @@
               <p class="tree__span" [class.active]="menuList.active"
                  (click)="newMenu(menuList.menuId,menuList.menuName)">
                 {{menuList.menuName}}</p>
-              <!--<button mat-icon-button color="primary" (click)="updateMenu(menuList)">-->
-              <!--<mat-icon aria-label="edit">mode_edit</mat-icon>-->
-              <!--</button>-->
             </div>
             <ul *ngIf="menuList.children&&menuList.open" class="tree__list">
               <li *ngFor="let menu of menuList.children">
@@ -36,8 +33,12 @@
                 <ul *ngIf="menu.children&&menu.open" class="tree__list">
                   <li *ngFor="let subMenu of menu.children">
                     <div class="clear tree__p">
-                      <mat-icon class="tree__icon last">remove</mat-icon>
-                      <p class="tree__span last">{{subMenu.menuName}}</p>
+                      <mat-icon class="tree__icon" (click)="toggle(subMenu)" *ngIf="!subMenu.open">add</mat-icon>
+                      <mat-icon class="tree__icon" (click)="toggle(subMenu)" *ngIf="subMenu.open">remove</mat-icon>
+                      <p class="tree__span" [class.active]="subMenu.active"
+                         (click)="newMenu(subMenu.menuId, subMenu.menuName)">
+                        {{subMenu.menuName}}
+                      </p>
                       <button mat-icon-button color="primary" (click)="updateMenu(subMenu)">
                         <mat-icon aria-label="edit">mode_edit</mat-icon>
                       </button>
@@ -45,6 +46,20 @@
                         <mat-icon aria-label="delete">delete_forever</mat-icon>
                       </button>
                     </div>
+                    <ul *ngIf="subMenu.children&&subMenu.open" class="tree__list">
+                      <li *ngFor="let ssubMenu of subMenu.children">
+                        <div class="clear tree__p">
+                          <mat-icon class="tree__icon last">remove</mat-icon>
+                          <p class="tree__span last">{{ssubMenu.menuName}}</p>
+                          <button mat-icon-button color="primary" (click)="updateMenu(ssubMenu)">
+                            <mat-icon aria-label="edit">mode_edit</mat-icon>
+                          </button>
+                          <button mat-icon-button color="warn" (click)="deleteMenu(ssubMenu.menuId, ssubMenu.menuName)">
+                            <mat-icon aria-label="delete">delete_forever</mat-icon>
+                          </button>
+                        </div>
+                      </li>
+                    </ul>
                   </li>
                 </ul>
               </li>
@@ -57,7 +72,48 @@
           <div class="tree__title clear">
             <h3 class="p">{{title}}</h3>
           </div>
-          <app-form [formDatas]="form" (formValues)="getValues($event)"></app-form>
+          <!--<app-form [formDatas]="form" (formValues)="getValues($event)"></app-form>-->
+          <form #f="ngForm" (ngSubmit)="getValues(f.value, form.parentId, form.menuId)">
+            <div class="input-container" *ngIf="form.parentName">
+              <mat-form-field floatPlaceholder="always" style="width: 100%">
+                <input matInput placeholder="父菜单名称" name="pname" [value]="form.parentName" disabled>
+              </mat-form-field>
+            </div>
+            <div class="input-container">
+              <mat-form-field floatPlaceholder="always" style="width: 100%">
+                <mat-select placeholder="菜单类型" name="type" [(ngModel)]="form.type" required>
+                  <mat-option value="1">菜单</mat-option>
+                  <mat-option value="2">操作</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="input-container" *ngIf="form.type==2">
+              <mat-form-field floatPlaceholder="always" style="width: 100%">
+                <mat-select placeholder="菜单名称" name="name" [(ngModel)]="form.menuName" required>
+                  <mat-option value="查看">查看</mat-option>
+                  <mat-option value="编辑">编辑</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="input-container" *ngIf="form.type==1">
+              <mat-form-field floatPlaceholder="always" style="width: 100%">
+                <input matInput placeholder="菜单名称" name="name" [(ngModel)]="form.menuName" required>
+              </mat-form-field>
+            </div>
+            <div class="input-container" *ngIf="form.type==1">
+              <mat-form-field floatPlaceholder="always" style="width: 100%">
+                <input matInput placeholder="菜单链接" name="href" [(ngModel)]="form.href" required>
+              </mat-form-field>
+            </div>
+            <div class="input-container" *ngIf="form.type==1">
+              <mat-form-field floatPlaceholder="always" style="width: 100%">
+                <input matInput placeholder="菜单排序" name="sort" [(ngModel)]="form.sort" required>
+              </mat-form-field>
+            </div>
+            <div class="input-container">
+              <button mat-raised-button color="primary" [disabled]="!f.valid">保存</button>
+            </div>
+          </form>
         </div>
       </mat-grid-tile>
     </mat-grid-list>

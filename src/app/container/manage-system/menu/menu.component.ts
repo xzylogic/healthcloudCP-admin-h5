@@ -82,9 +82,7 @@ export class MenuComponent implements OnInit {
     this.unActive(this.menuList, parentId);
     this.form = null;
     this.title = '新增菜单';
-    this.form = this.menuService.setMenuFrom({
-      parent: {parentId: parentId, parentName: parentName}
-    });
+    this.form = {parentId: parentId, parentName: parentName};
     this.cdr.detectChanges();
   }
 
@@ -92,7 +90,9 @@ export class MenuComponent implements OnInit {
     this.unActive(this.menuList, 0);
     this.form = null;
     this.title = '编辑菜单';
-    this.form = this.menuService.setMenuFrom({data: menu});
+    console.log(menu);
+    // this.form = this.menuService.setMenuFrom({data: menu});
+    this.form = menu;
     this.cdr.detectChanges();
   }
 
@@ -121,7 +121,13 @@ export class MenuComponent implements OnInit {
       });
   }
 
-  getValues(value) {
+  getValues(value, parentId, menuId) {
+    value.parentId = parentId;
+    value.delFlag = 0;
+    if (menuId) {
+      value.menuId = menuId;
+    }
+    console.log(value);
     this.menuService.updateMenu(value)
       .subscribe(res => {
         if (res.code === 0) {

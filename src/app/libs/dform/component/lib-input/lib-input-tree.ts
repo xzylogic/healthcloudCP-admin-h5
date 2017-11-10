@@ -31,6 +31,16 @@ import { FormTree } from '../../_entity/form-tree';
                           <mat-checkbox [(checked)]="subopt.checked" (change)="getChecked($event, subopt)">
                             {{subopt.menuName}}
                           </mat-checkbox>
+                          <div *ngIf="subopt.open&&subopt.children" style="padding-top: 3px">
+                            <div *ngFor="let ssubopt of subopt.children" class="clear" style="padding: 3px 0">
+                              <mat-icon style="float:left">remove</mat-icon>
+                              <div style="float:left">
+                                <mat-checkbox [(checked)]="ssubopt.checked" (change)="getChecked($event, ssubopt)">
+                                  {{ssubopt.menuName}}
+                                </mat-checkbox>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -98,6 +108,13 @@ export class LibInputTreeComponent implements OnInit {
             if (subObj.checked) {
               value.push(subObj.menuId);
             }
+            if (subObj.children) {
+              subObj.children.forEach(ssubObj => {
+                if (ssubObj.checked) {
+                  value.push(ssubObj.menuId);
+                }
+              });
+            }
           });
         }
       });
@@ -131,6 +148,14 @@ export class LibInputTreeComponent implements OnInit {
             if (subObj.menuId === pid) {
               subObj.checked = true;
               this.setParentChecked(subObj.parentId);
+            }
+            if (subObj.children && subObj.children.length !== 0) {
+              subObj.children.forEach(ssubObj => {
+                if (ssubObj.menuId === pid) {
+                  ssubObj.checked = true;
+                  this.setParentChecked(ssubObj.parentId);
+                }
+              });
             }
           });
         }

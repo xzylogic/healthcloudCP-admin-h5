@@ -5,6 +5,7 @@ export class ContainerConfig {
   subTitle: string;
   ifHome: boolean;
   homeRouter: string;
+  back?: boolean;
   query?: any;
 
   constructor(obj?: ContainerConfig) {
@@ -13,6 +14,7 @@ export class ContainerConfig {
     this.ifHome = obj && !!obj.ifHome;
     this.homeRouter = obj && obj.homeRouter || '';
     this.query = obj && obj.query || {};
+    this.back = obj && obj.back || false;
   }
 }
 

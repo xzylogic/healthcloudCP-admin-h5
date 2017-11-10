@@ -42,7 +42,8 @@ export class HealthFileService {
       title: '健康档案',
       subTitle: '健康档案详情',
       ifHome: false,
-      homeRouter: '/health-file'
+      homeRouter: '/health-file',
+      back: true
     });
   }
 
