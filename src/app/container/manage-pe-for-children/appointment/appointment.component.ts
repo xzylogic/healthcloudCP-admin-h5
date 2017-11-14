@@ -6,6 +6,8 @@ import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
+import { MatDialog } from '@angular/material';
+import { HintDialog } from '../../../libs/dmodal/dialog.component';
 
 @Component({
   selector: 'app-pe-for-children-appointment',
@@ -50,6 +52,7 @@ export class AppointmentComponent implements OnInit {
   constructor(
     @Inject('action') private action,
     @Inject('appointment') private appointmentService,
+    private dialog: MatDialog,
     private router: Router,
     private param: ActivatedRoute
   ) {
@@ -66,26 +69,26 @@ export class AppointmentComponent implements OnInit {
       titles: this.appointmentService.setAppointmentTitles(),
       ifPage: true
     });
-    this.param.queryParams.subscribe(params => {
-      if (params && params.flag) {
-        this.data.subscribe(data => {
-          if (data) {
-            this.telephone = data.telephone;
-            this.date = data.date;
-            this.name = data.name;
-            this.number = data.number;
-            this.status = data.status;
-            this.centerId = data.centerId;
-            this.siteId = data.siteId;
-            this.getData(data.page);
-          } else {
-            this.reset();
-          }
-        });
+    // this.param.queryParams.subscribe(params => {
+    //   if (params && params.flag) {
+    this.data.subscribe(data => {
+      if (data) {
+        this.telephone = data.telephone;
+        this.date = data.date;
+        this.name = data.name;
+        this.number = data.number;
+        this.status = data.status;
+        this.centerId = data.centerId;
+        this.siteId = data.siteId;
+        this.getData(data.page);
       } else {
         this.reset();
       }
     });
+    //   } else {
+    //     this.reset();
+    //   }
+    // });
     this.getCommunityAll();
   }
 
@@ -143,6 +146,22 @@ export class AppointmentComponent implements OnInit {
         page: this.appointmentTable.currentPage
       });
       this.router.navigate(['/pe-for-children/appointment', this.paramsMenu, 'detail', data.value.id]);
+    }
+    if (data.key === 'name' && data.value && data.value.documentNumber) {
+      this.action.dataChange('pe-for-children', {
+        telephone: this.telephone,
+        date: this.date,
+        name: this.name,
+        number: this.number,
+        status: this.status,
+        centerId: this.centerId,
+        siteId: this.siteId,
+        page: this.appointmentTable.currentPage
+      });
+      this.router.navigate(['health-file', data.value.documentNumber]);
+    }
+    if (data.key === 'name' && data.value && !data.value.documentNumber) {
+      HintDialog('该用户无健康档案信息！', this.dialog);
     }
   }
 

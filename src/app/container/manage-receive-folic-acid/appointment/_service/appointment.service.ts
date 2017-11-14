@@ -75,7 +75,8 @@ export class AppointmentService {
       subTitle: '预约详情',
       ifHome: false,
       homeRouter: '/receive-folic-acid/appointment',
-      query: {flag: 1}
+      query: {flag: 1},
+      back: true
     });
   }
 
@@ -88,7 +89,9 @@ export class AppointmentService {
       }),
       new TableTitle({
         name: '姓名',
-        key: 'name'
+        key: 'name',
+        controlType: ControlType.option,
+        option: 'insert_drive_file'
       }),
       new TableTitle({
         name: '证件号码',
@@ -105,6 +108,10 @@ export class AppointmentService {
       new TableTitle({
         name: '所属机构',
         key: 'hospitalName'
+      }),
+      new TableTitle({
+        name: '申请时间',
+        key: 'applicationTime'
       }),
       new TableTitle({
         name: '领取时间',

@@ -32,26 +32,26 @@ export class PlanCommonComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(route => {
-      if (route.date && route.type) {
+      if (route.date && route.type && route.menu) {
         this.date = route.date;
         this.type = route.type;
         let title = '';
-        let router = '';
+        let router: any;
         if (route.type === 'jm') {
           title = '计划免疫预约';
-          router = '/planned-immunity/plan';
+          router = ['/planned-immunity/plan', route.menu];
         }
         if (route.type === 'jd') {
           title = '母子建档预约';
-          router = '/mac-database/plan';
+          router = ['/mac-database/plan', route.menu];
         }
         if (route.type === 'tj') {
           title = '儿童体检预约';
-          router = '/pe-for-children/plan';
+          router = ['/pe-for-children/plan', route.menu];
         }
         if (route.type === 'ys') {
           title = '叶酸领取预约';
-          router = '/receive-folic-acid/plan';
+          router = ['/receive-folic-acid/plan', route.menu];
         }
         this.containerConfig = this.planCommonService.setPlanConfig(title, router, this.date);
         this.getDefault();

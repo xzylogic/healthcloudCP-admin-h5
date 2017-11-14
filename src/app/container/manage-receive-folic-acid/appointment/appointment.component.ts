@@ -5,6 +5,8 @@ import { ERRMSG } from '../../_store/static';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
+import { HintDialog } from '../../../libs/dmodal/dialog.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-receive-folic-acid-appointment',
@@ -42,6 +44,7 @@ export class AppointmentComponent implements OnInit {
   constructor(
     @Inject('action') private action,
     @Inject('appointment') private appointmentService,
+    private dialog: MatDialog,
     private router: Router,
     private param: ActivatedRoute
   ) {
@@ -58,25 +61,25 @@ export class AppointmentComponent implements OnInit {
       titles: this.appointmentService.setAppointmentTitles(),
       ifPage: true
     });
-    this.param.queryParams.subscribe(params => {
-      if (params && params.flag) {
-        this.data.subscribe(data => {
-          if (data) {
-            this.name = data.name;
-            this.cardNo = data.cardNo;
-            this.number = data.number;
-            this.status = data.status;
-            this.centerId = data.centerId;
-            this.siteId = data.siteId;
-            this.getData(data.page);
-          } else {
-            this.reset();
-          }
-        });
+    // this.param.queryParams.subscribe(params => {
+    //   if (params && params.flag) {
+    this.data.subscribe(data => {
+      if (data) {
+        this.name = data.name;
+        this.cardNo = data.cardNo;
+        this.number = data.number;
+        this.status = data.status;
+        this.centerId = data.centerId;
+        this.siteId = data.siteId;
+        this.getData(data.page);
       } else {
         this.reset();
       }
     });
+    //   } else {
+    //     this.reset();
+    //   }
+    // });
     this.getCommunityAll();
   }
 
@@ -134,6 +137,21 @@ export class AppointmentComponent implements OnInit {
         page: this.appointmentTable.currentPage
       });
       this.router.navigate(['/receive-folic-acid/appointment', this.paramsMenu, 'detail', data.value.reservationId]);
+    }
+    if (data.key === 'name' && data.value && data.value.cardNo) {
+      this.action.dataChange('receive-folic-acid', {
+        name: this.name,
+        cardNo: this.cardNo,
+        number: this.number,
+        status: this.status,
+        centerId: this.centerId,
+        siteId: this.siteId,
+        page: this.appointmentTable.currentPage
+      });
+      this.router.navigate(['health-file', data.value.cardNo]);
+    }
+    if (data.key === 'name' && data.value && !data.value.cardNo) {
+      HintDialog('该用户无健康档案信息！', this.dialog);
     }
   }
 

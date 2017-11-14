@@ -67,7 +67,8 @@ export class AppointmentService {
       subTitle: '预约详情',
       ifHome: false,
       homeRouter: '/mac-database/appointment',
-      query: {flag: 1}
+      query: {flag: 1},
+      back: true
     });
   }
 
@@ -80,11 +81,17 @@ export class AppointmentService {
       }),
       new TableTitle({
         name: '姓名',
-        key: 'name'
+        key: 'name',
+        controlType: ControlType.option,
+        option: 'insert_drive_file'
       }),
       new TableTitle({
         name: '联系电话',
         key: 'motherContactNumber'
+      }),
+      new TableTitle({
+        name: '申请时间',
+        key: 'applicationTime'
       }),
       new TableTitle({
         name: '预约时间',

@@ -69,26 +69,26 @@ export class AppointmentComponent implements OnInit {
         this.paramMenu = route.menu;
       }
     });
-    this.param.queryParams.subscribe(params => {
-      if (params && params.flag) {
-        this.data.subscribe(data => {
-          if (data) {
-            this.telephone = data.telephone;
-            this.date = data.date;
-            this.name = data.name;
-            this.number = data.number;
-            this.status = data.status;
-            this.centerId = data.centerId;
-            this.siteId = data.siteId;
-            this.getData(data.page);
-          } else {
-            this.reset();
-          }
-        });
+    // this.param.queryParams.subscribe(params => {
+    //   if (params && params.flag) {
+    this.data.subscribe(data => {
+      if (data) {
+        this.telephone = data.telephone;
+        this.date = data.date;
+        this.name = data.name;
+        this.number = data.number;
+        this.status = data.status;
+        this.centerId = data.centerId;
+        this.siteId = data.siteId;
+        this.getData(data.page);
       } else {
         this.reset();
       }
     });
+    //   } else {
+    //     this.reset();
+    //   }
+    // });
     this.getCommunityAll();
   }
 

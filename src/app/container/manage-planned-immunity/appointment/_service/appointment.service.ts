@@ -70,7 +70,8 @@ export class AppointmentService {
       subTitle: '预约详情',
       ifHome: false,
       homeRouter: ['/planned-immunity', 'appointment', route],
-      query: {flag: 1}
+      query: {flag: 1},
+      back: true
     });
   }
 

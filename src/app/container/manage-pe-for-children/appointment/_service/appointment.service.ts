@@ -70,7 +70,8 @@ export class AppointmentService {
       subTitle: '预约详情',
       ifHome: false,
       homeRouter: '/pe-for-children/appointment',
-      query: {flag: 1}
+      query: {flag: 1},
+      back: true
     });
   }
 
@@ -83,7 +84,13 @@ export class AppointmentService {
       }),
       new TableTitle({
         name: '宝宝姓名',
-        key: 'name'
+        key: 'name',
+        controlType: ControlType.option,
+        option: 'insert_drive_file'
+      }),
+      new TableTitle({
+        name: '宝宝生日',
+        key: 'birthDate'
       }),
       new TableTitle({
         name: '家长姓名',

@@ -61,7 +61,7 @@ export class BannerComponent implements OnInit {
       .subscribe(res => {
         this.bannerTable.loading = false;
         if (!res.data) {
-          this.bannerTable.errorMessage = ERRMSG.nullMsg;
+          this.bannerTable.lists = [];
         } else if (res.data && res.totalPages) {
           this.bannerTable.totalPage = res.totalPages;
           this.formatData(res.data);
