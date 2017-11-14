@@ -2,13 +2,14 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { TableOption } from '../../../libs/dtable/dtable.entity';
 import { ERRMSG } from '../../_store/static';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html'
 })
 export class AccountComponent implements OnInit {
+  paramsMenu: string;
   containerConfig: ContainerConfig;
   accountTable: TableOption;
   username = '';
@@ -22,11 +23,17 @@ export class AccountComponent implements OnInit {
 
   constructor(
     @Inject('account') private accountService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit() {
+    this.route.params.subscribe(route => {
+      if (route.menu) {
+        this.paramsMenu = route.menu;
+      }
+    });
     this.containerConfig = this.accountService.setAccountConfig();
     this.accountTable = new TableOption({
       titles: this.accountService.setAccountTitles(),
@@ -74,12 +81,12 @@ export class AccountComponent implements OnInit {
 
   gotoHandle(res) {
     if (res.key === 'edit' && res.value.userId) {
-      this.router.navigate(['/account/edit'], {queryParams: {id: res.value.userId}});
+      this.router.navigate(['/account', this.paramsMenu, 'edit'], {queryParams: {id: res.value.userId}});
     }
   }
 
   newData() {
-    this.router.navigate(['/account/edit']);
+    this.router.navigate(['/account', this.paramsMenu, 'edit']);
   }
 
   formatData(data) {

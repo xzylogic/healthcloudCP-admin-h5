@@ -14,6 +14,7 @@ import * as moment from 'moment';
   styleUrls: ['./banner-edit.component.scss']
 })
 export class BannerEditComponent implements OnInit {
+  paramsMenu: any;
   containerConfig: ContainerConfig;
   form: FormGroup;
   id: any;
@@ -30,6 +31,11 @@ export class BannerEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.params.subscribe(route => {
+      if (route.menu) {
+        this.paramsMenu = route.menu;
+      }
+    });
     this.route.queryParams.subscribe(params => {
       if (params.id) {
         this.id = params.id;
@@ -74,7 +80,7 @@ export class BannerEditComponent implements OnInit {
       .subscribe(res => {
         if (res.code === 0) {
           HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {
-            this.router.navigate(['/banner']);
+            this.router.navigate(['/banner', this.paramsMenu]);
           });
         } else {
           HintDialog(res.msg || ERRMSG.saveError, this.dialog);

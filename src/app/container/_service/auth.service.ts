@@ -24,6 +24,7 @@ export class AuthService {
   @select(['main', 'adminId']) adminId: Observable<string>;
   @select(['main', 'hospitalName']) hospitalName: Observable<string>;
   @select(['main', 'departmentName']) departmentName: Observable<string>;
+  @select(['main', 'menuPermission']) menuPermission: Observable<Array<string>>;
 
   constructor(
     private router: Router,
@@ -64,18 +65,21 @@ export class AuthService {
 
   setLocal(data) {
     const secretData: any = {};
+    const menuPermission = this.getPermissionInit(data.menu);
     secretData[md5('sessionId')] = Base64.encode(data.sessionId);
     secretData[md5('userId')] = Base64.encode(data.userId);
     secretData[md5('userName')] = Base64.encode(data.userName);
     secretData[md5('hospitalName')] = Base64.encode(data.hospitalName || '');
     secretData[md5('departmentName')] = Base64.encode(data.departmentName || '');
     secretData[md5('menu')] = Base64.encode(JSON.stringify(data.menu));
+    secretData[md5('menuPermission')] = Base64.encode(JSON.stringify(menuPermission));
     this.setJwt(JSON.stringify(secretData));
     this.mainAction.setAdmin(new Admin({
       id: data.userId,
       name: data.userName,
       hospitalName: data.hospitalName || '',
-      departmentName: data.departmentName || ''
+      departmentName: data.departmentName || '',
+      menuPermission: menuPermission || [],
     }));
     this.mainAction.setTree(data.menu || {});
     this.mainAction.setNav(data.menu && data.menu.children || []);
@@ -89,7 +93,8 @@ export class AuthService {
         id: Base64.decode(secretData[md5('userId')]),
         name: Base64.decode(secretData[md5('userName')]),
         hospitalName: Base64.decode(secretData[md5('hospitalName')]),
-        departmentName: Base64.decode(secretData[md5('departmentName')])
+        departmentName: Base64.decode(secretData[md5('departmentName')]),
+        menuPermission: JSON.parse(Base64.decode(secretData[md5('menuPermission')]))
       })
     );
     if (Base64.decode(secretData[md5('menu')]) && isJSON(Base64.decode(secretData[md5('menu')]))) {
@@ -140,5 +145,32 @@ export class AuthService {
       name = res;
     });
     return name;
+  }
+
+  getMenuPermission(): Array<string> {
+    let menu: Array<string>;
+    this.menuPermission.subscribe(res => {
+      menu = res;
+    });
+    return menu;
+  }
+
+  getPermissionInit(menus): Array<string> {
+    const menuPermissionInit: Array<string> = [];
+    this.getPermission(menus, menuPermissionInit);
+    return menuPermissionInit;
+  }
+
+  getPermission(menus, menuPermissionInit) {
+    if (menus && menus.children && Array.isArray(menus.children)) {
+      menus.children.forEach(obj => {
+        if (obj.permission == 1) {
+          menuPermissionInit.push(obj.parentId);
+        }
+        if (obj.children) {
+          this.getPermission(obj, menuPermissionInit);
+        }
+      });
+    }
   }
 }

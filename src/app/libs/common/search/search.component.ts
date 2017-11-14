@@ -1,9 +1,8 @@
-import { AfterViewInit, Component, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild } from '@angular/core';
-
-export enum SearchType {date, range}
-
+import { AfterViewInit, Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import flatpickr from 'flatpickr';
 import { Mandarin } from 'flatpickr/dist/l10n/zh.js';
+
+export enum SearchType {date, range}
 
 @Component({
   selector: 'app-search',
@@ -39,7 +38,7 @@ import { Mandarin } from 'flatpickr/dist/l10n/zh.js';
   `,
   styleUrls: ['../../dform/component/lib-input/lib-input.scss']
 })
-export class SearchComponent implements OnInit, AfterViewInit {
+export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   @HostBinding('class') hostClass = 'mat-input-container mat-form-field';
   @Input() type: SearchType;
   @Input() label: string;
@@ -47,6 +46,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @ViewChild('date') date: any;
   @ViewChild('range') range: any;
+  datepicker: any;
   SearchType = SearchType;
 
   constructor() {
@@ -56,19 +56,24 @@ export class SearchComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    flatpickr.l10ns.default.firstDayOfWeek = 1;
     if (this.type == this.SearchType.date) {
-      const date = flatpickr(this.date.nativeElement, {
+      this.datepicker = flatpickr(this.date.nativeElement, {
         'locale': Mandarin,
         'defaultDate': this.value || ''
       });
     }
     if (this.type == this.SearchType.range) {
-      const range = flatpickr(this.range.nativeElement, {
+      this.datepicker = flatpickr(this.range.nativeElement, {
         'locale': Mandarin,
         'mode': 'range',
         'defaultDate': this.value || ''
       });
     }
+  }
+
+  ngOnDestroy() {
+    this.datepicker = null;
   }
 
   change() {

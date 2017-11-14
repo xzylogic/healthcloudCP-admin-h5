@@ -1,12 +1,12 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { DFormControlService } from '../../../../libs/dform/_service/form-control.service';
-import { ERRMSG } from '../../../_store/static';
 import { HintDialog } from '../../../../libs/dmodal/dialog.component';
+import { ERRMSG } from '../../../_store/static';
 import * as moment from 'moment';
 
 @Component({
@@ -14,7 +14,12 @@ import * as moment from 'moment';
   templateUrl: './article-home-edit.component.html',
   styleUrls: ['./article-home-edit.component.scss']
 })
-export class ArticleHomeEditComponent implements OnInit {
+export class ArticleHomeEditComponent implements OnInit, OnDestroy {
+  paramsMenu: string;
+  routeSubscribe: any;
+  initSubscribe: any;
+  detailSubscribe: any;
+  saveSubscribe: any;
   containerConfig: ContainerConfig;
   searchStream: Subject<string> = new Subject<string>();
   form: FormGroup;
@@ -33,8 +38,12 @@ export class ArticleHomeEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.routeSubscribe = this.route.params.subscribe(route => {
+      if (route.menu) {
+        this.paramsMenu = route.menu;
+      }
+    });
     this.containerConfig = this.homeService.setArticleHomeEditConfig(false);
-
     this.route.queryParams.subscribe(params => {
       if (params.id) {
         this.id = params.id;
@@ -53,8 +62,24 @@ export class ArticleHomeEditComponent implements OnInit {
       });
   }
 
+  ngOnDestroy() {
+    this.form = null;
+    if (this.routeSubscribe) {
+      this.routeSubscribe.unsubscribe();
+    }
+    if (this.initSubscribe) {
+      this.initSubscribe.unsubscribe();
+    }
+    if (this.detailSubscribe) {
+      this.detailSubscribe.unsubscribe();
+    }
+    if (this.saveSubscribe) {
+      this.saveSubscribe.unsubscribe();
+    }
+  }
+
   getInit(id) {
-    this.homeService.getHomeArticle(id)
+    this.initSubscribe = this.homeService.getHomeArticle(id)
       .subscribe(res => {
         if (res.code === 0 && res.data && res.data[0]) {
           res.data[0].range = moment(res.data[0].startTime || new Date()).format('YYYY-MM-DD HH:mm:ss') +
@@ -71,7 +96,7 @@ export class ArticleHomeEditComponent implements OnInit {
   }
 
   loadData(data) {
-    this.homeService.getArticleTitle(data)
+    this.detailSubscribe = this.homeService.getArticleTitle(data)
       .subscribe(res => {
         if (res.code === 0 && res.data) {
           this.thirdList = res.data;
@@ -97,11 +122,11 @@ export class ArticleHomeEditComponent implements OnInit {
     if (this.id) {
       formData.id = this.id;
     }
-    this.homeService.saveHomeArticle(formData)
+    this.saveSubscribe = this.homeService.saveHomeArticle(formData)
       .subscribe(res => {
         if (res.code === 0) {
           HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {
-            this.router.navigate(['/article-home']);
+            this.router.navigate(['/article-home', this.paramsMenu]);
           });
         } else {
           HintDialog(res.msg || ERRMSG.saveError, this.dialog);

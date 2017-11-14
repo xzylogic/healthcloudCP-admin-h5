@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { TableOption } from '../../../libs/dtable/dtable.entity';
@@ -11,17 +11,24 @@ import { ERRMSG } from '../../_store/static';
   templateUrl: './role.component.html'
 })
 export class RoleComponent implements OnInit {
+  paramsMenu: string;
   containerConfig: ContainerConfig;
   roleTable: TableOption;
 
   constructor(
     @Inject('role') private roleService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit() {
+    this.route.params.subscribe(route => {
+      if (route.menu) {
+        this.paramsMenu = route.menu;
+      }
+    });
     this.containerConfig = this.roleService.setRoleConfig();
     this.roleTable = new TableOption({
       titles: this.roleService.setRoleTitles(),
@@ -55,7 +62,7 @@ export class RoleComponent implements OnInit {
 
   gotoHandle(res) {
     if (res.key === 'edit' && res.value) {
-      this.router.navigate(['/role/edit'], {queryParams: {id: res.value.roleId}});
+      this.router.navigate(['/role', this.paramsMenu, 'edit'], {queryParams: {id: res.value.roleId}});
     }
     if (res.key === 'enableButton' && res.value) {
       HintDialog(`你确定要${res.value.enableButton}角色：${res.value.name}？`, this.dialog).afterClosed()
@@ -68,7 +75,7 @@ export class RoleComponent implements OnInit {
   }
 
   newData() {
-    this.router.navigate(['/role/edit']);
+    this.router.navigate(['/role', this.paramsMenu, 'edit']);
   }
 
   enableMenu(id, flag) {

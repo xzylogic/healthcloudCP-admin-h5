@@ -45,7 +45,8 @@ export class FeedbackService {
       title: '建议反馈',
       subTitle: '建议反馈详情',
       ifHome: false,
-      homeRouter: '/feedback'
+      homeRouter: '/feedback',
+      back: true
     });
   }
 

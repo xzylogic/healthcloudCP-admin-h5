@@ -119,9 +119,7 @@ export class AppointmentComponent implements OnInit {
     )
       .subscribe(res => {
         this.appointmentTable.loading = false;
-        if (res.code === 0 && res.data && res.data.content && res.data.content.length === 0) {
-          this.appointmentTable.errorMessage = ERRMSG.nullMsg;
-        } else if (res.code === 0 && res.data && res.data.content) {
+        if (res.code === 0 && res.data && res.data.content) {
           this.appointmentTable.totalPage = res.data.extras.totalPage || '';
           this.appointmentTable.lists = res.data.content;
           this.formatData(this.appointmentTable.lists, res.data.extras.operation);

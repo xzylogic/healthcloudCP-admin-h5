@@ -43,4 +43,8 @@ export class FeedbackDetailComponent implements OnInit {
         this.errMsg = ERRMSG.netErrMsg;
       });
   }
+
+  back() {
+    history.go(-1);
+  }
 }

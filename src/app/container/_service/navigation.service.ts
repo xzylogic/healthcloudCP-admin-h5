@@ -17,12 +17,4 @@ export class NavigationService {
   initSidebars(path) {
     this.mainAction.initNav({path: path});
   }
-
-  // setCount(tag, group, key) {
-    // this.mainAction.updateNav({key: key, group: group, tag: tag});
-  // }
-
-  // getCount() {
-    // return this.httpService.get(`${this.app.pci.BASE_URL}${PATH.count}`);
-  // }
 }

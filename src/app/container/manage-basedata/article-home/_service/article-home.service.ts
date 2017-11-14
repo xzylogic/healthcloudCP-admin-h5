@@ -67,7 +67,8 @@ export class ArticleHomeService {
       title: '资讯管理',
       subTitle: flag ? '编辑首页资讯' : '新增首页资讯',
       ifHome: false,
-      homeRouter: '/article-home'
+      homeRouter: '/article-home',
+      back: true
     });
   }
 

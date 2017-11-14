@@ -55,7 +55,8 @@ export class RoleService {
       title: '系统管理',
       subTitle: flag ? '编辑角色' : '新增角色',
       ifHome: false,
-      homeRouter: '/role'
+      homeRouter: '/role',
+      back: true
     });
   }
 

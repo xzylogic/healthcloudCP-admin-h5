@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
@@ -12,7 +12,8 @@ import { ERRMSG } from '../_store/static';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+  subscribeUpdate: any;
   loginForm: FormGroup;
   loginLib: FormText[];
   date = new Date();
@@ -32,6 +33,14 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     this.cdr.detectChanges();
+  }
+
+  ngOnDestroy() {
+    if (this.subscribeUpdate) {
+      this.subscribeUpdate.unsubscribe();
+    }
+    this.loginForm = null;
+    this.loginLib = null;
   }
 
   createForm() {
@@ -57,7 +66,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(value) {
     if (value.name && value.password) {
-      this.authService.login(value)
+      this.subscribeUpdate = this.authService.login(value)
         .subscribe(res => {
           if (res && res.code === 0 && res.data) {
             this.authService.setLocal(res.data);

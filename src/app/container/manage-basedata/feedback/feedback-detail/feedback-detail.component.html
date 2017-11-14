@@ -8,7 +8,7 @@
       <li style="padding-bottom: 15px">建议：{{data?.adviceContent}}</li>
       <li style="padding-bottom: 15px">
         <p style="padding: 15px 0">
-          <a mat-raised-button color="primary" [routerLink]="['/feedback']">返回</a>
+          <button mat-raised-button color="primary" (click)="back()">返回</button>
         </p>
       </li>
     </ul>

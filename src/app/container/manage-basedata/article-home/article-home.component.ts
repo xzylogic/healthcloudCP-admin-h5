@@ -3,7 +3,7 @@ import { ContainerConfig } from '../../../libs/common/container/container.compon
 import { TableOption } from '../../../libs/dtable/dtable.entity';
 import { ERRMSG } from '../../_store/static';
 import { MatDialog } from '@angular/material';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HintDialog } from '../../../libs/dmodal/dialog.component';
 
 @Component({
@@ -11,6 +11,7 @@ import { HintDialog } from '../../../libs/dmodal/dialog.component';
   templateUrl: './article-home.component.html'
 })
 export class ArticleHomeComponent implements OnInit {
+  paramsMenu: string;
   containerConfig: ContainerConfig;
   homeArticleTable: TableOption;
   title = '';
@@ -32,11 +33,17 @@ export class ArticleHomeComponent implements OnInit {
   constructor(
     @Inject('home') private homeService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
   ) {
   }
 
   ngOnInit() {
+    this.route.params.subscribe(route => {
+      if (route.menu) {
+        this.paramsMenu = route.menu;
+      }
+    });
     this.containerConfig = this.homeService.setArticleHomeConfig();
     this.homeArticleTable = new TableOption({
       titles: this.homeService.setArticleHomeTable(),
@@ -74,7 +81,7 @@ export class ArticleHomeComponent implements OnInit {
 
   gotoHandle(data) {
     if (data.key === 'edit') {
-      this.router.navigate(['/article-home/edit'], {queryParams: {id: data.value.id}});
+      this.router.navigate(['/article-home', this.paramsMenu, 'edit'], {queryParams: {id: data.value.id}});
     }
     if (data.key === 'detail') {
       HintDialog(`你确定要${data.value.detail}${data.value.title}？`, this.dialog)
@@ -103,7 +110,7 @@ export class ArticleHomeComponent implements OnInit {
   }
 
   newData() {
-    this.router.navigate(['/article-home/edit']);
+    this.router.navigate(['/article-home', this.paramsMenu, 'edit']);
   }
 
   formatData(list) {

@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { TableOption } from '../../../libs/dtable/dtable.entity';
 import { ERRMSG } from '../../_store/static';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { HintDialog } from '../../../libs/dmodal/dialog.component';
 
@@ -11,17 +11,24 @@ import { HintDialog } from '../../../libs/dmodal/dialog.component';
   templateUrl: './article-classify.component.html'
 })
 export class ArticleClassifyComponent implements OnInit {
+  paramsMenu: string;
   containerConfig: ContainerConfig;
   classifyTable: TableOption;
 
   constructor(
     @Inject('classify') private classifyService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit() {
+    this.route.params.subscribe(route => {
+      if (route.menu) {
+        this.paramsMenu = route.menu;
+      }
+    });
     this.containerConfig = this.classifyService.setArticleClassifyConfig();
     this.classifyTable = new TableOption({
       titles: this.classifyService.setArticleClassifyTable(),
@@ -52,7 +59,7 @@ export class ArticleClassifyComponent implements OnInit {
 
   gotoHandle(data) {
     if (data.key === 'edit') {
-      this.router.navigate(['/article-classify/edit'], {queryParams: {id: data.value.id}});
+      this.router.navigate(['/article-classify', this.paramsMenu, 'edit'], {queryParams: {id: data.value.id}});
     }
     if (data.key === 'statusName') {
       HintDialog(`你确定要${data.value.statusName}资讯分类：${data.value.categoryName}？`, this.dialog)
@@ -65,7 +72,7 @@ export class ArticleClassifyComponent implements OnInit {
   }
 
   newData() {
-    this.router.navigate(['/article-classify/edit']);
+    this.router.navigate(['/article-classify', this.paramsMenu, 'edit']);
   }
 
   delClassify(data) {

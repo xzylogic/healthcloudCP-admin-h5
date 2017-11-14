@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { TableOption } from '../../../libs/dtable/dtable.entity';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ERRMSG } from '../../_store/static';
 
@@ -10,6 +10,8 @@ import { ERRMSG } from '../../_store/static';
   templateUrl: './feedback.component.html'
 })
 export class FeedbackComponent implements OnInit {
+  paramsMenu: string;
+  paramsSubscribe: any;
   containerConfig: ContainerConfig;
   feedbackTable: TableOption;
   tel = '';
@@ -18,17 +20,23 @@ export class FeedbackComponent implements OnInit {
   constructor(
     @Inject('feedback') private feedbackService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit() {
-    this.containerConfig = this.feedbackService.setFeedbackConfig();
-    this.feedbackTable = new TableOption({
-      titles: this.feedbackService.setFeedbackTable(),
-      ifPage: true
+    this.paramsSubscribe = this.route.params.subscribe(route => {
+      if (route.menu) {
+        this.paramsMenu = route.menu;
+        this.containerConfig = this.feedbackService.setFeedbackConfig();
+        this.feedbackTable = new TableOption({
+          titles: this.feedbackService.setFeedbackTable(),
+          ifPage: true
+        });
+        this.reset();
+      }
     });
-    this.reset();
   }
 
   reset() {
@@ -64,7 +72,7 @@ export class FeedbackComponent implements OnInit {
 
   gotoHandle(data) {
     if (data.key === 'detail') {
-      this.router.navigate(['/feedback/detail', data.value.id]);
+      this.router.navigate(['feedback', this.paramsMenu, 'detail', data.value.id]);
     }
   }
 

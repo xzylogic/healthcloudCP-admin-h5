@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { select } from '@angular-redux/store';
 import { MatDialog } from '@angular/material';
@@ -14,9 +14,11 @@ import { ERRMSG } from '../_store/static';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss']
 })
-export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
+export class NavigationComponent implements OnInit, OnDestroy {
   @select(['main', 'adminName']) readonly username: Observable<string>;
   @select(['main', 'navigation']) readonly navigation: Observable<Menu[]>;
+  subscribeDialog: any;
+  subscribeUpdate: any;
 
   constructor(
     @Inject('app') public app,
@@ -30,18 +32,8 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
     this.initSidebars();
   }
 
-  ngAfterViewInit() {
-    // const container = document.getElementById('container');
-    // Ps.initialize(container, {
-    //   wheelSpeed: 2,
-    //   wheelPropagation: true,
-    //   suppressScrollX: true
-    // });
-    // Ps.update(container);
-  }
-
   initSidebars() {
-    const path = window.location.pathname.split('/')[1];
+    const path = window.location.pathname;
     this.navService.initSidebars(path);
   }
 
@@ -65,7 +57,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
         order: 1
       })]
     });
-    EditDialog(config, this.dialog).afterClosed().subscribe(result => {
+    this.subscribeDialog = EditDialog(config, this.dialog).afterClosed().subscribe(result => {
       if (result) {
         this.updatePassword(result);
       }
@@ -73,22 +65,29 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   updatePassword(data) {
-    this.authService.updatePassword(data)
+    this.subscribeDialog.unsubscribe();
+    this.subscribeUpdate = this.authService.updatePassword(data)
       .subscribe(res => {
         if (res.code === 0) {
-          HintDialog('修改密码成功!', this.dialog).afterClosed().subscribe(() => {
+          this.subscribeDialog = HintDialog('修改密码成功!', this.dialog).afterClosed().subscribe(() => {
             this.authService.logout();
           });
         } else {
-          HintDialog(res.msg || '修改密码失败~', this.dialog);
+          this.subscribeDialog = HintDialog(res.msg || '修改密码失败~', this.dialog);
         }
       }, err => {
         console.log(err);
-        HintDialog(ERRMSG.netErrMsg, this.dialog);
+        this.subscribeDialog = HintDialog(ERRMSG.netErrMsg, this.dialog);
       });
   }
 
   ngOnDestroy() {
-    console.log('destroy navigation');
+    if (this.subscribeDialog) {
+      this.subscribeDialog.unsubscribe();
+    }
+    if (this.subscribeUpdate) {
+      this.subscribeUpdate.unsubscribe();
+    }
+    console.log('navigation destroy');
   }
 }

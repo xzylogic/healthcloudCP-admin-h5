@@ -14,6 +14,7 @@ import { ERRMSG } from '../../../_store/static';
   styleUrls: ['./account-edit.component.scss']
 })
 export class AccountEditComponent implements OnInit {
+  paramsMenu: string;
   containerConfig: ContainerConfig;
   searchStream: Subject<string> = new Subject<string>();
   form: FormGroup;
@@ -36,6 +37,11 @@ export class AccountEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.params.subscribe(route => {
+      if (route.menu) {
+        this.paramsMenu = route.menu;
+      }
+    });
     this.route.queryParams.subscribe(params => {
       if (params.id) {
         this.id = params.id;
@@ -88,7 +94,7 @@ export class AccountEditComponent implements OnInit {
         .subscribe(res => {
           if (res.code === 0) {
             HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {
-              this.router.navigate(['/account']);
+              this.router.navigate(['/account', this.paramsMenu]);
             });
           } else {
             HintDialog(res.msg || ERRMSG.saveError, this.dialog);

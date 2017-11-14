@@ -14,9 +14,9 @@ export class ArticleDetailComponent implements AfterViewInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ArticleDetailComponent>
   ) {
-    this.option.title = this.data.title || '';
+    this.option.title = this.data.title || '{{ 此处为文章标题 }}';
     this.option.time = this.data.updateTime || new Date();
-    this.option.content = this.data.content || '';
+    this.option.content = this.data.content || '{{ 此处为文章内容 }}';
   }
 
   ngAfterViewInit() {

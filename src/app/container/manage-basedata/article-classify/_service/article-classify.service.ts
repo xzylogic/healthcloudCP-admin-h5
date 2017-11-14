@@ -51,7 +51,8 @@ export class ArticleClassifyService {
       title: '资讯管理',
       subTitle: flag ? '编辑资讯分类' : '新增资讯分类',
       ifHome: false,
-      homeRouter: '/article-classify'
+      homeRouter: '/article-classify',
+      back: true
     });
   }
 

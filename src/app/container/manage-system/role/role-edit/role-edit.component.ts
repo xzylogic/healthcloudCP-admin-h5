@@ -10,6 +10,7 @@ import { ERRMSG } from '../../../_store/static';
   templateUrl: './role-edit.component.html'
 })
 export class RoleEditComponent implements OnInit {
+  paramsMenu: string;
   containerConfig: ContainerConfig;
   form: any;
   errMsg = '';
@@ -24,6 +25,11 @@ export class RoleEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.params.subscribe(route => {
+      if (route.menu) {
+        this.paramsMenu = route.menu;
+      }
+    });
     this.route.queryParams.subscribe(params => {
       this.roleService.getMenu().subscribe(res => {
         if (res.code === 0 && res.data) {
@@ -68,7 +74,7 @@ export class RoleEditComponent implements OnInit {
       .subscribe(res => {
         if (res.code === 0) {
           HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {
-            this.router.navigate(['/role']);
+            this.router.navigate(['/role', this.paramsMenu]);
           });
         } else {
           HintDialog(res.msg || ERRMSG.saveError, this.dialog);

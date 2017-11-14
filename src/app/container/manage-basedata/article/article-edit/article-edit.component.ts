@@ -1,10 +1,10 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { ERRMSG } from '../../../_store/static';
+import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { HintDialog } from '../../../../libs/dmodal/dialog.component';
 import { ShowDetail } from '../article-detail/article-detail.component';
+import { ERRMSG } from '../../../_store/static';
 
 @Component({
   selector: 'app-article-edit',
@@ -18,6 +18,7 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
   errMsg = '';
   form: any;
   classifyList: any;
+  id: any;
 
   constructor(
     @Inject('article') private articleService,
@@ -29,7 +30,7 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.paramsSubscribe = this.route.params.subscribe(route => {
-      if (route.menus) {
+      if (route.menu) {
         this.paramsMenu = route.menu;
         this.queryParamsSubscribe = this.route.queryParams.subscribe(res => {
           if (res.id) {
@@ -37,6 +38,7 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
           } else {
             this.containerConfig = this.articleService.setArticleEditConfig(false, route.menu);
           }
+          this.id = res.id;
           this.setInit(res.id);
         });
       }
@@ -85,7 +87,12 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
             this.classifyList,
             res.data
           );
+        } else {
+          this.errMsg = '获取文章数据错误，请刷新重试！';
         }
+      }, err => {
+        console.log(err);
+        this.errMsg = '获取文章数据出现网络错误，请刷新重试！';
       });
   }
 

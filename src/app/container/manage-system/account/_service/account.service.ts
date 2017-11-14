@@ -41,7 +41,8 @@ export class AccountService {
       title: '系统管理',
       subTitle: flag ? '编辑账号' : '新增账号',
       ifHome: false,
-      homeRouter: '/account'
+      homeRouter: '/account',
+      back: true
     });
   }
 

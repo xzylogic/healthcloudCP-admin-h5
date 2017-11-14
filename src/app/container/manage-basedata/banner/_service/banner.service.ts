@@ -59,7 +59,8 @@ export class BannerService {
       title: '广告管理',
       subTitle: flag ? '编辑banner' : '新增banner',
       ifHome: false,
-      homeRouter: '/banner'
+      homeRouter: '/banner',
+      back: true
     });
   }
 

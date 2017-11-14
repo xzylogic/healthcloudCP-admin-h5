@@ -44,6 +44,7 @@ function handleSetAdminAction(state: IMainState, action: SetAdminAction): IMainS
   stateCopy.adminName = action.payload.name;
   stateCopy.hospitalName = action.payload.hospitalName;
   stateCopy.departmentName = action.payload.departmentName;
+  stateCopy.menuPermission = action.payload.menuPermission;
   return stateCopy;
 }
 
@@ -53,6 +54,7 @@ function handleDelAdminAction(state: IMainState, action: DelAdminAction): IMainS
   stateCopy.adminName = '';
   stateCopy.hospitalName = '';
   stateCopy.departmentName = '';
+  stateCopy.menuPermission = [];
   return stateCopy;
 }
 
@@ -74,7 +76,7 @@ function handleInitNavAction(state: IMainState, action: InitNavAction): IMainSta
     stateCopy.navigation.forEach(obj => {
       if (obj.children && Array.isArray(obj.children)) {
         obj.children.forEach(subObj => {
-          if (subObj.href.split('/')[1] === action.payload.path || subObj.href.split('/')[2] === action.payload.path) {
+          if (action.payload.path.indexOf(subObj.href) > -1) {
             obj.open = true;
           }
         });

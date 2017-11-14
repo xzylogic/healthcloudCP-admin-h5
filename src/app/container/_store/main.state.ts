@@ -21,12 +21,14 @@ export class Admin {
   name: string;
   hospitalName: string;
   departmentName: string;
+  menuPermission: Array<string>;
 
   constructor(obj?: Admin) {
     this.id = obj && obj.id || 0;
     this.name = obj && obj.name || '';
     this.hospitalName = obj && obj.hospitalName || '';
     this.departmentName = obj && obj.departmentName || '';
+    this.menuPermission = obj && obj.menuPermission || [];
   }
 }
 

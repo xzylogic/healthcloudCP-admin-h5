@@ -3,16 +3,16 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { FormBase } from '../_entity/form-base';
 
-const TEL_REGEXP = new RegExp('1[0-9]{10}');
-
-export function validateTel(c: FormControl) {
-  return (TEL_REGEXP.test(c.value)) ? null : {
-    tel: {
-      valid: false,
-      errorMsg: '请输入正确的手机号'
-    }
-  };
-}
+// const TEL_REGEXP = new RegExp('1[0-9]{10}');
+//
+// export function validateTel(c: FormControl) {
+//   return (TEL_REGEXP.test(c.value)) ? null : {
+//     tel: {
+//       valid: false,
+//       errorMsg: '请输入正确的手机号'
+//     }
+//   };
+// }
 
 @Injectable()
 export class DFormControlService {

@@ -102,7 +102,22 @@ export class ArticleService {
    * 配置文章列表title
    * @returns {TableTitle[]}
    */
-  setArticleTable() {
+  setArticleTable(key) {
+    let option = [];
+    if (key) {
+      option = [{
+        key: 'edit',
+        name: '编辑'
+      }, {
+        key: 'detail',
+        name: '预览'
+      }];
+    } else {
+      option = [{
+        key: 'detail',
+        name: '预览'
+      }];
+    }
     return [
       new TableTitle({
         key: 'id',
@@ -125,13 +140,7 @@ export class ArticleService {
         key: '',
         name: '操作',
         controlType: ControlType.buttons,
-        option: [{
-          key: 'edit',
-          name: '编辑'
-        }, {
-          key: 'detail',
-          name: '预览'
-        }]
+        option: option
       }),
     ];
   }

@@ -1,10 +1,10 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { ContainerConfig } from '../../../libs/common/container/container.component';
-import { TableOption } from '../../../libs/dtable/dtable.entity';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { ERRMSG } from '../../_store/static';
+import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { ShowDetail } from './article-detail/article-detail.component';
+import { TableOption } from '../../../libs/dtable/dtable.entity';
+import { ERRMSG } from '../../_store/static';
 
 @Component({
   selector: 'app-article',
@@ -15,12 +15,14 @@ export class ArticleComponent implements OnInit, OnDestroy {
   paramsSubscribe: any;
   containerConfig: ContainerConfig;
   articleTable: TableOption;
-  title = '';
-  queryTime = '';
-  classifyId = '';
-  classifyList: any;
+  title = ''; // 文章标题
+  queryTime = ''; // 时间范围
+  classifyId = ''; // 分类ID
+  classifyList: any; // 文章分类列表
+  permission: boolean;
 
   constructor(
+    @Inject('auth') private auth,
     @Inject('article') private articleService,
     private dialog: MatDialog,
     private router: Router,
@@ -31,10 +33,13 @@ export class ArticleComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.paramsSubscribe = this.route.params.subscribe(route => {
       if (route.menu) {
+        if (this.auth.getMenuPermission().indexOf(route.menu) > -1) {
+          this.permission = true;
+        }
         this.paramsMenu = route.menu;
         this.containerConfig = this.articleService.setArticleConfig(route.menu);
         this.articleTable = new TableOption({
-          titles: this.articleService.setArticleTable(),
+          titles: this.articleService.setArticleTable(this.permission),
           ifPage: true
         });
         this.getClassifyList();
@@ -56,7 +61,12 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.getArticles(0);
   }
 
+  /**
+   * 根据搜索条件获取文章列表
+   * @param page
+   */
   getArticles(page) {
+    // 重置文章列表相关数据
     this.articleTable.reset(page);
     this.articleService.getArticles(
       page, this.articleTable.size,
@@ -67,13 +77,11 @@ export class ArticleComponent implements OnInit, OnDestroy {
     )
       .subscribe(res => {
         this.articleTable.loading = false;
-        if (res.data && res.data.length === 0) {
-          this.articleTable.errorMessage = ERRMSG.nullMsg;
-        } else if (res.data && res.totalPages) {
-          this.articleTable.totalPage = res.totalPages;
+        if (res && res.data) {
+          this.articleTable.totalPage = res.totalPages || 0;
           this.articleTable.lists = res.data;
         } else {
-          this.articleTable.errorMessage = res.msg || ERRMSG.otherMsg;
+          this.articleTable.errorMessage = res && res.msg || ERRMSG.otherMsg;
         }
       }, err => {
         console.log(err);
@@ -82,6 +90,12 @@ export class ArticleComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * 处理 table 中的点击事件
+   * key === edit 跳转到文章编辑页面【/article/:menu/edit】
+   * key === detail 弹出文章详情模态框
+   * @param data
+   */
   gotoHandle(data) {
     if (data.key === 'edit') {
       this.router.navigate(['article', this.paramsMenu, 'edit'], {queryParams: {id: data.value.id}});
@@ -96,10 +110,16 @@ export class ArticleComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * 新增文章 - 跳转到【/article/:menu/edit】页面
+   */
   newData() {
     this.router.navigate(['article', this.paramsMenu, 'edit']);
   }
 
+  /**
+   * 获取文章分类列表
+   */
   getClassifyList() {
     this.articleService.getClassifies()
       .subscribe(res => {
