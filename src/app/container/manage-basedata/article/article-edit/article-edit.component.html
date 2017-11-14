@@ -3,7 +3,7 @@
     <app-form *ngIf="form"
               [formDatas]="form" (formValues)="getValues($event)"
               [optionButton]="'预览文章'" (optionChange)="viewArticle($event)"></app-form>
-    <div *ngIf="!form&&errMsg" class="container-error">
+    <div *ngIf="(!form)&&(!!errMsg)" class="container-error">
       <span>{{errMsg}}</span>
       <button mat-button color="primary" (click)="setInit(id)">点击刷新</button>
     </div>
