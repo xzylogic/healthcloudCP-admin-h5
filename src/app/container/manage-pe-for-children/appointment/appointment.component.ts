@@ -12,6 +12,7 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: './appointment.component.html'
 })
 export class AppointmentComponent implements OnInit {
+  paramsMenu: string;
   containerConfig: ContainerConfig;
   appointmentTable: TableOption;
   @select(['pe-for-children', 'data']) data: Observable<any>;
@@ -55,6 +56,11 @@ export class AppointmentComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.param.params.subscribe(route => {
+      if (route.menu) {
+        this.paramsMenu = route.menu;
+      }
+    });
     this.containerConfig = this.appointmentService.setAppointmentConfig();
     this.appointmentTable = new TableOption({
       titles: this.appointmentService.setAppointmentTitles(),
@@ -136,7 +142,7 @@ export class AppointmentComponent implements OnInit {
         siteId: this.siteId,
         page: this.appointmentTable.currentPage
       });
-      this.router.navigate(['/pe-for-children/appointment/detail', data.value.id]);
+      this.router.navigate(['/pe-for-children/appointment', this.paramsMenu, 'detail', data.value.id]);
     }
   }
 
