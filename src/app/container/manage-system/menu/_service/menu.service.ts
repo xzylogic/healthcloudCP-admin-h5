@@ -22,12 +22,12 @@ export class MenuService {
     return this.http.get(`${this.app.api_url}${PATH.getMenus}`);
   }
 
-  updateMenu(data) {
-    return this.http.post(`${this.app.api_url}${PATH.updateMenu}`, data);
+  updateMenu(data, menu) {
+    return this.http.post(`${this.app.api_url}${PATH.updateMenu}?menuId=${menu}`, data);
   }
 
-  deleteMenu(id) {
-    return this.http.post(`${this.app.api_url}${PATH.deleteMenu}?menuIds=${id}`, {});
+  deleteMenu(id, menu) {
+    return this.http.post(`${this.app.api_url}${PATH.deleteMenu}?menuIds=${id}&menuId=${menu}`, {});
   }
 
   setMenuConfig() {

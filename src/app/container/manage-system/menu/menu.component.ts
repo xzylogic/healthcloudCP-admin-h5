@@ -1,21 +1,24 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { ContainerConfig } from '../../../libs/common/container/container.component';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
+import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { HintDialog } from '../../../libs/dmodal/dialog.component';
 import { ERRMSG } from '../../_store/static';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit, OnDestroy {
   paramsMenu: string; // menuId
   permission: boolean; // 权限 | true 编辑 false 查看
 
   subscribeParams: any;
   subscribeData: any;
+  subscribeSave: any;
+  subscribeDel: any;
+  subscribeDialog: any;
 
   containerConfig: ContainerConfig;
   menuList: any;
@@ -42,6 +45,24 @@ export class MenuComponent implements OnInit {
     });
     this.containerConfig = this.menuService.setMenuConfig();
     this.getMenus();
+  }
+
+  ngOnDestroy() {
+    if (this.subscribeParams) {
+      this.subscribeParams.unsubscribe();
+    }
+    if (this.subscribeData) {
+      this.subscribeData.unsubscribe();
+    }
+    if (this.subscribeSave) {
+      this.subscribeSave.unsubscribe();
+    }
+    if (this.subscribeDel) {
+      this.subscribeDel.unsubscribe();
+    }
+    if (this.subscribeDialog) {
+      this.subscribeDialog.unsubscribe();
+    }
   }
 
   getMenus() {
@@ -119,7 +140,10 @@ export class MenuComponent implements OnInit {
 
   deleteMenu(menuId, menuName) {
     if (this.permission) {
-      HintDialog(`您确定要删除菜单：${menuName}?`, this.dialog).afterClosed().subscribe(res => {
+      this.subscribeDialog = HintDialog(
+        `您确定要删除菜单：${menuName}?`,
+        this.dialog
+      ).afterClosed().subscribe(res => {
         if (res && res.key === 'confirm') {
           this.deleteAction(menuId);
         }
@@ -128,13 +152,12 @@ export class MenuComponent implements OnInit {
   }
 
   deleteAction(menuId) {
-    this.menuService.deleteMenu(menuId)
+    this.subscribeDel = this.menuService.deleteMenu(menuId, this.paramsMenu)
       .subscribe(res => {
         if (res.code === 0) {
-          HintDialog('菜单删除成功！重新登录后可查看菜单变化～', this.dialog).afterClosed().subscribe(() => {
-            this.form = null;
-            this.getMenus();
-          });
+          HintDialog('菜单删除成功！重新登录后可查看菜单变化～', this.dialog);
+          this.form = null;
+          this.getMenus();
         } else {
           HintDialog(res.msg || ERRMSG.saveError, this.dialog);
         }
@@ -150,13 +173,12 @@ export class MenuComponent implements OnInit {
     if (menuId) {
       value.menuId = menuId;
     }
-    this.menuService.updateMenu(value)
+    this.subscribeSave = this.menuService.updateMenu(value, this.paramsMenu)
       .subscribe(res => {
         if (res.code === 0) {
-          HintDialog('菜单保存成功！重新登录后可查看菜单变化～', this.dialog).afterClosed().subscribe(() => {
-            this.form = null;
-            this.getMenus();
-          });
+          HintDialog('菜单保存成功！重新登录后可查看菜单变化～', this.dialog);
+          this.form = null;
+          this.getMenus();
         } else {
           HintDialog(res.msg || ERRMSG.saveError, this.dialog);
         }

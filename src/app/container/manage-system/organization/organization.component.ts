@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { MatDialog } from '@angular/material';
 import { HintDialog } from '../../../libs/dmodal/dialog.component';
@@ -10,12 +10,18 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './organization.component.html',
   styleUrls: ['./organization.component.scss']
 })
-export class OrganizationComponent implements OnInit {
+export class OrganizationComponent implements OnInit, OnDestroy {
   paramsMenu: string; // menuId
   permission: boolean; // 权限 | true 编辑 false 查看
 
   subscribeParams: any;
   subscribeData: any;
+  subscribeSave1: any;
+  subscribeSave2: any;
+  subscribeSave3: any;
+  subscribeOrg1: any;
+  subscribeOrg2: any;
+  subscribeOrg3: any;
 
   containerConfig: ContainerConfig;
   menuList: any;
@@ -45,6 +51,33 @@ export class OrganizationComponent implements OnInit {
     });
     this.containerConfig = this.organizationService.setOrganizationConfig();
     this.getMenus();
+  }
+
+  ngOnDestroy() {
+    if (this.subscribeParams) {
+      this.subscribeParams.unsubscribe();
+    }
+    if (this.subscribeData) {
+      this.subscribeData.unsubscribe();
+    }
+    if (this.subscribeSave1) {
+      this.subscribeSave1.unsubscribe();
+    }
+    if (this.subscribeSave2) {
+      this.subscribeSave2.unsubscribe();
+    }
+    if (this.subscribeSave3) {
+      this.subscribeSave3.unsubscribe();
+    }
+    if (this.subscribeOrg1) {
+      this.subscribeOrg1.unsubscribe();
+    }
+    if (this.subscribeOrg2) {
+      this.subscribeOrg2.unsubscribe();
+    }
+    if (this.subscribeOrg3) {
+      this.subscribeOrg3.unsubscribe();
+    }
   }
 
   getMenus() {
@@ -117,7 +150,7 @@ export class OrganizationComponent implements OnInit {
       this.unActive(this.menuList, 0);
       this.form = null;
       this.title = '编辑中心';
-      this.organizationService.getCenter(menu.menuId)
+      this.subscribeOrg1 = this.organizationService.getCenter(menu.menuId)
         .subscribe(res => {
           if (res.data && res.code === 0) {
             res.data.parentId = menu.parentId;
@@ -146,7 +179,7 @@ export class OrganizationComponent implements OnInit {
       this.unActive(this.menuList, 0);
       this.form = null;
       this.title = '编辑站点';
-      this.organizationService.getSite(menu.menuId)
+      this.subscribeOrg2 = this.organizationService.getSite(menu.menuId)
         .subscribe(res => {
           if (res.data && res.code === 0) {
             res.data.parentId = menu.parentId;
@@ -174,7 +207,7 @@ export class OrganizationComponent implements OnInit {
       this.unActive(this.menuList, 0);
       this.form = null;
       this.title = '编辑科室';
-      this.organizationService.getDepartment(menu.menuId)
+      this.subscribeOrg3 = this.organizationService.getDepartment(menu.menuId)
         .subscribe(res => {
           if (res.data && res.code === 0) {
             res.data.parentId = menu.parentId;
@@ -189,13 +222,12 @@ export class OrganizationComponent implements OnInit {
     if (value.status == 1) {
       delete value.status;
       delete value.picture;
-      this.organizationService.updateCenter(value)
+      this.subscribeSave1 = this.organizationService.updateCenter(value, this.paramsMenu)
         .subscribe(res => {
           if (res.code === 0) {
-            HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {
-              this.form = null;
-              this.getMenus();
-            });
+            HintDialog(ERRMSG.saveSuccess, this.dialog);
+            this.form = null;
+            this.getMenus();
           } else {
             HintDialog(res.msg || ERRMSG.saveError, this.dialog);
           }
@@ -207,13 +239,12 @@ export class OrganizationComponent implements OnInit {
     if (value.status == 2) {
       delete value.status;
       delete value.picture;
-      this.organizationService.updateSite(value)
+      this.subscribeSave2 = this.organizationService.updateSite(value, this.paramsMenu)
         .subscribe(res => {
           if (res.code === 0) {
-            HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {
-              this.form = null;
-              this.getMenus();
-            });
+            HintDialog(ERRMSG.saveSuccess, this.dialog);
+            this.form = null;
+            this.getMenus();
           } else {
             HintDialog(res.msg || ERRMSG.saveError, this.dialog);
           }
@@ -225,13 +256,12 @@ export class OrganizationComponent implements OnInit {
     if (value.status == 3) {
       delete value.status;
       delete value.picture;
-      this.organizationService.updateDepartment(value)
+      this.subscribeSave3 = this.organizationService.updateDepartment(value, this.paramsMenu)
         .subscribe(res => {
           if (res.code === 0) {
-            HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {
-              this.form = null;
-              this.getMenus();
-            });
+            HintDialog(ERRMSG.saveSuccess, this.dialog);
+            this.form = null;
+            this.getMenus();
           } else {
             HintDialog(res.msg || ERRMSG.saveError, this.dialog);
           }

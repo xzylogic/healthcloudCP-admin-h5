@@ -36,16 +36,16 @@ export class OrganizationService {
     return this.http.get(`${this.app.api_url}${PATH.getMenuAll}`);
   }
 
-  updateCenter(data) {
-    return this.http.post(`${this.app.api_url}${PATH.updateCenter}`, data);
+  updateCenter(data, menu) {
+    return this.http.post(`${this.app.api_url}${PATH.updateCenter}?menuId=${menu}`, data);
   }
 
-  updateSite(data) {
-    return this.http.post(`${this.app.api_url}${PATH.updateSite}`, data);
+  updateSite(data, menu) {
+    return this.http.post(`${this.app.api_url}${PATH.updateSite}?menuId=${menu}`, data);
   }
 
-  updateDepartment(data) {
-    return this.http.post(`${this.app.api_url}${PATH.updateDepartment}`, data);
+  updateDepartment(data, menu) {
+    return this.http.post(`${this.app.api_url}${PATH.updateDepartment}?menuId=${menu}`, data);
   }
 
   getCenter(id) {

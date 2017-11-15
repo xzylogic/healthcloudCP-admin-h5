@@ -83,7 +83,10 @@
         </div>
       </mat-tab>
       <mat-tab label="病史信息">
-        <div class="tab-content" *ngIf="medicalHistoryInfo">
+        <div class="tab-content" *ngIf="!medicalHistoryInfo||(medicalHistoryInfo&&medicalHistoryInfo.length==0)">
+          <p class="container-error">暂无病史信息</p>
+        </div>
+        <div class="tab-content" *ngIf="medicalHistoryInfo&&medicalHistoryInfo.length!=0">
           <div class="grid-container">
             <div class="row history" *ngFor="let info of medicalHistoryInfo">
               <div class="col-1">
