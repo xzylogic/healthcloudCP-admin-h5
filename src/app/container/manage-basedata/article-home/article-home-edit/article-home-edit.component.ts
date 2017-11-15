@@ -122,7 +122,7 @@ export class ArticleHomeEditComponent implements OnInit, OnDestroy {
     if (this.id) {
       formData.id = this.id;
     }
-    this.saveSubscribe = this.homeService.saveHomeArticle(formData)
+    this.saveSubscribe = this.homeService.saveHomeArticle(formData, this.paramsMenu)
       .subscribe(res => {
         if (res.code === 0) {
           HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {

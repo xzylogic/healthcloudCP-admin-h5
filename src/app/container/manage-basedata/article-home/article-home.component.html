@@ -1,5 +1,5 @@
 <app-container [config]="containerConfig">
-  <div class="addition">
+  <div class="addition" *ngIf="permission">
     <button mat-raised-button (click)="newData()">添加首页资讯</button>
   </div>
   <div class="content">

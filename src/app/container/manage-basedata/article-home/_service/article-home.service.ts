@@ -45,12 +45,12 @@ export class ArticleHomeService {
     return this.http.get(`${this.app.api_url}${PATH.getHomeArticle}?id=${id}`);
   }
 
-  changeStatus(id, status) {
-    return this.http.get(`${this.app.api_url}${PATH.changeStatus}?id=${id}&isVisable=${status}`);
+  changeStatus(id, status, menu) {
+    return this.http.get(`${this.app.api_url}${PATH.changeStatus}?id=${id}&isVisable=${status}&menuId=${menu}`);
   }
 
-  saveHomeArticle(data) {
-    return this.http.post(`${this.app.api_url}${PATH.saveHomeArticle}`, data);
+  saveHomeArticle(data, menu) {
+    return this.http.post(`${this.app.api_url}${PATH.saveHomeArticle}?menuId=${menu}`, data);
   }
 
   setArticleHomeConfig() {
@@ -72,8 +72,8 @@ export class ArticleHomeService {
     });
   }
 
-  setArticleHomeTable() {
-    return [
+  setArticleHomeTable(flag) {
+    const Titles = [
       new TableTitle({
         key: 'rank',
         name: '排序'
@@ -95,30 +95,53 @@ export class ArticleHomeService {
         name: '结束时间段',
       }),
       new TableTitle({
-        key: 'recommend',
+        key: 'isRecommend',
         name: '是否推荐',
+        controlType: ControlType.pipe,
+        option: {
+          key: [1, 0],
+          value: ['推荐', '不推荐']
+        }
       }),
       new TableTitle({
-        key: 'statusName',
+        key: 'status',
         name: '时间状态',
+        controlType: ControlType.pipe,
+        option: {
+          key: [1, 2, 3],
+          value: ['未开始', '进行中', '已结束']
+        }
       }),
       new TableTitle({
-        key: 'visibleName',
+        key: 'isVisable',
         name: '状态',
-      }),
-      new TableTitle({
-        key: '',
-        name: '操作',
-        controlType: ControlType.buttons,
-        option: [{
-          key: 'edit',
-          name: '编辑'
-        }, {
-          key: 'detail',
-          name: ''
-        }]
-      }),
+        controlType: ControlType.pipe,
+        option: {
+          key: [1, 0],
+          value: ['已下线', '已上线']
+        }
+      })
     ];
+    if (flag) {
+      Titles.push(
+        new TableTitle({
+          key: '',
+          name: '操作',
+          controlType: ControlType.buttons,
+          pipe: {
+            key: [0, 1],
+            value: ['下线', '上线']
+          },
+          option: [{
+            key: 'edit',
+            name: '编辑'
+          }, {
+            key: 'isVisable',
+            name: ''
+          }]
+        }));
+    }
+    return Titles;
   }
 
   setArticleHomeForm(data?): FormBase<any>[] {

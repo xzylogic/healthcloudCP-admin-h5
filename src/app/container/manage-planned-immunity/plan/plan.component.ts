@@ -250,17 +250,19 @@ export class PlanComponent implements OnInit {
         }
       });
     }
-    this.siteId = '';
-    const site = [{menuId: '', name: '无'}];
-    this.communityList.forEach(obj => {
-      if (obj.parentId === data.value && obj.type == 2) {
-        site.push(obj);
+    if (data.value) {
+      this.siteId = '';
+      const site = [{menuId: '', name: '无'}];
+      this.communityList.forEach(obj => {
+        if (obj.parentId === data.value && obj.type == 2) {
+          site.push(obj);
+        }
+      });
+      if (site.length !== 1) {
+        site.splice(0, 1);
       }
-    });
-    if (site.length !== 1) {
-      site.splice(0, 1);
+      this.siteList = site;
     }
-    this.siteList = site;
   }
 
   siteChange(data) {

@@ -70,7 +70,7 @@ export class RoleEditComponent implements OnInit {
       formData.menuIds = data.menuIds.join(',');
     }
     formData.name = data.name;
-    this.roleService.updateRole(formData)
+    this.roleService.updateRole(formData, this.paramsMenu)
       .subscribe(res => {
         if (res.code === 0) {
           HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {

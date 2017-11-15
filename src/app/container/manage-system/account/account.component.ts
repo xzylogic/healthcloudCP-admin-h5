@@ -1,27 +1,35 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { TableOption } from '../../../libs/dtable/dtable.entity';
 import { ERRMSG } from '../../_store/static';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html'
 })
-export class AccountComponent implements OnInit {
-  paramsMenu: string;
+export class AccountComponent implements OnInit, OnDestroy {
+  paramsMenu: string; // menuId
+  permission: boolean; // 权限 | true 编辑 false 查看
+
+  subscribeParams: any;
+  subscribeData: any;
+
   containerConfig: ContainerConfig;
   accountTable: TableOption;
+
   username = '';
   telephone = '';
   centerId = '';
   siteId = '';
+
   centerList: Array<any>;
   siteList: Array<any>;
   departmentList: Array<any>;
   communityList: Array<any>;
 
   constructor(
+    @Inject('auth') private auth,
     @Inject('account') private accountService,
     private router: Router,
     private route: ActivatedRoute
@@ -29,18 +37,30 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(route => {
+    this.subscribeParams = this.route.params.subscribe(route => {
       if (route.menu) {
+        if (this.auth.getMenuPermission().indexOf(route.menu) > -1) {
+          this.permission = true;
+        }
         this.paramsMenu = route.menu;
+        this.accountTable = new TableOption({
+          titles: this.accountService.setAccountTitles(this.permission),
+          ifPage: true
+        });
       }
     });
     this.containerConfig = this.accountService.setAccountConfig();
-    this.accountTable = new TableOption({
-      titles: this.accountService.setAccountTitles(),
-      ifPage: true
-    });
     this.getCommunityAll();
     this.getAccounts(0);
+  }
+
+  ngOnDestroy() {
+    if (this.subscribeParams) {
+      this.subscribeParams.unsubscribe();
+    }
+    if (this.subscribeData) {
+      this.subscribeData.unsubscribe();
+    }
   }
 
   search() {
@@ -60,15 +80,17 @@ export class AccountComponent implements OnInit {
 
   getAccounts(page: number) {
     this.accountTable.reset(page);
-    this.accountService.getAccounts(page, this.accountTable.size, this.username, this.telephone, this.siteId || this.centerId)
+    this.subscribeData = this.accountService.getAccounts(
+      page, this.accountTable.size,
+      this.username, this.telephone,
+      this.siteId || this.centerId
+    )
       .subscribe(res => {
         this.accountTable.loading = false;
-        if (res.code === 0 && res.data && res.data.data && res.data.data.length === 0) {
-          this.accountTable.errorMessage = ERRMSG.nullMsg;
-        } else if (res.code === 0 && res.data && res.data.data) {
+        if (res.code === 0 && res.data && res.data.data) {
           this.accountTable.totalPage = res.data.totalPages;
+          this.formatData(res.data.data);
           this.accountTable.lists = res.data.data;
-          this.formatData(this.accountTable.lists);
         } else {
           this.accountTable.errorMessage = res.msg || ERRMSG.otherMsg;
         }
@@ -93,7 +115,6 @@ export class AccountComponent implements OnInit {
     if (Array.isArray(data)) {
       data.forEach(obj => {
         obj.roleName = obj.roleList[0] && obj.roleList[0].name || '';
-        obj.status = obj.delFlag == 1 ? '禁用' : '启用';
       });
     }
   }
@@ -150,16 +171,18 @@ export class AccountComponent implements OnInit {
   }
 
   centerChange(data) {
-    this.siteId = '';
-    const site = [{menuId: '', name: '无'}];
-    this.communityList.forEach(obj => {
-      if (obj.parentId === data.value && obj.type == 2) {
-        site.push(obj);
+    if (data.value) {
+      this.siteId = '';
+      const site = [{menuId: '', name: '无'}];
+      this.communityList.forEach(obj => {
+        if (obj.parentId === data.value && obj.type == 2) {
+          site.push(obj);
+        }
+      });
+      if (site.length !== 1) {
+        site.splice(0, 1);
       }
-    });
-    if (site.length !== 1) {
-      site.splice(0, 1);
+      this.siteList = site;
     }
-    this.siteList = site;
   }
 }

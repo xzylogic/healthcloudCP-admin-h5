@@ -62,8 +62,8 @@ export class AccountService {
     return this.http.get(`${this.app.api_url}${PATH.accountDetail}?userId=${id}`);
   }
 
-  updateAccount(data, roleIds, menuId) {
-    return this.http.post(`${this.app.api_url}${PATH.updateAccount}?roleIds=${roleIds}&menuId=${menuId}`, data);
+  updateAccount(data, roleIds, menuId, menu) {
+    return this.http.post(`${this.app.api_url}${PATH.updateAccount}?roleIds=${roleIds}&menuId=${menuId}&jmenuId=${menu}`, data);
   }
 
   getValid(name, userId) {
@@ -88,12 +88,12 @@ export class AccountService {
     return this.http.get(`${this.app.api_url}${PATH.getCommunityAll}?userId=${this.auth.getAdminId()}`);
   }
 
-  resetPwd(id) {
-    return this.http.post(`${this.app.api_url}${PATH.resetPwd}`, {userId: id, password: 123456});
+  resetPwd(id, menu) {
+    return this.http.post(`${this.app.api_url}${PATH.resetPwd}?menuId=${menu}`, {userId: id, password: 123456});
   }
 
-  setAccountTitles() {
-    return [
+  setAccountTitles(flag) {
+    const Titles = [
       new TableTitle({
         name: '序号',
         key: '',
@@ -121,18 +121,27 @@ export class AccountService {
       }),
       new TableTitle({
         name: '状态',
-        key: 'status'
-      }),
-      new TableTitle({
-        name: '操作',
-        key: '',
-        controlType: ControlType.buttons,
-        option: [{
-          key: 'edit',
-          name: '编辑'
-        }]
-      }),
+        key: 'delFlag',
+        controlType: ControlType.pipe,
+        option: {
+          key: [1, 0],
+          value: ['禁用', '启用']
+        }
+      })
     ];
+    if (flag) {
+      Titles.push(
+        new TableTitle({
+          name: '操作',
+          key: '',
+          controlType: ControlType.buttons,
+          option: [{
+            key: 'edit',
+            name: '编辑'
+          }]
+        }));
+    }
+    return Titles;
   }
 
   setAccountForm(data?): FormBase<any>[] {

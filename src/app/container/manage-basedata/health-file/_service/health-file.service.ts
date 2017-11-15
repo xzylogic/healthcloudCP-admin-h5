@@ -18,22 +18,26 @@ export class HealthFileService {
   }
 
   getBasicInfo(card) {
-    return this.http.get(`${this.app.base}json/health1.json`);
+    // return this.http.get(`${this.app.base}json/health1.json`);
+    return this.http.get(`${this.app.api_url}${PATH.getBasicInfo}?personcard=110221194508277729`);
     // return this.http.get(`${this.app.api_url}${PATH.getBasicInfo}?personcard=${card}`);
   }
 
   getHospitalizationInfo(card) {
-    return this.http.get(`${this.app.base}json/health3.json`);
+    // return this.http.get(`${this.app.base}json/health3.json`);
+    return this.http.get(`${this.app.api_url}${PATH.getHospitalizationInfo}?personcard=110221194508277729`);
     // return this.http.get(`${this.app.api_url}${PATH.getHospitalizationInfo}?personcard=${card}`);
   }
 
   getMedicalHistoryInfo(card) {
-    return this.http.get(`${this.app.base}json/health4.json`);
+    // return this.http.get(`${this.app.base}json/health4.json`);
+    return this.http.get(`${this.app.api_url}${PATH.getMedicalHistoryInfo}?personcard=110221194508277729`);
     // return this.http.get(`${this.app.api_url}${PATH.getMedicalHistoryInfo}?personcard=${card}`);
   }
 
   getOutpatientInfo(card) {
-    return this.http.get(`${this.app.base}json/health2.json`);
+    // return this.http.get(`${this.app.base}json/health2.json`);
+    return this.http.get(`${this.app.api_url}${PATH.getOutpatientInfo}?personcard=110221194508277729`);
     // return this.http.get(`${this.app.api_url}${PATH.getOutpatientInfo}?personcard=${card}`);
   }
 

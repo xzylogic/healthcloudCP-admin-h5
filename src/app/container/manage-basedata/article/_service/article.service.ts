@@ -64,9 +64,10 @@ export class ArticleService {
   /**
    * 新增/编辑文章详情
    * @param data
+   * @param menu
    */
-  saveArticle(data) {
-    return this.http.post(`${this.app.api_url}${PATH.saveArticle}`, data);
+  saveArticle(data, menu) {
+    return this.http.post(`${this.app.api_url}${PATH.saveArticle}?menuId=${menu}`, data);
   }
 
   /**

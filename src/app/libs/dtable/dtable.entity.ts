@@ -3,27 +3,21 @@ export enum ControlType { text, image, button, date, buttons, index, maxtext, pi
 export class TableTitle {
   name: string; // 表头标题
   key: string; // 取值key
-  minwidth: number; // 最小宽度
-  maxwidth: number; // 最大宽度
-  controlType: ControlType; // 类型
-  option: any; // 附加选项
-  align: string;
+  minwidth?: number; // 最小宽度
+  maxwidth?: number; // 最大宽度
+  controlType?: ControlType; // 类型
+  option?: any; // 附加选项
+  pipe?: any; // 附加选项
+  align?: string;
 
-  constructor(obj: {
-    name: string,
-    key: string,
-    minwidth?: number,
-    maxwidth?: number,
-    controlType?: ControlType,
-    option?: any
-    align?: string
-  }) {
+  constructor(obj: TableTitle) {
     this.name = obj && obj.name;
     this.key = obj && obj.key;
     this.minwidth = obj && obj.minwidth || null;
     this.maxwidth = obj && obj.maxwidth || null;
     this.controlType = obj && obj.controlType || ControlType.text;
     this.option = obj && obj.option || null;
+    this.pipe = obj && obj.pipe || {};
     this.align = obj && obj.align || 'center';
   }
 }

@@ -33,8 +33,8 @@ export class ArticleClassifyService {
     return this.http.post(`${this.app.api_url}${PATH.saveClassify}`, data);
   }
 
-  delClassify(id, flag) {
-    return this.http.delete(`${this.app.api_url}${PATH.delClassify}?id=${id}&isVisable=${flag}`);
+  delClassify(id, flag, menu) {
+    return this.http.delete(`${this.app.api_url}${PATH.delClassify}?id=${id}&isVisable=${flag}&menuId=${menu}`);
   }
 
   setArticleClassifyConfig() {
@@ -56,8 +56,8 @@ export class ArticleClassifyService {
     });
   }
 
-  setArticleClassifyTable() {
-    return [
+  setArticleClassifyTable(flag) {
+    const Titles = [
       new TableTitle({
         key: 'rank',
         name: '排序'
@@ -71,22 +71,35 @@ export class ArticleClassifyService {
         name: '更新时间'
       }),
       new TableTitle({
-        key: 'status',
-        name: '是否启用'
-      }),
-      new TableTitle({
-        key: '',
-        name: '操作',
-        controlType: ControlType.buttons,
-        option: [{
-          key: 'edit',
-          name: '编辑'
-        }, {
-          key: 'statusName',
-          name: ''
-        }]
-      }),
+        key: 'isVisable',
+        name: '是否启用',
+        controlType: ControlType.pipe,
+        option: {
+          key: [0, 1],
+          value: ['启用', '禁用']
+        }
+      })
     ];
+    if (flag) {
+      Titles.push(
+        new TableTitle({
+          key: '',
+          name: '操作',
+          controlType: ControlType.buttons,
+          pipe: {
+            key: [1, 0],
+            value: ['启用', '禁用']
+          },
+          option: [{
+            key: 'edit',
+            name: '编辑'
+          }, {
+            key: 'isVisable',
+            name: ''
+          }]
+        }));
+    }
+    return Titles;
   }
 
   setArticleClassifyForm(data?) {

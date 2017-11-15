@@ -64,8 +64,8 @@ export class BannerService {
     });
   }
 
-  setBannerTable() {
-    return [
+  setBannerTable(flag) {
+    const Titles = [
       new TableTitle({
         key: 'sequence',
         name: '排序',
@@ -92,22 +92,35 @@ export class BannerService {
         name: '显示结束时间'
       }),
       new TableTitle({
-        key: 'status',
-        name: '是否显示'
-      }),
-      new TableTitle({
-        key: '',
-        name: '操作',
-        controlType: ControlType.buttons,
-        option: [{
-          key: 'edit',
-          name: '编辑'
-        }, {
-          key: 'statusName',
-          name: ''
-        }]
-      }),
+        key: 'delFlag',
+        name: '是否显示',
+        controlType: ControlType.pipe,
+        option: {
+          key: [0, 1],
+          value: ['显示', '不显示']
+        }
+      })
     ];
+    if (flag) {
+      Titles.push(
+        new TableTitle({
+          key: '',
+          name: '操作',
+          controlType: ControlType.buttons,
+          pipe: {
+            key: [1, 0],
+            value: ['显示', '不显示']
+          },
+          option: [{
+            key: 'edit',
+            name: '编辑'
+          }, {
+            key: 'delFlag',
+            name: ''
+          }]
+        }));
+    }
+    return Titles;
   }
 
   setBannerForm(data?): FormBase<any>[] {

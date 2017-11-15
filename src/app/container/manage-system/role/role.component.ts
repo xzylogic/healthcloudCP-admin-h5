@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
@@ -10,12 +10,21 @@ import { ERRMSG } from '../../_store/static';
   selector: 'app-role',
   templateUrl: './role.component.html'
 })
-export class RoleComponent implements OnInit {
-  paramsMenu: string;
+export class RoleComponent implements OnInit, OnDestroy {
+  paramsMenu: string; // menuId
+  permission: boolean; // 权限 | true 编辑 false 查看
+
+  subscribeParams: any;
+  subscribeData: any;
+  subscribeDialog: any;
+  subscribeHDialog: any;
+  subscribeDel: any;
+
   containerConfig: ContainerConfig;
   roleTable: TableOption;
 
   constructor(
+    @Inject('auth') private auth,
     @Inject('role') private roleService,
     private dialog: MatDialog,
     private router: Router,
@@ -24,17 +33,38 @@ export class RoleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(route => {
+    this.subscribeParams = this.route.params.subscribe(route => {
       if (route.menu) {
+        if (this.auth.getMenuPermission().indexOf(route.menu) > -1) {
+          this.permission = true;
+        }
         this.paramsMenu = route.menu;
+        this.roleTable = new TableOption({
+          titles: this.roleService.setRoleTitles(this.permission),
+          ifPage: false
+        });
       }
     });
     this.containerConfig = this.roleService.setRoleConfig();
-    this.roleTable = new TableOption({
-      titles: this.roleService.setRoleTitles(),
-      ifPage: false
-    });
     this.reset();
+  }
+
+  ngOnDestroy() {
+    if (this.subscribeParams) {
+      this.subscribeParams.unsubscribe();
+    }
+    if (this.subscribeData) {
+      this.subscribeData.unsubscribe();
+    }
+    if (this.subscribeDialog) {
+      this.subscribeDialog.unsubscribe();
+    }
+    if (this.subscribeHDialog) {
+      this.subscribeHDialog.unsubscribe();
+    }
+    if (this.subscribeDel) {
+      this.subscribeDel.unsubscribe();
+    }
   }
 
   reset() {
@@ -44,11 +74,10 @@ export class RoleComponent implements OnInit {
 
   getRoles() {
     this.roleTable.reset();
-    this.roleService.getRoles(this.roleTable.queryKey)
+    this.subscribeData = this.roleService.getRoles(this.roleTable.queryKey)
       .subscribe(res => {
         this.roleTable.loading = false;
         if (res.code === 0 && res.data) {
-          this.formatData(res.data);
           this.roleTable.lists = res.data;
         } else {
           this.roleTable.errorMessage = res.msg || ERRMSG.otherMsg;
@@ -64,13 +93,15 @@ export class RoleComponent implements OnInit {
     if (res.key === 'edit' && res.value) {
       this.router.navigate(['/role', this.paramsMenu, 'edit'], {queryParams: {id: res.value.roleId}});
     }
-    if (res.key === 'enableButton' && res.value) {
-      HintDialog(`你确定要${res.value.enableButton}角色：${res.value.name}？`, this.dialog).afterClosed()
-        .subscribe(result => {
-          if (result && result.key === 'confirm') {
-            this.enableMenu(res.value.roleId, res.value.delFlag);
-          }
-        });
+    if (res.key === 'delFlag' && res.value) {
+      this.subscribeHDialog = HintDialog(
+        `你确定要${res.value.delFlag == 0 ? '禁用' : '启用'}角色：${res.value.name}？`,
+        this.dialog
+      ).afterClosed().subscribe(result => {
+        if (result && result.key === 'confirm') {
+          this.enableMenu(res.value.roleId, res.value.delFlag);
+        }
+      });
     }
   }
 
@@ -79,7 +110,7 @@ export class RoleComponent implements OnInit {
   }
 
   enableMenu(id, flag) {
-    this.roleService.enableRole(id, flag == 0 ? 1 : 0)
+    this.subscribeDel = this.roleService.enableRole(id, flag == 0 ? 1 : 0, this.paramsMenu)
       .subscribe(res => {
         if (res.code === 0) {
           HintDialog(res.msg || '操作成功！', this.dialog);
@@ -91,17 +122,5 @@ export class RoleComponent implements OnInit {
         console.log(err);
         HintDialog(ERRMSG.netErrMsg, this.dialog);
       });
-  }
-
-  formatData(data) {
-    data.forEach(obj => {
-      if (obj.delFlag == 0) {
-        obj.enable = '启用';
-        obj.enableButton = '禁用';
-      } else if (obj.delFlag == 1) {
-        obj.enable = '禁用';
-        obj.enableButton = '启用';
-      }
-    });
   }
 }

@@ -33,12 +33,12 @@ export class RoleService {
     return this.http.get(`${this.app.api_url}${PATH.getMenu}`);
   }
 
-  updateRole(data) {
-    return this.http.post(`${this.app.api_url}${PATH.updateRole}`, data);
+  updateRole(data, menu) {
+    return this.http.post(`${this.app.api_url}${PATH.updateRole}?menuId=${menu}`, data);
   }
 
-  enableRole(ids, flag) {
-    return this.http.get(`${this.app.api_url}${PATH.enableRole}?roleIds=${ids}&delFlag=${flag}`);
+  enableRole(ids, flag, menu) {
+    return this.http.get(`${this.app.api_url}${PATH.enableRole}?roleIds=${ids}&delFlag=${flag}&menuId=${menu}`);
   }
 
   setRoleConfig() {
@@ -60,8 +60,8 @@ export class RoleService {
     });
   }
 
-  setRoleTitles() {
-    return [
+  setRoleTitles(flag) {
+    const Titles = [
       new TableTitle({
         name: 'NO.',
         key: '',
@@ -73,25 +73,38 @@ export class RoleService {
       }),
       new TableTitle({
         name: '是否启用',
-        key: 'enable'
+        key: 'delFlag',
+        controlType: ControlType.pipe,
+        option: {
+          key: [0, 1],
+          value: ['启用', '禁用']
+        }
       }),
       new TableTitle({
         name: '更新时间',
         key: 'updateDate'
-      }),
-      new TableTitle({
-        name: '操作',
-        key: '',
-        controlType: ControlType.buttons,
-        option: [{
-          key: 'edit',
-          name: '编辑'
-        }, {
-          key: 'enableButton',
-          name: ''
-        }]
-      }),
+      })
     ];
+    if (flag) {
+      Titles.push(
+        new TableTitle({
+          name: '操作',
+          key: '',
+          controlType: ControlType.buttons,
+          pipe: {
+            key: [1, 0],
+            value: ['启用', '禁用']
+          },
+          option: [{
+            key: 'edit',
+            name: '编辑'
+          }, {
+            key: 'delFlag',
+            name: ''
+          }]
+        }));
+    }
+    return Titles;
   }
 
   setRoleForm(tree, data?) {

@@ -9,7 +9,7 @@
                 <p class="detail-content">姓名：{{basicInfo?.name}}</p>
               </div>
               <div class="col-3">
-                <p class="detail-content">性别：{{basicInfo?.sex}}</p>
+                <p class="detail-content">性别：{{basicInfo?.sex | yesorno:[1,2]:['男','女']}}</p>
               </div>
             </div>
             <div class="row">

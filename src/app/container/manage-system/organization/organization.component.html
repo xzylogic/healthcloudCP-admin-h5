@@ -32,10 +32,11 @@
                   <!--中心-->
                   <div class="clear tree__p">
                     <mat-icon class="tree__icon" (click)="toggle(menu)"
-                             *ngIf="menu.type!=3&&(!menu.open&&menu.children)">
+                              *ngIf="menu.type!=3&&(!menu.open&&menu.children)">
                       add
                     </mat-icon>
-                    <mat-icon class="tree__icon" (click)="toggle(menu)" *ngIf="menu.type!=3&&(menu.open&&menu.children)">
+                    <mat-icon class="tree__icon" (click)="toggle(menu)"
+                              *ngIf="menu.type!=3&&(menu.open&&menu.children)">
                       remove
                     </mat-icon>
                     <mat-icon class="tree__icon block" *ngIf="menu.type!=3&&!menu.children">block</mat-icon>
@@ -44,7 +45,7 @@
                       <p class="tree__span" [class.active]="menu.active" (click)="newSite(menu.menuId, menu.menuName)">
                         {{menu.menuName}}
                       </p>
-                      <button mat-icon-button color="primary" (click)="updateCenter(menu)">
+                      <button mat-icon-button color="primary" (click)="updateCenter(menu)" *ngIf="permission">
                         <mat-icon aria-label="edit">mode_edit</mat-icon>
                       </button>
                     </div>
@@ -54,7 +55,7 @@
                          (click)="newDepartment(menu.menuId, menu.menuName)">
                         {{menu.menuName}}
                       </p>
-                      <button mat-icon-button color="primary" (click)="updateSite(menu)">
+                      <button mat-icon-button color="primary" (click)="updateSite(menu)" *ngIf="permission">
                         <mat-icon aria-label="edit">mode_edit</mat-icon>
                       </button>
                     </div>
@@ -63,7 +64,7 @@
                       <p class="tree__span last">
                         {{menu.menuName}}
                       </p>
-                      <button mat-icon-button color="primary" (click)="updateDepartment(menu)">
+                      <button mat-icon-button color="primary" (click)="updateDepartment(menu)" *ngIf="permission">
                         <mat-icon aria-label="edit">mode_edit</mat-icon>
                       </button>
                     </div>
@@ -73,11 +74,11 @@
                       <!--站点-->
                       <div class="clear tree__p">
                         <mat-icon class="tree__icon" (click)="toggle(subMenu)"
-                                 *ngIf="subMenu.type!=3&&(!subMenu.open&&subMenu.children)">
+                                  *ngIf="subMenu.type!=3&&(!subMenu.open&&subMenu.children)">
                           add
                         </mat-icon>
                         <mat-icon class="tree__icon" (click)="toggle(subMenu)"
-                                 *ngIf="subMenu.type!=3&&(subMenu.open&&subMenu.children)">
+                                  *ngIf="subMenu.type!=3&&(subMenu.open&&subMenu.children)">
                           remove
                         </mat-icon>
                         <mat-icon class="tree__icon block" *ngIf="subMenu.type!=3&&!subMenu.children">block</mat-icon>
@@ -87,7 +88,7 @@
                              (click)="newDepartment(subMenu.menuId, subMenu.menuName)">
                             {{subMenu.menuName}}
                           </p>
-                          <button mat-icon-button color="primary" (click)="updateSite(subMenu)">
+                          <button mat-icon-button color="primary" (click)="updateSite(subMenu)" *ngIf="permission">
                             <mat-icon aria-label="edit">mode_edit</mat-icon>
                           </button>
                         </div>
@@ -96,7 +97,8 @@
                           <p class="tree__span last">
                             {{subMenu.menuName}}
                           </p>
-                          <button mat-icon-button color="primary" (click)="updateDepartment(subMenu)">
+                          <button mat-icon-button color="primary" (click)="updateDepartment(subMenu)"
+                                  *ngIf="permission">
                             <mat-icon aria-label="edit">mode_edit</mat-icon>
                           </button>
                         </div>
@@ -107,7 +109,8 @@
                           <div class="clear tree__p tr_department">
                             <mat-icon class="tree__icon type department">lens</mat-icon>
                             <p class="tree__span last">{{sSubMenu.menuName}}</p>
-                            <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)">
+                            <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)"
+                                    *ngIf="permission">
                               <mat-icon aria-label="edit">mode_edit</mat-icon>
                             </button>
                           </div>
@@ -122,10 +125,10 @@
               <!--中心-->
               <div class="clear tree__p">
                 <mat-icon class="tree__icon" (click)="toggle(menuList)"
-                         *ngIf="menuList.type!=3&&(!menuList.open&&menuList.children)">add
+                          *ngIf="menuList.type!=3&&(!menuList.open&&menuList.children)">add
                 </mat-icon>
                 <mat-icon class="tree__icon" (click)="toggle(menuList)"
-                         *ngIf="menuList.type!=3&&(menuList.open&&menuList.children)">remove
+                          *ngIf="menuList.type!=3&&(menuList.open&&menuList.children)">remove
                 </mat-icon>
                 <mat-icon class="tree__icon block" *ngIf="menuList.type!=3&&!menuList.children">block</mat-icon>
                 <div *ngIf="menuList.type==1" class="tr_main">
@@ -134,7 +137,7 @@
                      (click)="newSite(menuList.menuId, menuList.menuName)">
                     {{menuList.menuName}}
                   </p>
-                  <button mat-icon-button color="primary" (click)="updateCenter(menuList)">
+                  <button mat-icon-button color="primary" (click)="updateCenter(menuList)" *ngIf="permission">
                     <mat-icon aria-label="edit">mode_edit</mat-icon>
                   </button>
                 </div>
@@ -144,7 +147,7 @@
                      (click)="newDepartment(menuList.menuId, menuList.menuName)">
                     {{menuList.menuName}}
                   </p>
-                  <button mat-icon-button color="primary" (click)="updateSite(menuList)">
+                  <button mat-icon-button color="primary" (click)="updateSite(menuList)" *ngIf="permission">
                     <mat-icon aria-label="edit">mode_edit</mat-icon>
                   </button>
                 </div>
@@ -153,7 +156,7 @@
                   <p class="tree__span last">
                     {{menuList.menuName}}
                   </p>
-                  <button mat-icon-button color="primary" (click)="updateDepartment(menuList)">
+                  <button mat-icon-button color="primary" (click)="updateDepartment(menuList)" *ngIf="permission">
                     <mat-icon aria-label="edit">mode_edit</mat-icon>
                   </button>
                 </div>
@@ -163,10 +166,10 @@
                   <!--站点-->
                   <div class="clear tree__p">
                     <mat-icon class="tree__icon" (click)="toggle(subMenu)"
-                             *ngIf="subMenu.type!=3&&(!subMenu.open&&subMenu.children)">add
+                              *ngIf="subMenu.type!=3&&(!subMenu.open&&subMenu.children)">add
                     </mat-icon>
                     <mat-icon class="tree__icon" (click)="toggle(subMenu)"
-                             *ngIf="subMenu.type!=3&&(subMenu.open&&subMenu.children)">remove
+                              *ngIf="subMenu.type!=3&&(subMenu.open&&subMenu.children)">remove
                     </mat-icon>
                     <mat-icon class="tree__icon block" *ngIf="subMenu.type!=3&&!subMenu.children">block</mat-icon>
                     <div *ngIf="subMenu.type==2" class="tr_center">
@@ -175,7 +178,7 @@
                          (click)="newDepartment(subMenu.menuId, subMenu.menuName)">
                         {{subMenu.menuName}}
                       </p>
-                      <button mat-icon-button color="primary" (click)="updateSite(subMenu)">
+                      <button mat-icon-button color="primary" (click)="updateSite(subMenu)" *ngIf="permission">
                         <mat-icon aria-label="edit">mode_edit</mat-icon>
                       </button>
                     </div>
@@ -184,7 +187,7 @@
                       <p class="tree__span last">
                         {{subMenu.menuName}}
                       </p>
-                      <button mat-icon-button color="primary" (click)="updateDepartment(subMenu)">
+                      <button mat-icon-button color="primary" (click)="updateDepartment(subMenu)" *ngIf="permission">
                         <mat-icon aria-label="edit">mode_edit</mat-icon>
                       </button>
                     </div>
@@ -195,7 +198,7 @@
                       <div class="clear tree__p" class="tr_department">
                         <mat-icon class="tree__icon type department">lens</mat-icon>
                         <p class="tree__span last">{{sSubMenu.menuName}}</p>
-                        <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)">
+                        <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)" *ngIf="permission">
                           <mat-icon aria-label="edit">mode_edit</mat-icon>
                         </button>
                       </div>
@@ -208,10 +211,10 @@
               <!--站点-->
               <div class="clear tree__p">
                 <mat-icon class="tree__icon" (click)="toggle(menuList)"
-                         *ngIf="menuList.type!=3&&(!menuList.open&&menuList.children)">add
+                          *ngIf="menuList.type!=3&&(!menuList.open&&menuList.children)">add
                 </mat-icon>
                 <mat-icon class="tree__icon" (click)="toggle(menuList)"
-                         *ngIf="menuList.type!=3&&(menuList.open&&menuList.children)">remove
+                          *ngIf="menuList.type!=3&&(menuList.open&&menuList.children)">remove
                 </mat-icon>
                 <mat-icon class="tree__icon block" *ngIf="menuList.type!=3&&!menuList.children">block</mat-icon>
                 <div *ngIf="menuList.type==2" class="tr_main">
@@ -220,7 +223,7 @@
                      (click)="newDepartment(menuList.menuId, menuList.menuName)">
                     {{menuList.menuName}}
                   </p>
-                  <button mat-icon-button color="primary" (click)="updateSite(menuList)">
+                  <button mat-icon-button color="primary" (click)="updateSite(menuList)" *ngIf="permission">
                     <mat-icon aria-label="edit">mode_edit</mat-icon>
                   </button>
                 </div>
@@ -229,7 +232,7 @@
                   <p class="tree__span last">
                     {{menuList.menuName}}
                   </p>
-                  <button mat-icon-button color="primary" (click)="updateDepartment(menuList)">
+                  <button mat-icon-button color="primary" (click)="updateDepartment(menuList)" *ngIf="permission">
                     <mat-icon aria-label="edit">mode_edit</mat-icon>
                   </button>
                 </div>
@@ -240,7 +243,7 @@
                   <div class="clear tree__p tr_center">
                     <mat-icon class="tree__icon type department">lens</mat-icon>
                     <p class="tree__span last">{{sSubMenu.menuName}}</p>
-                    <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)">
+                    <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)" *ngIf="permission">
                       <mat-icon aria-label="edit">mode_edit</mat-icon>
                     </button>
                   </div>
@@ -252,7 +255,7 @@
               <div class="clear tree__p tr_main">
                 <mat-icon class="tree__icon type department last">lens</mat-icon>
                 <p class="tree__span last">{{menuList.menuName}}</p>
-                <button mat-icon-button color="primary" (click)="updateDepartment(menuList)">
+                <button mat-icon-button color="primary" (click)="updateDepartment(menuList)" *ngIf="permission">
                   <mat-icon aria-label="edit">mode_edit</mat-icon>
                 </button>
               </div>

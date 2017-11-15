@@ -54,8 +54,9 @@
         <div *ngSwitchCase="controlType.buttons" [style.minWidth.px]="title.minwidth" class="table__content"
              [ngStyle]="{'text-align': title.align}">
           <span *ngFor="let btn of title.option">
-          <span *ngIf="list[btn.key]||btn.name" (click)="gotoHandle(btn.key,list)" class="table__option"
-                style="padding: 0 10px">{{list[btn.key] || btn.name}}</span>
+          <span *ngIf="list[btn.key]||list[btn.key]==0||btn.name" (click)="gotoHandle(btn.key,list)"
+                class="table__option"
+                style="padding: 0 10px">{{(list[btn.key]&&list[btn.key]==0?list[btn.key]:list[btn.key]||btn.name) | yesorno:title.pipe.key:title.pipe.value}}</span>
           </span>
         </div>
       </td>

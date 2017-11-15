@@ -110,9 +110,7 @@ export class AppointmentComponent implements OnInit {
     )
       .subscribe(res => {
         this.appointmentTable.loading = false;
-        if (res.code === 0 && res.data && res.data.content && res.data.content.length === 0) {
-          this.appointmentTable.errorMessage = ERRMSG.nullMsg;
-        } else if (res.code === 0 && res.data && res.data.content) {
+        if (res.code === 0 && res.data && res.data.content) {
           this.appointmentTable.totalPage = res.data.extras.totalPage || '';
           this.appointmentTable.lists = res.data.content;
           this.formatData(this.appointmentTable.lists, res.data.extras.operation);
@@ -225,16 +223,18 @@ export class AppointmentComponent implements OnInit {
   }
 
   centerChange(data) {
-    this.siteId = '';
-    const site = [{menuId: '', name: '无'}];
-    this.communityList.forEach(obj => {
-      if (obj.parentId === data.value && obj.type == 2) {
-        site.push(obj);
+    if (data.value) {
+      this.siteId = '';
+      const site = [{menuId: '', name: '无'}];
+      this.communityList.forEach(obj => {
+        if (obj.parentId === data.value && obj.type == 2) {
+          site.push(obj);
+        }
+      });
+      if (site.length !== 1) {
+        site.splice(0, 1);
       }
-    });
-    if (site.length !== 1) {
-      site.splice(0, 1);
+      this.siteList = site;
     }
-    this.siteList = site;
   }
 }

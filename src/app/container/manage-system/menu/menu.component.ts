@@ -3,6 +3,7 @@ import { ContainerConfig } from '../../../libs/common/container/container.compon
 import { MatDialog } from '@angular/material';
 import { HintDialog } from '../../../libs/dmodal/dialog.component';
 import { ERRMSG } from '../../_store/static';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -10,25 +11,41 @@ import { ERRMSG } from '../../_store/static';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
+  paramsMenu: string; // menuId
+  permission: boolean; // 权限 | true 编辑 false 查看
+
+  subscribeParams: any;
+  subscribeData: any;
+
   containerConfig: ContainerConfig;
   menuList: any;
   form: any;
   title = '';
 
   constructor(
+    @Inject('auth') private auth,
     @Inject('menu') private menuService,
     private dialog: MatDialog,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit() {
+    this.subscribeParams = this.route.params.subscribe(route => {
+      if (route.menu) {
+        if (this.auth.getMenuPermission().indexOf(route.menu) > -1) {
+          this.permission = true;
+        }
+        this.paramsMenu = route.menu;
+      }
+    });
     this.containerConfig = this.menuService.setMenuConfig();
     this.getMenus();
   }
 
   getMenus() {
-    this.menuService.getMenus()
+    this.subscribeData = this.menuService.getMenus()
       .subscribe(res => {
         if (res.code === 0 && res.data) {
           this.menuList = res.data;
@@ -79,29 +96,35 @@ export class MenuComponent implements OnInit {
   }
 
   newMenu(parentId, parentName) {
-    this.unActive(this.menuList, parentId);
-    this.form = null;
-    this.title = '新增菜单';
-    this.form = {parentId: parentId, parentName: parentName};
-    this.cdr.detectChanges();
+    if (this.permission) {
+      this.unActive(this.menuList, parentId);
+      this.form = null;
+      this.title = '新增菜单';
+      this.form = {parentId: parentId, parentName: parentName};
+      this.cdr.detectChanges();
+    }
   }
 
   updateMenu(menu) {
-    this.unActive(this.menuList, 0);
-    this.form = null;
-    this.title = '编辑菜单';
-    console.log(menu);
-    // this.form = this.menuService.setMenuFrom({data: menu});
-    this.form = menu;
-    this.cdr.detectChanges();
+    if (this.permission) {
+      this.unActive(this.menuList, 0);
+      this.form = null;
+      this.title = '编辑菜单';
+      console.log(menu);
+      // this.form = this.menuService.setMenuFrom({data: menu});
+      this.form = menu;
+      this.cdr.detectChanges();
+    }
   }
 
   deleteMenu(menuId, menuName) {
-    HintDialog(`您确定要删除菜单：${menuName}?`, this.dialog).afterClosed().subscribe(res => {
-      if (res && res.key === 'confirm') {
-        this.deleteAction(menuId);
-      }
-    });
+    if (this.permission) {
+      HintDialog(`您确定要删除菜单：${menuName}?`, this.dialog).afterClosed().subscribe(res => {
+        if (res && res.key === 'confirm') {
+          this.deleteAction(menuId);
+        }
+      });
+    }
   }
 
   deleteAction(menuId) {
@@ -127,7 +150,6 @@ export class MenuComponent implements OnInit {
     if (menuId) {
       value.menuId = menuId;
     }
-    console.log(value);
     this.menuService.updateMenu(value)
       .subscribe(res => {
         if (res.code === 0) {

@@ -12,13 +12,17 @@ import { ERRMSG } from '../../../_store/static';
 })
 export class ArticleEditComponent implements OnInit, OnDestroy {
   paramsMenu: string;
-  paramsSubscribe: any;
-  queryParamsSubscribe: any;
+  id: string;
+
+  subscribeParams: any;
+  subscribeQueryParams: any;
+  subscribeDialog: any;
+
   containerConfig: ContainerConfig;
-  errMsg = '';
   form: any;
+
+  errMsg = '';
   classifyList: any;
-  id: any;
 
   constructor(
     @Inject('article') private articleService,
@@ -29,10 +33,10 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.paramsSubscribe = this.route.params.subscribe(route => {
+    this.subscribeParams = this.route.params.subscribe(route => {
       if (route.menu) {
         this.paramsMenu = route.menu;
-        this.queryParamsSubscribe = this.route.queryParams.subscribe(res => {
+        this.subscribeQueryParams = this.route.queryParams.subscribe(res => {
           if (res.id) {
             this.containerConfig = this.articleService.setArticleEditConfig(true, route.menu);
           } else {
@@ -46,8 +50,14 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.paramsSubscribe) {
-      this.paramsSubscribe.unsubscribe();
+    if (this.subscribeParams) {
+      this.subscribeParams.unsubscribe();
+    }
+    if (this.subscribeQueryParams) {
+      this.subscribeQueryParams.unsubscribe();
+    }
+    if (this.subscribeDialog) {
+      this.subscribeDialog.unsubscribe();
     }
   }
 
@@ -96,11 +106,15 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * 保存文章
+   * @param data
+   */
   getValues(data) {
-    this.articleService.saveArticle(data)
+    this.articleService.saveArticle(data, this.paramsMenu)
       .subscribe(res => {
         if (res.code === 0) {
-          HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {
+          this.subscribeDialog = HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {
             this.router.navigate(['article', this.paramsMenu]);
           });
         } else {
@@ -112,6 +126,10 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * 预览文章
+   * @param data
+   */
   viewArticle(data) {
     ShowDetail(data, this.dialog);
   }

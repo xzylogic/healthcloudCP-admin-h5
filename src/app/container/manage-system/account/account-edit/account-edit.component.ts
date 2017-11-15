@@ -90,7 +90,7 @@ export class AccountEditComponent implements OnInit {
       if (this.id) {
         value.userId = this.id;
       }
-      this.accountService.updateAccount(value, roleId, menuId)
+      this.accountService.updateAccount(value, roleId, menuId, this.paramsMenu)
         .subscribe(res => {
           if (res.code === 0) {
             HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {
@@ -196,7 +196,7 @@ export class AccountEditComponent implements OnInit {
     HintDialog('确定要初始化密码？初始化后密码为：123456。', this.dialog).afterClosed()
       .subscribe(result => {
         if (result && result.key === 'confirm') {
-          this.accountService.resetPwd(this.id)
+          this.accountService.resetPwd(this.id, this.paramsMenu)
             .subscribe(res => {
               if (res.code === 0) {
                 HintDialog('初始化密码成功！', this.dialog);

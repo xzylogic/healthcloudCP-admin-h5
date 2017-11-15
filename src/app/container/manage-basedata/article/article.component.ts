@@ -11,15 +11,21 @@ import { ERRMSG } from '../../_store/static';
   templateUrl: './article.component.html'
 })
 export class ArticleComponent implements OnInit, OnDestroy {
-  paramsMenu: string;
-  paramsSubscribe: any;
+  paramsMenu: string; // menuId
+  permission: boolean; // 权限 | true 编辑 false 查看
+
+  subscribeParams: any;
+  subscribeData: any;
+  subscribeDetail: any;
+  subscribeClassify: any;
+
   containerConfig: ContainerConfig;
   articleTable: TableOption;
+
   title = ''; // 文章标题
   queryTime = ''; // 时间范围
   classifyId = ''; // 分类ID
   classifyList: any; // 文章分类列表
-  permission: boolean;
 
   constructor(
     @Inject('auth') private auth,
@@ -31,7 +37,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.paramsSubscribe = this.route.params.subscribe(route => {
+    this.subscribeParams = this.route.params.subscribe(route => {
       if (route.menu) {
         if (this.auth.getMenuPermission().indexOf(route.menu) > -1) {
           this.permission = true;
@@ -42,15 +48,24 @@ export class ArticleComponent implements OnInit, OnDestroy {
           titles: this.articleService.setArticleTable(this.permission),
           ifPage: true
         });
-        this.getClassifyList();
         this.reset();
       }
     });
+    this.getClassifyList();
   }
 
   ngOnDestroy() {
-    if (this.paramsSubscribe) {
-      this.paramsSubscribe.unsubscribe();
+    if (this.subscribeParams) {
+      this.subscribeParams.unsubscribe();
+    }
+    if (this.subscribeData) {
+      this.subscribeData.unsubscribe();
+    }
+    if (this.subscribeDetail) {
+      this.subscribeDetail.unsubscribe();
+    }
+    if (this.subscribeClassify) {
+      this.subscribeClassify.unsubscribe();
     }
   }
 
@@ -68,7 +83,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   getArticles(page) {
     // 重置文章列表相关数据
     this.articleTable.reset(page);
-    this.articleService.getArticles(
+    this.subscribeData = this.articleService.getArticles(
       page, this.articleTable.size,
       this.title,
       this.queryTime.split(' 至 ')[0] || '',
@@ -101,7 +116,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
       this.router.navigate(['article', this.paramsMenu, 'edit'], {queryParams: {id: data.value.id}});
     }
     if (data.key === 'detail') {
-      this.articleService.getArticle(data.value.id)
+      this.subscribeDetail = this.articleService.getArticle(data.value.id)
         .subscribe(res => {
           if (res.code === 0 && res.data) {
             ShowDetail(res.data, this.dialog);
@@ -121,7 +136,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
    * 获取文章分类列表
    */
   getClassifyList() {
-    this.articleService.getClassifies()
+    this.subscribeClassify = this.articleService.getClassifies()
       .subscribe(res => {
         if (res.code === 0 && res.data) {
           this.classifyList = res.data;
