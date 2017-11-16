@@ -76,19 +76,28 @@
             <mat-radio-button value="4">接种爽约</mat-radio-button>
           </mat-radio-group>
         </div>
-        <div class="input-content" *ngIf="data.status==0&&data.operation==1">
-          <div>
+        <div class="input-dialog" *ngIf="data.status==0&&data.operation==1&&status=='3'">
+          <div class="dialog-content">
+            <p>请选择或填写不通过原因</p>
             <mat-radio-group *ngIf="status=='3'" [(ngModel)]="reasonRadio" name="option">
               <mat-radio-button value="身体不适">身体不适</mat-radio-button>
               <mat-radio-button value="门诊时间错误">门诊时间错误</mat-radio-button>
               <mat-radio-button value="未及时现场办">未及时现场办</mat-radio-button>
               <mat-radio-button value="0">其他，请填写</mat-radio-button>
             </mat-radio-group>
-          </div>
-          <mat-form-field *ngIf="reasonRadio=='0'&&status=='3'" style="width:280px;padding: 15px 0">
+            <mat-form-field floatPlaceholder="always"
+                            *ngIf="reasonRadio=='0'&&status=='3'"
+                            style="width:100%;padding: 15px 0">
                 <textarea matInput rows="5" placeholder="取消原因" [(ngModel)]="reason" name="reason"
                           style="resize: none"></textarea>
-          </mat-form-field>
+            </mat-form-field>
+            <div class="dialog-footer" *ngIf="data.status==0&&data.operation==1">
+              <button mat-raised-button color="primary" type="button" (click)="saveStatus()"
+                      [disabled]="!(status==1||status==4||(status==3&&(reasonRadio&&reasonRadio!='0'||reason)))">保存
+              </button>
+              <button mat-raised-button type="button" (click)="cancel()" style="margin-left: 15px">取消</button>
+            </div>
+          </div>
         </div>
         <div class="input-content" *ngIf="data.status==3">
           <mat-form-field style="width:280px">

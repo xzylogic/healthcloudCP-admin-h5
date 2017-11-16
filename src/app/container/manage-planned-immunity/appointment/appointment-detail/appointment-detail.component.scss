@@ -25,3 +25,44 @@
 .input-content {
   padding-bottom: 25px;
 }
+
+.input-dialog {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, .65);
+  z-index: 1000;
+}
+
+.dialog-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  height: 380px;
+  margin-left: -190px;
+  margin-top: -250px;
+  background: $color-white;
+  line-height: 1.5;
+  padding: 20px;
+  p {
+    font-size: 18px;
+    padding-bottom: 15px;
+  }
+  mat-radio-button {
+    margin-left: 15px;
+    display: block;
+  }
+}
+
+.dialog-footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  text-align: center;
+  height: 80px;
+  width: 100%;
+  padding: 15px 0;
+}

@@ -77,11 +77,18 @@ export class AppointmentDetailComponent implements OnInit {
       });
   }
 
+  cancel() {
+    this.status = '';
+    this.reason = '';
+    this.reasonRadio = '';
+  }
+
   save(status, reason) {
     this.appointmentService.saveDetail(this.id, status, reason)
       .subscribe(res => {
         if (res.code === 0) {
           HintDialog(res.msg || '操作成功！', this.dialog);
+          this.cancel();
           this.getDetail(this.id);
         } else {
           HintDialog(res.msg || '操作失败～', this.dialog);
