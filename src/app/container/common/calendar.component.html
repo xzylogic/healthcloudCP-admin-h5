@@ -25,5 +25,6 @@
   (dayClicked)="handleDayClick($event.day.date)"
   (beforeViewRender)="beforeMonthViewRender($event)"
   [cellTemplate]="customCellTemplate"
+  weekStartsOn="1"
   [locale]="'zh-cn'">
 </mwl-calendar-month-view>

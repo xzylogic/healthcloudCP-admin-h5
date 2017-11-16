@@ -107,6 +107,10 @@ export class AppointmentService {
         key: 'hospitalName'
       }),
       new TableTitle({
+        name: '申请日期',
+        key: 'applicationTime'
+      }),
+      new TableTitle({
         name: '领取时间',
         key: 'reservationTimeStr'
       }),
