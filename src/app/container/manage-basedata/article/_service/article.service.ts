@@ -87,15 +87,15 @@ export class ArticleService {
   /**
    * 配置文章库详情页
    * @param flag | true 编辑 false 新增
-   * @param menu 菜单id
    * @returns {ContainerConfig}
    */
-  setArticleEditConfig(flag, menu) {
+  setArticleEditConfig(flag) {
     return new ContainerConfig({
       title: '资讯管理',
       subTitle: flag ? '编辑文章' : '新增文章',
       ifHome: false,
-      homeRouter: ['/article', menu]
+      homeRouter: ['/article'],
+      back: true
     });
   }
 

@@ -5,6 +5,8 @@ import { ContainerConfig } from '../../../../libs/common/container/container.com
 import { HintDialog } from '../../../../libs/dmodal/dialog.component';
 import { ShowDetail } from '../article-detail/article-detail.component';
 import { ERRMSG } from '../../../_store/static';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/Rx';
 
 @Component({
   selector: 'app-article-edit',
@@ -15,14 +17,14 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
   id: string;
 
   subscribeParams: any;
-  subscribeQueryParams: any;
   subscribeDialog: any;
+  subscribeDetail: any;
+  subscribeSave: any;
 
   containerConfig: ContainerConfig;
   form: any;
 
   errMsg = '';
-  classifyList: any;
 
   constructor(
     @Inject('article') private articleService,
@@ -33,18 +35,24 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscribeParams = this.route.params.subscribe(route => {
-      if (route.menu) {
-        this.paramsMenu = route.menu;
-        this.subscribeQueryParams = this.route.queryParams.subscribe(res => {
-          if (res.id) {
-            this.containerConfig = this.articleService.setArticleEditConfig(true, route.menu);
-          } else {
-            this.containerConfig = this.articleService.setArticleEditConfig(false, route.menu);
-          }
-          this.id = res.id;
-          this.setInit(res.id);
-        });
+    this.subscribeParams = Observable.zip(
+      this.route.params, this.route.queryParams,
+      this.articleService.getClassifies(),
+      (route, query, list): any => ({route, query, list})
+    ).subscribe((res) => {
+      if (res && res.route && res.route.menu) {
+        this.paramsMenu = res.route.menu;
+      }
+      if (res && res.list && res.list.code == 0 && res.list.data) {
+        const classifyList = this.getClassifyList(res.list.data);
+        if (res.query && res.query.id) {
+          this.id = res.query.id;
+          this.containerConfig = this.articleService.setArticleEditConfig(true);
+          this.getArticle(this.id, classifyList);
+        } else {
+          this.containerConfig = this.articleService.setArticleEditConfig(false);
+          this.form = this.articleService.setArticleForm(classifyList);
+        }
       }
     });
   }
@@ -53,50 +61,35 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
     if (this.subscribeParams) {
       this.subscribeParams.unsubscribe();
     }
-    if (this.subscribeQueryParams) {
-      this.subscribeQueryParams.unsubscribe();
-    }
     if (this.subscribeDialog) {
       this.subscribeDialog.unsubscribe();
     }
+    if (this.subscribeDetail) {
+      this.subscribeDetail.unsubscribe();
+    }
+    if (this.subscribeSave) {
+      this.subscribeSave.unsubscribe();
+    }
   }
 
-  setInit(id) {
-    this.articleService.getClassifies()
-      .subscribe(list => {
-        if (list.code === 0 && list.data) {
-          const data = [];
-          list.data.forEach(obj => {
-            data.push({
-              id: obj.id,
-              name: obj.categoryName
-            });
-          });
-          this.classifyList = data;
-          if (id) {
-            this.getArticle(id);
-          } else {
-            this.form = this.articleService.setArticleForm(
-              this.classifyList
-            );
-          }
-        } else {
-          this.errMsg = '获取文章分类列表数据错误，请刷新重试！';
-        }
-      }, err => {
-        console.log(err);
-        this.errMsg = '获取文章分类列表出现网络错误，请刷新重试！';
+  getClassifyList(data): Array<any> {
+    const list: Array<any> = [];
+    if (Array.isArray(data)) {
+      data.forEach(obj => {
+        list.push({
+          id: obj.id,
+          name: obj.categoryName
+        });
       });
+    }
+    return list;
   }
 
-  getArticle(id) {
-    this.articleService.getArticle(id)
+  getArticle(id, list) {
+    this.subscribeDetail = this.articleService.getArticle(id)
       .subscribe(res => {
         if (res.code === 0 && res.data) {
-          this.form = this.articleService.setArticleForm(
-            this.classifyList,
-            res.data
-          );
+          this.form = this.articleService.setArticleForm(list, res.data);
         } else {
           this.errMsg = '获取文章数据错误，请刷新重试！';
         }
@@ -111,7 +104,7 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
    * @param data
    */
   getValues(data) {
-    this.articleService.saveArticle(data, this.paramsMenu)
+    this.subscribeSave = this.articleService.saveArticle(data, this.paramsMenu)
       .subscribe(res => {
         if (res.code === 0) {
           this.subscribeDialog = HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {

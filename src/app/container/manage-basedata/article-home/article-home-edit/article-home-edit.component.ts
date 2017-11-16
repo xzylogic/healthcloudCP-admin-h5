@@ -16,14 +16,16 @@ import * as moment from 'moment';
 })
 export class ArticleHomeEditComponent implements OnInit, OnDestroy {
   paramsMenu: string;
+  id: any;
+
   routeSubscribe: any;
   initSubscribe: any;
   detailSubscribe: any;
   saveSubscribe: any;
+
   containerConfig: ContainerConfig;
   searchStream: Subject<string> = new Subject<string>();
   form: FormGroup;
-  id: any;
   config: any;
   thirdList: Array<any> = [];
 

@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { HintDialog } from '../../../../libs/dmodal/dialog.component';
 import { ERRMSG } from '../../../_store/static';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-article-classify-edit',
@@ -11,9 +12,12 @@ import { ERRMSG } from '../../../_store/static';
 })
 export class ArticleClassifyEditComponent implements OnInit, OnDestroy {
   paramsMenu: string;
-  routeSubscribe: any;
-  detailSubscribe: any;
-  saveSubscribe: any;
+
+  subscribeRoute: any;
+  subscribeDetail: any;
+  subscribeDialog: any;
+  subscribeSave: any;
+
   containerConfig: ContainerConfig;
   form: any;
 
@@ -26,15 +30,16 @@ export class ArticleClassifyEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.routeSubscribe = this.route.params.subscribe(route => {
-      if (route.menu) {
-        this.paramsMenu = route.menu;
+    this.subscribeRoute = Observable.zip(
+      this.route.params, this.route.queryParams,
+      (route, query): any => ({route, query})
+    ).subscribe(res => {
+      if (res.route && res.route.menu) {
+        this.paramsMenu = res.route.menu;
       }
-    });
-    this.route.queryParams.subscribe(res => {
-      if (res && res.id) {
+      if (res && res.query.id) {
         this.containerConfig = this.classifyService.setArticleClassifyEditConfig(true);
-        this.getClassify(res.id);
+        this.getClassify(res.query.id);
       } else {
         this.containerConfig = this.classifyService.setArticleClassifyEditConfig(false);
         this.form = this.classifyService.setArticleClassifyForm();
@@ -44,19 +49,22 @@ export class ArticleClassifyEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.form = null;
-    if (this.routeSubscribe) {
-      this.routeSubscribe.unsubscribe();
+    if (this.subscribeRoute) {
+      this.subscribeRoute.unsubscribe();
     }
-    if (this.detailSubscribe) {
-      this.detailSubscribe.unsubscribe();
+    if (this.subscribeDetail) {
+      this.subscribeDetail.unsubscribe();
     }
-    if (this.saveSubscribe) {
-      this.saveSubscribe.unsubscribe();
+    if (this.subscribeDialog) {
+      this.subscribeDialog.unsubscribe();
+    }
+    if (this.subscribeSave) {
+      this.subscribeSave.unsubscribe();
     }
   }
 
   getClassify(id) {
-    this.detailSubscribe = this.classifyService.getClassify(id)
+    this.subscribeDetail = this.classifyService.getClassify(id)
       .subscribe(res => {
         if (res.code === 0 && res.data) {
           this.form = this.classifyService.setArticleClassifyForm(res.data);
@@ -65,12 +73,13 @@ export class ArticleClassifyEditComponent implements OnInit, OnDestroy {
   }
 
   getValues(data) {
-    this.saveSubscribe = this.classifyService.saveClassify(data)
+    this.subscribeSave = this.classifyService.saveClassify(data)
       .subscribe(res => {
         if (res.code === 0) {
-          HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {
-            this.router.navigate(['/article-classify', this.paramsMenu]);
-          });
+          this.subscribeDialog = HintDialog(ERRMSG.saveSuccess, this.dialog)
+            .afterClosed().subscribe(() => {
+              this.router.navigate(['/article-classify', this.paramsMenu]);
+            });
         } else {
           HintDialog(res.msg || ERRMSG.saveError, this.dialog);
         }
