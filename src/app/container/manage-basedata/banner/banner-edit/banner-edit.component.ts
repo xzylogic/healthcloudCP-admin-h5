@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,17 +7,24 @@ import { DFormControlService } from '../../../../libs/dform/_service/form-contro
 import { HintDialog } from '../../../../libs/dmodal/dialog.component';
 import { ERRMSG } from '../../../_store/static';
 import * as moment from 'moment';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-banner-edit',
   templateUrl: './banner-edit.component.html',
   styleUrls: ['./banner-edit.component.scss']
 })
-export class BannerEditComponent implements OnInit {
+export class BannerEditComponent implements OnInit, OnDestroy {
   paramsMenu: any;
+  id: any;
+
+  subscribeRoute: any;
+  subscribeInit: any;
+  subscribeSave: any;
+  subscribeDialog: any;
+
   containerConfig: ContainerConfig;
   form: FormGroup;
-  id: any;
   config: any;
 
   constructor(
@@ -31,16 +38,17 @@ export class BannerEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(route => {
-      if (route.menu) {
-        this.paramsMenu = route.menu;
+    this.subscribeRoute = Observable.zip(
+      this.route.params, this.route.queryParams,
+      (route, query): any => ({route, query})
+    ).subscribe(res => {
+      if (res.route && res.route.menu) {
+        this.paramsMenu = res.route.menu;
       }
-    });
-    this.route.queryParams.subscribe(params => {
-      if (params.id) {
-        this.id = params.id;
+      if (res.query && res.query.id) {
+        this.id = res.query.id;
         this.containerConfig = this.bannerService.setBannerEditConfig(true);
-        this.getInit(params.id);
+        this.getInit(res.query.id);
       } else {
         this.containerConfig = this.bannerService.setBannerEditConfig(false);
         this.config = this.bannerService.setBannerForm();
@@ -50,8 +58,23 @@ export class BannerEditComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    if (this.subscribeRoute) {
+      this.subscribeRoute.unsubscribe();
+    }
+    if (this.subscribeInit) {
+      this.subscribeInit.unsubscribe();
+    }
+    if (this.subscribeSave) {
+      this.subscribeSave.unsubscribe();
+    }
+    if (this.subscribeDialog) {
+      this.subscribeDialog.unsubscribe();
+    }
+  }
+
   getInit(id) {
-    this.bannerService.getBanner(id)
+    this.subscribeInit = this.bannerService.getBanner(id)
       .subscribe(res => {
         if (res.code === 0 && res.data) {
           res.data.range = moment(res.data.startTime || new Date()).format('YYYY-MM-DD HH:mm:ss') +
@@ -76,12 +99,13 @@ export class BannerEditComponent implements OnInit {
     if (this.id) {
       formData.id = this.id;
     }
-    this.bannerService.saveBanner(formData)
+    this.subscribeSave = this.bannerService.saveBanner(formData)
       .subscribe(res => {
         if (res.code === 0) {
-          HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {
-            this.router.navigate(['/banner', this.paramsMenu]);
-          });
+          this.subscribeDialog = HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed()
+            .subscribe(() => {
+              this.router.navigate(['/banner', this.paramsMenu]);
+            });
         } else {
           HintDialog(res.msg || ERRMSG.saveError, this.dialog);
         }
@@ -90,5 +114,4 @@ export class BannerEditComponent implements OnInit {
         HintDialog(ERRMSG.saveError, this.dialog);
       });
   }
-
 }

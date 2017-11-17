@@ -71,7 +71,8 @@ export class ReceiveInterviewService {
       title: '叶酸随访管理',
       subTitle: '叶酸随访详情',
       ifHome: false,
-      homeRouter: '/receive-interview'
+      homeRouter: '/receive-interview',
+      back: true
     });
   }
 

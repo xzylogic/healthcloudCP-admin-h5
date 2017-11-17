@@ -16,9 +16,9 @@ export const routes: Routes = [{
 }, {
   path: 'feedback/:menu',
   loadChildren: 'app/container/manage-basedata/feedback/feedback.module#FeedbackModule'
-}, {
-  path: 'message/:menu',
-  loadChildren: 'app/container/manage-basedata/message/message.module#MessageModule'
+// }, {
+//   path: 'message/:menu',
+//   loadChildren: 'app/container/manage-basedata/message/message.module#MessageModule'
 }, {
   path: 'health-file',
   loadChildren: 'app/container/manage-basedata/health-file/health-file.module#HealthFileModule'

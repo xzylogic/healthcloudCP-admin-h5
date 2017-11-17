@@ -10,13 +10,19 @@ import { TableOption } from '../../../libs/dtable/dtable.entity';
 })
 export class HealthFileComponent implements OnInit, OnDestroy {
   containerConfig: ContainerConfig;
+
   personcard: string;
+
   basicInfo: any;
   hospitalizationInfo: TableOption;
   medicalHistoryInfo: any;
   outpatientInfo: TableOption;
 
-  routerSubscribe: any;
+  subscribeRoute: any;
+  subscribeBasic: any;
+  subscribeHospital: any;
+  subscribeHistory: any;
+  subscribeOut: any;
 
   constructor(
     @Inject('healthfile') private healthFileService,
@@ -26,7 +32,7 @@ export class HealthFileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.containerConfig = this.healthFileService.setHealthFileConfig();
-    this.routerSubscribe = this.route.params.subscribe(route => {
+    this.subscribeRoute = this.route.params.subscribe(route => {
       if (route.id) {
         this.personcard = route.id;
         this.getBasicInfo(this.personcard);
@@ -46,15 +52,26 @@ export class HealthFileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.routerSubscribe) {
-      this.routerSubscribe.unsubscribe();
+    if (this.subscribeRoute) {
+      this.subscribeRoute.unsubscribe();
+    }
+    if (this.subscribeBasic) {
+      this.subscribeBasic.unsubscribe();
+    }
+    if (this.subscribeHospital) {
+      this.subscribeHospital.unsubscribe();
+    }
+    if (this.subscribeHistory) {
+      this.subscribeHistory.unsubscribe();
+    }
+    if (this.subscribeOut) {
+      this.subscribeOut.unsubscribe();
     }
   }
 
   getBasicInfo(card) {
-    this.healthFileService.getBasicInfo(card)
+    this.subscribeBasic = this.healthFileService.getBasicInfo(card)
       .subscribe(res => {
-        console.log(res);
         if (res.code === 0 && res.data) {
           this.basicInfo = res.data;
         }
@@ -62,9 +79,8 @@ export class HealthFileComponent implements OnInit, OnDestroy {
   }
 
   getHospitalizationInfo(card) {
-    this.healthFileService.getHospitalizationInfo(card)
+    this.subscribeHospital = this.healthFileService.getHospitalizationInfo(card)
       .subscribe(res => {
-        console.log(res);
         if (res.code === 0 && res.data && res.data.content) {
           this.hospitalizationInfo.lists = res.data.content;
         }
@@ -74,9 +90,8 @@ export class HealthFileComponent implements OnInit, OnDestroy {
   }
 
   getMedicalHistoryInfo(card) {
-    this.healthFileService.getMedicalHistoryInfo(card)
+    this.subscribeHistory = this.healthFileService.getMedicalHistoryInfo(card)
       .subscribe(res => {
-        console.log(res);
         if (res.code === 0 && res.data && res.data.content) {
           this.medicalHistoryInfo = res.data.content;
         }
@@ -86,9 +101,8 @@ export class HealthFileComponent implements OnInit, OnDestroy {
   }
 
   getOutpatientInfo(card) {
-    this.healthFileService.getOutpatientInfo(card)
+    this.subscribeOut = this.healthFileService.getOutpatientInfo(card)
       .subscribe(res => {
-        console.log(res);
         if (res.code === 0 && res.data && res.data.content) {
           this.outpatientInfo.lists = res.data.content;
         }

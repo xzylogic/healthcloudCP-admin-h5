@@ -8,6 +8,7 @@ import { DFormControlService } from '../../../../libs/dform/_service/form-contro
 import { HintDialog } from '../../../../libs/dmodal/dialog.component';
 import { ERRMSG } from '../../../_store/static';
 import * as moment from 'moment';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-article-home-edit',
@@ -18,10 +19,12 @@ export class ArticleHomeEditComponent implements OnInit, OnDestroy {
   paramsMenu: string;
   id: any;
 
-  routeSubscribe: any;
-  initSubscribe: any;
-  detailSubscribe: any;
-  saveSubscribe: any;
+  subscribeRoute: any;
+  subscribeSearch: any;
+  subscribeInit: any;
+  subscribeDetail: any;
+  subscribeDialog: any;
+  subscribeSave: any;
 
   containerConfig: ContainerConfig;
   searchStream: Subject<string> = new Subject<string>();
@@ -40,17 +43,17 @@ export class ArticleHomeEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.routeSubscribe = this.route.params.subscribe(route => {
-      if (route.menu) {
-        this.paramsMenu = route.menu;
+    this.subscribeRoute = Observable.zip(
+      this.route.params, this.route.queryParams,
+      (route, query): any => ({route, query})
+    ).subscribe(res => {
+      if (res.route && res.route.menu) {
+        this.paramsMenu = res.route.menu;
       }
-    });
-    this.containerConfig = this.homeService.setArticleHomeEditConfig(false);
-    this.route.queryParams.subscribe(params => {
-      if (params.id) {
-        this.id = params.id;
+      if (res.query && res.query.id) {
+        this.id = res.query.id;
         this.containerConfig = this.homeService.setArticleHomeEditConfig(true);
-        this.getInit(params.id);
+        this.getInit(this.id);
       } else {
         this.containerConfig = this.homeService.setArticleHomeEditConfig(false);
         this.config = this.homeService.setArticleHomeForm();
@@ -58,7 +61,7 @@ export class ArticleHomeEditComponent implements OnInit, OnDestroy {
         this.cdr.detectChanges();
       }
     });
-    this.searchStream.debounceTime(500).distinctUntilChanged()
+    this.subscribeSearch = this.searchStream.debounceTime(500).distinctUntilChanged()
       .subscribe(searchText => {
         this.loadData(searchText);
       });
@@ -66,22 +69,28 @@ export class ArticleHomeEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.form = null;
-    if (this.routeSubscribe) {
-      this.routeSubscribe.unsubscribe();
+    if (this.subscribeRoute) {
+      this.subscribeRoute.unsubscribe();
     }
-    if (this.initSubscribe) {
-      this.initSubscribe.unsubscribe();
+    if (this.subscribeInit) {
+      this.subscribeInit.unsubscribe();
     }
-    if (this.detailSubscribe) {
-      this.detailSubscribe.unsubscribe();
+    if (this.subscribeSearch) {
+      this.subscribeSearch.unsubscribe();
     }
-    if (this.saveSubscribe) {
-      this.saveSubscribe.unsubscribe();
+    if (this.subscribeDetail) {
+      this.subscribeDetail.unsubscribe();
+    }
+    if (this.subscribeDialog) {
+      this.subscribeDialog.unsubscribe();
+    }
+    if (this.subscribeSave) {
+      this.subscribeSave.unsubscribe();
     }
   }
 
   getInit(id) {
-    this.initSubscribe = this.homeService.getHomeArticle(id)
+    this.subscribeInit = this.homeService.getHomeArticle(id)
       .subscribe(res => {
         if (res.code === 0 && res.data && res.data[0]) {
           res.data[0].range = moment(res.data[0].startTime || new Date()).format('YYYY-MM-DD HH:mm:ss') +
@@ -98,7 +107,7 @@ export class ArticleHomeEditComponent implements OnInit, OnDestroy {
   }
 
   loadData(data) {
-    this.detailSubscribe = this.homeService.getArticleTitle(data)
+    this.subscribeDetail = this.homeService.getArticleTitle(data)
       .subscribe(res => {
         if (res.code === 0 && res.data) {
           this.thirdList = res.data;
@@ -124,12 +133,13 @@ export class ArticleHomeEditComponent implements OnInit, OnDestroy {
     if (this.id) {
       formData.id = this.id;
     }
-    this.saveSubscribe = this.homeService.saveHomeArticle(formData, this.paramsMenu)
+    this.subscribeSave = this.homeService.saveHomeArticle(formData, this.paramsMenu)
       .subscribe(res => {
         if (res.code === 0) {
-          HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {
-            this.router.navigate(['/article-home', this.paramsMenu]);
-          });
+          this.subscribeDialog = HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed()
+            .subscribe(() => {
+              this.router.navigate(['/article-home', this.paramsMenu]);
+            });
         } else {
           HintDialog(res.msg || ERRMSG.saveError, this.dialog);
         }

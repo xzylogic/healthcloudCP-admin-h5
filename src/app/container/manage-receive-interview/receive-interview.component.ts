@@ -11,6 +11,7 @@ import { ERRMSG } from '../_store/static';
   templateUrl: './receive-interview.component.html'
 })
 export class ReceiveInterviewComponent implements OnInit {
+  paramsMenu: string;
   containerConfig: ContainerConfig;
   interviewTable: TableOption;
   @select(['receive-interview', 'data']) data: Observable<any>;
@@ -44,6 +45,11 @@ export class ReceiveInterviewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.param.params.subscribe(res => {
+      if (res.menu) {
+        this.paramsMenu = res.menu;
+      }
+    });
     this.containerConfig = this.interviewService.setReceiveInterviewConfig();
     this.interviewTable = new TableOption({
       titles: this.interviewService.getTitles(),
@@ -134,7 +140,7 @@ export class ReceiveInterviewComponent implements OnInit {
         siteId: this.siteId,
         page: this.interviewTable.currentPage
       });
-      this.router.navigate(['/receive-interview/detail', res.value.personcard]);
+      this.router.navigate(['/receive-interview', this.paramsMenu, 'detail', res.value.personcard]);
     }
   }
 

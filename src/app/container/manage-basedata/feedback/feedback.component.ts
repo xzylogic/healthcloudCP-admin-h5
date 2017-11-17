@@ -1,32 +1,34 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { TableOption } from '../../../libs/dtable/dtable.entity';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog } from '@angular/material';
 import { ERRMSG } from '../../_store/static';
 
 @Component({
   selector: 'app-feedback',
   templateUrl: './feedback.component.html'
 })
-export class FeedbackComponent implements OnInit {
+export class FeedbackComponent implements OnInit, OnDestroy {
   paramsMenu: string;
-  paramsSubscribe: any;
+
+  subscribeRoute: any;
+  subscribeDetail: any;
+
   containerConfig: ContainerConfig;
   feedbackTable: TableOption;
+
   tel = '';
   queryTime = '';
 
   constructor(
     @Inject('feedback') private feedbackService,
-    private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute
   ) {
   }
 
   ngOnInit() {
-    this.paramsSubscribe = this.route.params.subscribe(route => {
+    this.subscribeRoute = this.route.params.subscribe(route => {
       if (route.menu) {
         this.paramsMenu = route.menu;
         this.containerConfig = this.feedbackService.setFeedbackConfig();
@@ -39,6 +41,15 @@ export class FeedbackComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    if (this.subscribeRoute) {
+      this.subscribeRoute.unsubscribe();
+    }
+    if (this.subscribeDetail) {
+      this.subscribeDetail.unsubscribe();
+    }
+  }
+
   reset() {
     this.tel = '';
     this.queryTime = '';
@@ -47,7 +58,7 @@ export class FeedbackComponent implements OnInit {
 
   getFeedbacks(page) {
     this.feedbackTable.reset(page);
-    this.feedbackService.getFeedbacks(
+    this.subscribeDetail = this.feedbackService.getFeedbacks(
       page, this.feedbackTable.size,
       this.tel,
       this.queryTime.split(' 至 ')[0] || '',

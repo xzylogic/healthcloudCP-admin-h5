@@ -11,6 +11,7 @@ import { ERRMSG } from '../_store/static';
   templateUrl: './pregnancy-interview.component.html'
 })
 export class PregnancyInterviewComponent implements OnInit {
+  paramsMenu: string;
   containerConfig: ContainerConfig;
   interviewTable: TableOption;
   @select(['pregnancy-interview', 'data']) data: Observable<any>;
@@ -62,18 +63,23 @@ export class PregnancyInterviewComponent implements OnInit {
     @Inject('action') private action,
     @Inject('interview') private interviewService,
     private router: Router,
-    private param: ActivatedRoute
+    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit() {
+    this.route.params.subscribe(res => {
+      if (res.menu) {
+        this.paramsMenu = res.menu;
+      }
+    });
     this.containerConfig = this.interviewService.setPregnancyInterviewConfig();
     this.interviewTable = new TableOption({
       titles: this.interviewService.setTitles(),
       ifPage: true
     });
-    this.param.queryParams.subscribe(params => {
-      if (params && params.flag) {
+    this.route.queryParams.subscribe(routes => {
+      if (routes && routes.flag) {
         this.data.subscribe(data => {
           if (data) {
             this.name = data.name;
@@ -157,7 +163,7 @@ export class PregnancyInterviewComponent implements OnInit {
         siteId: this.siteId,
         page: this.interviewTable.currentPage
       });
-      this.router.navigate(['/pregnancy-interview/detail', res.value.id]);
+      this.router.navigate(['/pregnancy-interview', this.paramsMenu, 'detail', res.value.id]);
     }
   }
 

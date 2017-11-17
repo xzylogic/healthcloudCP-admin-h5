@@ -65,7 +65,8 @@ export class PregnancyInterviewService {
       title: '孕期随访管理',
       subTitle: '孕期随访详情',
       ifHome: false,
-      homeRouter: '/pregnancy-interview'
+      homeRouter: '/pregnancy-interview',
+      back: true
     });
   }
 
