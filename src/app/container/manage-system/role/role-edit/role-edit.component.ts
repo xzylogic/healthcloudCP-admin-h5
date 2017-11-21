@@ -1,20 +1,27 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { HintDialog } from '../../../../libs/dmodal/dialog.component';
 import { ERRMSG } from '../../../_store/static';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-role-edit',
   templateUrl: './role-edit.component.html'
 })
-export class RoleEditComponent implements OnInit {
+export class RoleEditComponent implements OnInit, OnDestroy {
   paramsMenu: string;
+  id: any;
+
+  subscribeRoute: any;
+  subscribeDetail: any;
+  subscribeDialog: any;
+  subscribeSave: any;
+
   containerConfig: ContainerConfig;
   form: any;
   errMsg = '';
-  id: any;
 
   constructor(
     @Inject('role') private roleService,
@@ -25,29 +32,42 @@ export class RoleEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(route => {
-      if (route.menu) {
-        this.paramsMenu = route.menu;
+    this.subscribeRoute = Observable.zip(
+      this.route.params, this.route.queryParams,
+      this.roleService.getMenu(),
+      (route, query, menu): any => ({route, query, menu})
+    ).subscribe(res => {
+      if (res.route.menu) {
+        this.paramsMenu = res.route.menu;
       }
-    });
-    this.route.queryParams.subscribe(params => {
-      this.roleService.getMenu().subscribe(res => {
-        if (res.code === 0 && res.data) {
-          if (params.id) {
-            this.id = params.id;
-            this.containerConfig = this.roleService.setRoleEditConfig(true);
-            this.getInit(params.id);
-          } else {
-            this.containerConfig = this.roleService.setRoleEditConfig(false);
-            this.form = this.roleService.setRoleForm(res.data);
-          }
-        }
-      });
+      if (res.menu && res.query && res.query.id) {
+        this.id = res.query.id;
+        this.containerConfig = this.roleService.setRoleEditConfig(true);
+        this.getInit(res.query.id);
+      } else if (res.menu) {
+        this.containerConfig = this.roleService.setRoleEditConfig(false);
+        this.form = this.roleService.setRoleForm(res.menu.data);
+      }
     });
   }
 
+  ngOnDestroy() {
+    if (this.subscribeRoute) {
+      this.subscribeRoute.unsubscribe();
+    }
+    if (this.subscribeSave) {
+      this.subscribeSave.unsubscribe();
+    }
+    if (this.subscribeDetail) {
+      this.subscribeDetail.unsubscribe();
+    }
+    if (this.subscribeDialog) {
+      this.subscribeDialog.unsubscribe();
+    }
+  }
+
   getInit(id) {
-    this.roleService.getRole(id)
+    this.subscribeDetail = this.roleService.getRole(id)
       .subscribe(res => {
         if (res.code === 0 && res.data) {
           this.form = this.roleService.setRoleForm(res.data.menuTree, res.data.roleName);
@@ -70,12 +90,13 @@ export class RoleEditComponent implements OnInit {
       formData.menuIds = data.menuIds.join(',');
     }
     formData.name = data.name;
-    this.roleService.updateRole(formData, this.paramsMenu)
+    this.subscribeSave = this.roleService.updateRole(formData, this.paramsMenu)
       .subscribe(res => {
         if (res.code === 0) {
-          HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {
-            this.router.navigate(['/role', this.paramsMenu]);
-          });
+          this.subscribeDialog = HintDialog(ERRMSG.saveSuccess, this.dialog)
+            .afterClosed().subscribe(() => {
+              this.router.navigate(['/role', this.paramsMenu]);
+            });
         } else {
           HintDialog(res.msg || ERRMSG.saveError, this.dialog);
         }

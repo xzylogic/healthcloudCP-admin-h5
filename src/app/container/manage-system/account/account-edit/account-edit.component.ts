@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { DFormControlService } from '../../../../libs/dform/_service/form-control.service';
 import { FormGroup } from '@angular/forms';
@@ -7,13 +7,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { HintDialog } from '../../../../libs/dmodal/dialog.component';
 import { ERRMSG } from '../../../_store/static';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-account-edit',
   templateUrl: './account-edit.component.html',
   styleUrls: ['./account-edit.component.scss']
 })
-export class AccountEditComponent implements OnInit {
+export class AccountEditComponent implements OnInit, OnDestroy {
   paramsMenu: string;
   id: any;
 
@@ -21,6 +22,7 @@ export class AccountEditComponent implements OnInit {
   subscribeSave: any;
   subscribeDetail: any;
   subscribeDialog: any;
+  subscribeSearch: any;
 
   containerConfig: ContainerConfig;
   searchStream: Subject<string> = new Subject<string>();
@@ -44,16 +46,17 @@ export class AccountEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(route => {
-      if (route.menu) {
-        this.paramsMenu = route.menu;
+    this.subscribeRoute = Observable.zip(
+      this.route.params, this.route.queryParams,
+      (route, query) => ({route, query})
+    ).subscribe(res => {
+      if (res.route && res.route.menu) {
+        this.paramsMenu = res.route.menu;
       }
-    });
-    this.route.queryParams.subscribe(params => {
-      if (params.id) {
-        this.id = params.id;
+      if (res.query && res.query.id) {
+        this.id = res.query.id;
         this.containerConfig = this.accountService.setAccountEditConfig(true);
-        this.getInit(params.id);
+        this.getInit(res.query.id);
       } else {
         this.containerConfig = this.accountService.setAccountEditConfig(false);
         this.config = this.accountService.setAccountForm();
@@ -62,15 +65,33 @@ export class AccountEditComponent implements OnInit {
         this.getCommunity();
       }
     });
-    this.searchStream.debounceTime(500).distinctUntilChanged()
+    this.subscribeSearch = this.searchStream.debounceTime(500).distinctUntilChanged()
       .subscribe(searchText => {
         this.loadData(searchText);
       });
     this.getRole();
   }
 
+  ngOnDestroy() {
+    if (this.subscribeRoute) {
+      this.subscribeRoute.unsubscribe();
+    }
+    if (this.subscribeSave) {
+      this.subscribeSave.unsubscribe();
+    }
+    if (this.subscribeDetail) {
+      this.subscribeDetail.unsubscribe();
+    }
+    if (this.subscribeDialog) {
+      this.subscribeDialog.unsubscribe();
+    }
+    if (this.subscribeSearch) {
+      this.subscribeSearch.unsubscribe();
+    }
+  }
+
   getInit(id) {
-    this.accountService.getAccount(id)
+    this.subscribeDetail = this.accountService.getAccount(id)
       .subscribe(res => {
         if (res.code === 0 && res.data) {
           res.data.roleId = res.data.roleList[0] && res.data.roleList[0].roleId || '';
@@ -97,12 +118,13 @@ export class AccountEditComponent implements OnInit {
       if (this.id) {
         value.userId = this.id;
       }
-      this.accountService.updateAccount(value, roleId, menuId, this.paramsMenu)
+      this.subscribeSave = this.accountService.updateAccount(value, roleId, menuId, this.paramsMenu)
         .subscribe(res => {
           if (res.code === 0) {
-            HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {
-              this.router.navigate(['/account', this.paramsMenu]);
-            });
+            this.subscribeDialog = HintDialog(ERRMSG.saveSuccess, this.dialog)
+              .afterClosed().subscribe(() => {
+                this.router.navigate(['/account', this.paramsMenu]);
+              });
           } else {
             HintDialog(res.msg || ERRMSG.saveError, this.dialog);
           }
