@@ -15,13 +15,20 @@ import { ERRMSG } from '../../../_store/static';
 })
 export class AccountEditComponent implements OnInit {
   paramsMenu: string;
+  id: any;
+
+  subscribeRoute: any;
+  subscribeSave: any;
+  subscribeDetail: any;
+  subscribeDialog: any;
+
   containerConfig: ContainerConfig;
   searchStream: Subject<string> = new Subject<string>();
   form: FormGroup;
+
   config: any;
   roleList: any[] = [];
   menuList: any;
-  id: any;
   menuId: any;
   loginname: string;
   valid: boolean;

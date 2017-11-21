@@ -158,13 +158,13 @@ export class AppointmentComponent implements OnInit {
     if (Array.isArray(data)) {
       data.forEach(obj => {
         if (obj.status == 0) {
-          obj.statusName = '待处理';
+          obj.statusName = '待审核';
         }
         if (obj.status == 1) {
-          obj.statusName = '已通过';
+          obj.statusName = '审核通过';
         }
         if (obj.status == 2) {
-          obj.statusName = '已拒绝';
+          obj.statusName = '审核未通过';
         }
         obj.edit = (obj.status == 0 && operation == 1) ? '审核' : '查看';
       });
