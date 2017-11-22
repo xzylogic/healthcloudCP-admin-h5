@@ -43,6 +43,11 @@ export class HttpService {
     }
   }
 
+  /**
+   * 设置时间戳
+   * @param path
+   * @returns {string}
+   */
   setTimestamps(path): string {
     if (path.indexOf('?') > -1) {
       path += `&timestamp=${new Date().valueOf()}`;
@@ -112,6 +117,9 @@ export class HttpService {
 
   /**
    * 上传图片
+   * @param {string} path
+   * @param data
+   * @returns {Observable<any>}
    */
   upload(path: string, data: any): Observable<any> {
     return this.http.post(this.setTimestamps(path), data, {headers: new Headers({processData: false})})

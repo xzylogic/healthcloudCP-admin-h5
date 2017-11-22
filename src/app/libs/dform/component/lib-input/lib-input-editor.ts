@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { FormText } from '../../_entity/form-text';
@@ -22,7 +22,7 @@ import * as WangEditor from 'wangeditor';
   `,
   styleUrls: ['./lib-input.scss']
 })
-export class LibInputEditorComponent implements OnInit, AfterViewInit {
+export class LibInputEditorComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() form: FormGroup;
   @Input() data: FormText;
   @Input() value: any;
@@ -49,5 +49,9 @@ export class LibInputEditorComponent implements OnInit, AfterViewInit {
     };
     this.editor.create();
     this.editor.txt.html(this.value);
+  }
+
+  ngOnDestroy() {
+    this.editor = null;
   }
 }

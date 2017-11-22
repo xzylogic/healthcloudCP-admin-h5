@@ -1,10 +1,11 @@
-import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 
 import { HttpService } from '../../../_service/http.service';
 import { FormFile } from '../../_entity/form-file';
 import { HintDialog } from '../../../dmodal/dialog.component';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-input-file',
@@ -31,7 +32,7 @@ import { HintDialog } from '../../../dmodal/dialog.component';
   `,
   styleUrls: ['./lib-input.scss']
 })
-export class LibInputFileComponent implements OnInit {
+export class LibInputFileComponent implements OnInit, OnDestroy {
   @Input() form: FormGroup;
   @Input() data: FormFile;
   @Input() value: any;
@@ -40,6 +41,7 @@ export class LibInputFileComponent implements OnInit {
   @ViewChild('file') file: any;
 
   domain: string;
+  subscribeUpload: any;
 
   constructor(
     @Inject('app') private app,
@@ -53,6 +55,10 @@ export class LibInputFileComponent implements OnInit {
     if (this.data.multiple === true && this.value) {
       this.value = typeof this.value === 'object' ? this.value : [this.value];
     }
+  }
+
+  ngOnDestroy() {
+
   }
 
   // 上传图片操作

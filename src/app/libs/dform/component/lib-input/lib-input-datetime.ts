@@ -1,5 +1,5 @@
 import {
-  AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output,
+  AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, Output,
   ViewChild
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
@@ -24,13 +24,15 @@ import { FormDatetime } from '../../_entity/form-datetime';
   `,
   styleUrls: ['./lib-input.scss']
 })
-export class LibInputDatetimeComponent implements OnInit, AfterViewInit {
+export class LibInputDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() form: FormGroup;
   @Input() data: FormDatetime;
   @Input() value: any;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('datetime') datetime: ElementRef;
+
+  datePicker: any;
 
   constructor(
     @Inject('app') private app,
@@ -43,7 +45,7 @@ export class LibInputDatetimeComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     laydate.path = `${this.app.base}assets/`;
-    laydate.render({
+    this.datePicker = laydate.render({
       elem: this.datetime.nativeElement,
       type: 'datetime',
       range: this.data.options == 'range',
@@ -54,5 +56,9 @@ export class LibInputDatetimeComponent implements OnInit, AfterViewInit {
         this.valueChange.emit(this.value);
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.datePicker = null;
   }
 }
