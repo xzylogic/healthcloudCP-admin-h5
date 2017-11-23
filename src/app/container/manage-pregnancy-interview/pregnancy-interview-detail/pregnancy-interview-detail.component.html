@@ -61,7 +61,7 @@
                           <div *ngIf="form.child&&opt.bind==form.child.id&&form.optionValue==opt.id"
                                style="padding: 20px 0">
                             <label>{{form.child.name}}</label>
-                            <mat-radio-group [(ngModel)]="form.child.content" [name]="form.child.id"
+                            <mat-radio-group [(ngModel)]="form.child.optionValue" [name]="form.child.id"
                                              [disabled]="data.status==1">
                               <mat-radio-button *ngFor="let sopt of form.child.option" [value]="sopt.id">
                                 {{sopt.value}}
