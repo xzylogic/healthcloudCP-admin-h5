@@ -31,7 +31,7 @@
             <h3 class="detail-title">随访问卷内容</h3>
             <div class="tab-content">
               <div class="content_type">随访结果：
-                <mat-radio-group [(ngModel)]="pregnancyState[pregnancyPeriod]" [disabled]="data.status==1">
+                <mat-radio-group [(ngModel)]="data.pregnancyStateId" [disabled]="data.status==1">
                   <mat-radio-button [value]="content.pregnancyStateId" *ngFor="let content of data.questionDtoList">
                     {{content.pregnancyState}}
                   </mat-radio-button>
@@ -40,7 +40,7 @@
               <div class="content_form">
                 <div *ngFor="let content of data.questionDtoList">
                   <form #f="ngForm" (ngSubmit)="getValue(f.value)"
-                        *ngIf="pregnancyState[pregnancyPeriod]==content.pregnancyStateId">
+                        *ngIf="data.pregnancyStateId==content.pregnancyStateId">
                     <div *ngFor="let form of content.questionDtoList;let i=index">
                       <div class="content_input clear" *ngIf="form.type==1">
                         <label>{{form.name}}</label>
