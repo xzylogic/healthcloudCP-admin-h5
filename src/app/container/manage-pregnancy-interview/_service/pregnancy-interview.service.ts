@@ -44,6 +44,7 @@ export class PregnancyInterviewService {
   }
 
   getDetail(id) {
+    // return this.http.get(`/json/interview.json`);
     return this.http.get(`${this.app.api_url}${PATH.getDataDetail}?id=${id}`);
   }
 

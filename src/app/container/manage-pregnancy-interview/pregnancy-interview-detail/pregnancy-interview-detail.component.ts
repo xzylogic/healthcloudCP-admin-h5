@@ -1,9 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ContentChildren, Inject, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { MatDialog } from '@angular/material';
 import { HintDialog } from '../../../libs/dmodal/dialog.component';
 import { ERRMSG } from '../../_store/static';
 import { ActivatedRoute } from '@angular/router';
+import flatpickr from 'flatpickr';
+import { Mandarin } from 'flatpickr/dist/l10n/zh.js';
 
 @Component({
   selector: 'app-pregnancy-interview-detail',
@@ -18,6 +20,8 @@ export class PregnancyInterviewDetailComponent implements OnInit {
   userId: any;
   pregnancyPeriod = 0;
   pregnancyState = [1, 1, 1, 1, 1];
+
+  @ContentChildren('date') date: any;
 
   constructor(
     @Inject('auth') private auth,
@@ -55,7 +59,7 @@ export class PregnancyInterviewDetailComponent implements OnInit {
       userId: this.id,
       followDuringPregnancyId: this.id,
       pregnancyPeriod: this.formDataDto[this.pregnancyPeriod].pregnancyPeriodId,
-      pregnancyState: this.pregnancyState[this.pregnancyPeriod],
+      pregnancyState: this.formDataDto[this.pregnancyPeriod].pregnancyStateId,
       answer: JSON.stringify(form),
       doctorId: this.auth.getAdminId()
     };
@@ -84,5 +88,15 @@ export class PregnancyInterviewDetailComponent implements OnInit {
     let result = '';
     result = str.split('#')[1];
     return result;
+  }
+
+  datePicker(event) {
+    const picker: any = flatpickr(event.target, {
+      'locale': Mandarin,
+      'defaultDate': event.target.value,
+      'enableTime': true,
+      'time_24hr': true
+    });
+    picker.open();
   }
 }

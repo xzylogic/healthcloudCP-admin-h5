@@ -1,0 +1,927 @@
+{
+  "code": 0,
+  "data": {
+    "id": "123123213231231231231231232222",
+    "addUserId": "8a81dc435ec30ed4015ec629618d0000",
+    "name": "jjj",
+    "telephone": "18516551501",
+    "documentNumber": "333333333333333333",
+    "hospitalId": "1",
+    "status": 0,
+    "followDuringPregnancyQuestionnairesDto": [
+      {
+        "pregnancyPeriod": "16-20周",
+        "pregnancyPeriodId": 1,
+        "pregnancyStateId": 0,
+        "questionDtoList": [
+          {
+            "pregnancyState": "正常妊娠",
+            "pregnancyStateId": 1,
+            "questionDtoList": [
+              {
+                "id": "16200010",
+                "name": "血压是否正常",
+                "type": "5",
+                "content": "",
+                "option": [
+                  {
+                    "questionId": "16200010",
+                    "id": "1620001001",
+                    "value": "是",
+                    "bind": "0",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "16200010",
+                    "id": "1620001000",
+                    "value": "否",
+                    "bind": "16200011",
+                    "checkBox": "0"
+                  }
+                ],
+                "child": {
+                  "id": "16200011",
+                  "name": "您的血压为#mmHg",
+                  "type": "5",
+                  "content": "",
+                  "option": [],
+                  "answers": [
+                    " ",
+                    " "
+                  ]
+                }
+              },
+              {
+                "id": "16200020",
+                "name": "每周体重增长是否超过0.3-0.5kg范围",
+                "type": "3",
+                "content": "",
+                "option": [
+                  {
+                    "questionId": "16200020",
+                    "id": "1620002001",
+                    "value": "是",
+                    "bind": "0",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "16200020",
+                    "id": "1620002000",
+                    "value": "否",
+                    "bind": "16200021",
+                    "checkBox": "0"
+                  }
+                ],
+                "child": {
+                  "id": "16200021",
+                  "name": "增重数值为#kg",
+                  "type": "6",
+                  "content": "",
+                  "option": []
+                }
+              },
+              {
+                "id": "16200030",
+                "name": "是否进行唐氏综合症筛查",
+                "type": "1",
+                "content": "",
+                "option": [
+                  {
+                    "id": "0000000000",
+                    "value": "否",
+                    "bind": "0",
+                    "checkBox": "0"
+                  },
+                  {
+                    "id": "0000000001",
+                    "value": "是",
+                    "bind": "0",
+                    "checkBox": "0"
+                  }
+                ]
+              },
+              {
+                "id": "16200040",
+                "name": "胎心是否正常",
+                "type": "1",
+                "content": "",
+                "option": [
+                  {
+                    "id": "0000000000",
+                    "value": "否",
+                    "bind": "0",
+                    "checkBox": "0"
+                  },
+                  {
+                    "id": "0000000001",
+                    "value": "是",
+                    "bind": "0",
+                    "checkBox": "0"
+                  }
+                ]
+              },
+              {
+                "id": "16200050",
+                "name": "是否有其他异常",
+                "type": "4",
+                "content": "",
+                "displayWords": "请输入异常内容",
+                "option": [
+                  {
+                    "questionId": "16200050",
+                    "id": "1620005001",
+                    "value": "是",
+                    "bind": "16200050",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "16200050",
+                    "id": "1620005000",
+                    "value": "否",
+                    "bind": "0",
+                    "checkBox": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "pregnancyState": "终止妊娠",
+            "pregnancyStateId": 2,
+            "questionDtoList": [
+              {
+                "id": "1000000",
+                "name": "终止妊娠类型",
+                "type": "1",
+                "content": "",
+                "option": [
+                  {
+                    "questionId": "1000000",
+                    "id": "1000000001",
+                    "value": "流产",
+                    "bind": "10000001",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "1000000",
+                    "id": "1000000002",
+                    "value": "胚胎停止发育",
+                    "bind": "0",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "1000000",
+                    "id": "1000000003",
+                    "value": "死胎",
+                    "bind": "0",
+                    "checkBox": "0"
+                  }
+                ],
+                "child": {
+                  "id": "10000001",
+                  "name": "流产时间",
+                  "type": "7",
+                  "content": "",
+                  "displayWords": "请输入流产时间",
+                  "option": []
+                }
+              }
+            ]
+          }
+        ],
+        "createDate": "2017年11月24日 09:57",
+        "status": 0,
+        "type": "电话随访"
+      },
+      {
+        "pregnancyPeriod": "21-24周",
+        "pregnancyPeriodId": 2,
+        "pregnancyStateId": 0,
+        "questionDtoList": [
+          {
+            "pregnancyState": "正常妊娠",
+            "pregnancyStateId": 1,
+            "questionDtoList": [
+              {
+                "id": "21240010",
+                "name": "是否进行超声筛查胎儿畸形",
+                "type": "1",
+                "content": "",
+                "option": [
+                  {
+                    "id": "0000000000",
+                    "value": "否",
+                    "bind": "0",
+                    "checkBox": "0"
+                  },
+                  {
+                    "id": "0000000001",
+                    "value": "是",
+                    "bind": "0",
+                    "checkBox": "0"
+                  }
+                ]
+              },
+              {
+                "id": "21240020",
+                "name": "超声筛查胎儿是否有畸形",
+                "type": "4",
+                "content": "",
+                "displayWords": "请输入畸形类型",
+                "option": [
+                  {
+                    "questionId": "21240020",
+                    "id": "2124002001",
+                    "value": "是",
+                    "bind": "21240020",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "21240020",
+                    "id": "2124002000",
+                    "value": "否",
+                    "bind": "0",
+                    "checkBox": "0"
+                  }
+                ]
+              },
+              {
+                "id": "21240030",
+                "name": " 血压是否正常",
+                "type": "5",
+                "content": "",
+                "option": [
+                  {
+                    "questionId": "21240030",
+                    "id": "2124003001",
+                    "value": "是",
+                    "bind": "0",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "21240030",
+                    "id": "2124003000",
+                    "value": "否",
+                    "bind": "21240031",
+                    "checkBox": "0"
+                  }
+                ],
+                "child": {
+                  "id": "21240031",
+                  "name": "您的血压为#mmHg",
+                  "type": "5",
+                  "content": "",
+                  "option": [],
+                  "answers": [
+                    " ",
+                    " "
+                  ]
+                }
+              },
+              {
+                "id": "21240040",
+                "name": "每周体重增长是否超过0.3-0.5kg范围",
+                "type": "3",
+                "content": "",
+                "option": [
+                  {
+                    "questionId": "21240040",
+                    "id": "2124004001",
+                    "value": "是",
+                    "bind": "0",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "21240040",
+                    "id": "2124004000",
+                    "value": "否",
+                    "bind": "21240041",
+                    "checkBox": "0"
+                  }
+                ],
+                "child": {
+                  "id": "21240041",
+                  "name": "增重数值为#kg",
+                  "type": "6",
+                  "content": "",
+                  "option": []
+                }
+              },
+              {
+                "id": "21240050",
+                "name": "胎心是否正常",
+                "type": "1",
+                "content": "",
+                "option": [
+                  {
+                    "id": "0000000000",
+                    "value": "否",
+                    "bind": "0",
+                    "checkBox": "0"
+                  },
+                  {
+                    "id": "0000000001",
+                    "value": "是",
+                    "bind": "0",
+                    "checkBox": "0"
+                  }
+                ]
+              },
+              {
+                "id": "21240060",
+                "name": "是否有其他异常",
+                "type": "4",
+                "content": "",
+                "displayWords": "请输入异常内容",
+                "option": [
+                  {
+                    "questionId": "21240060",
+                    "id": "2124006001",
+                    "value": "是",
+                    "bind": "21240060",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "21240060",
+                    "id": "2124006000",
+                    "value": "否",
+                    "bind": "0",
+                    "checkBox": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "pregnancyState": "终止妊娠",
+            "pregnancyStateId": 2,
+            "questionDtoList": [
+              {
+                "id": "1000000",
+                "name": "终止妊娠类型",
+                "type": "1",
+                "content": "",
+                "option": [
+                  {
+                    "questionId": "1000000",
+                    "id": "1000000001",
+                    "value": "流产",
+                    "bind": "10000001",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "1000000",
+                    "id": "1000000002",
+                    "value": "胚胎停止发育",
+                    "bind": "0",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "1000000",
+                    "id": "1000000003",
+                    "value": "死胎",
+                    "bind": "0",
+                    "checkBox": "0"
+                  }
+                ],
+                "child": {
+                  "id": "10000001",
+                  "name": "流产时间",
+                  "type": "7",
+                  "content": "",
+                  "displayWords": "请输入流产时间",
+                  "option": []
+                }
+              }
+            ]
+          }
+        ],
+        "createDate": "2017年11月24日 09:57",
+        "status": 0,
+        "type": "电话随访"
+      },
+      {
+        "id": "1231232132312312312312312322222836",
+        "pregnancyPeriod": "28-36周",
+        "pregnancyPeriodId": 2836,
+        "pregnancyStateId": 1,
+        "questionDtoList": [
+          {
+            "pregnancyState": "正常妊娠",
+            "pregnancyStateId": 1,
+            "questionDtoList": [
+              {
+                "id": "28360010",
+                "name": "是否进行妊娠期糖尿病检查",
+                "type": "2",
+                "content": "",
+                "optionValue": "2836001001",
+                "option": [
+                  {
+                    "questionId": "28360010",
+                    "id": "2836001001",
+                    "value": "是",
+                    "bind": "28360011",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "28360010",
+                    "id": "2836001000",
+                    "value": "否",
+                    "bind": "0",
+                    "checkBox": "0"
+                  }
+                ],
+                "child": {
+                  "id": "28360011",
+                  "name": "妊娠期糖尿病检查结果是否正常",
+                  "type": "1",
+                  "content": "",
+                  "optionValue": "0000000001",
+                  "option": [
+                    {
+                      "id": "0000000000",
+                      "value": "否",
+                      "bind": "0",
+                      "checkBox": "0"
+                    },
+                    {
+                      "id": "0000000001",
+                      "value": "是",
+                      "bind": "0",
+                      "checkBox": "0"
+                    }
+                  ],
+                  "answers": [],
+                  "category": "1"
+                },
+                "answers": [],
+                "category": "1"
+              },
+              {
+                "id": "28360020",
+                "name": "血压是否正常",
+                "type": "5",
+                "content": "",
+                "optionValue": "2836002001",
+                "option": [
+                  {
+                    "questionId": "28360020",
+                    "id": "2836002001",
+                    "value": "是",
+                    "bind": "0",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "28360020",
+                    "id": "2836002000",
+                    "value": "否",
+                    "bind": "28360021",
+                    "checkBox": "0"
+                  }
+                ],
+                "child": {
+                  "id": "28360021",
+                  "name": "您的血压为#mmHg",
+                  "type": "5",
+                  "content": "",
+                  "option": [],
+                  "answers": [
+                    " ",
+                    " "
+                  ],
+                  "category": "1"
+                },
+                "answers": [],
+                "category": "1"
+              },
+              {
+                "id": "28360030",
+                "name": "每周体重增长是否超过0.3-0.5kg范围",
+                "type": "3",
+                "content": "",
+                "optionValue": "2836003000",
+                "option": [
+                  {
+                    "questionId": "28360030",
+                    "id": "2836003001",
+                    "value": "是",
+                    "bind": "0",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "28360030",
+                    "id": "2836003000",
+                    "value": "否",
+                    "bind": "28360031",
+                    "checkBox": "0"
+                  }
+                ],
+                "child": {
+                  "id": "28360031",
+                  "name": "增重数值为#kg",
+                  "type": "6",
+                  "content": "",
+                  "optionValue": "",
+                  "option": [],
+                  "answers": [],
+                  "category": "1"
+                },
+                "answers": [],
+                "category": "1"
+              },
+              {
+                "id": "28360040",
+                "name": "胎心是否正常",
+                "type": "1",
+                "content": "",
+                "optionValue": "0000000001",
+                "option": [
+                  {
+                    "id": "0000000000",
+                    "value": "否",
+                    "bind": "0",
+                    "checkBox": "0"
+                  },
+                  {
+                    "id": "0000000001",
+                    "value": "是",
+                    "bind": "0",
+                    "checkBox": "0"
+                  }
+                ],
+                "answers": [],
+                "category": "1"
+              },
+              {
+                "id": "28360050",
+                "name": "胎动是否正常",
+                "type": "1",
+                "content": "",
+                "optionValue": "0000000001",
+                "option": [
+                  {
+                    "id": "0000000000",
+                    "value": "否",
+                    "bind": "0",
+                    "checkBox": "0"
+                  },
+                  {
+                    "id": "0000000001",
+                    "value": "是",
+                    "bind": "0",
+                    "checkBox": "0"
+                  }
+                ],
+                "answers": [],
+                "category": "1"
+              },
+              {
+                "id": "28360060",
+                "name": "是否贫血",
+                "type": "2",
+                "content": "",
+                "optionValue": "2836006000",
+                "option": [
+                  {
+                    "questionId": "28360060",
+                    "id": "2836006001",
+                    "value": "是",
+                    "bind": "28360061",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "28360060",
+                    "id": "2836006000",
+                    "value": "否",
+                    "bind": "0",
+                    "checkBox": "0"
+                  }
+                ],
+                "child": {
+                  "id": "28360061",
+                  "name": "是否进行治疗",
+                  "type": "1",
+                  "content": "",
+                  "option": [
+                    {
+                      "id": "0000000000",
+                      "value": "否",
+                      "bind": "0",
+                      "checkBox": "0"
+                    },
+                    {
+                      "id": "0000000001",
+                      "value": "是",
+                      "bind": "0",
+                      "checkBox": "0"
+                    }
+                  ],
+                  "answers": [],
+                  "category": "1"
+                },
+                "answers": [],
+                "category": "1"
+              },
+              {
+                "id": "28360070",
+                "name": "是否有其他异常",
+                "type": "4",
+                "content": "",
+                "displayWords": "请输入异常内容",
+                "optionValue": "2836007000",
+                "option": [
+                  {
+                    "questionId": "28360070",
+                    "id": "2836007001",
+                    "value": "是",
+                    "bind": "28360070",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "28360070",
+                    "id": "2836007000",
+                    "value": "否",
+                    "bind": "0",
+                    "checkBox": "0"
+                  }
+                ],
+                "answers": [],
+                "category": "1"
+              }
+            ]
+          },
+          {
+            "pregnancyState": "已分娩",
+            "pregnancyStateId": 3
+          }
+        ],
+        "createDate": "2017年11月22日 15:48",
+        "status": 1,
+        "type": "在线随访"
+      },
+      {
+        "pregnancyPeriod": "37-40周",
+        "pregnancyPeriodId": 4,
+        "pregnancyStateId": 0,
+        "questionDtoList": [
+          {
+            "pregnancyState": "正常妊娠",
+            "pregnancyStateId": 1,
+            "questionDtoList": [
+              {
+                "id": "37400010",
+                "name": "胎动是否正常",
+                "type": "1",
+                "content": "",
+                "option": [
+                  {
+                    "id": "0000000000",
+                    "value": "否",
+                    "bind": "0",
+                    "checkBox": "0"
+                  },
+                  {
+                    "id": "0000000001",
+                    "value": "是",
+                    "bind": "0",
+                    "checkBox": "0"
+                  }
+                ]
+              },
+              {
+                "id": "37400020",
+                "name": "血压是否正常",
+                "type": "5",
+                "content": "",
+                "option": [
+                  {
+                    "questionId": "37400020",
+                    "id": "3740002001",
+                    "value": "是",
+                    "bind": "0",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "37400020",
+                    "id": "3740002000",
+                    "value": "否",
+                    "bind": "37400021",
+                    "checkBox": "0"
+                  }
+                ],
+                "child": {
+                  "id": "37400021",
+                  "name": "您的血压为#mmHg",
+                  "type": "5",
+                  "content": "",
+                  "option": [],
+                  "answers": [
+                    " ",
+                    " "
+                  ]
+                }
+              },
+              {
+                "id": "37400030",
+                "name": "每周体重增长是否超过0.3-0.5kg范围",
+                "type": "3",
+                "content": "",
+                "option": [
+                  {
+                    "questionId": "37400030",
+                    "id": "3740003001",
+                    "value": "是",
+                    "bind": "0",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "37400030",
+                    "id": "3740003000",
+                    "value": "否",
+                    "bind": "37400031",
+                    "checkBox": "0"
+                  }
+                ],
+                "child": {
+                  "id": "37400031",
+                  "name": "增重数值为#kg",
+                  "type": "6",
+                  "content": "",
+                  "option": []
+                }
+              },
+              {
+                "id": "37400040",
+                "name": "是否水肿",
+                "type": "1",
+                "content": "",
+                "option": [
+                  {
+                    "id": "0000000000",
+                    "value": "否",
+                    "bind": "0",
+                    "checkBox": "0"
+                  },
+                  {
+                    "id": "0000000001",
+                    "value": "是",
+                    "bind": "0",
+                    "checkBox": "0"
+                  }
+                ]
+              },
+              {
+                "id": "37400050",
+                "name": "是否贫血",
+                "type": "2",
+                "content": "",
+                "option": [
+                  {
+                    "questionId": "37400050",
+                    "id": "3740005001",
+                    "value": "是",
+                    "bind": "37400051",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "37400050",
+                    "id": "3740005000",
+                    "value": "否",
+                    "bind": "0",
+                    "checkBox": "0"
+                  }
+                ],
+                "child": {
+                  "id": "37400051",
+                  "name": "是否进行治疗",
+                  "type": "1",
+                  "content": "",
+                  "option": [
+                    {
+                      "id": "0000000000",
+                      "value": "否",
+                      "bind": "0",
+                      "checkBox": "0"
+                    },
+                    {
+                      "id": "0000000001",
+                      "value": "是",
+                      "bind": "0",
+                      "checkBox": "0"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "37400060",
+                "name": "是否有其他异常",
+                "type": "4",
+                "content": "",
+                "displayWords": "请输入异常内容",
+                "option": [
+                  {
+                    "questionId": "37400060",
+                    "id": "3740006001",
+                    "value": "是",
+                    "bind": "37400060",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "37400060",
+                    "id": "3740006000",
+                    "value": "否",
+                    "bind": "0",
+                    "checkBox": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "pregnancyState": "已分娩",
+            "pregnancyStateId": 3,
+            "questionDtoList": [
+              {
+                "id": "2000001",
+                "name": "分娩类型",
+                "type": "2",
+                "content": "",
+                "option": [
+                  {
+                    "questionId": "2000001",
+                    "id": "2000001001",
+                    "value": "活产",
+                    "bind": "20000011",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "2000001",
+                    "id": "2000001002",
+                    "value": "死产",
+                    "bind": "0",
+                    "checkBox": "0"
+                  },
+                  {
+                    "questionId": "2000001",
+                    "id": "2000001003",
+                    "value": "死胎",
+                    "bind": "0",
+                    "checkBox": "0"
+                  }
+                ],
+                "child": {
+                  "id": "20000011",
+                  "name": "新生儿是否畸形",
+                  "type": "1",
+                  "content": "",
+                  "option": [
+                    {
+                      "questionId": "20000011",
+                      "id": "2000001101",
+                      "value": "是",
+                      "bind": "200000111",
+                      "checkBox": "0"
+                    },
+                    {
+                      "questionId": "20000011",
+                      "id": "2000001100",
+                      "value": "否",
+                      "bind": "0",
+                      "checkBox": "0"
+                    }
+                  ],
+                  "child": {
+                    "id": "200000111",
+                    "name": "新生儿畸形类型",
+                    "type": "4",
+                    "content": "",
+                    "displayWords": "请输入畸形类型",
+                    "option": []
+                  }
+                }
+              },
+              {
+                "id": "2000002",
+                "name": "分娩时间",
+                "type": "7",
+                "content": "",
+                "option": []
+              },
+              {
+                "id": "2000003",
+                "name": "分娩医院",
+                "type": "6",
+                "content": "",
+                "option": []
+              }
+            ]
+          }
+        ],
+        "createDate": "2017年11月24日 09:57",
+        "status": 0,
+        "type": "电话随访"
+      }
+    ]
+  }
+}
