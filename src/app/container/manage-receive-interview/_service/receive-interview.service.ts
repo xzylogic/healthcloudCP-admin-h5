@@ -8,6 +8,7 @@ const PATH = {
   // getCommunityAll: '/api/getAllCommunityByUserId',
   getCommunityAll: '/api/appointmentTime/getAllCommunityByUserId',
   saveDetail: '/folic/followup/save',
+  sendMessage: '/folic/followup/push',
   delDetail: '/folic/followup/delete'
 
 };
@@ -55,6 +56,12 @@ export class ReceiveInterviewService {
 
   delDetail(id) {
     return this.http.get(`${this.app.api_url}${PATH.delDetail}?id=${id}`);
+  }
+
+  sendMessage(id, type) {
+    return this.http.get(
+      `${this.app.api_url}${PATH.sendMessage}?recordId=${id}&questionnairesType=${type}`
+    );
   }
 
   setReceiveInterviewConfig() {
