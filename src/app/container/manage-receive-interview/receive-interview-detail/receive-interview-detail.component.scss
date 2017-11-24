@@ -24,6 +24,10 @@
   margin-bottom: 15px;
   border-bottom: 2px solid $color-primary;
   font-size: 18px;
+  button {
+    margin-left: 15px;
+    color: $color-primary;
+  }
 }
 
 .detail-content {

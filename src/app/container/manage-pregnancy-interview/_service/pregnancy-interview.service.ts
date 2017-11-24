@@ -6,6 +6,7 @@ const PATH = {
   getDataList: '/api/followDuringPregnancy/checkList',
   getDataDetail: '/api/followDuringPregnancy/getList',
   saveDetail: '/api/followDuringPregnancy/save',
+  sendMessage: '/api/followDuringPregnancy/pushMessage',
   // getCommunityAll: '/api/getAllCommunityByUserId',
   getCommunityAll: '/api/appointmentTime/getAllCommunityByUserId',
 };
@@ -50,6 +51,10 @@ export class PregnancyInterviewService {
 
   saveDetail(data) {
     return this.http.post(`${this.app.api_url}${PATH.saveDetail}`, data);
+  }
+
+  sendMessage(id, pregnancy) {
+    return this.http.get(`${this.app.api_url}${PATH.sendMessage}?id=${id}&pregnancy=${pregnancy}`);
   }
 
   setPregnancyInterviewConfig() {

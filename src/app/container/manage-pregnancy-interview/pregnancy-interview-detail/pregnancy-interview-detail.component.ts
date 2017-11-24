@@ -56,7 +56,7 @@ export class PregnancyInterviewDetailComponent implements OnInit {
 
   getValue(form) {
     const formData = {
-      userId: this.id,
+      userId: this.userId,
       followDuringPregnancyId: this.id,
       pregnancyPeriod: this.formDataDto[this.pregnancyPeriod].pregnancyPeriodId,
       pregnancyState: this.formDataDto[this.pregnancyPeriod].pregnancyStateId,
@@ -98,5 +98,28 @@ export class PregnancyInterviewDetailComponent implements OnInit {
       'time_24hr': true
     });
     picker.open();
+  }
+
+  push(pregnancy) {
+    HintDialog(`是否短信提醒用户填写${pregnancy}的随访问卷？`, this.dialog)
+      .afterClosed().subscribe(res => {
+      if (res && res.key == 'confirm') {
+        this.sendMsg(this.id, pregnancy);
+      }
+    });
+  }
+
+  sendMsg(id, pregnancy) {
+    this.interviewService.sendMessage(id, pregnancy)
+      .subscribe(res => {
+        if (res.code === 0) {
+          HintDialog(res.msg || '提醒成功！', this.dialog);
+        } else {
+          HintDialog(res.msg || '提醒失败！', this.dialog);
+        }
+      }, err => {
+        console.log(err);
+        HintDialog(ERRMSG.netErrMsg, this.dialog);
+      });
   }
 }

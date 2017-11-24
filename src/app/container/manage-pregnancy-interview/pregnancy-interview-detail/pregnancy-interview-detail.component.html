@@ -4,7 +4,12 @@
       <mat-tab [label]="data.pregnancyPeriod" *ngFor="let data of formDataDto">
         <div class="tab-content">
           <div class="detail-container clear">
-            <h3 class="detail-title">随访人基本信息</h3>
+            <h3 class="detail-title">
+              随访人基本信息
+              <button *ngIf="data.status==0" mat-icon-button (click)="push(data.pregnancyPeriod)">
+                <mat-icon>alarm</mat-icon>
+              </button>
+            </h3>
             <div class="grid-container">
               <div class="row">
                 <div class="col-2">
