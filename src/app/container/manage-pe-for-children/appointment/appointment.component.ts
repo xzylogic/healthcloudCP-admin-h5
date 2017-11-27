@@ -37,13 +37,13 @@ export class AppointmentComponent implements OnInit {
     name: '待处理'
   }, {
     id: 1,
-    name: '正常接种'
+    name: '正常体检'
   }, {
     id: 3,
-    name: '接种取消'
+    name: '体检取消'
   }, {
     id: 4,
-    name: '接种爽约'
+    name: '体检爽约'
   }, {
     id: 2,
     name: '用户取消'
@@ -172,16 +172,16 @@ export class AppointmentComponent implements OnInit {
           obj.statusName = '待处理';
         }
         if (obj.status == 1) {
-          obj.statusName = '正常接种';
+          obj.statusName = '正常体检';
         }
         if (obj.status == 2) {
           obj.statusName = '用户取消';
         }
         if (obj.status == 3) {
-          obj.statusName = '接种取消';
+          obj.statusName = '体检取消';
         }
         if (obj.status == 4) {
-          obj.statusName = '接种爽约';
+          obj.statusName = '体检爽约';
         }
         obj.edit = (obj.status == 0 && operation == 1) ? '预约登记' : '查看';
       });
