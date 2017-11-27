@@ -23,11 +23,10 @@
                   <mat-icon class="tree__icon" (click)="toggle(menu)" *ngIf="menu.open">remove</mat-icon>
                   <p class="tree__span" [class.active]="menu.active" (click)="newMenu(menu.menuId, menu.menuName)">
                     {{menu.menuName}}</p>
-                  <button mat-icon-button color="primary" (click)="updateMenu(menu)" *ngIf="permission">
+                  <button mat-icon-button color="primary" (click)="updateMenu(menu)">
                     <mat-icon aria-label="edit">mode_edit</mat-icon>
                   </button>
-                  <button mat-icon-button color="warn" (click)="deleteMenu(menu.menuId, menu.menuName)"
-                          *ngIf="permission">
+                  <button mat-icon-button color="warn" (click)="deleteMenu(menu.menuId, menu.menuName)">
                     <mat-icon aria-label="delete">delete_forever</mat-icon>
                   </button>
                 </div>
@@ -40,11 +39,10 @@
                          (click)="newMenu(subMenu.menuId, subMenu.menuName)">
                         {{subMenu.menuName}}
                       </p>
-                      <button mat-icon-button color="primary" (click)="updateMenu(subMenu)" *ngIf="permission">
+                      <button mat-icon-button color="primary" (click)="updateMenu(subMenu)">
                         <mat-icon aria-label="edit">mode_edit</mat-icon>
                       </button>
-                      <button mat-icon-button color="warn" (click)="deleteMenu(subMenu.menuId, subMenu.menuName)"
-                              *ngIf="permission">
+                      <button mat-icon-button color="warn" (click)="deleteMenu(subMenu.menuId, subMenu.menuName)">
                         <mat-icon aria-label="delete">delete_forever</mat-icon>
                       </button>
                     </div>
@@ -53,11 +51,10 @@
                         <div class="clear tree__p">
                           <mat-icon class="tree__icon last">remove</mat-icon>
                           <p class="tree__span last">{{ssubMenu.menuName}}</p>
-                          <button mat-icon-button color="primary" (click)="updateMenu(ssubMenu)" *ngIf="permission">
+                          <button mat-icon-button color="primary" (click)="updateMenu(ssubMenu)">
                             <mat-icon aria-label="edit">mode_edit</mat-icon>
                           </button>
-                          <button mat-icon-button color="warn" (click)="deleteMenu(ssubMenu.menuId, ssubMenu.menuName)"
-                                  *ngIf="permission">
+                          <button mat-icon-button color="warn" (click)="deleteMenu(ssubMenu.menuId, ssubMenu.menuName)">
                             <mat-icon aria-label="delete">delete_forever</mat-icon>
                           </button>
                         </div>

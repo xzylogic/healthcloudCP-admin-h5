@@ -40,7 +40,8 @@ export class RoleComponent implements OnInit, OnDestroy {
         }
         this.paramsMenu = route.menu;
         this.roleTable = new TableOption({
-          titles: this.roleService.setRoleTitles(this.permission),
+          titles: this.roleService.setRoleTitles(true),
+          // titles: this.roleService.setRoleTitles(this.permission),
           ifPage: false
         });
       }

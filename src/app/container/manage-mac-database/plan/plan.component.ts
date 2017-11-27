@@ -88,6 +88,22 @@ export class PlanComponent implements OnInit {
     this.search();
   }
 
+  initWeek() {
+    this.weekListAm = null;
+    this.weekListPm = null;
+    this.operationWeek = null;
+  }
+
+  initTime() {
+    this.timeList1 = null;
+    this.timeList2 = null;
+    this.timeList3 = null;
+    this.timeList4 = null;
+    this.timeList5 = null;
+    this.timeList6 = null;
+    this.operationTime = null;
+  }
+
   search() {
     this.orgName = this.orgNameRecord || this.orgName;
     this.getWeekList();
@@ -96,6 +112,7 @@ export class PlanComponent implements OnInit {
   }
 
   getWeekList() {
+    this.initWeek();
     this.planService.getWeekList(this.siteId || this.centerId)
       .subscribe(res => {
         if (res.code === 0 && res.data && res.data.content) {
@@ -109,6 +126,7 @@ export class PlanComponent implements OnInit {
   }
 
   getTimeList() {
+    this.initTime();
     this.planService.getTimeList(this.siteId || this.centerId)
       .subscribe(res => {
         if (res.code === 0 && res.data && res.data.content) {

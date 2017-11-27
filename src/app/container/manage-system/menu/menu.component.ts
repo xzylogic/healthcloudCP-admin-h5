@@ -117,38 +117,38 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   newMenu(parentId, parentName) {
-    if (this.permission) {
-      this.unActive(this.menuList, parentId);
-      this.form = null;
-      this.title = '新增菜单';
-      this.form = {parentId: parentId, parentName: parentName};
-      this.cdr.detectChanges();
-    }
+    // if (this.permission) {
+    this.unActive(this.menuList, parentId);
+    this.form = null;
+    this.title = '新增菜单';
+    this.form = {parentId: parentId, parentName: parentName};
+    this.cdr.detectChanges();
+    // }
   }
 
   updateMenu(menu) {
-    if (this.permission) {
-      this.unActive(this.menuList, 0);
-      this.form = null;
-      this.title = '编辑菜单';
-      console.log(menu);
-      // this.form = this.menuService.setMenuFrom({data: menu});
-      this.form = menu;
-      this.cdr.detectChanges();
-    }
+    // if (this.permission) {
+    this.unActive(this.menuList, 0);
+    this.form = null;
+    this.title = '编辑菜单';
+    // console.log(menu);
+    // this.form = this.menuService.setMenuFrom({data: menu});
+    this.form = menu;
+    this.cdr.detectChanges();
+    // }
   }
 
   deleteMenu(menuId, menuName) {
-    if (this.permission) {
-      this.subscribeDialog = HintDialog(
-        `您确定要删除菜单：${menuName}?`,
-        this.dialog
-      ).afterClosed().subscribe(res => {
-        if (res && res.key === 'confirm') {
-          this.deleteAction(menuId);
-        }
-      });
-    }
+    // if (this.permission) {
+    this.subscribeDialog = HintDialog(
+      `您确定要删除菜单：${menuName}?`,
+      this.dialog
+    ).afterClosed().subscribe(res => {
+      if (res && res.key === 'confirm') {
+        this.deleteAction(menuId);
+      }
+    });
+    // }
   }
 
   deleteAction(menuId) {
