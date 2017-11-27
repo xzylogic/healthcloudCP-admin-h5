@@ -1,4 +1,4 @@
-import { Component, ContentChildren, Inject, OnInit } from '@angular/core';
+import { Component, ContentChildren, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { MatDialog } from '@angular/material';
 import { HintDialog } from '../../../libs/dmodal/dialog.component';
@@ -12,7 +12,13 @@ import { Mandarin } from 'flatpickr/dist/l10n/zh.js';
   templateUrl: './pregnancy-interview-detail.component.html',
   styleUrls: ['./pregnancy-interview-detail.component.scss']
 })
-export class PregnancyInterviewDetailComponent implements OnInit {
+export class PregnancyInterviewDetailComponent implements OnInit, OnDestroy {
+  subscribeRoute: any;
+  subscribeDetail: any;
+  subscribeSave: any;
+  subscribeDialog: any;
+  subscribeHDialog: any;
+
   containerConfig: ContainerConfig;
   formData: any;
   formDataDto: any;
@@ -33,7 +39,7 @@ export class PregnancyInterviewDetailComponent implements OnInit {
 
   ngOnInit() {
     this.containerConfig = this.interviewService.setPregnancyInterviewDetailConfig();
-    this.route.params.subscribe(route => {
+    this.subscribeRoute = this.route.params.subscribe(route => {
       if (route.id) {
         this.id = route.id;
         this.getDetail();
@@ -41,8 +47,26 @@ export class PregnancyInterviewDetailComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    if (this.subscribeRoute) {
+      this.subscribeRoute.unsubscribe();
+    }
+    if (this.subscribeDetail) {
+      this.subscribeDetail.unsubscribe();
+    }
+    if (this.subscribeSave) {
+      this.subscribeSave.unsubscribe();
+    }
+    if (this.subscribeDialog) {
+      this.subscribeDialog.unsubscribe();
+    }
+    if (this.subscribeHDialog) {
+      this.subscribeHDialog.unsubscribe();
+    }
+  }
+
   getDetail() {
-    this.interviewService.getDetail(this.id)
+    this.subscribeDetail = this.interviewService.getDetail(this.id)
       .subscribe(res => {
         if (res.code == 0 && res.data) {
           this.formData = res.data || {};
@@ -64,7 +88,7 @@ export class PregnancyInterviewDetailComponent implements OnInit {
       doctorId: this.auth.getAdminId()
     };
     console.log(JSON.stringify(formData));
-    this.interviewService.saveDetail(formData)
+    this.subscribeSave = this.interviewService.saveDetail(formData)
       .subscribe(res => {
         if (res.code === 0) {
           this.getDetail();
@@ -101,16 +125,16 @@ export class PregnancyInterviewDetailComponent implements OnInit {
   }
 
   push(pregnancy) {
-    HintDialog(`是否短信提醒用户填写${pregnancy}的随访问卷？`, this.dialog)
+    this.subscribeHDialog = HintDialog(`是否短信提醒用户填写${pregnancy}的随访问卷？`, this.dialog)
       .afterClosed().subscribe(res => {
-      if (res && res.key == 'confirm') {
-        this.sendMsg(this.id, pregnancy);
-      }
-    });
+        if (res && res.key == 'confirm') {
+          this.sendMsg(this.id, pregnancy);
+        }
+      });
   }
 
   sendMsg(id, pregnancy) {
-    this.interviewService.sendMessage(id, pregnancy)
+    this.subscribeDialog = this.interviewService.sendMessage(id, pregnancy)
       .subscribe(res => {
         if (res.code === 0) {
           HintDialog(res.msg || '提醒成功！', this.dialog);

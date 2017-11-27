@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
@@ -11,7 +11,13 @@ import { ERRMSG } from '../../_store/static';
   templateUrl: './receive-interview-detail.component.html',
   styleUrls: ['./receive-interview-detail.component.scss']
 })
-export class ReceiveInterviewDetailComponent implements OnInit {
+export class ReceiveInterviewDetailComponent implements OnInit, OnDestroy {
+  subscribeRoute: any;
+  subscribeDetail: any;
+  subscribeSave: any;
+  subscribeDialog: any;
+  subscribeHDialog: any;
+
   containerConfig: ContainerConfig;
   initData: any;
   cardnum: string;
@@ -25,7 +31,7 @@ export class ReceiveInterviewDetailComponent implements OnInit {
 
   ngOnInit() {
     this.containerConfig = this.interviewService.setReceiveInterviewDetailConfig();
-    this.route.params.subscribe(route => {
+    this.subscribeRoute = this.route.params.subscribe(route => {
       if (route.id) {
         this.cardnum = route.id;
         this.getData(route.id);
@@ -33,13 +39,30 @@ export class ReceiveInterviewDetailComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    if (this.subscribeRoute) {
+      this.subscribeRoute.unsubscribe();
+    }
+    if (this.subscribeDetail) {
+      this.subscribeDetail.unsubscribe();
+    }
+    if (this.subscribeSave) {
+      this.subscribeSave.unsubscribe();
+    }
+    if (this.subscribeDialog) {
+      this.subscribeDialog.unsubscribe();
+    }
+    if (this.subscribeHDialog) {
+      this.subscribeHDialog.unsubscribe();
+    }
+  }
+
   getData(card) {
-    this.interviewService.getDataDetail(card)
+    this.subscribeDetail = this.interviewService.getDataDetail(card)
       .subscribe(res => {
         if (res.code === 0 && res.data) {
           this.formatData(res.data);
           this.initData = res.data;
-          console.log(this.initData);
         } else {
 
         }
@@ -61,7 +84,6 @@ export class ReceiveInterviewDetailComponent implements OnInit {
   }
 
   getValue(data, i) {
-    console.log(data);
     const formData: any = {};
     const keys = Object.keys(data);
     keys.forEach(key => {
@@ -73,7 +95,7 @@ export class ReceiveInterviewDetailComponent implements OnInit {
     formData.recordId = this.initData[i].recordId;
     formData.questionnairesType = this.initData[i].questionnairesType;
     console.log(formData);
-    this.interviewService.saveDetail(formData)
+    this.subscribeSave = this.interviewService.saveDetail(formData)
       .subscribe(res => {
         if (res.code == 0) {
           this.getData(this.cardnum);
@@ -87,17 +109,18 @@ export class ReceiveInterviewDetailComponent implements OnInit {
       });
   }
 
-  push(pregnancy) {
-    HintDialog(`是否短信提醒用户填写${pregnancy}的随访问卷？`, this.dialog)
+  push(id, type) {
+    console.log(id, type);
+    this.subscribeHDialog = HintDialog(`是否短信提醒用户填写随访问卷？`, this.dialog)
       .afterClosed().subscribe(res => {
-      if (res && res.key == 'confirm') {
-        // this.sendMsg(this.id, pregnancy);
-      }
-    });
+        if (res && res.key == 'confirm') {
+          this.sendMsg(id, type);
+        }
+      });
   }
 
-  sendMsg(id, pregnancy) {
-    this.interviewService.sendMessage(id, pregnancy)
+  sendMsg(id, type) {
+    this.subscribeDialog = this.interviewService.sendMessage(id, type)
       .subscribe(res => {
         if (res.code === 0) {
           HintDialog(res.msg || '提醒成功！', this.dialog);
