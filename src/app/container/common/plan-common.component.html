@@ -24,7 +24,7 @@
             </td>
             <td>
               <input type="text" name="am{{i}}" [(ngModel)]="obj.stock" class="time-input" [disabled]="flag||(operation!=1)"
-                     pattern="^[0-9]*$" #am{{i}}="ngModel"
+                     pattern="^[0-9]{1,4}$" #am{{i}}="ngModel"
                      [class.error]="form.controls['am' + i]&&form.controls['am' + i].invalid">
             </td>
             <td *ngIf="i===0" rowspan="3">
@@ -49,7 +49,7 @@
             </td>
             <td>
               <input type="text" name="pm{{i}}" [(ngModel)]="obj.stock" class="time-input" [disabled]="flag||(operation!=1)"
-                     pattern="^[0-9]*$" #pm{{i}}="ngModel"
+                     pattern="^[0-9]{1,4}$" #pm{{i}}="ngModel"
                      [class.error]="form.controls['pm' + i]&&form.controls['pm' + i].invalid">
             </td>
             <td *ngIf="i===0" rowspan="3">
@@ -69,7 +69,7 @@
           </tbody>
         </table>
       </div>
-      <p class="errMsg" *ngIf="!form.valid&&!flag&&operation==1">* 请填写正确的号源（非负整数）</p>
+      <p class="errMsg" *ngIf="!form.valid&&!flag&&operation==1">* 请填写正确的号源（小于10000的非负整数）</p>
       <div class="button-content">
         <button mat-raised-button color="primary" type="submit" *ngIf="!flag&&operation==1" [disabled]="!form.valid">保存</button>
       </div>

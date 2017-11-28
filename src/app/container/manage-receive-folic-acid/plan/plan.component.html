@@ -94,7 +94,7 @@
                 <td>08:00 - 09:00</td>
                 <td *ngFor="let obj of timeList1;let i = index">
                   <input class="time-input" type="text" name="stock1{{i}}" [(ngModel)]="obj.stock"
-                         [disabled]="!obj.workState||(operationTime!=1)" pattern="^[0-9]*$" #stock1{{i}}="ngModel"
+                         [disabled]="!obj.workState||(operationTime!=1)" pattern="^[0-9]{1,4}$" #stock1{{i}}="ngModel"
                          [class.error]="form.controls['stock1' + i]&&form.controls['stock1' + i].invalid">
                 </td>
               </tr>
@@ -102,7 +102,7 @@
                 <td>09:00 - 10:00</td>
                 <td *ngFor="let obj of timeList2;let i = index">
                   <input class="time-input" type="text" name="stock2{{i}}" [(ngModel)]="obj.stock"
-                         [disabled]="!obj.workState||(operationTime!=1)" pattern="[0-9]*" #stock2{{i}}="ngModel"
+                         [disabled]="!obj.workState||(operationTime!=1)" pattern="^[0-9]{1,4}$" #stock2{{i}}="ngModel"
                          [class.error]="form.controls['stock2' + i]&&form.controls['stock2' + i].invalid">
                 </td>
               </tr>
@@ -110,7 +110,7 @@
                 <td>10:00 - 11:00</td>
                 <td *ngFor="let obj of timeList3;let i = index">
                   <input class="time-input" type="text" name="stock3{{i}}" [(ngModel)]="obj.stock"
-                         [disabled]="!obj.workState||(operationTime!=1)" pattern="[0-9]*" #stock3{{i}}="ngModel"
+                         [disabled]="!obj.workState||(operationTime!=1)" pattern="^[0-9]{1,4}$" #stock3{{i}}="ngModel"
                          [class.error]="form.controls['stock3' + i]&&form.controls['stock3' + i].invalid">
                 </td>
               </tr>
@@ -118,7 +118,7 @@
                 <td>13:00 - 14:00</td>
                 <td *ngFor="let obj of timeList4;let i = index">
                   <input class="time-input" type="text" name="stock4{{i}}" [(ngModel)]="obj.stock"
-                         [disabled]="!obj.workState||(operationTime!=1)" pattern="[0-9]*" #stock4{{i}}="ngModel"
+                         [disabled]="!obj.workState||(operationTime!=1)" pattern="^[0-9]{1,4}$" #stock4{{i}}="ngModel"
                          [class.error]="form.controls['stock4' + i]&&form.controls['stock4' + i].invalid">
                 </td>
               </tr>
@@ -126,7 +126,7 @@
                 <td>14:00 - 15:00</td>
                 <td *ngFor="let obj of timeList5;let i = index">
                   <input class="time-input" type="text" name="stock5{{i}}" [(ngModel)]="obj.stock"
-                         [disabled]="!obj.workState||(operationTime!=1)" pattern="[0-9]*" #stock5{{i}}="ngModel"
+                         [disabled]="!obj.workState||(operationTime!=1)" pattern="^[0-9]{1,4}$" #stock5{{i}}="ngModel"
                          [class.error]="form.controls['stock5' + i]&&form.controls['stock5' + i].invalid">
                 </td>
               </tr>
@@ -134,14 +134,14 @@
                 <td>15:00 - 16:00</td>
                 <td *ngFor="let obj of timeList6;let i = index">
                   <input class="time-input" type="text" name="stock6{{i}}" [(ngModel)]="obj.stock"
-                         [disabled]="!obj.workState||(operationTime!=1)" pattern="[0-9]*" #stock6{{i}}="ngModel"
+                         [disabled]="!obj.workState||(operationTime!=1)" pattern="^[0-9]{1,4}$" #stock6{{i}}="ngModel"
                          [class.error]="form.controls['stock6' + i]&&form.controls['stock6' + i].invalid">
                 </td>
               </tr>
               </tbody>
             </table>
           </div>
-          <p class="errMsg" *ngIf="!form.valid&&(operationTime==1)">* 请填写正确的号源（非负整数）</p>
+          <p class="errMsg" *ngIf="!form.valid&&(operationTime==1)">* 请填写正确的号源（小于10000的非负整数）</p>
           <p>温馨提示：请设置排班表，再维护号源。
             <span *ngIf="timeList1&&timeList2&&timeList3&&timeList4&&timeList5&&timeList6">
             点击单元格直接编辑数字，无排班日期的时间不用设置号源。
