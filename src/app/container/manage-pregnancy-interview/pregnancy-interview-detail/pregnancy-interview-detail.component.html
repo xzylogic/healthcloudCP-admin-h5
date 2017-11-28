@@ -49,7 +49,8 @@
                     <div *ngFor="let form of content.questionDtoList;let i=index">
                       <div class="content_input clear" *ngIf="form.type==1">
                         <label>{{form.name}}</label>
-                        <mat-radio-group [(ngModel)]="form.optionValue" [name]="form.id" [disabled]="data.status==1">
+                        <mat-radio-group [(ngModel)]="form.optionValue" [name]="form.id" [disabled]="data.status==1"
+                                         required>
                           <mat-radio-button *ngFor="let opt of form.option" [value]="opt.id">
                             {{opt.value}}
                           </mat-radio-button>
@@ -58,7 +59,8 @@
                       <div class="content_input clear" *ngIf="form.type==2">
                         <label class="float">{{form.name}}</label>
                         <div *ngFor="let opt of form.option">
-                          <mat-radio-group [(ngModel)]="form.optionValue" [name]="form.id" [disabled]="data.status==1">
+                          <mat-radio-group [(ngModel)]="form.optionValue" [name]="form.id" [disabled]="data.status==1"
+                                           required>
                             <mat-radio-button [value]="opt.id" class="float">{{opt.value}}</mat-radio-button>
                           </mat-radio-group>
                         </div>
@@ -67,7 +69,7 @@
                                style="padding: 20px 0">
                             <label>{{form.child.name}}</label>
                             <mat-radio-group [(ngModel)]="form.child.optionValue" [name]="form.child.id"
-                                             [disabled]="data.status==1">
+                                             [disabled]="data.status==1" required>
                               <mat-radio-button *ngFor="let sopt of form.child.option" [value]="sopt.id">
                                 {{sopt.value}}
                               </mat-radio-button>
@@ -78,7 +80,8 @@
                                      style="position: relative;top:20px">
                                   <mat-form-field floatPlaceholder="always" style="width: 300px">
                                     <input matInput [placeholder]="form.child.child.name" name="{{form.child.child.id}}"
-                                           [(ngModel)]="form.child.child.optionValue" [disabled]="data.status==1">
+                                           [(ngModel)]="form.child.child.optionValue" [disabled]="data.status==1"
+                                           [pattern]="form.child.regEx" required>
                                   </mat-form-field>
                                 </div>
                               </div>
@@ -98,7 +101,8 @@
                             <div style="display: inline-block;position: relative">{{getName(form.child.name)}}</div>
                             <mat-form-field floatPlaceholder="always" style="width: 150px;padding: 0 10px">
                               <input matInput [placeholder]="" name="{{form.child.id}}"
-                                     [(ngModel)]="form.child.optionValue" [disabled]="data.status==1">
+                                     [(ngModel)]="form.child.optionValue" [disabled]="data.status==1"
+                                     [pattern]="form.child.regEx" required>
                             </mat-form-field>
                             <div style="display: inline-block;position: relative">{{getUnit(form.child.name)}}</div>
                           </div>
@@ -107,7 +111,8 @@
                       <div class="content_input clear" *ngIf="form.type==4">
                         <label class="float">{{form.name}}</label>
                         <div *ngFor="let opt of form.option">
-                          <mat-radio-group [(ngModel)]="form.optionValue" [name]="form.id" [disabled]="data.status==1">
+                          <mat-radio-group [(ngModel)]="form.optionValue" [name]="form.id" [disabled]="data.status==1"
+                                           required>
                             <mat-radio-button [value]="opt.id" class="float">{{opt.value}}</mat-radio-button>
                           </mat-radio-group>
                         </div>
@@ -115,7 +120,8 @@
                           <div *ngIf="opt.bind==form.id&&form.optionValue==opt.id" style="padding: 20px 0">
                             <mat-form-field floatPlaceholder="always" style="width: 300px">
                                 <textarea matInput [placeholder]="form.displayWords" name="{{form.id}}key"
-                                          [(ngModel)]="form.content" [disabled]="data.status==1"></textarea>
+                                          [(ngModel)]="form.content" [disabled]="data.status==1"
+                                          [pattern]="form.regEx" required></textarea>
                             </mat-form-field>
                           </div>
                         </div>
@@ -123,7 +129,8 @@
                       <div class="content_input clear" *ngIf="form.type==5">
                         <label class="float">{{form.name}}</label>
                         <div *ngFor="let opt of form.option" class="float">
-                          <mat-radio-group [(ngModel)]="form.optionValue" [name]="form.id" [disabled]="data.status==1">
+                          <mat-radio-group [(ngModel)]="form.optionValue" [name]="form.id" [disabled]="data.status==1"
+                                           required>
                             <mat-radio-button [value]="opt.id" class="float">{{opt.value}}</mat-radio-button>
                           </mat-radio-group>
                         </div>
@@ -133,13 +140,13 @@
                             <mat-form-field floatPlaceholder="always" style="width: 80px;padding: 0 10px">
                               <input matInput [placeholder]="" name="{{form.child.id}}high"
                                      [(ngModel)]="form.child.answers&&form.child.answers[0]"
-                                     [disabled]="data.status==1">
+                                     [disabled]="data.status==1" [pattern]="form.child.regEx" required>
                             </mat-form-field>
                             <div style="display: inline-block;position: relative">/</div>
                             <mat-form-field floatPlaceholder="always" style="width: 80px;padding: 0 10px">
                               <input matInput [placeholder]="" name="{{form.child.id}}low"
                                      [(ngModel)]="form.child.answers&&form.child.answers[1]"
-                                     [disabled]="data.status==1">
+                                     [disabled]="data.status==1" [pattern]="form.child.regEx" required>
                             </mat-form-field>
                             <div style="display: inline-block;position: relative">{{getUnit(form.child.name)}}</div>
                           </div>
@@ -148,14 +155,15 @@
                       <div class="content_input" *ngIf="form.type==6">
                         <mat-form-field floatPlaceholder="always" style="width: 300px">
                           <input matInput placeholder="{{form.name}}" name="{{form.id}}"
-                                 [(ngModel)]="form.optionValue" [disabled]="data.status==1">
+                                 [(ngModel)]="form.optionValue" [disabled]="data.status==1"
+                                 [pattern]="form.regEx" required>
                         </mat-form-field>
                       </div>
                       <div class="content_input" *ngIf="form.type==7">
                         <mat-form-field floatPlaceholder="always" style="width: 300px">
                           <input matInput placeholder="{{form.name}}" name="{{form.id}}"
                                  [(ngModel)]="form.optionValue" [disabled]="data.status==1"
-                                 (focus)="datePicker($event)">
+                                 (focus)="datePicker($event)" [pattern]="form.regEx" required>
                           <!--<input matInput placeholder="{{form.name}}" name="{{form.id}}"-->
                           <!--[(ngModel)]="form.optionValue" [disabled]="data.status==1"-->
                           <!--(click)="datePicker()">-->
@@ -165,7 +173,7 @@
                       </div>
                     </div>
                     <button mat-raised-button color="primary" type="submit" *ngIf="data.status!=1"
-                            style="margin-top: 30px">
+                            style="margin-top: 30px" [disabled]="!f.valid">
                       提交
                     </button>
                   </form>
