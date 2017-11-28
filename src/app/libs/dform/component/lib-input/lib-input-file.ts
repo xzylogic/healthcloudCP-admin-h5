@@ -41,6 +41,7 @@ export class LibInputFileComponent implements OnInit, OnDestroy {
   @ViewChild('file') file: any;
 
   domain: string;
+  subscribeUploadQ: any;
   subscribeUpload: any;
 
   constructor(
@@ -58,7 +59,12 @@ export class LibInputFileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-
+    if (this.subscribeUpload) {
+      this.subscribeUpload.unsubscribe();
+    }
+    if (this.subscribeUploadQ) {
+      this.subscribeUploadQ.unsubscribe();
+    }
   }
 
   // 上传图片操作
@@ -67,17 +73,19 @@ export class LibInputFileComponent implements OnInit, OnDestroy {
     const fileCopy = files.target.files[0];
     if (this.data.size && fileCopy && (fileCopy.size > this.data.size * 1024)) {
       HintDialog(`上传的图片不能超过${this.data.size}KB！`, this.dialog);
+      files.target.value = '';
     } else if (fileCopy && !(fileCopy.type == 'image/jpg' || fileCopy.type == 'image/jpeg' || fileCopy.type == 'image/png')) {
       HintDialog(`请上传格式为JPG或者PNG的图片！`, this.dialog);
+      files.target.value = '';
     } else if (fileCopy) {
-      this.uploadService.get(`${this.app.api_url}/admin/common/getQiniuToken`)
+      this.subscribeUploadQ = this.uploadService.get(`${this.app.api_url}/admin/common/getQiniuToken`)
         .subscribe(sres => {
           if (sres.code === 0 && sres.data) {
             this.domain = sres.data.domain;
             myForm.append('file', files.target.files[0]);
             myForm.append('token', sres.data.token);
             myForm.append('key', (new Date()).valueOf().toString());
-            this.uploadService.upload('http://upload.qiniu.com', myForm)
+            this.subscribeUpload = this.uploadService.upload('http://upload.qiniu.com', myForm)
               .subscribe(res => {
                 if (res.key) {
                   HintDialog('上传图片成功！', this.dialog);
@@ -92,17 +100,21 @@ export class LibInputFileComponent implements OnInit, OnDestroy {
                   this.cdr.detectChanges();
                 } else {
                   HintDialog(res.msg || '上传图片失败！', this.dialog);
+                  files.target.value = '';
                 }
               }, err => {
                 console.log(err);
                 HintDialog('上传图片失败！', this.dialog);
+                files.target.value = '';
               });
           } else {
             HintDialog(sres.msg || '上传图片失败！', this.dialog);
+            files.target.value = '';
           }
         }, err => {
           console.log(err);
           HintDialog('上传图片失败！', this.dialog);
+          files.target.value = '';
         });
     }
   }
