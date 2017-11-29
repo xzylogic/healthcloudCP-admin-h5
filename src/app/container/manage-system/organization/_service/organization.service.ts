@@ -69,13 +69,14 @@ export class OrganizationService {
     });
   }
 
-  setCenterForm(status, data?, parentName?, parentId?): FormBase<any>[] {
+  setCenterForm(status, disable, data?, parentName?, parentId?): FormBase<any>[] {
     const forms: FormBase<any> [] = [];
     forms.push(
       new FormHidden({
         key: 'status',
         label: '',
         value: status,
+        disabled: !disable,
         order: 0
       })
     );
@@ -95,6 +96,7 @@ export class OrganizationService {
           label: '父id',
           value: parentId,
           required: true,
+          disabled: !disable,
           order: 0
         })
       );
@@ -106,6 +108,7 @@ export class OrganizationService {
           label: '父菜单id',
           value: data.parentId,
           required: true,
+          disabled: !disable,
           order: 0
         })
       );
@@ -115,6 +118,7 @@ export class OrganizationService {
           label: 'id',
           value: data.menuId,
           required: true,
+          disabled: !disable,
           order: 0
         })
       );
@@ -127,6 +131,7 @@ export class OrganizationService {
         required: true,
         // readonly: !!(data && data.communityName),
         errMsg: '请填写中心名称',
+        disabled: !disable,
         order: 1
       })
     );
@@ -138,6 +143,7 @@ export class OrganizationService {
         required: true,
         errMsg: '请填写中心简拼（1～6位小写英文字母）',
         pattern: '^[a-z]{1,6}$',
+        disabled: !disable,
         order: 2
       })
     );
@@ -146,6 +152,7 @@ export class OrganizationService {
         key: 'imageUrl',
         label: '中心图片(请上传不大于20KB的JPG或者PNG图片)',
         value: data && data.imageUrl || '',
+        disabled: !disable,
         order: 3,
         size: 20,
         url: ''
@@ -158,6 +165,7 @@ export class OrganizationService {
         value: data && data.telephone || '',
         required: true,
         errMsg: '请填写中心电话',
+        disabled: !disable,
         order: 4
       })
     );
@@ -168,6 +176,7 @@ export class OrganizationService {
         value: data && data.address || '',
         required: true,
         errMsg: '请填写中心地址',
+        disabled: !disable,
         order: 5
       })
     );
@@ -184,19 +193,21 @@ export class OrganizationService {
           name: '否'
         }],
         required: true,
+        disabled: !disable,
         order: 6
       })
     );
     return forms.sort((a, b) => a.order - b.order);
   }
 
-  setSiteForm(status, data?, parentName?, parentId?): FormBase<any>[] {
+  setSiteForm(status, disable, data?, parentName?, parentId?): FormBase<any>[] {
     const forms: FormBase<any> [] = [];
     forms.push(
       new FormHidden({
         key: 'status',
         label: '',
         value: status,
+        disabled: !disable,
         order: 0
       })
     );
@@ -216,6 +227,7 @@ export class OrganizationService {
           label: '父id',
           value: parentId,
           required: true,
+          disabled: !disable,
           order: 0
         })
       );
@@ -227,6 +239,7 @@ export class OrganizationService {
           label: '父菜单id',
           value: data.parentId,
           required: true,
+          disabled: !disable,
           order: 0
         })
       );
@@ -236,6 +249,7 @@ export class OrganizationService {
           label: 'id',
           value: data.menuId,
           required: true,
+          disabled: !disable,
           order: 0
         })
       );
@@ -248,6 +262,7 @@ export class OrganizationService {
         required: true,
         // readonly: !!(data && data.siteName),
         errMsg: '请填写站点名称',
+        disabled: !disable,
         order: 1
       })
     );
@@ -259,6 +274,7 @@ export class OrganizationService {
         required: true,
         errMsg: '请填写站点简拼（1～6位小写英文字母）',
         pattern: '^[a-z]{1,6}$',
+        disabled: !disable,
         order: 2
       })
     );
@@ -267,6 +283,7 @@ export class OrganizationService {
         key: 'imageUrl',
         label: '站点图片(请上传不大于20KB的JPG或者PNG图片)',
         value: data && data.imageUrl || '',
+        disabled: !disable,
         order: 3,
         size: 20,
         url: ''
@@ -279,6 +296,7 @@ export class OrganizationService {
         value: data && data.telephone || '',
         required: true,
         errMsg: '请填写站点电话',
+        disabled: !disable,
         order: 4
       })
     );
@@ -289,6 +307,7 @@ export class OrganizationService {
         value: data && data.address || '',
         required: true,
         errMsg: '请填写站点地址',
+        disabled: !disable,
         order: 5
       })
     );
@@ -305,19 +324,21 @@ export class OrganizationService {
           name: '否'
         }],
         required: true,
+        disabled: !disable,
         order: 6
       })
     );
     return forms.sort((a, b) => a.order - b.order);
   }
 
-  setDepartmentForm(status, data?, parentName?, parentId?): FormBase<any>[] {
+  setDepartmentForm(status, disable, data?, parentName?, parentId?): FormBase<any>[] {
     const forms: FormBase<any> [] = [];
     forms.push(
       new FormHidden({
         key: 'status',
         label: '',
         value: status,
+        disabled: !disable,
         order: 0
       })
     );
@@ -337,6 +358,7 @@ export class OrganizationService {
           label: '父id',
           value: parentId,
           required: true,
+          disabled: !disable,
           order: 0
         })
       );
@@ -348,6 +370,7 @@ export class OrganizationService {
           label: '父菜单id',
           value: data.parentId,
           required: true,
+          disabled: !disable,
           order: 0
         })
       );
@@ -357,6 +380,7 @@ export class OrganizationService {
           label: 'id',
           value: data.menuId,
           required: true,
+          disabled: !disable,
           order: 0
         })
       );
@@ -382,6 +406,7 @@ export class OrganizationService {
         }],
         // readonly: !!(data && data.departmentName),
         errMsg: '请选择科室名称',
+        disabled: !disable,
         order: 1
       })
     );
@@ -392,6 +417,7 @@ export class OrganizationService {
         value: data && data.nameForShort || '',
         required: true,
         errMsg: '请填写科室简称',
+        disabled: !disable,
         order: 2
       })
     );
@@ -402,6 +428,7 @@ export class OrganizationService {
         value: data && data.warmPrompt || '',
         required: true,
         errMsg: '请填写温馨提示',
+        disabled: !disable,
         order: 3
       })
     );
@@ -412,6 +439,7 @@ export class OrganizationService {
         value: data && data.departmentLeader || '',
         required: true,
         errMsg: '请填写主管负责人',
+        disabled: !disable,
         order: 4
       })
     );
@@ -428,6 +456,7 @@ export class OrganizationService {
           name: '否'
         }],
         required: true,
+        disabled: !disable,
         order: 6
       })
     );

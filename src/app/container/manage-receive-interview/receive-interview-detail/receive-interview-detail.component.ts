@@ -76,8 +76,8 @@ export class ReceiveInterviewDetailComponent implements OnInit, OnDestroy {
       data.forEach(obj => {
         obj.startTime = obj.startTime && new Date(obj.startTime) || null;
         obj.endTime = obj.endTime && new Date(obj.endTime) || null;
-        obj.abortionDate = obj.abortionDate && new Date(obj.abortionDate) || null;
-        obj.deliveryTime = obj.deliveryTime && new Date(obj.deliveryTime) || null;
+        // obj.abortionDate = obj.abortionDate && new Date(obj.abortionDate) || null;
+        // obj.deliveryTime = obj.deliveryTime && new Date(obj.deliveryTime) || null;
         obj.lastPeriodTime = obj.lastPeriodTime && new Date(obj.lastPeriodTime) || null;
       });
     }

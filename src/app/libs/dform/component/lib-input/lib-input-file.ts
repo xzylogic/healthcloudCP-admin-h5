@@ -12,13 +12,14 @@ import { Observable } from 'rxjs/Observable';
   template: `
     <div [formGroup]="form">
       <div class="input_container">
-        <input class="input_content" #file type="file" accept="image/png,image/jpg,image/jpeg" (change)="uploadChange($event)">
+        <input class="input_content" #file type="file" accept="image/png,image/jpg,image/jpeg"
+               (change)="uploadChange($event)" [disabled]="data.disabled">
         <span class="input_span">{{data.label}}</span>
         <input type="hidden" [formControlName]="data.key" [(ngModel)]="value" (change)="change()">
         <div class="upload_container">
           <div class="upload_content" *ngIf="!data.multiple&&value">
             <img class="image" [src]="value">
-            <mat-icon (click)="fileDel()">close</mat-icon>
+            <mat-icon (click)="fileDel()" *ngIf="!data.disabled">close</mat-icon>
           </div>
           <div *ngIf="data.multiple">
             <div class="upload_content" *ngFor="let item of value">

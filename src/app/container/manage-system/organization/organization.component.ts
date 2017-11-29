@@ -137,28 +137,28 @@ export class OrganizationComponent implements OnInit, OnDestroy {
       this.unActive(this.menuList, parentId);
       this.form = null;
       this.title = '添加中心';
-      this.form = this.organizationService.setCenterForm(1, null, parentName, parentId);
-      this.formTwo = this.organizationService.setSiteForm(2, null, parentName, parentId);
-      this.formThree = this.organizationService.setDepartmentForm(3, null, parentName, parentId);
+      this.form = this.organizationService.setCenterForm(1, this.permission, null, parentName, parentId);
+      this.formTwo = this.organizationService.setSiteForm(2, this.permission, null, parentName, parentId);
+      this.formThree = this.organizationService.setDepartmentForm(3, this.permission, null, parentName, parentId);
       this.cdr.detectChanges();
     }
   }
 
   updateCenter(menu) {
-    if (this.permission) {
-      this.flag = 0;
-      this.unActive(this.menuList, 0);
-      this.form = null;
-      this.title = '编辑中心';
-      this.subscribeOrg1 = this.organizationService.getCenter(menu.menuId)
-        .subscribe(res => {
-          if (res.data && res.code === 0) {
-            res.data.parentId = menu.parentId;
-            this.form = this.organizationService.setCenterForm(1, res.data);
-            this.cdr.detectChanges();
-          }
-        });
-    }
+    // if (this.permission) {
+    this.flag = 0;
+    this.unActive(this.menuList, 0);
+    this.form = null;
+    this.title = '编辑中心';
+    this.subscribeOrg1 = this.organizationService.getCenter(menu.menuId)
+      .subscribe(res => {
+        if (res.data && res.code === 0) {
+          res.data.parentId = menu.parentId;
+          this.form = this.organizationService.setCenterForm(1, this.permission, res.data);
+          this.cdr.detectChanges();
+        }
+      });
+    // }
   }
 
   newSite(parentId, parentName) {
@@ -167,27 +167,27 @@ export class OrganizationComponent implements OnInit, OnDestroy {
       this.unActive(this.menuList, parentId);
       this.form = null;
       this.title = '添加站点';
-      this.form = this.organizationService.setSiteForm(2, null, parentName, parentId);
-      this.formTwo = this.organizationService.setDepartmentForm(3, null, parentName, parentId);
+      this.form = this.organizationService.setSiteForm(2, this.permission, null, parentName, parentId);
+      this.formTwo = this.organizationService.setDepartmentForm(3, this.permission, null, parentName, parentId);
       this.cdr.detectChanges();
     }
   }
 
   updateSite(menu) {
-    if (this.permission) {
-      this.flag = 0;
-      this.unActive(this.menuList, 0);
-      this.form = null;
-      this.title = '编辑站点';
-      this.subscribeOrg2 = this.organizationService.getSite(menu.menuId)
-        .subscribe(res => {
-          if (res.data && res.code === 0) {
-            res.data.parentId = menu.parentId;
-            this.form = this.organizationService.setSiteForm(2, res.data);
-            this.cdr.detectChanges();
-          }
-        });
-    }
+    // if (this.permission) {
+    this.flag = 0;
+    this.unActive(this.menuList, 0);
+    this.form = null;
+    this.title = '编辑站点';
+    this.subscribeOrg2 = this.organizationService.getSite(menu.menuId)
+      .subscribe(res => {
+        if (res.data && res.code === 0) {
+          res.data.parentId = menu.parentId;
+          this.form = this.organizationService.setSiteForm(2, this.permission, res.data);
+          this.cdr.detectChanges();
+        }
+      });
+    // }
   }
 
   newDepartment(parentId, parentName) {
@@ -196,26 +196,26 @@ export class OrganizationComponent implements OnInit, OnDestroy {
       this.unActive(this.menuList, parentId);
       this.form = null;
       this.title = '添加科室';
-      this.form = this.organizationService.setDepartmentForm(3, null, parentName, parentId);
+      this.form = this.organizationService.setDepartmentForm(3, this.permission, null, parentName, parentId);
       this.cdr.detectChanges();
     }
   }
 
   updateDepartment(menu) {
-    if (this.permission) {
-      this.flag = 0;
-      this.unActive(this.menuList, 0);
-      this.form = null;
-      this.title = '编辑科室';
-      this.subscribeOrg3 = this.organizationService.getDepartment(menu.menuId)
-        .subscribe(res => {
-          if (res.data && res.code === 0) {
-            res.data.parentId = menu.parentId;
-            this.form = this.organizationService.setDepartmentForm(3, res.data);
-            this.cdr.detectChanges();
-          }
-        });
-    }
+    // if (this.permission) {
+    this.flag = 0;
+    this.unActive(this.menuList, 0);
+    this.form = null;
+    this.title = '编辑科室';
+    this.subscribeOrg3 = this.organizationService.getDepartment(menu.menuId)
+      .subscribe(res => {
+        if (res.data && res.code === 0) {
+          res.data.parentId = menu.parentId;
+          this.form = this.organizationService.setDepartmentForm(3, this.permission, res.data);
+          this.cdr.detectChanges();
+        }
+      });
+    // }
   }
 
   getValues(value) {

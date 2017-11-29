@@ -28,7 +28,7 @@
                 </p>
               </div>
               <ul *ngIf="menuList.children&&menuList.open" class="tree__list">
-                <li *ngFor="let menu of menuList.children">
+                <li *ngFor="let menu of menuList.children" class="clear">
                   <!--中心-->
                   <div class="clear tree__p">
                     <mat-icon class="tree__icon" (click)="toggle(menu)"
@@ -48,6 +48,9 @@
                       <button mat-icon-button color="primary" (click)="updateCenter(menu)" *ngIf="permission">
                         <mat-icon aria-label="edit">mode_edit</mat-icon>
                       </button>
+                      <button mat-icon-button color="primary" (click)="updateCenter(menu)" *ngIf="!permission">
+                        <mat-icon aria-label="edit">visibility</mat-icon>
+                      </button>
                     </div>
                     <div *ngIf="menu.type==2" class="tr_center">
                       <mat-icon class="tree__icon type site">lens</mat-icon>
@@ -58,6 +61,9 @@
                       <button mat-icon-button color="primary" (click)="updateSite(menu)" *ngIf="permission">
                         <mat-icon aria-label="edit">mode_edit</mat-icon>
                       </button>
+                      <button mat-icon-button color="primary" (click)="updateSite(menu)" *ngIf="!permission">
+                        <mat-icon aria-label="edit">visibility</mat-icon>
+                      </button>
                     </div>
                     <div *ngIf="menu.type==3" class="tr_center">
                       <mat-icon class="tree__icon type department">lens</mat-icon>
@@ -67,10 +73,13 @@
                       <button mat-icon-button color="primary" (click)="updateDepartment(menu)" *ngIf="permission">
                         <mat-icon aria-label="edit">mode_edit</mat-icon>
                       </button>
+                      <button mat-icon-button color="primary" (click)="updateDepartment(menu)" *ngIf="!permission">
+                        <mat-icon aria-label="edit">visibility</mat-icon>
+                      </button>
                     </div>
                   </div>
                   <ul *ngIf="menu.children&&menu.open" class="tree__list">
-                    <li *ngFor="let subMenu of menu.children">
+                    <li *ngFor="let subMenu of menu.children" class="clear">
                       <!--站点-->
                       <div class="clear tree__p">
                         <mat-icon class="tree__icon" (click)="toggle(subMenu)"
@@ -91,6 +100,9 @@
                           <button mat-icon-button color="primary" (click)="updateSite(subMenu)" *ngIf="permission">
                             <mat-icon aria-label="edit">mode_edit</mat-icon>
                           </button>
+                          <button mat-icon-button color="primary" (click)="updateSite(subMenu)" *ngIf="!permission">
+                            <mat-icon aria-label="edit">visibility</mat-icon>
+                          </button>
                         </div>
                         <div *ngIf="subMenu.type==3" class="tr_site">
                           <mat-icon class="tree__icon type department">lens</mat-icon>
@@ -101,10 +113,14 @@
                                   *ngIf="permission">
                             <mat-icon aria-label="edit">mode_edit</mat-icon>
                           </button>
+                          <button mat-icon-button color="primary" (click)="updateDepartment(subMenu)"
+                                  *ngIf="!permission">
+                            <mat-icon aria-label="edit">visibility</mat-icon>
+                          </button>
                         </div>
                       </div>
                       <ul *ngIf="subMenu.children&&subMenu.open" class="tree__list">
-                        <li *ngFor="let sSubMenu of subMenu.children">
+                        <li *ngFor="let sSubMenu of subMenu.children" class="clear">
                           <!--科室-->
                           <div class="clear tree__p tr_department">
                             <mat-icon class="tree__icon type department">lens</mat-icon>
@@ -112,6 +128,10 @@
                             <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)"
                                     *ngIf="permission">
                               <mat-icon aria-label="edit">mode_edit</mat-icon>
+                            </button>
+                            <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)"
+                                    *ngIf="!permission">
+                              <mat-icon aria-label="edit">visibility</mat-icon>
                             </button>
                           </div>
                         </li>
@@ -140,6 +160,9 @@
                   <button mat-icon-button color="primary" (click)="updateCenter(menuList)" *ngIf="permission">
                     <mat-icon aria-label="edit">mode_edit</mat-icon>
                   </button>
+                  <button mat-icon-button color="primary" (click)="updateCenter(menuList)" *ngIf="!permission">
+                    <mat-icon aria-label="edit">visibility</mat-icon>
+                  </button>
                 </div>
                 <div *ngIf="menuList.type==2" class="tr_main">
                   <mat-icon class="tree__icon type site">lens</mat-icon>
@@ -150,6 +173,9 @@
                   <button mat-icon-button color="primary" (click)="updateSite(menuList)" *ngIf="permission">
                     <mat-icon aria-label="edit">mode_edit</mat-icon>
                   </button>
+                  <button mat-icon-button color="primary" (click)="updateSite(menuList)" *ngIf="!permission">
+                    <mat-icon aria-label="edit">visibility</mat-icon>
+                  </button>
                 </div>
                 <div *ngIf="menuList.type==3" class="tr_main">
                   <mat-icon class="tree__icon type department">lens</mat-icon>
@@ -159,10 +185,13 @@
                   <button mat-icon-button color="primary" (click)="updateDepartment(menuList)" *ngIf="permission">
                     <mat-icon aria-label="edit">mode_edit</mat-icon>
                   </button>
+                  <button mat-icon-button color="primary" (click)="updateDepartment(menuList)" *ngIf="!permission">
+                    <mat-icon aria-label="edit">visibility</mat-icon>
+                  </button>
                 </div>
               </div>
               <ul *ngIf="menuList.children&&menuList.open" class="tree__list">
-                <li *ngFor="let subMenu of menuList.children">
+                <li *ngFor="let subMenu of menuList.children" class="clear">
                   <!--站点-->
                   <div class="clear tree__p">
                     <mat-icon class="tree__icon" (click)="toggle(subMenu)"
@@ -181,6 +210,9 @@
                       <button mat-icon-button color="primary" (click)="updateSite(subMenu)" *ngIf="permission">
                         <mat-icon aria-label="edit">mode_edit</mat-icon>
                       </button>
+                      <button mat-icon-button color="primary" (click)="updateSite(subMenu)" *ngIf="!permission">
+                        <mat-icon aria-label="edit">visibility</mat-icon>
+                      </button>
                     </div>
                     <div *ngIf="subMenu.type==3" class="tr_center">
                       <mat-icon class="tree__icon type department">lens</mat-icon>
@@ -190,16 +222,22 @@
                       <button mat-icon-button color="primary" (click)="updateDepartment(subMenu)" *ngIf="permission">
                         <mat-icon aria-label="edit">mode_edit</mat-icon>
                       </button>
+                      <button mat-icon-button color="primary" (click)="updateDepartment(subMenu)" *ngIf="!permission">
+                        <mat-icon aria-label="edit">visibility</mat-icon>
+                      </button>
                     </div>
                   </div>
                   <ul *ngIf="subMenu.children&&subMenu.open" class="tree__list">
-                    <li *ngFor="let sSubMenu of subMenu.children">
+                    <li *ngFor="let sSubMenu of subMenu.children" class="clear">
                       <!--科室-->
                       <div class="clear tree__p" class="tr_department">
                         <mat-icon class="tree__icon type department">lens</mat-icon>
                         <p class="tree__span last">{{sSubMenu.menuName}}</p>
                         <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)" *ngIf="permission">
                           <mat-icon aria-label="edit">mode_edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)" *ngIf="!permission">
+                          <mat-icon aria-label="edit">visibility</mat-icon>
                         </button>
                       </div>
                     </li>
@@ -226,6 +264,9 @@
                   <button mat-icon-button color="primary" (click)="updateSite(menuList)" *ngIf="permission">
                     <mat-icon aria-label="edit">mode_edit</mat-icon>
                   </button>
+                  <button mat-icon-button color="primary" (click)="updateSite(menuList)" *ngIf="!permission">
+                    <mat-icon aria-label="edit">visibility</mat-icon>
+                  </button>
                 </div>
                 <div *ngIf="menuList.type==3" class="tr_main">
                   <mat-icon class="tree__icon type department">lens</mat-icon>
@@ -235,16 +276,22 @@
                   <button mat-icon-button color="primary" (click)="updateDepartment(menuList)" *ngIf="permission">
                     <mat-icon aria-label="edit">mode_edit</mat-icon>
                   </button>
+                  <button mat-icon-button color="primary" (click)="updateDepartment(menuList)" *ngIf="!permission">
+                    <mat-icon aria-label="edit">visibility</mat-icon>
+                  </button>
                 </div>
               </div>
               <ul *ngIf="menuList.children&&menuList.open" class="tree__list">
-                <li *ngFor="let sSubMenu of menuList.children">
+                <li *ngFor="let sSubMenu of menuList.children" class="clear">
                   <!--科室-->
                   <div class="clear tree__p tr_center">
                     <mat-icon class="tree__icon type department">lens</mat-icon>
                     <p class="tree__span last">{{sSubMenu.menuName}}</p>
                     <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)" *ngIf="permission">
                       <mat-icon aria-label="edit">mode_edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)" *ngIf="!permission">
+                      <mat-icon aria-label="edit">visibility</mat-icon>
                     </button>
                   </div>
                 </li>
@@ -257,6 +304,9 @@
                 <p class="tree__span last">{{menuList.menuName}}</p>
                 <button mat-icon-button color="primary" (click)="updateDepartment(menuList)" *ngIf="permission">
                   <mat-icon aria-label="edit">mode_edit</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" (click)="updateDepartment(menuList)" *ngIf="!permission">
+                  <mat-icon aria-label="edit">visibility</mat-icon>
                 </button>
               </div>
             </div>

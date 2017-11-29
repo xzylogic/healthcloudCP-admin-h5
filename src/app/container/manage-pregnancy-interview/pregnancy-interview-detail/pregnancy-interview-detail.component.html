@@ -108,6 +108,25 @@
                           </div>
                         </div>
                       </div>
+                      <div class="content_input clear" *ngIf="form.type==8">
+                        <label class="float">{{form.name}}</label>
+                        <div *ngFor="let opt of form.option">
+                          <mat-radio-group [(ngModel)]="form.optionValue" [name]="form.id" [disabled]="data.status==1">
+                            <mat-radio-button [value]="opt.id" class="float">{{opt.value}}</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                        <div *ngFor="let opt of form.option" class="clear">
+                          <div *ngIf="form.child&&opt.bind==form.child.id&&form.optionValue==opt.id"
+                               style="padding: 20px 0">
+                            <mat-form-field floatPlaceholder="always" style="width: 300px;padding: 0 10px">
+                              <input matInput placeholder="{{getName(form.child.name)}}" name="{{form.child.id}}"
+                                     [(ngModel)]="form.child.optionValue" [disabled]="data.status==1"
+                                     (focus)="datePicker($event)" [pattern]="form.child.regEx" required>
+                            </mat-form-field>
+                            <div style="display: inline-block;position: relative">{{getUnit(form.child.name)}}</div>
+                          </div>
+                        </div>
+                      </div>
                       <div class="content_input clear" *ngIf="form.type==4">
                         <label class="float">{{form.name}}</label>
                         <div *ngFor="let opt of form.option">
