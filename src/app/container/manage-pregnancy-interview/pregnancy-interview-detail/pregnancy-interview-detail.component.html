@@ -139,7 +139,7 @@
                           <div *ngIf="opt.bind==form.id&&form.optionValue==opt.id" style="padding: 20px 0">
                             <mat-form-field floatPlaceholder="always" style="width: 300px">
                                 <textarea matInput [placeholder]="form.displayWords" name="{{form.id}}key"
-                                          [(ngModel)]="form.content" [disabled]="data.status==1"
+                                          [(ngModel)]="form.content" [disabled]="data.status==1" rows="5"
                                           [pattern]="form.regEx" required></textarea>
                             </mat-form-field>
                           </div>
