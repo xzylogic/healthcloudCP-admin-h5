@@ -1,5 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { ContainerConfig } from '../../libs/common/container/container.component';
+import { HintDialog } from '../../libs/dmodal/dialog.component';
 import { TableOption } from '../../libs/dtable/dtable.entity';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select } from '@angular-redux/store';
@@ -10,10 +12,17 @@ import { ERRMSG } from '../_store/static';
   selector: 'app-receive-interview',
   templateUrl: './receive-interview.component.html'
 })
-export class ReceiveInterviewComponent implements OnInit {
+export class ReceiveInterviewComponent implements OnInit, OnDestroy {
   paramsMenu: string;
+
+  subscribeRoute: any;
+  subscribeList: any;
+  subscribeDialog: any;
+  subscribeCommunity: any;
+
   containerConfig: ContainerConfig;
   interviewTable: TableOption;
+
   @select(['receive-interview', 'data']) data: Observable<any>;
   name = '';
   telephone = '';
@@ -21,6 +30,7 @@ export class ReceiveInterviewComponent implements OnInit {
   status = '';
   centerId = '';
   siteId = '';
+
   centerList: Array<any>;
   siteList: Array<any>;
   departmentList: Array<any>;
@@ -39,42 +49,54 @@ export class ReceiveInterviewComponent implements OnInit {
   constructor(
     @Inject('action') private action,
     @Inject('interview') private interviewService,
+    @Inject('health') private healthService,
+    private dialog: MatDialog,
     private router: Router,
-    private param: ActivatedRoute
+    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit() {
-    this.param.params.subscribe(res => {
-      if (res.menu) {
-        this.paramsMenu = res.menu;
-      }
-    });
     this.containerConfig = this.interviewService.setReceiveInterviewConfig();
     this.interviewTable = new TableOption({
       titles: this.interviewService.getTitles(),
       ifPage: true
     });
-    this.param.queryParams.subscribe(params => {
-      if (params && params.flag) {
-        this.data.subscribe(data => {
-          if (data) {
-            this.name = data.name;
-            this.telephone = data.telephone;
-            this.card = data.card;
-            this.status = data.status;
-            this.centerId = data.centerId;
-            this.siteId = data.siteId;
-            this.getData(data.page);
-          } else {
-            this.reset();
-          }
-        });
+    this.getCommunityAll();
+    this.subscribeRoute = Observable.zip(
+      this.route.params, this.data,
+      (param, data) => ({param, data})
+    ).subscribe(res => {
+      if (res.param && res.param.menu) {
+        this.paramsMenu = res.param.menu;
+      }
+      if (res.data) {
+        this.name = res.data.name;
+        this.telephone = res.data.telephone;
+        this.card = res.data.card;
+        this.status = res.data.status;
+        this.centerId = res.data.centerId;
+        this.siteId = res.data.siteId;
+        this.getData(res.data.page);
       } else {
         this.reset();
       }
     });
-    this.getCommunityAll();
+  }
+
+  ngOnDestroy() {
+    if (this.subscribeRoute) {
+      this.subscribeRoute.unsubscribe();
+    }
+    if (this.subscribeList) {
+      this.subscribeList.unsubscribe();
+    }
+    if (this.subscribeDialog) {
+      this.subscribeDialog.unsubscribe();
+    }
+    if (this.subscribeCommunity) {
+      this.subscribeCommunity.unsubscribe();
+    }
   }
 
   reset() {
@@ -96,7 +118,7 @@ export class ReceiveInterviewComponent implements OnInit {
 
   getData(page) {
     this.interviewTable.reset(page);
-    this.interviewService.getDataList(
+    this.subscribeList = this.interviewService.getDataList(
       page, this.interviewTable.size,
       this.name, this.telephone,
       this.card, this.status,
@@ -129,8 +151,8 @@ export class ReceiveInterviewComponent implements OnInit {
     }
   }
 
-  gotoHandle(res) {
-    if (res.key === 'edit') {
+  gotoHandle(data) {
+    if (data.key === 'edit') {
       this.action.dataChange('receive-interview', {
         name: this.name,
         telephone: this.telephone,
@@ -140,12 +162,34 @@ export class ReceiveInterviewComponent implements OnInit {
         siteId: this.siteId,
         page: this.interviewTable.currentPage
       });
-      this.router.navigate(['/receive-interview', this.paramsMenu, 'detail', res.value.personcard]);
+      this.router.navigate(['/receive-interview', this.paramsMenu, 'detail', data.value.personcard]);
+    }
+    if (data.key === 'userName' && data.value && data.value.personcard) {
+      this.subscribeDialog = this.healthService.getBasicInfo(data.value.personcard)
+        .subscribe(res => {
+          if (res.code == 0 && res.data && res.data.isExist !== false) {
+            this.action.dataChange('receive-interview', {
+              name: this.name,
+              telephone: this.telephone,
+              card: this.card,
+              status: this.status,
+              centerId: this.centerId,
+              siteId: this.siteId,
+              page: this.interviewTable.currentPage
+            });
+            this.router.navigate(['health-file', res.value.personcard]);
+          } else {
+            HintDialog('该用户无健康档案信息！', this.dialog);
+          }
+        });
+    }
+    if (data.key === 'userName' && data.value && !data.value.personcard) {
+      HintDialog('该用户无健康档案信息！', this.dialog);
     }
   }
 
   getCommunityAll() {
-    this.interviewService.getCommunityAll()
+    this.subscribeDialog = this.interviewService.getCommunityAll()
       .subscribe(res => {
         if (res.code === 0 && res.data) {
           this.communityList = res.data;

@@ -85,7 +85,9 @@ export class PregnancyInterviewService {
       }),
       new TableTitle({
         name: '姓名',
-        key: 'name'
+        key: 'name',
+        controlType: ControlType.option,
+        option: 'insert_drive_file'
       }),
       new TableTitle({
         name: '联系电话',

@@ -92,7 +92,9 @@ export class ReceiveInterviewService {
       }),
       new TableTitle({
         name: '姓名',
-        key: 'userName'
+        key: 'userName',
+        controlType: ControlType.option,
+        option: 'insert_drive_file'
       }),
       new TableTitle({
         name: '证件号码',

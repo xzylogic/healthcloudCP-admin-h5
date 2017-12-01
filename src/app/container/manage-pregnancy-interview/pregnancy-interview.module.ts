@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { LibModule } from '../../libs/common/lib.module';
 import { RouterModule, Routes } from '@angular/router';
+import { HealthFileService } from '../manage-basedata/health-file/_service/health-file.service';
 import { PregnancyInterviewComponent } from './pregnancy-interview.component';
 import { PregnancyInterviewService } from './_service/pregnancy-interview.service';
 import { PregnancyInterviewDetailComponent } from './pregnancy-interview-detail/pregnancy-interview-detail.component';
@@ -32,7 +33,9 @@ const routes: Routes = [{
   ],
   providers: [
     PregnancyInterviewService,
-    {provide: 'interview', useClass: PregnancyInterviewService}
+    HealthFileService,
+    {provide: 'interview', useClass: PregnancyInterviewService},
+    {provide: 'health', useClass: HealthFileService}
   ]
 })
 export class PregnancyInterviewModule {

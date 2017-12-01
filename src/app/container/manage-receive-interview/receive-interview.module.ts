@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { LibModule } from '../../libs/common/lib.module';
 import { RouterModule, Routes } from '@angular/router';
+import { HealthFileService } from '../manage-basedata/health-file/_service/health-file.service';
 import { ReceiveInterviewComponent } from './receive-interview.component';
 import { ReceiveInterviewService } from './_service/receive-interview.service';
 import { ReceiveInterviewDetailComponent } from './receive-interview-detail/receive-interview-detail.component';
@@ -30,7 +31,9 @@ const routes: Routes = [{
   ],
   providers: [
     ReceiveInterviewService,
-    {provide: 'interview', useClass: ReceiveInterviewService}
+    HealthFileService,
+    {provide: 'interview', useClass: ReceiveInterviewService},
+    {provide: 'health', useClass: HealthFileService}
   ]
 })
 export class ReceiveInterviewModule {
