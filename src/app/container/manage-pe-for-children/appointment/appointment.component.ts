@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { TableOption } from '../../../libs/dtable/dtable.entity';
 import { ERRMSG } from '../../_store/static';
@@ -13,10 +13,17 @@ import { HintDialog } from '../../../libs/dmodal/dialog.component';
   selector: 'app-pe-for-children-appointment',
   templateUrl: './appointment.component.html'
 })
-export class AppointmentComponent implements OnInit {
+export class AppointmentComponent implements OnInit, OnDestroy {
   paramsMenu: string;
+
+  subscribeRoute: any;
+  subscribeList: any;
+  subscribeDialog: any;
+  subscribeCommunity: any;
+
   containerConfig: ContainerConfig;
   appointmentTable: TableOption;
+
   @select(['pe-for-children', 'data']) data: Observable<any>;
   telephone = '';
   date: Date;
@@ -25,6 +32,7 @@ export class AppointmentComponent implements OnInit {
   status = '';
   centerId = '';
   siteId = '';
+
   centerList: Array<any>;
   siteList: Array<any>;
   departmentList: Array<any>;
@@ -52,44 +60,55 @@ export class AppointmentComponent implements OnInit {
   constructor(
     @Inject('action') private action,
     @Inject('appointment') private appointmentService,
+    @Inject('health') private healthService,
     private dialog: MatDialog,
     private router: Router,
-    private param: ActivatedRoute
+    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit() {
-    this.param.params.subscribe(route => {
-      if (route.menu) {
-        this.paramsMenu = route.menu;
-      }
-    });
     this.containerConfig = this.appointmentService.setAppointmentConfig();
     this.appointmentTable = new TableOption({
       titles: this.appointmentService.setAppointmentTitles(),
       ifPage: true
     });
-    // this.param.queryParams.subscribe(params => {
-    //   if (params && params.flag) {
-    this.data.subscribe(data => {
-      if (data) {
-        this.telephone = data.telephone;
-        this.date = data.date;
-        this.name = data.name;
-        this.number = data.number;
-        this.status = data.status;
-        this.centerId = data.centerId;
-        this.siteId = data.siteId;
-        this.getData(data.page);
+    this.getCommunityAll();
+    this.subscribeRoute = Observable.zip(
+      this.route.params, this.data,
+      (route, data) => ({route, data})
+    ).subscribe(res => {
+      if (res.route && res.route.menu) {
+        this.paramsMenu = res.route.menu;
+      }
+      if (res.data) {
+        this.telephone = res.data.telephone;
+        this.date = res.data.date;
+        this.name = res.data.name;
+        this.number = res.data.number;
+        this.status = res.data.status;
+        this.centerId = res.data.centerId;
+        this.siteId = res.data.siteId;
+        this.getData(res.data.page);
       } else {
         this.reset();
       }
     });
-    //   } else {
-    //     this.reset();
-    //   }
-    // });
-    this.getCommunityAll();
+  }
+
+  ngOnDestroy() {
+    if (this.subscribeRoute) {
+      this.subscribeRoute.unsubscribe();
+    }
+    if (this.subscribeList) {
+      this.subscribeList.unsubscribe();
+    }
+    if (this.subscribeDialog) {
+      this.subscribeDialog.unsubscribe();
+    }
+    if (this.subscribeCommunity) {
+      this.subscribeCommunity.unsubscribe();
+    }
   }
 
   reset() {
@@ -112,7 +131,7 @@ export class AppointmentComponent implements OnInit {
 
   getData(page) {
     this.appointmentTable.reset(page);
-    this.appointmentService.getData(
+    this.subscribeList = this.appointmentService.getData(
       page, this.number, this.status, this.name,
       this.date && moment(new Date(this.date)).format('YYYY-MM-DD') || '',
       this.telephone, this.siteId || this.centerId
@@ -148,17 +167,24 @@ export class AppointmentComponent implements OnInit {
       this.router.navigate(['/pe-for-children/appointment', this.paramsMenu, 'detail', data.value.id]);
     }
     if (data.key === 'name' && data.value && data.value.documentNumber) {
-      this.action.dataChange('pe-for-children', {
-        telephone: this.telephone,
-        date: this.date,
-        name: this.name,
-        number: this.number,
-        status: this.status,
-        centerId: this.centerId,
-        siteId: this.siteId,
-        page: this.appointmentTable.currentPage
-      });
-      this.router.navigate(['health-file', data.value.documentNumber]);
+      this.subscribeDialog = this.healthService.getBasicInfo(data.value.documentNumber)
+        .subscribe(res => {
+          if (res.code == 0 && res.data && res.data.isExist !== false) {
+            this.action.dataChange('pe-for-children', {
+              telephone: this.telephone,
+              date: this.date,
+              name: this.name,
+              number: this.number,
+              status: this.status,
+              centerId: this.centerId,
+              siteId: this.siteId,
+              page: this.appointmentTable.currentPage
+            });
+            this.router.navigate(['health-file', data.value.documentNumber]);
+          } else {
+            HintDialog('该用户无健康档案信息！', this.dialog);
+          }
+        });
     }
     if (data.key === 'name' && data.value && !data.value.documentNumber) {
       HintDialog('该用户无健康档案信息！', this.dialog);
@@ -189,7 +215,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   getCommunityAll() {
-    this.appointmentService.getCommunityAll()
+    this.subscribeCommunity = this.appointmentService.getCommunityAll()
       .subscribe(res => {
         if (res.code === 0 && res.data) {
           this.communityList = res.data;

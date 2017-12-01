@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { HealthFileService } from '../../manage-basedata/health-file/_service/health-file.service';
 import { AppointmentComponent } from './appointment.component';
 import { RouterModule, Routes } from '@angular/router';
 import { LibModule } from '../../../libs/common/lib.module';
@@ -30,7 +31,9 @@ const routes: Routes = [{
   ],
   providers: [
     AppointmentService,
-    {provide: 'appointment', useClass: AppointmentService}
+    HealthFileService,
+    {provide: 'appointment', useClass: AppointmentService},
+    {provide: 'health', useClass: HealthFileService}
   ]
 })
 export class MDAppointmentModule {
