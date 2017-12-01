@@ -2,7 +2,11 @@
   <table class="table" *ngIf="table">
     <thead>
     <tr>
-      <th *ngFor="let title of table.titles">{{title.name}}</th>
+      <th *ngFor="let title of table.titles">
+        <span *ngIf="title.controlType!=controlType.checkbox">{{title.name}}</span>
+        <mat-checkbox *ngIf="title.controlType==controlType.checkbox"
+                      (change)="checkSelect(title,table.lists, $event)"></mat-checkbox>
+      </th>
     </tr>
     </thead>
     <tbody *ngIf="table.lists&&table.lists.length!=0">
@@ -17,6 +21,10 @@
              [ngStyle]="{'text-align': title.align}"
              class="table__content">
           <span>{{list[title.key] == 0 ? list[title.key] : list[title.key] || ''}}</span>
+        </div>
+        <div *ngSwitchCase="controlType.checkbox" class="table__content">
+          <mat-checkbox [(ngModel)]="list.tablechecked"
+                        [disabled]="list[title.option.key]!=title.option.value"></mat-checkbox>
         </div>
         <div *ngSwitchCase="controlType.option" [style.minWidth.px]="title.minwidth"
              [style.maxWidth.px]="title.maxwidth" [ngStyle]="{'text-align': title.align}"

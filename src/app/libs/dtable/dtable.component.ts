@@ -13,6 +13,7 @@ export class DTableComponent implements OnInit {
   @Output() pageEmitter = new EventEmitter();
 
   pageList: Array<any> = [];
+  checkList: Array<any> = [];
   controlType = ControlType;
 
   constructor() {
@@ -26,6 +27,14 @@ export class DTableComponent implements OnInit {
 
   gotoHandle(key, value) {
     this.handleEmmit.emit({key: key, value: value});
+  }
+
+  checkSelect(title, list, event) {
+    list.forEach(data => {
+      if (data[title.option.key] == title.option.value) {
+        data.tablechecked = event.checked;
+      }
+    });
   }
 
   getPageList(total, current) {

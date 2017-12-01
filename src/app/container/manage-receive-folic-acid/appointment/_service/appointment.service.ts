@@ -83,6 +83,15 @@ export class AppointmentService {
   setAppointmentTitles() {
     return [
       new TableTitle({
+        name: '',
+        key: 'reservationId',
+        controlType: ControlType.checkbox,
+        option: {
+          key: 'checked',
+          value: '0'
+        }
+      }),
+      new TableTitle({
         name: '序号',
         key: '',
         controlType: ControlType.index

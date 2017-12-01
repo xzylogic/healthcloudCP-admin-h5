@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatIconModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule, MatCheckboxModule, MatIconModule } from '@angular/material';
 
 import { DTableComponent } from './dtable.component';
 import { DPageComponent } from './page.component';
@@ -13,7 +14,9 @@ export * from './dtable.entity';
     CommonModule,
     MatButtonModule,
     MatIconModule,
-    PipeModule
+    PipeModule,
+    FormsModule,
+    MatCheckboxModule
   ],
   declarations: [
     DTableComponent,

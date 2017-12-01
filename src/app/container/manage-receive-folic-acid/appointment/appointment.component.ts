@@ -179,6 +179,17 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     }
   }
 
+  passAll(list) {
+    console.log(list);
+    const checklist = [];
+    list.forEach(data => {
+      if (data.tablechecked) {
+        checklist.push(data.reservationId);
+      }
+    });
+    console.log(checklist);
+  }
+
   formatData(data, operation) {
     if (Array.isArray(data)) {
       data.forEach(obj => {
