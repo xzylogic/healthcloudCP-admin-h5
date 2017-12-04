@@ -7,7 +7,8 @@ const PATH = {
   // getCommunityAll: '/api/getAllCommunityByUserId',
   getCommunityAll: '/api/appointmentTime/getAllCommunityByUserId',
   getDetail: '/api/motherAndChildFile/check',
-  saveDetail: '/api/motherAndChildFile/updateInfo'
+  saveDetail: '/api/motherAndChildFile/updateInfo',
+  batchAudit: '/api/motherAndChildFile/batchThrough'
 };
 
 @Injectable()
@@ -50,6 +51,10 @@ export class AppointmentService {
   saveDetail(id, status, reason) {
     return this.http.post(
       `${this.app.api_url}${PATH.saveDetail}?id=${id}&status=${status}&reason=${reason}&addUserId=${this.auth.getAdminId()}`, {});
+  }
+
+  batchAudit(ids) {
+    return this.http.post(`${this.app.api_url}${PATH.batchAudit}`, ids);
   }
 
   setAppointmentConfig() {

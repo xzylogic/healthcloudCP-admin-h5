@@ -152,7 +152,8 @@ export class AccountService {
         label: '姓名',
         value: data && data.username || '',
         required: true,
-        errMsg: '请填写姓名'
+        errMsg: '请填写姓名',
+        order: 0
       })
     );
     forms.push(
@@ -162,7 +163,8 @@ export class AccountService {
         value: data && data.loginname || '',
         pattern: '^[a-z0-9]+$',
         required: true,
-        errMsg: '请填写用户后台账号（小写英文字母或数字组成）'
+        errMsg: '请填写用户后台账号（小写英文字母或数字组成）',
+        order: 1
       })
     );
     forms.push(
@@ -172,7 +174,19 @@ export class AccountService {
         value: data && data.telephone || '',
         required: true,
         pattern: '1[0-9]{10}',
-        errMsg: '请填写正确的11位手机号码'
+        errMsg: '请填写正确的11位手机号码',
+        order: 2
+      })
+    );
+    forms.push(
+      new FormText({
+        key: 'personCard',
+        label: '身份证号',
+        value: data && data.personCard || '',
+        required: true,
+        pattern: `(^[1-9]\\d{5}(18|19|([23]\\d))\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9Xx]$)|(^[1-9]\\d{5}\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{2}[0-9Xx]$)`,
+        errMsg: '请填写正确的身份证号',
+        order: 10
       })
     );
     forms.push(
@@ -181,7 +195,8 @@ export class AccountService {
         label: '所属机构',
         value: data && data.menuId || '',
         required: true,
-        errMsg: '请选择用户所属机构'
+        errMsg: '请选择用户所属机构',
+        order: 3
       })
     );
     forms.push(
@@ -191,6 +206,7 @@ export class AccountService {
         value: data && data.roleId || '',
         required: true,
         errMsg: '请选择账号角色',
+        order: 4
       })
     );
     forms.push(
@@ -205,7 +221,8 @@ export class AccountService {
         }, {
           id: '1',
           name: '禁用'
-        }]
+        }],
+        order: 5
       })
     );
     return forms.sort((a, b) => a.order - b.order);

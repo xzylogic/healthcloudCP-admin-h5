@@ -8,7 +8,8 @@ const PATH = {
   getCommunityAll: '/api/appointmentTime/getAllCommunityByUserId',
   getDetail: '/admin/folic/details',
   saveDetail: '/admin/folic/check',
-  getSurvey: '/admin/folic/surveyResult'
+  getSurvey: '/admin/folic/surveyResult',
+  batchAudit: '/admin/folic/batchThrough'
 };
 
 @Injectable()
@@ -58,6 +59,10 @@ export class AppointmentService {
 
   getSurvey(id) {
     return this.http.get(`${this.app.api_url}${PATH.getSurvey}?reservationId=${id}`);
+  }
+
+  batchAudit(ids) {
+    return this.http.post(`${this.app.api_url}${PATH.batchAudit}`, ids);
   }
 
   setAppointmentConfig() {

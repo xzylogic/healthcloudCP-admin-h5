@@ -19,6 +19,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   subscribeList: any;
   subscribeDialog: any;
   subscribeCommunity: any;
+  subscribeAudit: any;
 
   containerConfig: ContainerConfig;
   appointmentTable: TableOption;
@@ -99,6 +100,9 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     }
     if (this.subscribeCommunity) {
       this.subscribeCommunity.unsubscribe();
+    }
+    if (this.subscribeAudit) {
+      this.subscribeAudit.unsubscribe();
     }
   }
 
@@ -188,6 +192,18 @@ export class AppointmentComponent implements OnInit, OnDestroy {
       }
     });
     console.log(checklist);
+    this.subscribeAudit = this.appointmentService.batchAudit(checklist)
+      .subscribe(res => {
+        if (res.code === 0) {
+          HintDialog('批量审核通过成功！', this.dialog);
+          this.getData(0);
+        } else {
+          HintDialog('批量审核通过失败，请重新尝试！', this.dialog);
+        }
+      }, err => {
+        console.log(err);
+        HintDialog(ERRMSG.netErrMsg, this.dialog);
+      });
   }
 
   formatData(data, operation) {
