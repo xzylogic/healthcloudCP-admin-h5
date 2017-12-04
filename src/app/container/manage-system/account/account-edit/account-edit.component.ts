@@ -112,6 +112,7 @@ export class AccountEditComponent implements OnInit, OnDestroy {
       value.username = data.username;
       value.loginname = data.loginname;
       value.telephone = data.telephone;
+      value.personCard = data.personCard;
       value.delFlag = data.delFlag;
       const roleId = data.roleId;
       const menuId = data.menuId;
