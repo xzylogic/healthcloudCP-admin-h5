@@ -52,47 +52,47 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-2">
-            <p class="detail-content">产检地点：{{data?.motherInfo?.inspectionPlace}}</p>
-          </div>
-          <div class="col-2">
+          <!--<div class="col-2">-->
+          <!--<p class="detail-content">产检地点：{{data?.motherInfo?.inspectionPlace}}</p>-->
+          <!--</div>-->
+          <div class="col-6">
             <p class="detail-content">本市农业户籍：
               {{data?.motherInfo?.cityAgriculturalHouseholdRegister | yesorno:[0,1]:['否','是']}}
             </p>
           </div>
-          <div class="col-2">
-            <p class="detail-content">农村孕产妇住院分娩补助：
-              {{data?.motherInfo?.ruralPregnantWomenChildbirthAllowance | yesorno:[0,1]:['否','是']}}
-            </p>
-          </div>
+          <!--<div class="col-2">-->
+          <!--<p class="detail-content">农村孕产妇住院分娩补助：-->
+          <!--{{data?.motherInfo?.ruralPregnantWomenChildbirthAllowance | yesorno:[0,1]:['否','是']}}-->
+          <!--</p>-->
+          <!--</div>-->
         </div>
         <div class="row">
-          <div class="col-6">
-            <p class="detail-content">产后休养地：
-              {{data?.motherInfo?.postpartumCultivation | yesorno:[1,2]:['本地','外地']}}
-            </p>
-          </div>
+          <!--<div class="col-6">-->
+          <!--<p class="detail-content">产后休养地：-->
+          <!--{{data?.motherInfo?.postpartumCultivation | yesorno:[1,2]:['本地','外地']}}-->
+          <!--</p>-->
+          <!--</div>-->
         </div>
         <div class="row">
-          <div class="col-6">
-            <p class="detail-content">产前检查补助：
-              {{data?.motherInfo?.prenatalCareAllowance | yesorno:[0,1]:['否','是']}}
-            </p>
-          </div>
+          <!--<div class="col-6">-->
+          <!--<p class="detail-content">产前检查补助：-->
+          <!--{{data?.motherInfo?.prenatalCareAllowance | yesorno:[0,1]:['否','是']}}-->
+          <!--</p>-->
+          <!--</div>-->
         </div>
         <div class="row">
-          <div class="col-6">
-            <p class="detail-content">在京居住时间是否大于6个月：
-              {{data?.motherInfo?.greaterThanSixMonths | yesorno:[0,1]:['否','是']}}
-            </p>
-          </div>
+          <!--<div class="col-6">-->
+          <!--<p class="detail-content">在京居住时间是否大于6个月：-->
+          <!--{{data?.motherInfo?.greaterThanSixMonths | yesorno:[0,1]:['否','是']}}-->
+          <!--</p>-->
+          <!--</div>-->
         </div>
         <div class="row">
-          <div class="col-6">
-            <p class="detail-content">在京居住时间是否大于1年：
-              {{data?.motherInfo?.greaterThanOneYears | yesorno:[0,1]:['否','是']}}
-            </p>
-          </div>
+          <!--<div class="col-6">-->
+          <!--<p class="detail-content">在京居住时间是否大于1年：-->
+          <!--{{data?.motherInfo?.greaterThanOneYears | yesorno:[0,1]:['否','是']}}-->
+          <!--</p>-->
+          <!--</div>-->
         </div>
       </div>
     </div>
@@ -151,127 +151,127 @@
         </div>
       </div>
     </div>
-    <div class="detail-container clear">
-      <h3 class="detail-title">三、孕妇病史信息</h3>
-      <div class="grid-container">
-        <div class="row">
-          <div class="col-2">
-            <p class="detail-content">身高：{{data?.gravidaMedicalHistory?.height}}cm</p>
-          </div>
-          <div class="col-2">
-            <p class="detail-content">孕前体重：{{data?.gravidaMedicalHistory?.preconceptionWeight}}kg</p></div>
-          <div class="col-2">
-            <p class="detail-content">BMI指数：{{data?.gravidaMedicalHistory?.bmiIndex}}</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-2">
-            <p class="detail-content">BMI分类：{{data?.gravidaMedicalHistory?.bmiType}}</p>
-          </div>
-          <div class="col-2">
-            <p class="detail-content">血压：{{data?.gravidaMedicalHistory?.bloodPressure}}mmHg</p>
-          </div>
-          <div class="col-2">
-            <p class="detail-content">初检孕周：{{data?.gravidaMedicalHistory?.firstTrimesterPregnancyCycle}}</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-2">
-            <p class="detail-content">末次月经：{{data?.gravidaMedicalHistory?.lastMenstrualPeriod}}</p>
-          </div>
-          <div class="col-2">
-            <p class="detail-content">初诊日期：{{data?.gravidaMedicalHistory?.firstDiagnosisDate}}</p>
-          </div>
-          <div class="col-2">
-            <p class="detail-content">核实后预产期：{{data?.gravidaMedicalHistory?.verifiedDateConfinement}}</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-2">
-            <p class="detail-content">预产期：{{data?.gravidaMedicalHistory?.expectedDateChildbirth}}</p>
-          </div>
-          <div class="col-2">
-            <p class="detail-content">B超核实：
-              {{data?.gravidaMedicalHistory?.bmodeUltrasonographyVerify | yesorno:[0,1]:['否','是']}}
-            </p>
-          </div>
-          <div class="col-2">
-            <p class="detail-content">孕次：{{data?.gravidaMedicalHistory?.pregnanciesNumber}}</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-2">
-            <p class="detail-content">核实后末次月经：{{data?.gravidaMedicalHistory?.verifiedDateLastMenstrualPeriod}}</p></div>
-          <div class="col-2">
-            <p class="detail-content">建册孕周：{{data?.gravidaMedicalHistory?.booksGestationalWeeks}}</p>
-          </div>
-          <div class="col-2">
-            <p class="detail-content">产次：{{data?.gravidaMedicalHistory?.productionTimes}}</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-2">
-            <p class="detail-content">阴道分娩：{{data?.gravidaMedicalHistory?.vaginalDelivery}}</p>
-          </div>
-          <div class="col-2">
-            <p class="detail-content">刨宫产：{{data?.gravidaMedicalHistory?.planingPalace}}</p>
-          </div>
-          <div class="col-2">
-            <p class="detail-content">自然流产次数：{{data?.gravidaMedicalHistory?.spontaneousAbortionFrequency}}</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-2">
-            <p class="detail-content">药物及人工产次数：{{data?.gravidaMedicalHistory?.drugsInducedAbortionNumber}}</p>
-          </div>
-          <div class="col-2">
-            <p class="detail-content">本次妊娠生情况：
-              {{data?.gravidaMedicalHistory?.pregnancyCondition |
-              yesorno:[1,2,3,4]:['第一胎','第二胎，且父母一方是独生子女','第二胎，且父母双方都不是独生子女','其他']}}
-            </p>
-          </div>
-          <div class="col-2">
-            <p class="detail-content">叶酸服用情况：
-              {{data?.gravidaMedicalHistory?.folicAcidIntake | yesorno:[0,1]:['未服用','服用']}}
-            </p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-2">
-            <p class="detail-content">是否规律：
-              {{data?.gravidaMedicalHistory?.whetherRegular | yesorno:[0,1]:['否','是']}}
-            </p>
-          </div>
-          <div class="col-2">
-            <p class="detail-content">服药种类：
-              {{data?.gravidaMedicalHistory?.medicationsTakenTypes | yesorno:[1,2]:['单纯叶酸片','多维片']}}
-            </p>
-          </div>
-          <div class="col-2">
-            <p class="detail-content">服药开始时间：
-              {{data?.gravidaMedicalHistory?.takingMedicineStartTime | yesorno:[1,2]:['孕前','孕后']}}
-            </p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-2">
-            <p class="detail-content">家族史：
-              {{data?.gravidaMedicalHistory?.familyHistory | yesorno:[1,0]:['有','无']}}
-            </p>
-          </div>
-          <div class="col-2">
-            <p class="detail-content">个人史：
-              {{data?.gravidaMedicalHistory?.personalHistory | yesorno:[1,0]:['有','无']}}
-            </p>
-          </div>
-          <div class="col-2">
-            <p class="detail-content">既往史：
-              {{data?.gravidaMedicalHistory?.pastHistory}}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!--<div class="detail-container clear">-->
+    <!--<h3 class="detail-title">三、孕妇病史信息</h3>-->
+    <!--<div class="grid-container">-->
+    <!--<div class="row">-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">身高：{{data?.gravidaMedicalHistory?.height}}cm</p>-->
+    <!--</div>-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">孕前体重：{{data?.gravidaMedicalHistory?.preconceptionWeight}}kg</p></div>-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">BMI指数：{{data?.gravidaMedicalHistory?.bmiIndex}}</p>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">BMI分类：{{data?.gravidaMedicalHistory?.bmiType}}</p>-->
+    <!--</div>-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">血压：{{data?.gravidaMedicalHistory?.bloodPressure}}mmHg</p>-->
+    <!--</div>-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">初检孕周：{{data?.gravidaMedicalHistory?.firstTrimesterPregnancyCycle}}</p>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">末次月经：{{data?.gravidaMedicalHistory?.lastMenstrualPeriod}}</p>-->
+    <!--</div>-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">初诊日期：{{data?.gravidaMedicalHistory?.firstDiagnosisDate}}</p>-->
+    <!--</div>-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">核实后预产期：{{data?.gravidaMedicalHistory?.verifiedDateConfinement}}</p>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">预产期：{{data?.gravidaMedicalHistory?.expectedDateChildbirth}}</p>-->
+    <!--</div>-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">B超核实：-->
+    <!--{{data?.gravidaMedicalHistory?.bmodeUltrasonographyVerify | yesorno:[0,1]:['否','是']}}-->
+    <!--</p>-->
+    <!--</div>-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">孕次：{{data?.gravidaMedicalHistory?.pregnanciesNumber}}</p>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">核实后末次月经：{{data?.gravidaMedicalHistory?.verifiedDateLastMenstrualPeriod}}</p></div>-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">建册孕周：{{data?.gravidaMedicalHistory?.booksGestationalWeeks}}</p>-->
+    <!--</div>-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">产次：{{data?.gravidaMedicalHistory?.productionTimes}}</p>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">阴道分娩：{{data?.gravidaMedicalHistory?.vaginalDelivery}}</p>-->
+    <!--</div>-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">刨宫产：{{data?.gravidaMedicalHistory?.planingPalace}}</p>-->
+    <!--</div>-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">自然流产次数：{{data?.gravidaMedicalHistory?.spontaneousAbortionFrequency}}</p>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">药物及人工产次数：{{data?.gravidaMedicalHistory?.drugsInducedAbortionNumber}}</p>-->
+    <!--</div>-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">本次妊娠生情况：-->
+    <!--{{data?.gravidaMedicalHistory?.pregnancyCondition |-->
+    <!--yesorno:[1,2,3,4]:['第一胎','第二胎，且父母一方是独生子女','第二胎，且父母双方都不是独生子女','其他']}}-->
+    <!--</p>-->
+    <!--</div>-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">叶酸服用情况：-->
+    <!--{{data?.gravidaMedicalHistory?.folicAcidIntake | yesorno:[0,1]:['未服用','服用']}}-->
+    <!--</p>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">是否规律：-->
+    <!--{{data?.gravidaMedicalHistory?.whetherRegular | yesorno:[0,1]:['否','是']}}-->
+    <!--</p>-->
+    <!--</div>-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">服药种类：-->
+    <!--{{data?.gravidaMedicalHistory?.medicationsTakenTypes | yesorno:[1,2]:['单纯叶酸片','多维片']}}-->
+    <!--</p>-->
+    <!--</div>-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">服药开始时间：-->
+    <!--{{data?.gravidaMedicalHistory?.takingMedicineStartTime | yesorno:[1,2]:['孕前','孕后']}}-->
+    <!--</p>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">家族史：-->
+    <!--{{data?.gravidaMedicalHistory?.familyHistory | yesorno:[1,0]:['有','无']}}-->
+    <!--</p>-->
+    <!--</div>-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">个人史：-->
+    <!--{{data?.gravidaMedicalHistory?.personalHistory | yesorno:[1,0]:['有','无']}}-->
+    <!--</p>-->
+    <!--</div>-->
+    <!--<div class="col-2">-->
+    <!--<p class="detail-content">既往史：-->
+    <!--{{data?.gravidaMedicalHistory?.pastHistory}}-->
+    <!--</p>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
     <div class="detail-container clear">
       <h3 class="detail-title">审核结果</h3>
       <form class="form-content" *ngIf="data">

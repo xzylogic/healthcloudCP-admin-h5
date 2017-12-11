@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Location } from '@angular/common';
 
 export class ContainerConfig {
   title: string; // 主标题
@@ -26,10 +27,14 @@ export class ContainerConfig {
 export class ContainerComponent {
   @Input() config: ContainerConfig;
 
+  constructor(private location: Location) {
+  }
+
   /**
    * 返回上级菜单
    */
   back() {
-    history.go(-1);
+    // history.go(-1);
+    this.location.back();
   }
 }
