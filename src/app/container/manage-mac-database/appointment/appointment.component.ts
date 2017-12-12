@@ -64,7 +64,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.containerConfig = this.appointmentService.setAppointmentConfig();
     this.appointmentTable = new TableOption({
-      titles: this.appointmentService.setAppointmentTitles(),
+      // titles: this.appointmentService.setAppointmentTitles(),
       ifPage: true
     });
     this.getCommunityAll();
@@ -135,6 +135,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
         this.appointmentTable.loading = false;
         if (res.code === 0 && res.data && res.data.content) {
           this.appointmentTable.totalPage = res.data.extras.totalPage || '';
+          this.appointmentTable.titles = this.appointmentService.setAppointmentTitles(res.data.extras.operation == 1);
           this.appointmentTable.lists = res.data.content;
           this.formatData(this.appointmentTable.lists, res.data.extras.operation);
         } else {

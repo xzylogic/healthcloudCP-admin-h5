@@ -85,17 +85,22 @@ export class AppointmentService {
     });
   }
 
-  setAppointmentTitles() {
-    return [
-      new TableTitle({
-        name: '',
-        key: 'reservationId',
-        controlType: ControlType.checkbox,
-        option: {
-          key: 'checked',
-          value: '0'
-        }
-      }),
+  setAppointmentTitles(flag) {
+    const Titles = [];
+    if (flag) {
+      Titles.push(
+        new TableTitle({
+          name: '',
+          key: 'reservationId',
+          controlType: ControlType.checkbox,
+          option: {
+            key: 'checked',
+            value: '0'
+          }
+        })
+      );
+    }
+    Titles.push(
       new TableTitle({
         name: '序号',
         key: '',
@@ -144,7 +149,8 @@ export class AppointmentService {
           key: 'edit',
           name: ''
         }]
-      }),
-    ];
+      })
+    );
+    return Titles;
   }
 }
