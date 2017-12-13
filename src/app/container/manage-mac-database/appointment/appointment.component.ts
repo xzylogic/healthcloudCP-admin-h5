@@ -43,13 +43,13 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     name: '全部'
   }, {
     id: 0,
-    name: '待处理'
+    name: '待审核'
   }, {
     id: 1,
-    name: '已通过'
+    name: '审核通过'
   }, {
     id: 2,
-    name: '已拒绝'
+    name: '审核未通过'
   }];
 
   constructor(

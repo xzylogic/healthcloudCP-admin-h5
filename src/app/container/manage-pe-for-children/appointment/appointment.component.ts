@@ -42,7 +42,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     name: '全部'
   }, {
     id: 0,
-    name: '待处理'
+    name: '待登记'
   }, {
     id: 1,
     name: '正常体检'
@@ -195,7 +195,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     if (Array.isArray(data)) {
       data.forEach(obj => {
         if (obj.status == 0) {
-          obj.statusName = '待处理';
+          obj.statusName = '待登记';
         }
         if (obj.status == 1) {
           obj.statusName = '正常体检';
