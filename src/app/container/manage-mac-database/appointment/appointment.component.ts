@@ -187,15 +187,27 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     }
   }
 
+  auditValid(): boolean {
+    let flag = true;
+    if (this.appointmentTable.lists) {
+      this.appointmentTable.lists.forEach(obj => {
+        if (obj.tablechecked) {
+          flag = false;
+        }
+      });
+    }
+    return flag;
+  }
+
   passAll(list) {
-    console.log(list);
+    // console.log(list);
     const checklist = [];
     list.forEach(data => {
       if (data.tablechecked) {
         checklist.push(data.id);
       }
     });
-    console.log(checklist);
+    // console.log(checklist);
     this.subscribeAudit = this.appointmentService.batchAudit(checklist)
       .subscribe(res => {
         if (res.code === 0) {
