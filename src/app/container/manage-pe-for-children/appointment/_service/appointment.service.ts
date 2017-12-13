@@ -101,19 +101,19 @@ export class AppointmentService {
         key: 'motherTelephone'
       }),
       new TableTitle({
-        name: '预约时间',
-        key: 'reservationDate'
-      }),
-      new TableTitle({
         name: '预约单号',
         key: 'planImmunizationNum'
       }),
       new TableTitle({
-        name: '所属机构',
+        name: '预约机构',
         key: 'hospitalName'
       }),
       new TableTitle({
-        name: '订单状态',
+        name: '预约时间',
+        key: 'reservationDate'
+      }),
+      new TableTitle({
+        name: '登记状态',
         key: 'statusName'
       }),
       new TableTitle({

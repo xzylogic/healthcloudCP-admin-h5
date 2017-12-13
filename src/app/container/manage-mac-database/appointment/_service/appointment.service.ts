@@ -105,8 +105,20 @@ export class AppointmentService {
         option: 'insert_drive_file'
       }),
       new TableTitle({
+        name: '证件号码',
+        key: 'documentNumber'
+      }),
+      new TableTitle({
         name: '联系电话',
         key: 'motherContactNumber'
+      }),
+      new TableTitle({
+        name: '预约单号',
+        key: 'motherChildFileNum'
+      }),
+      new TableTitle({
+        name: '预约机构',
+        key: 'hospitalName'
       }),
       new TableTitle({
         name: '申请日期',
@@ -117,15 +129,7 @@ export class AppointmentService {
         key: 'reservationDate'
       }),
       new TableTitle({
-        name: '预约单号',
-        key: 'motherChildFileNum'
-      }),
-      new TableTitle({
-        name: '所属机构',
-        key: 'hospitalName'
-      }),
-      new TableTitle({
-        name: '订单状态',
+        name: '审核状态',
         key: 'statusName'
       }),
       new TableTitle({

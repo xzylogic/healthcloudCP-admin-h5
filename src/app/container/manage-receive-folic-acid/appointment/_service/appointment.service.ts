@@ -125,7 +125,7 @@ export class AppointmentService {
         key: 'orderNum'
       }),
       new TableTitle({
-        name: '所属机构',
+        name: '预约机构',
         key: 'hospitalName'
       }),
       new TableTitle({
@@ -133,11 +133,11 @@ export class AppointmentService {
         key: 'applicationTime'
       }),
       new TableTitle({
-        name: '领取时间',
+        name: '预约时间',
         key: 'reservationTimeStr'
       }),
       new TableTitle({
-        name: '申请状态',
+        name: '审核状态',
         key: 'status'
       }),
       new TableTitle({
