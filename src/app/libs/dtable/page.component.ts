@@ -24,19 +24,19 @@ export class DPageComponent implements OnInit, OnChanges {
   }
 
   getPageList(total, current) {
-    let list = [];
+    const list = [];
     if (total <= 6) {
       for (let i = 0; i < total; i++) {
         list.push(i + 1);
       }
     } else if (total > 6) {
-      if (current + 1 === 1) {
+      if (current + 1 == 1) {
         list.push(1, current + 2, '...', total);
-      } else if (current + 1 === 2) {
+      } else if (current + 1 == 2) {
         list.push(1, current + 1, current + 2, '...', total);
-      } else if (current + 1 === total - 1) {
+      } else if (current + 1 == total - 1) {
         list.push(1, '...', current, current + 1, total);
-      } else if (current + 1 === total) {
+      } else if (current + 1 == total) {
         list.push(1, '...', current, total);
       } else {
         list.push(1, '...', current, current + 1, current + 2, '...', total);
@@ -47,7 +47,7 @@ export class DPageComponent implements OnInit, OnChanges {
 
   // 获取指定页
   getCurrentPage(page) {
-    if (page !== '...') {
+    if (page != '...') {
       this.pageEmitter.emit(page - 1);
       this.getPageList(this.total, page - 1);
     }

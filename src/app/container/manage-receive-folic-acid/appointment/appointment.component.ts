@@ -126,6 +126,15 @@ export class AppointmentComponent implements OnInit, OnDestroy {
 
   getData(page) {
     this.appointmentTable.reset(page);
+    this.action.dataChange('receive-folic-acid', {
+      name: this.name,
+      cardNo: this.cardNo,
+      number: this.number,
+      status: this.status,
+      centerId: this.centerId,
+      siteId: this.siteId,
+      page: this.appointmentTable.currentPage
+    });
     this.subscribeList = this.appointmentService.getData(
       page, this.appointmentTable.size, this.name,
       this.cardNo, this.number, this.status,
@@ -151,30 +160,12 @@ export class AppointmentComponent implements OnInit, OnDestroy {
 
   gotoHandle(data) {
     if (data.key === 'edit') {
-      this.action.dataChange('receive-folic-acid', {
-        name: this.name,
-        cardNo: this.cardNo,
-        number: this.number,
-        status: this.status,
-        centerId: this.centerId,
-        siteId: this.siteId,
-        page: this.appointmentTable.currentPage
-      });
       this.router.navigate(['/receive-folic-acid/appointment', this.paramsMenu, 'detail', data.value.reservationId]);
     }
     if (data.key === 'name' && data.value && data.value.cardNo) {
       this.subscribeDialog = this.healthService.getBasicInfo(data.value.documentNumber)
         .subscribe(res => {
           if (res.code == 0 && res.data && res.data.isExist !== false) {
-            this.action.dataChange('receive-folic-acid', {
-              name: this.name,
-              cardNo: this.cardNo,
-              number: this.number,
-              status: this.status,
-              centerId: this.centerId,
-              siteId: this.siteId,
-              page: this.appointmentTable.currentPage
-            });
             this.router.navigate(['health-file', data.value.cardNo]);
           } else {
             HintDialog('该用户无健康档案信息！', this.dialog);

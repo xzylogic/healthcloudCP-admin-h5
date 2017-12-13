@@ -44,13 +44,13 @@ export class DTableComponent implements OnInit {
         this.pageList.push(i + 1);
       }
     } else if (total > 6) {
-      if (current + 1 === 1) {
+      if (current + 1 == 1) {
         this.pageList.push(1, current + 2, '...', total);
-      } else if (current + 1 === 2) {
+      } else if (current + 1 == 2) {
         this.pageList.push(1, current + 1, current + 2, '...', total);
-      } else if (current + 1 === total - 1) {
+      } else if (current + 1 == total - 1) {
         this.pageList.push(1, '...', current, current + 1, total);
-      } else if (current + 1 === total) {
+      } else if (current + 1 == total) {
         this.pageList.push(1, '...', current, total);
       } else {
         this.pageList.push(1, '...', current, current + 1, current + 2, '...', total);
@@ -60,7 +60,7 @@ export class DTableComponent implements OnInit {
 
   // 获取指定页
   getCurrentPage(page) {
-    if (page !== '...') {
+    if (page != '...') {
       this.pageEmitter.emit(page - 1);
       this.getPageList(this.table.totalPage, page - 1);
     }

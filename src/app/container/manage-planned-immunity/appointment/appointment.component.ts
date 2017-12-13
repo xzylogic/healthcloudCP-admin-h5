@@ -131,6 +131,16 @@ export class AppointmentComponent implements OnInit, OnDestroy {
 
   getData(page) {
     this.appointmentTable.reset(page);
+    this.action.dataChange('planned-immunity', {
+      telephone: this.telephone,
+      date: this.date,
+      name: this.name,
+      number: this.number,
+      status: this.status,
+      centerId: this.centerId,
+      siteId: this.siteId,
+      page: this.appointmentTable.currentPage
+    });
     this.subscribeList = this.appointmentService.getData(
       page, this.number, this.status, this.name,
       this.date && moment(new Date(this.date)).format('YYYY-MM-DD') || '',
@@ -154,32 +164,12 @@ export class AppointmentComponent implements OnInit, OnDestroy {
 
   gotoHandle(data) {
     if (data.key === 'edit' && data.value && data.value.id) {
-      this.action.dataChange('planned-immunity', {
-        telephone: this.telephone,
-        date: this.date,
-        name: this.name,
-        number: this.number,
-        status: this.status,
-        centerId: this.centerId,
-        siteId: this.siteId,
-        page: this.appointmentTable.currentPage
-      });
       this.router.navigate(['/planned-immunity', 'appointment', this.paramsMenu, 'detail', data.value.id]);
     }
     if (data.key === 'name' && data.value && data.value.documentNumber) {
       this.subscribeDialog = this.healthService.getBasicInfo(data.value.documentNumber)
         .subscribe(res => {
           if (res.code == 0 && res.data && res.data.isExist !== false) {
-            this.action.dataChange('planned-immunity', {
-              telephone: this.telephone,
-              date: this.date,
-              name: this.name,
-              number: this.number,
-              status: this.status,
-              centerId: this.centerId,
-              siteId: this.siteId,
-              page: this.appointmentTable.currentPage
-            });
             this.router.navigate(['health-file', data.value.documentNumber]);
           } else {
             HintDialog('该用户无健康档案信息！', this.dialog);
