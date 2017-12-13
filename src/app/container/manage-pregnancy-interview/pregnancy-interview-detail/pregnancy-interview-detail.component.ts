@@ -87,6 +87,7 @@ export class PregnancyInterviewDetailComponent implements OnInit, OnDestroy {
       answer: JSON.stringify(form),
       doctorId: this.auth.getAdminId()
     };
+    console.log(formData);
     console.log(JSON.stringify(formData));
     this.subscribeSave = this.interviewService.saveDetail(formData)
       .subscribe(res => {

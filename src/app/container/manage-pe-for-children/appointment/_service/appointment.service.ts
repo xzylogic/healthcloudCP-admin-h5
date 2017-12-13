@@ -102,7 +102,7 @@ export class AppointmentService {
       }),
       new TableTitle({
         name: '预约单号',
-        key: 'planImmunizationNum'
+        key: 'childExaminationNum'
       }),
       new TableTitle({
         name: '预约机构',
