@@ -1,6 +1,6 @@
 @import '../../../libs/theme/theme';
 
-.grid {
+.grid-container {
   height: calc(100vh - 218px);
 }
 
@@ -8,6 +8,21 @@
   position: relative;
   width: 100%;
   height: 100%;
+}
+
+.menu__list {
+  width: 100%;
+  height: calc(100vh - 328px);
+  overflow: scroll;
+}
+
+.menu__form {
+  height: calc(100vh - 288px) !important;
+  overflow-y: scroll !important;
+}
+
+.menu__form.tab {
+  margin-top: 15px;
 }
 
 .tree__title {

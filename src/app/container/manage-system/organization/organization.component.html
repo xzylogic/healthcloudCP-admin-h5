@@ -14,7 +14,7 @@
               <span>站点<mat-icon class="tree__icon type site">lens</mat-icon></span>
               <span>中心<mat-icon class="tree__icon type center">lens</mat-icon></span>
             </div>
-            <div *ngIf="menuList&&menuList.level==0">
+            <div class="menu__list" *ngIf="menuList&&menuList.level==0">
               <!--昌平卫计委-->
               <div class="clear tree__p">
                 <mat-icon class="tree__icon" (click)="toggle(menuList)" *ngIf="!menuList.open&&menuList.children">add
@@ -141,7 +141,7 @@
                 </li>
               </ul>
             </div>
-            <div *ngIf="menuList&&menuList.level==1">
+            <div class="menu__list" *ngIf="menuList&&menuList.level==1">
               <!--中心-->
               <div class="clear tree__p">
                 <mat-icon class="tree__icon" (click)="toggle(menuList)"
@@ -236,7 +236,8 @@
                         <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)" *ngIf="permission">
                           <mat-icon aria-label="edit">mode_edit</mat-icon>
                         </button>
-                        <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)" *ngIf="!permission">
+                        <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)"
+                                *ngIf="!permission">
                           <mat-icon aria-label="edit">visibility</mat-icon>
                         </button>
                       </div>
@@ -245,7 +246,7 @@
                 </li>
               </ul>
             </div>
-            <div *ngIf="menuList&&menuList.level==2">
+            <div class="menu__list" *ngIf="menuList&&menuList.level==2">
               <!--站点-->
               <div class="clear tree__p">
                 <mat-icon class="tree__icon" (click)="toggle(menuList)"
@@ -297,7 +298,7 @@
                 </li>
               </ul>
             </div>
-            <div *ngIf="menuList&&menuList.level==3">
+            <div class="menu__list" *ngIf="menuList&&menuList.level==3">
               <!--科室-->
               <div class="clear tree__p tr_main">
                 <mat-icon class="tree__icon type department last">lens</mat-icon>
@@ -313,40 +314,42 @@
           </div>
         </div>
         <div class="col-3">
-          <div class="container" *ngIf="form&&flag==0" style="overflow: auto">
+          <div class="container" *ngIf="form&&flag==0">
             <div class="tree__title clear">
               <h3 class="p">{{title}}</h3>
             </div>
-            <app-form [formDatas]="form" (formValues)="getValues($event)"></app-form>
+            <div class="menu__form">
+              <app-form [formDatas]="form" (formValues)="getValues($event)"></app-form>
+            </div>
           </div>
           <div class="container" *ngIf="form&&formTwo&&flag==1">
-            <mat-tab-group dynamicHeight="true">
+            <mat-tab-group dynamicHeight="true" style="padding-top: 6px">
               <mat-tab label="添加站点">
-                <div style="padding: 15px 0;height: calc(100vh - 280px);overflow: auto">
+                <div class="menu__form tab">
                   <app-form [formDatas]="form" (formValues)="getValues($event)"></app-form>
                 </div>
               </mat-tab>
               <mat-tab label="添加科室">
-                <div style="padding: 15px 0;height: calc(100vh - 280px);overflow: auto">
+                <div class="menu__form tab">
                   <app-form [formDatas]="formTwo" (formValues)="getValues($event)"></app-form>
                 </div>
               </mat-tab>
             </mat-tab-group>
           </div>
           <div class="container" *ngIf="form&&formTwo&&formThree&&flag==2">
-            <mat-tab-group dynamicHeight="true">
+            <mat-tab-group dynamicHeight="true" style="padding-top: 6px">
               <mat-tab label="添加中心">
-                <div style="padding: 15px 0;height: calc(100vh - 280px);overflow: auto">
+                <div class="menu__form tab">
                   <app-form [formDatas]="form" (formValues)="getValues($event)"></app-form>
                 </div>
               </mat-tab>
               <mat-tab label="添加站点">
-                <div style="padding: 15px 0;height: calc(100vh - 280px);overflow: auto">
+                <div class="menu__form tab">
                   <app-form [formDatas]="formTwo" (formValues)="getValues($event)"></app-form>
                 </div>
               </mat-tab>
               <mat-tab label="添加科室">
-                <div style="padding: 15px 0;height: calc(100vh - 280px);overflow: auto">
+                <div class="menu__form tab">
                   <app-form [formDatas]="formThree" (formValues)="getValues($event)"></app-form>
                 </div>
               </mat-tab>
