@@ -23,6 +23,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
 
   containerConfig: ContainerConfig;
   appointmentTable: TableOption;
+  flag = false;
 
   @select(['receive-folic-acid', 'data']) data: Observable<any>;
   name = '';
@@ -135,6 +136,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
         if (res.code === 0 && res.data && res.data.data) {
           this.appointmentTable.totalPage = res.data.totalPages || '';
           this.appointmentTable.titles = this.appointmentService.setAppointmentTitles(res.data.operation == 1);
+          this.flag = (res.data.operation == 1);
           this.appointmentTable.lists = res.data.data;
           this.formatData(this.appointmentTable.lists, res.data.operation);
         } else {

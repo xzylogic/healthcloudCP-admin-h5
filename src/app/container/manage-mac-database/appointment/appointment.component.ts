@@ -24,6 +24,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
 
   containerConfig: ContainerConfig;
   appointmentTable: TableOption;
+  flag = false;
 
   @select(['mac-database', 'data']) data: Observable<any>;
   date: Date;
@@ -136,6 +137,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
         if (res.code === 0 && res.data && res.data.content) {
           this.appointmentTable.totalPage = res.data.extras.totalPage || '';
           this.appointmentTable.titles = this.appointmentService.setAppointmentTitles(res.data.extras.operation == 1);
+          this.flag = (res.data.extras.operation == 1);
           this.appointmentTable.lists = res.data.content;
           this.formatData(this.appointmentTable.lists, res.data.extras.operation);
         } else {

@@ -43,7 +43,7 @@
       {{appointmentTable.errorMessage}}
     </div>
     <div *ngIf="appointmentTable.lists">
-      <div>
+      <div *ngIf="flag">
         <button mat-raised-button color="primary" (click)="passAll(appointmentTable.lists)">审核通过</button>
       </div>
       <div class="content__table">
