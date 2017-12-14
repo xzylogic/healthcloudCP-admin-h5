@@ -119,11 +119,11 @@ export class AppointmentDetailComponent implements OnInit, OnDestroy {
       this.window.document.write('</head><body>');
       this.window.document.write(survey.innerHTML);
       this.window.document.write('</body></html>');
+      this.window.document.close();
+      this.window.focus();
       setTimeout(() => {
-        this.window.document.close();
-        this.window.focus();
         this.window.print();
-        // this.window.close();
+        this.window.close();
       }, 300);
     } else {
       this.window.document.close();
