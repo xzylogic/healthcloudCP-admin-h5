@@ -123,7 +123,7 @@ export class AppointmentDetailComponent implements OnInit, OnDestroy {
       this.window.focus();
       setTimeout(() => {
         this.window.print();
-        this.window.close();
+        // this.window.close();
       }, 300);
     } else {
       this.window.document.close();
