@@ -24,6 +24,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
 
   containerConfig: ContainerConfig;
   appointmentTable: TableOption;
+  flag = false;
 
   @select(['mac-database', 'data']) data: Observable<any>;
   date: Date;
@@ -42,13 +43,13 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     name: '全部'
   }, {
     id: 0,
-    name: '待处理'
+    name: '待审核'
   }, {
     id: 1,
-    name: '已通过'
+    name: '审核通过'
   }, {
     id: 2,
-    name: '已拒绝'
+    name: '审核未通过'
   }];
 
   constructor(
@@ -64,7 +65,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.containerConfig = this.appointmentService.setAppointmentConfig();
     this.appointmentTable = new TableOption({
-      titles: this.appointmentService.setAppointmentTitles(),
+      // titles: this.appointmentService.setAppointmentTitles(),
       ifPage: true
     });
     this.getCommunityAll();
@@ -126,6 +127,15 @@ export class AppointmentComponent implements OnInit, OnDestroy {
 
   getData(page) {
     this.appointmentTable.reset(page);
+    this.action.dataChange('mac-database', {
+      date: this.date,
+      name: this.name,
+      number: this.number,
+      status: this.status,
+      centerId: this.centerId,
+      siteId: this.siteId,
+      page: this.appointmentTable.currentPage
+    });
     this.subscribeList = this.appointmentService.getData(
       page, this.status, this.number, this.name,
       this.date && moment(new Date(this.date)).format('YYYY-MM-DD') || '',
@@ -135,6 +145,8 @@ export class AppointmentComponent implements OnInit, OnDestroy {
         this.appointmentTable.loading = false;
         if (res.code === 0 && res.data && res.data.content) {
           this.appointmentTable.totalPage = res.data.extras.totalPage || '';
+          this.appointmentTable.titles = this.appointmentService.setAppointmentTitles(res.data.extras.operation == 1);
+          this.flag = (res.data.extras.operation == 1);
           this.appointmentTable.lists = res.data.content;
           this.formatData(this.appointmentTable.lists, res.data.extras.operation);
         } else {
@@ -149,30 +161,12 @@ export class AppointmentComponent implements OnInit, OnDestroy {
 
   gotoHandle(data) {
     if (data.key === 'edit') {
-      this.action.dataChange('mac-database', {
-        date: this.date,
-        name: this.name,
-        number: this.number,
-        status: this.status,
-        centerId: this.centerId,
-        siteId: this.siteId,
-        page: this.appointmentTable.currentPage
-      });
       this.router.navigate(['/mac-database/appointment', this.paramsMenu, 'detail', data.value.id]);
     }
     if (data.key === 'name' && data.value && data.value.documentNumber) {
       this.subscribeDialog = this.healthService.getBasicInfo(data.value.documentNumber)
         .subscribe(res => {
           if (res.code == 0 && res.data && res.data.isExist !== false) {
-            this.action.dataChange('mac-database', {
-              date: this.date,
-              name: this.name,
-              number: this.number,
-              status: this.status,
-              centerId: this.centerId,
-              siteId: this.siteId,
-              page: this.appointmentTable.currentPage
-            });
             this.router.navigate(['health-file', data.value.documentNumber]);
           } else {
             HintDialog('该用户无健康档案信息！', this.dialog);
@@ -184,15 +178,27 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     }
   }
 
+  auditValid(): boolean {
+    let flag = true;
+    if (this.appointmentTable.lists) {
+      this.appointmentTable.lists.forEach(obj => {
+        if (obj.tablechecked) {
+          flag = false;
+        }
+      });
+    }
+    return flag;
+  }
+
   passAll(list) {
-    console.log(list);
+    // console.log(list);
     const checklist = [];
     list.forEach(data => {
       if (data.tablechecked) {
         checklist.push(data.id);
       }
     });
-    console.log(checklist);
+    // console.log(checklist);
     this.subscribeAudit = this.appointmentService.batchAudit(checklist)
       .subscribe(res => {
         if (res.code === 0) {

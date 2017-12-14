@@ -4,7 +4,7 @@ import { ControlType, TableTitle } from '../../../../libs/dtable/dtable.entity';
 
 const PATH = {
   getData: '/api/motherAndChildFile/checkMotherAndChildFileList',
-  // getCommunityAll: '/api/getAllCommunityByUserId',
+  // getCommunityfAll: '/api/getAllCommunityByUserId',
   getCommunityAll: '/api/appointmentTime/getAllCommunityByUserId',
   getDetail: '/api/motherAndChildFile/check',
   saveDetail: '/api/motherAndChildFile/updateInfo',
@@ -77,17 +77,22 @@ export class AppointmentService {
     });
   }
 
-  setAppointmentTitles() {
-    return [
-      new TableTitle({
-        name: '',
-        key: 'id',
-        controlType: ControlType.checkbox,
-        option: {
-          key: 'status',
-          value: '0'
-        }
-      }),
+  setAppointmentTitles(flag) {
+    const Titles = [];
+    if (flag) {
+      Titles.push(
+        new TableTitle({
+          name: '',
+          key: 'id',
+          controlType: ControlType.checkbox,
+          option: {
+            key: 'status',
+            value: '0'
+          }
+        })
+      );
+    }
+    Titles.push(
       new TableTitle({
         name: '序号',
         key: '',
@@ -100,8 +105,20 @@ export class AppointmentService {
         option: 'insert_drive_file'
       }),
       new TableTitle({
+        name: '证件号码',
+        key: 'documentNumber'
+      }),
+      new TableTitle({
         name: '联系电话',
         key: 'motherContactNumber'
+      }),
+      new TableTitle({
+        name: '预约单号',
+        key: 'motherChildFileNum'
+      }),
+      new TableTitle({
+        name: '预约机构',
+        key: 'hospitalName'
       }),
       new TableTitle({
         name: '申请日期',
@@ -112,15 +129,7 @@ export class AppointmentService {
         key: 'reservationDate'
       }),
       new TableTitle({
-        name: '预约单号',
-        key: 'motherChildFileNum'
-      }),
-      new TableTitle({
-        name: '所属机构',
-        key: 'hospitalName'
-      }),
-      new TableTitle({
-        name: '订单状态',
+        name: '审核状态',
         key: 'statusName'
       }),
       new TableTitle({
@@ -131,7 +140,8 @@ export class AppointmentService {
           key: 'edit',
           name: ''
         }]
-      }),
-    ];
+      })
+    );
+    return Titles;
   }
 }

@@ -42,7 +42,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     name: '全部'
   }, {
     id: 0,
-    name: '待处理'
+    name: '待登记'
   }, {
     id: 1,
     name: '正常体检'
@@ -131,6 +131,16 @@ export class AppointmentComponent implements OnInit, OnDestroy {
 
   getData(page) {
     this.appointmentTable.reset(page);
+    this.action.dataChange('pe-for-children', {
+      telephone: this.telephone,
+      date: this.date,
+      name: this.name,
+      number: this.number,
+      status: this.status,
+      centerId: this.centerId,
+      siteId: this.siteId,
+      page: this.appointmentTable.currentPage
+    });
     this.subscribeList = this.appointmentService.getData(
       page, this.number, this.status, this.name,
       this.date && moment(new Date(this.date)).format('YYYY-MM-DD') || '',
@@ -154,32 +164,12 @@ export class AppointmentComponent implements OnInit, OnDestroy {
 
   gotoHandle(data) {
     if (data.key === 'edit') {
-      this.action.dataChange('pe-for-children', {
-        telephone: this.telephone,
-        date: this.date,
-        name: this.name,
-        number: this.number,
-        status: this.status,
-        centerId: this.centerId,
-        siteId: this.siteId,
-        page: this.appointmentTable.currentPage
-      });
       this.router.navigate(['/pe-for-children/appointment', this.paramsMenu, 'detail', data.value.id]);
     }
     if (data.key === 'name' && data.value && data.value.documentNumber) {
       this.subscribeDialog = this.healthService.getBasicInfo(data.value.documentNumber)
         .subscribe(res => {
           if (res.code == 0 && res.data && res.data.isExist !== false) {
-            this.action.dataChange('pe-for-children', {
-              telephone: this.telephone,
-              date: this.date,
-              name: this.name,
-              number: this.number,
-              status: this.status,
-              centerId: this.centerId,
-              siteId: this.siteId,
-              page: this.appointmentTable.currentPage
-            });
             this.router.navigate(['health-file', data.value.documentNumber]);
           } else {
             HintDialog('该用户无健康档案信息！', this.dialog);
@@ -195,7 +185,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     if (Array.isArray(data)) {
       data.forEach(obj => {
         if (obj.status == 0) {
-          obj.statusName = '待处理';
+          obj.statusName = '待登记';
         }
         if (obj.status == 1) {
           obj.statusName = '正常体检';

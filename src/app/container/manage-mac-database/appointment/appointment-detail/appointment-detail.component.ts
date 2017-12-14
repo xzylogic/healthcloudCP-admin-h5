@@ -79,6 +79,10 @@ export class AppointmentDetailComponent implements OnInit {
           HintDialog(res.msg || '操作成功！', this.dialog);
           this.cancel();
           this.getDetail(this.id);
+        } else if (res.code === 1001) {
+          HintDialog(res.msg || '操作失败～', this.dialog);
+          this.cancel();
+          this.getDetail(this.id);
         } else {
           HintDialog(res.msg || '操作失败～', this.dialog);
         }

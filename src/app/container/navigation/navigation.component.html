@@ -17,19 +17,20 @@
         <li *ngFor="let menu of navigation | async">
           <div class="nav__item" [class.open]="menu.open">
             <div class="nav__title">
-              <a *ngIf="!menu.children||(menu.children&&menu.children.length===0)"
-                 routerLinkActive="active"
-                 [routerLink]="[menu.href,menu.menuId]">
+              <a
+                *ngIf="!menu.children||(menu.children&&menu.children.length===0)||(menu.children&&menu.children.length!==0&&menu.children[0].type==2)"
+                routerLinkActive="active"
+                [routerLink]="[menu.href,menu.menuId]">
                 {{menu.menuName}}
               </a>
-              <span *ngIf="menu.children&&menu.children.length!==0"
+              <span *ngIf="menu.children&&menu.children.length!==0&&menu.children[0].type==1"
                     (click)="toggleSub(menu)">
                 {{menu.menuName}}
                 <mat-icon>chevron_right</mat-icon>
               </span>
             </div>
           </div>
-          <ul class="nav-sub__list" *ngIf="menu.children&&menu.children.length!==0">
+          <ul class="nav-sub__list" *ngIf="menu.children&&menu.children.length!==0&&menu.children[0].type==1">
             <li class="nav-sub__item" *ngFor="let subMenu of menu.children">
               <div class="nav-sub__title">
                 <a routerLinkActive="active" [routerLink]="[subMenu.href,subMenu.menuId]">
