@@ -82,7 +82,7 @@ export class AccountService {
   }
 
   getCommunity() {
-    return this.http.get(`${this.app.api_url}${PATH.getCommunity}?userId=${this.auth.getAdminId()}`);
+    return this.http.get(`${this.app.api_url}${PATH.getCommunity}?userId=${this.auth.getAdminId()}&delFlag=0`);
   }
 
   getCommunityAll() {
