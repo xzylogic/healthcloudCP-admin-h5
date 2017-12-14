@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { ActivatedRoute } from '@angular/router';
 import { HintDialog, MessageDialog } from '../../../../libs/dmodal/dialog.component';
@@ -10,7 +10,7 @@ import { ERRMSG } from '../../../_store/static';
   templateUrl: './appointment-detail.component.html',
   styleUrls: ['./appointment-detail.component.scss']
 })
-export class AppointmentDetailComponent implements OnInit {
+export class AppointmentDetailComponent implements OnInit, OnDestroy {
   containerConfig: ContainerConfig;
   id: string;
   data: any;
@@ -18,6 +18,7 @@ export class AppointmentDetailComponent implements OnInit {
   status: string;
   reason = '';
   reasonRadio = '';
+  window: any;
 
   constructor(
     @Inject('appointment') private appointmentService,
@@ -35,6 +36,12 @@ export class AppointmentDetailComponent implements OnInit {
         this.getSurvey(route.id);
       }
     });
+  }
+
+  ngOnDestroy() {
+    if (this.window) {
+      this.window.close();
+    }
   }
 
   getDetail(id) {
@@ -104,17 +111,24 @@ export class AppointmentDetailComponent implements OnInit {
   }
 
   printSurvey(survey) {
-    const my_window = window.open('print', '_blank');
-    my_window.document.write('<html><head>');
-    my_window.document.write(window.document.getElementsByTagName('head')[0].innerHTML);
-    my_window.document.write('</head><body>');
-    my_window.document.write(survey.innerHTML);
-    my_window.document.write('</body></html>');
-    // setTimeout(() => {
-    my_window.document.close();
-    my_window.focus();
-    my_window.print();
-    // my_window.close();
-    // }, 300);
+    // console.log(this.window);
+    if (!this.window || (this.window && this.window.closed)) {
+      this.window = window.open('print', '_blank', '', true);
+      this.window.document.write('<html><head>');
+      this.window.document.write(window.document.getElementsByTagName('head')[0].innerHTML);
+      this.window.document.write('</head><body>');
+      this.window.document.write(survey.innerHTML);
+      this.window.document.write('</body></html>');
+      setTimeout(() => {
+        this.window.document.close();
+        this.window.focus();
+        this.window.print();
+        // this.window.close();
+      }, 300);
+    } else {
+      this.window.document.close();
+      this.window.focus();
+      this.window.print();
+    }
   }
 }

@@ -30,7 +30,7 @@ export enum SearchType {date, range}
             >{{label}}</label>
           </span>
         </div>
-        <div class="mat-input-underline mat-form-field-underline">
+        <div class="mat-input-underline mat-form-field-underline" style="left: 0">
           <span class="mat-input-ripple mat-form-field-ripple"></span>
         </div>
       </div>
