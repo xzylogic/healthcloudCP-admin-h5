@@ -169,7 +169,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     if (data.key === 'name' && data.value && data.value.documentNumber) {
       this.subscribeDialog = this.healthService.getBasicInfo(data.value.documentNumber)
         .subscribe(res => {
-          if (res.code == 0 && res.data && res.data.isExist !== false) {
+          if (res.code == 0 && res.data && res.data.isExist === true) {
             this.router.navigate(['health-file', data.value.documentNumber]);
           } else {
             HintDialog('该用户无健康档案信息！', this.dialog);

@@ -189,7 +189,7 @@ export class PregnancyInterviewComponent implements OnInit, OnDestroy {
     if (data.key === 'name' && data.value && data.value.documentNumber) {
       this.subscribeDialog = this.healthService.getBasicInfo(data.value.documentNumber)
         .subscribe(res => {
-          if (res.code == 0 && res.data && res.data.isExist !== false) {
+          if (res.code == 0 && res.data && res.data.isExist === true) {
             this.action.dataChange('pregnancy-interview', {
               name: this.name,
               telephone: this.telephone,

@@ -426,8 +426,8 @@ export class OrganizationService {
         key: 'warmPrompt',
         label: '温馨提示',
         value: data && data.warmPrompt || '',
-        required: true,
-        errMsg: '请填写温馨提示',
+        required: false,
+        // errMsg: '请填写温馨提示',
         disabled: !disable,
         order: 3
       })
