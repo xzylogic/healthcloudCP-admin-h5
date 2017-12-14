@@ -4,7 +4,7 @@ import { ControlType, TableTitle } from '../../../../libs/dtable/dtable.entity';
 
 const PATH = {
   getData: '/api/motherAndChildFile/checkMotherAndChildFileList',
-  // getCommunityAll: '/api/getAllCommunityByUserId',
+  // getCommunityfAll: '/api/getAllCommunityByUserId',
   getCommunityAll: '/api/appointmentTime/getAllCommunityByUserId',
   getDetail: '/api/motherAndChildFile/check',
   saveDetail: '/api/motherAndChildFile/updateInfo',

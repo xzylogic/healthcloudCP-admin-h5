@@ -14,7 +14,8 @@ const PATH = {
   getSite: '/api/getAllCommunityCenterByUserId',
   updateAccount: '/api/basicInfo/user/update',
   getCommunity: '/api/getCommunityMenuByUserId',
-  getCommunityAll: '/api/getAllCommunityByUserId',
+  getCommunityAll: '/api/appointmentTime/getAllCommunityByUserId',
+  // getCommunityAll: '/api/getAllCommunityByUserId',
   resetPwd: '/api/basicInfo/user/updatePassword'
 };
 
