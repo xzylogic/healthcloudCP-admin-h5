@@ -21,7 +21,7 @@ export class PregnancyInterviewService {
   }
 
   getCommunityAll() {
-    return this.http.get(`${this.app.api_url}${PATH.getCommunityAll}?userId=${this.auth.getAdminId()}&type=ys`);
+    return this.http.get(`${this.app.api_url}${PATH.getCommunityAll}?userId=${this.auth.getAdminId()}&type=jd`);
   }
 
   getData(page, size, name, tel, period, status, hospital) {
