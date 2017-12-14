@@ -167,7 +167,7 @@ export class ReceiveInterviewComponent implements OnInit, OnDestroy {
     if (data.key === 'userName' && data.value && data.value.personcard) {
       this.subscribeDialog = this.healthService.getBasicInfo(data.value.personcard)
         .subscribe(res => {
-          if (res.code == 0 && res.data && res.data.isExist !== false) {
+          if (res.code == 0 && res.data && res.data.isExist === true) {
             this.action.dataChange('receive-interview', {
               name: this.name,
               telephone: this.telephone,

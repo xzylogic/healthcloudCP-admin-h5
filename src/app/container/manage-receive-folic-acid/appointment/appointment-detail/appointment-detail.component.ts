@@ -110,11 +110,11 @@ export class AppointmentDetailComponent implements OnInit {
     my_window.document.write('</head><body>');
     my_window.document.write(survey.innerHTML);
     my_window.document.write('</body></html>');
-    setTimeout(() => {
-      my_window.document.close();
-      my_window.focus();
-      my_window.print();
-      my_window.close();
-    }, 300);
+    // setTimeout(() => {
+    my_window.document.close();
+    my_window.focus();
+    my_window.print();
+    // my_window.close();
+    // }, 300);
   }
 }

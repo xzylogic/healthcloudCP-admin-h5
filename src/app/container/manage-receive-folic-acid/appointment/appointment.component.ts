@@ -163,9 +163,9 @@ export class AppointmentComponent implements OnInit, OnDestroy {
       this.router.navigate(['/receive-folic-acid/appointment', this.paramsMenu, 'detail', data.value.reservationId]);
     }
     if (data.key === 'name' && data.value && data.value.cardNo) {
-      this.subscribeDialog = this.healthService.getBasicInfo(data.value.documentNumber)
+      this.subscribeDialog = this.healthService.getBasicInfo(data.value.cardNo)
         .subscribe(res => {
-          if (res.code == 0 && res.data && res.data.isExist !== false) {
+          if (res.code == 0 && res.data && res.data.isExist === true) {
             this.router.navigate(['health-file', data.value.cardNo]);
           } else {
             HintDialog('该用户无健康档案信息！', this.dialog);
