@@ -1,4 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { ActivatedRoute } from '@angular/router';
 import { HintDialog, MessageDialog } from '../../../../libs/dmodal/dialog.component';
@@ -113,18 +114,24 @@ export class AppointmentDetailComponent implements OnInit, OnDestroy {
   printSurvey(survey) {
     // console.log(this.window);
     if (!this.window || (this.window && this.window.closed)) {
-      this.window = window.open('print', '_blank', '', true);
-      this.window.document.write('<html><head>');
-      this.window.document.write(window.document.getElementsByTagName('head')[0].innerHTML);
-      this.window.document.write('</head><body>');
-      this.window.document.write(survey.innerHTML);
-      this.window.document.write('</body></html>');
-      this.window.document.close();
-      setTimeout(() => {
-        this.window.focus();
-        this.window.print();
-        // this.window.close();
-      }, 300);
+      let obs = Observable.create((obser) => {
+        this.window = window.open('print', '_blank', '', true);
+        this.window.document.write('<html><head>');
+        this.window.document.write(window.document.getElementsByTagName('head')[0].innerHTML);
+        this.window.document.write('</head><body>');
+        this.window.document.write(survey.innerHTML);
+        this.window.document.write('</body></html>');
+        console.log(this.window);
+        console.log(1);
+        obser.next(this.window);
+      });
+      obs.subscribe((window) => {
+        console.log(window);
+        console.log(2);
+        window.document.close();
+        window.focus();
+        window.print();
+      });
     } else {
       this.window.focus();
       this.window.print();
