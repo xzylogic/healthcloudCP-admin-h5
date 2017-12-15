@@ -1,7 +1,10 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+<<<<<<< HEAD
 import { Subject } from 'rxjs/Subject';
 import { observable } from 'rxjs/symbol/observable';
+=======
+>>>>>>> origin/bugfix
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { ActivatedRoute } from '@angular/router';
 import { HintDialog, MessageDialog } from '../../../../libs/dmodal/dialog.component';
@@ -124,11 +127,14 @@ export class AppointmentDetailComponent implements OnInit, OnDestroy {
         this.window.document.write('</head><body>');
         this.window.document.write(survey.innerHTML);
         this.window.document.write('</body></html>');
-        this.window.document.close();
+        console.log(this.window);
+        console.log(1);
         obser.next(this.window);
       });
       obs.subscribe((window) => {
-        // console.log(window);
+        console.log(window);
+        console.log(2);
+        window.document.close();
         window.focus();
         window.print();
       });
