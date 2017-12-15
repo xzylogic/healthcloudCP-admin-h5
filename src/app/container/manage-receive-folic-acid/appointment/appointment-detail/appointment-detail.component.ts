@@ -116,23 +116,40 @@ export class AppointmentDetailComponent implements OnInit, OnDestroy {
     // console.log(this.window);
     if (!this.window || (this.window && this.window.closed)) {
       let obs = Observable.create((obser) => {
-        this.window = window.open('print', '_blank', '', true);
-        this.window.document.write('<html><head>');
-        this.window.document.write(window.document.getElementsByTagName('head')[0].innerHTML);
-        this.window.document.write('</head><body>');
-        this.window.document.write(survey.innerHTML);
-        this.window.document.write('</body></html>');
-        console.log(this.window);
+        // this.window = window.open('print', '_blank', '', true);
+        // this.window.document.write('<html><head>');
+        // this.window.document.write(window.document.getElementsByTagName('head')[0].innerHTML);
+        // this.window.document.write('</head><body>');
+        // this.window.document.write(survey.innerHTML);
+        // this.window.document.write('</body></html>');
+        // console.log(this.window);
         console.log(1);
-        obser.next(this.window);
+        obser.next();
+        obser.complete();
       });
-      obs.subscribe((window) => {
-        console.log(window);
-        console.log(2);
-        window.document.close();
-        window.focus();
-        window.print();
-      });
+      obs.subscribe(
+        () => {
+          this.window = window.open('print', '_blank', '', true);
+          this.window.document.write('<html><head>');
+          this.window.document.write(window.document.getElementsByTagName('head')[0].innerHTML);
+          this.window.document.write('</head><body>');
+          this.window.document.write(survey.innerHTML);
+          this.window.document.write('</body></html>');
+          this.window.document.close();
+          console.log(2);
+          // console.log(window);
+          // console.log(2);
+          // window.document.close();
+          // window.focus();
+          // window.print();
+        },
+        err => {
+        },
+        () => {
+          console.log(3);
+          this.window.focus();
+          this.window.print();
+        });
     } else {
       this.window.focus();
       this.window.print();
