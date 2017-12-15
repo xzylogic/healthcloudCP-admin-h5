@@ -121,9 +121,12 @@ export class AppointmentDetailComponent implements OnInit, OnDestroy {
       this.window.document.write(survey.innerHTML);
       this.window.document.write('</body></html>');
       this.window.document.close();
-      this.window.focus();
+      console.log('print0');
       setTimeout(() => {
+        console.log('print1');
+        this.window.focus();
         this.window.print();
+        console.log('print2');
       }, 0);
     } else {
       this.window.focus();
