@@ -1,10 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-<<<<<<< HEAD
-import { Subject } from 'rxjs/Subject';
 import { observable } from 'rxjs/symbol/observable';
-=======
->>>>>>> origin/bugfix
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { ActivatedRoute } from '@angular/router';
 import { HintDialog, MessageDialog } from '../../../../libs/dmodal/dialog.component';
@@ -25,7 +21,6 @@ export class AppointmentDetailComponent implements OnInit, OnDestroy {
   reason = '';
   reasonRadio = '';
   window: any;
-  subscribePrint: Subject<any> = new Subject();
 
   constructor(
     @Inject('appointment') private appointmentService,
