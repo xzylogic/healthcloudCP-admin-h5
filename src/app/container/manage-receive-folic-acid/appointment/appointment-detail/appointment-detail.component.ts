@@ -114,20 +114,24 @@ export class AppointmentDetailComponent implements OnInit, OnDestroy {
 
   printSurvey(survey) {
     if (!this.window || (this.window && this.window.closed)) {
-      this.window = window.open('print', '_blank', '', true);
-      this.window.document.write('<html><head>');
-      this.window.document.write(window.document.getElementsByTagName('head')[0].innerHTML);
-      this.window.document.write('</head><body>');
-      this.window.document.write(survey.innerHTML);
-      this.window.document.write('</body></html>');
-      this.window.document.close();
-      console.log('print0');
+      this.window = null;
+      setTimeout(() => {
+        console.log(this.window);
+        this.window = window.open('print', '_blank', '', true);
+        this.window.document.write('<html><head>');
+        this.window.document.write(window.document.getElementsByTagName('head')[0].innerHTML);
+        this.window.document.write('</head><body>');
+        this.window.document.write(survey.innerHTML);
+        this.window.document.write('</body></html>');
+        this.window.document.close();
+        this.window.focus();
+        console.log('print0');
+      }, 100);
       setTimeout(() => {
         console.log('print1');
-        this.window.focus();
         this.window.print();
         console.log('print2');
-      }, 0);
+      }, 300);
     } else {
       this.window.focus();
       this.window.print();
