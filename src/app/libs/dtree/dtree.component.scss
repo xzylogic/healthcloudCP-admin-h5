@@ -94,6 +94,14 @@
   cursor: initial;
 }
 
+.tree__checkbox {
+  float: left;
+  display: inline-block;
+  width: 24px;
+  line-height: 36px;
+  overflow: hidden;
+}
+
 .tree__span {
   float: left;
   display: inline-block;

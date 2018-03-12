@@ -1,16 +1,16 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { DTreeEditEntity, DTreeEntity } from './dtree.entity';
+import { DTreeEditEntity, DTreeEntity, DTreeFuncType } from './dtree.entity';
 
 @Component({
   selector: 'app-dtree',
   template: `
     <ul *ngIf="trees" class="tree__list">
       <li *ngFor="let tree of trees" class="clear">
-        <app-dtree-child [treeNode]="tree" (HandleChecked)="checkedEmit($event)"
+        <app-dtree-child [treeNode]="tree" [func]="func" (HandleChecked)="checkedEmit($event)"
                          (HandleUpdate)="updateEmit($event)" (HandleCreate)="createEmit($event)"
         ></app-dtree-child>
-        <app-dtree *ngIf="tree.children&&tree.open"
-                   (HandleChecked)="checkedEmit($event, tree)" [trees]="tree.children"
+        <app-dtree *ngIf="tree.children&&tree.open" [trees]="tree.children" [func]="func"
+                   (HandleChecked)="checkedEmit($event, tree)"
                    (HandleUpdate)="updateEmit($event, tree)" (HandleCreate)="createEmit($event, tree)"
         ></app-dtree>
       </li>
@@ -19,6 +19,7 @@ import { DTreeEditEntity, DTreeEntity } from './dtree.entity';
   styleUrls: ['./dtree.component.scss']
 })
 export class DTreeComponent {
+  @Input() func: DTreeFuncType;
   @Input() trees: DTreeEntity[];
 
   @Output() HandleUpdate: EventEmitter<DTreeEditEntity> = new EventEmitter();

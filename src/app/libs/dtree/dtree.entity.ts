@@ -26,6 +26,8 @@ export class DTreeEntity {
   }
 }
 
+export enum DTreeFuncType {checkbox, editor}
+
 export enum DTreeEditType {create, update}
 
 export class DTreeEditEntity {

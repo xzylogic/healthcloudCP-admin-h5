@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
+import { DTreeFuncType } from './dtree.entity';
 
 @Component({
   selector: 'app-dtree-example',
   template: `
-    <app-dtree [trees]="treeList"
-               (HandleUpdate)="updateEmit($event)"
-               (HandleCreate)="createEmit($event)"
+    <app-dtree [trees]="treeList" [func]="DTreeFuncType.checkbox" (HandleUpdate)="updateEmit($event)" (HandleCreate)="createEmit($event)"
     ></app-dtree>
+
+    <button mat-raised-button (click)="getTree()">save</button>
   `
 })
 export class DTreeExampleComponent {
+  DTreeFuncType = DTreeFuncType;
   treeList: any = [{
     'menuId': '1',
     'menuName': '健康云标准版',
@@ -22,30 +24,6 @@ export class DTreeExampleComponent {
         'type': '1',
         'children': [
           {
-            'menuId': '1d470eff750643a8bfd0e67442ec14d6',
-            'menuName': '广告页设置',
-            'parentId': '05f9b342b6064159b207bf7aaa81b158',
-            'href': 'app.advertisementSetting',
-            'type': '1',
-            'checked': false
-          },
-          {
-            'menuId': '225ef8af439b461abf2f10bf605f2525',
-            'menuName': '服务板块设置',
-            'parentId': '05f9b342b6064159b207bf7aaa81b158',
-            'href': 'app.serviceManage',
-            'type': '1',
-            'checked': false
-          },
-          {
-            'menuId': '2361bd89226c4b0487b44864dd27591c',
-            'menuName': '广告位广告设置',
-            'parentId': '05f9b342b6064159b207bf7aaa81b158',
-            'href': 'app.advertisementPositionSetting',
-            'type': '1',
-            'checked': false
-          },
-          {
             'menuId': '9cd68589cc50403c8bc55220b47acf69',
             'menuName': '首页板块设置',
             'parentId': '05f9b342b6064159b207bf7aaa81b158',
@@ -53,22 +31,6 @@ export class DTreeExampleComponent {
             'type': '1',
             'checked': false
           },
-          {
-            'menuId': 'a127f7454d3247bba42bc27807a7b932',
-            'menuName': 'Banner设置',
-            'parentId': '05f9b342b6064159b207bf7aaa81b158',
-            'href': 'app.bannerSetting',
-            'type': '1',
-            'checked': false
-          },
-          {
-            'menuId': 'e18bd2a124c5460b92fc5e57402f3567',
-            'menuName': '首页资讯',
-            'parentId': '05f9b342b6064159b207bf7aaa81b158',
-            'href': 'app.information',
-            'type': '1',
-            'checked': false
-          }
         ],
         'checked': false
       },
@@ -77,255 +39,6 @@ export class DTreeExampleComponent {
         'menuName': 'APP基础设置',
         'parentId': '1',
         'type': '1',
-        'children': [
-          {
-            'menuId': '6e4fbd084c514166b45aab087f0cc706',
-            'menuName': 'APP升级',
-            'parentId': '10bc299fc08c416d8e4144e636d1f662',
-            'href': 'app.appUpgradeList',
-            'type': '1',
-            'checked': false
-          },
-          {
-            'menuId': 'ac31caed19e94962a9f4f77d67051142',
-            'menuName': '广州底部Tab设置',
-            'parentId': '10bc299fc08c416d8e4144e636d1f662',
-            'href': 'app.appTabGuangzhou',
-            'type': '1',
-            'checked': false
-          },
-          {
-            'menuId': 'b8ae964a2f1348eb93c7822df12efea3',
-            'menuName': 'APP零散设置',
-            'parentId': '10bc299fc08c416d8e4144e636d1f662',
-            'href': 'app.appConfList',
-            'type': '1',
-            'checked': false
-          },
-          {
-            'menuId': 'e8abe160c5e140d1b1fb58aa407ffb15',
-            'menuName': 'APP关于',
-            'parentId': '10bc299fc08c416d8e4144e636d1f662',
-            'href': 'app.appAboutList',
-            'type': '1',
-            'checked': false
-          },
-          {
-            'menuId': 'f9667e26557e415d800ac41db6507141',
-            'menuName': 'IOS升级',
-            'parentId': '10bc299fc08c416d8e4144e636d1f662',
-            'href': 'app.iosUpgradeList',
-            'type': '1',
-            'checked': false
-          }
-        ],
-        'checked': false
-      },
-      {
-        'menuId': '1fea7c3e0af440d5b9d5f692ec4b0a25',
-        'menuName': '食物库',
-        'parentId': '1',
-        'type': '1',
-        'children': [
-          {
-            'menuId': '4ec7f852cafa464eb758ba6f4b0f3f9e',
-            'menuName': '食物库分类',
-            'parentId': '1fea7c3e0af440d5b9d5f692ec4b0a25',
-            'href': 'app.foodClassList',
-            'type': '1',
-            'checked': false
-          },
-          {
-            'menuId': 'bcd7b7515d0949939cc52ad646a70847',
-            'menuName': '食物库',
-            'parentId': '1fea7c3e0af440d5b9d5f692ec4b0a25',
-            'href': 'app.foodList',
-            'type': '1',
-            'checked': false
-          }
-        ],
-        'checked': false
-      },
-      {
-        'menuId': '466f6ad5b8c442aba93398880c25d180',
-        'menuName': '活动',
-        'parentId': '1',
-        'type': '1',
-        'children': [
-          {
-            'menuId': '93f0199f87a64dd79720b16f844eac74',
-            'menuName': '活动奖品',
-            'parentId': '466f6ad5b8c442aba93398880c25d180',
-            'href': 'app.activityPrize',
-            'type': '1',
-            'checked': false
-          },
-          {
-            'menuId': 'f1666e2b2fd04270aaa2efe7830d2612',
-            'menuName': '活动列表',
-            'parentId': '466f6ad5b8c442aba93398880c25d180',
-            'href': 'app.activityList',
-            'type': '1',
-            'checked': false
-          }
-        ],
-        'checked': false
-      },
-      {
-        'menuId': '4a99fd3055ff4a41bfbebaa4e3f85a8e',
-        'menuName': 'CMS用户管理',
-        'parentId': '1',
-        'href': 'app.userManage',
-        'type': '1',
-        'checked': false
-      },
-      {
-        'menuId': '6541f89123e14b299ab68dbfbbc8f2d1',
-        'menuName': '居民监测方案',
-        'parentId': '1',
-        'href': 'app.pictureManage',
-        'type': '1',
-        'checked': false
-      },
-      {
-        'menuId': '66634edb84b5465b93384b4b7bc2ba2b',
-        'menuName': '系统管理',
-        'parentId': '1',
-        'type': '1',
-        'children': [
-          {
-            'menuId': '3495d2c6186c4f568d8ce4dcc3a34aa4',
-            'menuName': '角色管理',
-            'parentId': '66634edb84b5465b93384b4b7bc2ba2b',
-            'href': 'app.roleManage',
-            'type': '1',
-            'checked': false
-          },
-          {
-            'menuId': 'aa72e9abf1424e5886fa1b786977b57f',
-            'menuName': '账号管理',
-            'parentId': '66634edb84b5465b93384b4b7bc2ba2b',
-            'href': 'app.accountManage',
-            'type': '1',
-            'checked': false
-          },
-          {
-            'menuId': 'c36fca84a9854d599f676c1d79680c87',
-            'menuName': '菜单管理',
-            'parentId': '66634edb84b5465b93384b4b7bc2ba2b',
-            'href': 'app.menuManage',
-            'type': '1',
-            'checked': false
-          }
-        ],
-        'checked': false
-      },
-      {
-        'menuId': '67354a9ff86143c8836ee8fae63bb3c2',
-        'menuName': '商城管理',
-        'parentId': '1',
-        'type': '1',
-        'children': [
-          {
-            'menuId': '2fdb0e85835144d1b369b32486d8821b',
-            'menuName': '兑换信息',
-            'parentId': '67354a9ff86143c8836ee8fae63bb3c2',
-            'href': 'app.exchange',
-            'type': '1',
-            'checked': false
-          },
-          {
-            'menuId': '524a19ff4670425e941ec80f0b51ea1b',
-            'menuName': '前台配置',
-            'parentId': '67354a9ff86143c8836ee8fae63bb3c2',
-            'type': '1',
-            'children': [
-              {
-                'menuId': 'f77b5b4231cf4e73954f87ad3fbe343e',
-                'menuName': '首页Banner配置',
-                'parentId': '524a19ff4670425e941ec80f0b51ea1b',
-                'href': 'app.front.bannerlist',
-                'type': '1',
-                'checked': false
-              }
-            ],
-            'checked': false
-          },
-          {
-            'menuId': 'bc2f203302d8422483545a3fe07a7ee1',
-            'menuName': '商品信息',
-            'parentId': '67354a9ff86143c8836ee8fae63bb3c2',
-            'href': 'app.commodityInformation',
-            'type': '1',
-            'checked': false
-          }
-        ],
-        'checked': false
-      },
-      {
-        'menuId': '7ed51924a180472aa37af82b810f8d83',
-        'menuName': '用户数据统计',
-        'parentId': '1',
-        'type': '1',
-        'children': [
-          {
-            'menuId': '466bd541f4a54f71875fcbc291553cf3',
-            'menuName': '累计数据统计',
-            'parentId': '7ed51924a180472aa37af82b810f8d83',
-            'href': 'app.leijiDataTotal',
-            'type': '1',
-            'checked': false
-          },
-          {
-            'menuId': 'efcb8620a1fb42489a335aef22198b83',
-            'menuName': '每日数据统计',
-            'parentId': '7ed51924a180472aa37af82b810f8d83',
-            'href': 'app.dayDataTotal',
-            'type': '1',
-            'checked': false
-          }
-        ],
-        'checked': false
-      },
-      {
-        'menuId': '8aeea3fbc437472c990495a265de4fdd',
-        'menuName': '预约挂号管理',
-        'parentId': '1',
-        'type': '1',
-        'children': [
-          {
-            'menuId': '013f194415244e768f99bb7c07817082',
-            'menuName': '挂号医院管理',
-            'parentId': '8aeea3fbc437472c990495a265de4fdd',
-            'href': 'app.hospitalManage',
-            'type': '1',
-            'checked': false
-          },
-          {
-            'menuId': 'a99fb5fd2f2748fc81f2fe54f6240e34',
-            'menuName': '挂号订单管理',
-            'parentId': '8aeea3fbc437472c990495a265de4fdd',
-            'href': 'app.orderManage',
-            'type': '1',
-            'checked': false
-          },
-          {
-            'menuId': 'b1dc8f5ea2a84badb18c4fb8eba00f31',
-            'menuName': '预约挂号配置',
-            'parentId': '8aeea3fbc437472c990495a265de4fdd',
-            'href': 'app.apponitConf',
-            'type': '1',
-            'checked': false
-          },
-          {
-            'menuId': 'e1f320cbff55475e819faf3b217a4508',
-            'menuName': '挂号医生管理',
-            'parentId': '8aeea3fbc437472c990495a265de4fdd',
-            'href': 'app.doctorManage',
-            'type': '1',
-            'checked': false
-          }
-        ],
         'checked': false
       },
       {
@@ -868,5 +581,9 @@ export class DTreeExampleComponent {
 
   updateEmit(data) {
     console.log(data);
+  }
+
+  getTree() {
+    console.log(this.treeList);
   }
 }
