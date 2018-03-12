@@ -4,10 +4,11 @@ import * as echarts from 'echarts';
 @Component({
   selector: 'app-welcome',
   template: `
-    <div class="welcome-container">
-      <div class=welcome></div>
-      <!--<div #charts style="width: 600px;height:400px;"></div>-->
-    </div>
+    <!--<div class="welcome-container">-->
+      <!--<div class=welcome></div>-->
+      <!--&lt;!&ndash;<div #charts style="width: 600px;height:400px;"></div>&ndash;&gt;-->
+    <!--</div>-->
+    <app-dtree-example></app-dtree-example>
   `,
   styleUrls: ['./welcome.component.scss']
 })
