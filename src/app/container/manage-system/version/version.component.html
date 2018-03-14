@@ -1,0 +1,7 @@
+<app-container [config]="containerConfig">
+  <div class="addition" *ngIf="permission">
+    <button mat-raised-button (click)="newData()">新增版本信息</button>
+  </div>
+  <div class="content">
+  </div>
+</app-container>

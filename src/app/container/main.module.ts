@@ -5,7 +5,6 @@ import {
   MatButtonModule, MatChipsModule,
   MatIconModule, MatSidenavModule, MatToolbarModule
 } from '@angular/material';
-import { DtreeModule } from '../libs/dtree/dtree.module';
 
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
@@ -37,8 +36,7 @@ import { WelcomeComponent } from './welcome.component';
     StoreModule,
     LibDialogModule,
     LibDialogEditModule,
-    MainRoutingModule,
-    DtreeModule
+    MainRoutingModule
   ],
   declarations: [
     MainComponent,

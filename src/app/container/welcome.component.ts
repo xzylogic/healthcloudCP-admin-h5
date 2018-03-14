@@ -1,25 +1,26 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import * as echarts from 'echarts';
+
+// import * as echarts from 'echarts';
 
 @Component({
   selector: 'app-welcome',
   template: `
-    <!--<div class="welcome-container">-->
-      <!--<div class=welcome></div>-->
-      <!--&lt;!&ndash;<div #charts style="width: 600px;height:400px;"></div>&ndash;&gt;-->
-    <!--</div>-->
-    <app-dtree-example></app-dtree-example>
+    <div class="welcome-container">
+      <div class=welcome></div>
+      <!--<div #charts style="width: 600px;height:400px;"></div>-->
+    </div>
+    <!--<app-dtree-example></app-dtree-example>-->
   `,
   styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent implements OnInit {
-  @ViewChild('charts') charts: any;
+  // @ViewChild('charts') charts: any;
 
   constructor(@Inject('app') public app) {
   }
 
   ngOnInit() {
-    console.log(this.charts);
+    // console.log(this.charts);
     // 基于准备好的dom，初始化echarts实例
     // const myChart = echarts.init(this.charts.nativeElement);
     // 指定图表的配置项和数据
