@@ -116,6 +116,10 @@
   white-space: nowrap;
 }
 
+.tree__span.cursor {
+  cursor: initial !important;
+}
+
 .tree__span.last {
   cursor: initial;
   //max-width: 120px !important;

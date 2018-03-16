@@ -7,11 +7,11 @@ import { DTreeEditEntity, DTreeEntity, DTreeFuncType } from './dtree.entity';
     <ul *ngIf="trees" class="tree__list">
       <li *ngFor="let tree of trees" class="clear">
         <app-dtree-child [treeNode]="tree" [func]="func" (HandleChecked)="checkedEmit($event)"
-                         (HandleUpdate)="updateEmit($event)" (HandleCreate)="createEmit($event)"
+                         (HandleUpdate)="updateEmit($event)"
         ></app-dtree-child>
         <app-dtree *ngIf="tree.children&&tree.open" [trees]="tree.children" [func]="func"
                    (HandleChecked)="checkedEmit($event, tree)"
-                   (HandleUpdate)="updateEmit($event, tree)" (HandleCreate)="createEmit($event, tree)"
+                   (HandleUpdate)="updateEmit($event, tree)"
         ></app-dtree>
       </li>
     </ul>
@@ -23,14 +23,7 @@ export class DTreeComponent {
   @Input() trees: DTreeEntity[];
 
   @Output() HandleUpdate: EventEmitter<DTreeEditEntity> = new EventEmitter();
-  @Output() HandleCreate: EventEmitter<DTreeEditEntity> = new EventEmitter();
   @Output() HandleChecked: EventEmitter<DTreeEntity> = new EventEmitter();
-
-  createEmit(editData: DTreeEditEntity, parent?) {
-    this.setAllUnActive(parent || editData.tree);
-    editData.tree.active = true;
-    this.HandleCreate.emit(editData);
-  }
 
   updateEmit(editData: DTreeEditEntity, parent?) {
     this.setAllUnActive(parent || editData.tree);

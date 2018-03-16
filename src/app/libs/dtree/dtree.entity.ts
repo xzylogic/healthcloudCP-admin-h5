@@ -8,7 +8,7 @@ export class DTreeEntity {
   indeterminate?: boolean;
   active?: boolean;
   open?: boolean;
-  unpermit?: boolean;
+  unpermit?: DTreeEditType;
   children?: DTreeEntity[];
 
   constructor(obj: DTreeEntity) {
@@ -21,14 +21,14 @@ export class DTreeEntity {
     this.indeterminate = !!obj.indeterminate;
     this.active = !!obj.active;
     this.open = !!obj.open;
-    this.unpermit = !!obj.unpermit;
+    this.unpermit = obj.unpermit || DTreeEditType.all;
     this.children = obj.children || [];
   }
 }
 
 export enum DTreeFuncType {checkbox, editor}
 
-export enum DTreeEditType {create, update}
+export enum DTreeEditType {create, update, show, all}
 
 export class DTreeEditEntity {
   type: DTreeEditType;

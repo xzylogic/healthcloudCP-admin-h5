@@ -4,7 +4,7 @@ import { DTreeFuncType } from './dtree.entity';
 @Component({
   selector: 'app-dtree-example',
   template: `
-    <app-dtree [trees]="treeList" [func]="DTreeFuncType.checkbox" (HandleUpdate)="updateEmit($event)" (HandleCreate)="createEmit($event)"
+    <app-dtree [trees]="treeList" [func]="DTreeFuncType.checkbox" (HandleUpdate)="updateEmit($event)"
     ></app-dtree>
 
     <button mat-raised-button (click)="getTree()">save</button>

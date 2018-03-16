@@ -1,4 +1,25 @@
 <app-container [config]="containerConfig">
   <div class="content">
+    <div class="grid-container clear">
+      <div class="row">
+        <div class="col-3">
+          <div class="container">
+            <app-dtree *ngIf="serviceTree" [trees]="serviceTree" [func]="treeType"
+                       (HandleUpdate)="handleUpdate($event)"
+            ></app-dtree>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="container" *ngIf="formCategory">
+            <div class="tree__title clear">
+              <h3 class="p">{{title}}</h3>
+            </div>
+            <div class="menu__form">
+              <app-form [formDatas]="formCategory" (formValues)="getValues($event)"></app-form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </app-container>
