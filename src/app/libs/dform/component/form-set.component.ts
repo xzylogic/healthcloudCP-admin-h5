@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormType } from '../_entity/form-base';
 
@@ -7,7 +7,7 @@ import { FormType } from '../_entity/form-base';
   templateUrl: './form-set.component.html',
   styleUrls: ['./form.component.scss']
 })
-export class DynamicFormSetComponent implements OnInit, OnChanges {
+export class DynamicFormSetComponent implements OnInit {
   @Input() formdata: any;
   @Input() form: FormGroup;
 
@@ -17,11 +17,5 @@ export class DynamicFormSetComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-  }
-
-  ngOnChanges() {
-  //   if (this.formdata.isOptional && (this.form.controls[this.formdata.optional.key]['value'] != this.formdata.optional.value)) {
-  //     console.log(this.form.controls[this.formdata.key]);
-  //   }
   }
 }

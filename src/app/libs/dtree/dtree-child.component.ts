@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { DTreeEditEntity, DTreeEditType, DTreeEntity, DTreeFuncType } from './dtree.entity';
+import { DTreeEditEntity, DTreeEditType, DTreeEntity, DTreeFuncType, DTreeShowType } from './dtree.entity';
 
 @Component({
   selector: 'app-dtree-child',
@@ -9,22 +9,28 @@ import { DTreeEditEntity, DTreeEditType, DTreeEntity, DTreeFuncType } from './dt
       <mat-icon class="tree__icon" (click)="toggleOpen(treeNode)" *ngIf="treeNode.open&&treeNode.children">remove</mat-icon>
       <mat-icon class="tree__icon block" *ngIf="!treeNode.children">block</mat-icon>
 
-      <p class="tree__span" *ngIf="treeNode.unpermit===dTreeEditType.all||treeNode.unpermit===dTreeEditType.create"
-         [class.active]="treeNode.active" (click)="updateTreeEmit(treeNode,dTreeEditType.create)">
+      <p class="tree__span"
+         *ngIf="treeNode.unpermit===dTreeShowType.all||treeNode.unpermit===dTreeShowType.oCreate||treeNode.unpermit===dTreeShowType.createDelete||treeNode.unpermit===dTreeShowType.createUpdate"
+         [class.active]="treeNode.active" (click)="updateTreeEmit(treeNode,dTreeEditType.toCreate)">
         {{treeNode.menuName}}
       </p>
-      <p class="tree__span cursor" *ngIf="treeNode.unpermit===dTreeEditType.update" [class.active]="treeNode.active">
+      <p class="tree__span cursor" [class.active]="treeNode.active"
+         *ngIf="treeNode.unpermit===dTreeShowType.oUpdate||treeNode.unpermit===dTreeShowType.updateDelete||treeNode.unpermit===dTreeShowType.oDelete">
         {{treeNode.menuName}}
       </p>
-      <p class="tree__span cursor" *ngIf="treeNode.unpermit===dTreeEditType.show">
+      <p class="tree__span cursor" *ngIf="treeNode.unpermit===dTreeShowType.oShow">
         {{treeNode.menuName}}
       </p>
 
-      <button mat-icon-button color="primary" (click)="updateTreeEmit(treeNode,dTreeEditType.update)"
-              *ngIf="treeNode.unpermit===dTreeEditType.all||treeNode.unpermit===dTreeEditType.update">
+      <button mat-icon-button color="primary" (click)="updateTreeEmit(treeNode,dTreeEditType.toUpdate)"
+              *ngIf="treeNode.unpermit===dTreeShowType.all||treeNode.unpermit===dTreeShowType.oUpdate||treeNode.unpermit===dTreeShowType.updateDelete||treeNode.unpermit===dTreeShowType.createUpdate">
         <mat-icon aria-label="edit">mode_edit</mat-icon>
       </button>
-      <button mat-icon-button color="primary" *ngIf="treeNode.unpermit===dTreeEditType.show">
+      <button mat-icon-button color="warn" (click)="updateTreeEmit(treeNode,dTreeEditType.toDelete)"
+              *ngIf="treeNode.unpermit===dTreeShowType.all||treeNode.unpermit===dTreeShowType.oDelete||treeNode.unpermit===dTreeShowType.updateDelete||treeNode.unpermit===dTreeShowType.createDelete">
+        <mat-icon aria-label="edit">delete_forever</mat-icon>
+      </button>
+      <button mat-icon-button color="primary" *ngIf="treeNode.unpermit===dTreeShowType.oShow">
         <mat-icon aria-label="edit">visibility</mat-icon>
       </button>
     </div>
@@ -50,6 +56,7 @@ export class DTreeChildComponent {
 
   dTreeFuncType = DTreeFuncType;
   dTreeEditType = DTreeEditType;
+  dTreeShowType = DTreeShowType;
 
   constructor() {
   }

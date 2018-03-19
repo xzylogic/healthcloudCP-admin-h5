@@ -4,14 +4,15 @@ import { LibModule } from '../../../libs/common/lib.module';
 import { DTableModule } from '../../../libs/dtable/dtable.module';
 import { DFormModule } from '../../../libs/dform/dform.module';
 import { VersionService } from './_service/version.service';
+import { VersionEditComponent } from './version-edit/version-edit.component';
 import { VersionComponent } from './version.component';
 
 const routes: Routes = [{
   path: '',
   component: VersionComponent
-// }, {
-//   path: 'edit',
-//   component:
+}, {
+  path: 'edit',
+  component: VersionEditComponent
 }];
 
 @NgModule({
@@ -22,7 +23,8 @@ const routes: Routes = [{
     RouterModule.forChild(routes)
   ],
   declarations: [
-    VersionComponent
+    VersionComponent,
+    VersionEditComponent
   ],
   providers: [
     VersionService,

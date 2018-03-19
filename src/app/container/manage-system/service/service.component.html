@@ -10,13 +10,39 @@
           </div>
         </div>
         <div class="col-3">
-          <div class="container" *ngIf="formCategory">
+          <div class="container" *ngIf="formCategory&&formItem&&type==1">
+            <mat-tab-group dynamicHeight="true" style="padding-top: 6px">
+              <mat-tab label="添加服务分类">
+                <div class="menu__form tab">
+                  <app-form [formDatas]="formCategory" (formValues)="getValues($event)"></app-form>
+                </div>
+              </mat-tab>
+              <mat-tab label="添加服务项目">
+                <div class="menu__form tab">
+                  <app-form [formDatas]="formItem" (formValues)="getValues($event)"></app-form>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+          <div class="container" *ngIf="formCategory&&type==2">
             <div class="tree__title clear">
-              <h3 class="p">{{title}}</h3>
+              <h3 class="p">编辑服务分类</h3>
             </div>
             <div class="menu__form">
               <app-form [formDatas]="formCategory" (formValues)="getValues($event)"></app-form>
             </div>
+          </div>
+          <div class="container" *ngIf="formItem&&type==3">
+            <div class="tree__title clear">
+              <h3 class="p">添加服务项目</h3>
+            </div>
+            <app-form [formDatas]="formItem" (formValues)="getValues($event)"></app-form>
+          </div>
+          <div class="container" *ngIf="formItem&&type==4">
+            <div class="tree__title clear">
+              <h3 class="p">编辑服务项目</h3>
+            </div>
+            <app-form [formDatas]="formItem" (formValues)="getValues($event)"></app-form>
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { MatTabsModule } from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
 import { LibModule } from '../../../libs/common/lib.module';
 import { DTableModule } from '../../../libs/dtable/dtable.module';
@@ -18,6 +19,7 @@ const routes: Routes = [{
     DTableModule,
     DFormModule,
     DtreeModule,
+    MatTabsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [
