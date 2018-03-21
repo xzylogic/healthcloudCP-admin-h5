@@ -43,7 +43,7 @@ export class ServiceComponent implements OnInit {
         if (res.code == 0) {
           res.data.unpermit = DTreeShowType.oCreate;
           this.resetData(res.data);
-          this.serviceTree.push(res.data);
+          this.serviceTree = [res.data];
         }
       });
   }
@@ -159,7 +159,7 @@ export class ServiceComponent implements OnInit {
   }
 
   getItemDetail(id, callback) {
-    this.serviceService.getServiceCategory(id).subscribe(res => {
+    this.serviceService.getServiceItem(id).subscribe(res => {
       if (res.code == 0 && res.data) {
         callback(res.data);
       } else {
@@ -171,7 +171,61 @@ export class ServiceComponent implements OnInit {
     });
   }
 
-  getValues(result) {
+  getCategoryValues(result) {
     console.log(result);
+    let data = result;
+    this.serviceService.saveServiceCategory(data)
+      .subscribe(res => {
+        if (res.code == 0) {
+          HintDialog(res.msg || '保存成功！', this.dialog);
+          this.getServices();
+          this.type = 0;
+        } else {
+          HintDialog(res.msg || '保存失败！', this.dialog);
+        }
+      }, err => {
+        HintDialog('网络请求失败，请重试！', this.dialog);
+        throw new Error(err);
+      });
+  }
+
+  getItemValues(result) {
+    console.log(result);
+    let data = result;
+    this.serviceService.saveServiceItem(data)
+      .subscribe(res => {
+        if (res.code == 0) {
+          HintDialog(res.msg || '保存成功！', this.dialog);
+          this.getServices();
+          this.type = 0;
+        } else {
+          HintDialog(res.msg || '保存失败！', this.dialog);
+        }
+      }, err => {
+        HintDialog('网络请求失败，请重试！', this.dialog);
+        throw new Error(err);
+      });
+  }
+
+  offData(data) {
+    if (data) {
+      data.open = false;
+      if (data.children && data.children.length !== 0) {
+        data.children.forEach(obj => {
+          this.offData(obj);
+        });
+      }
+    }
+  }
+
+  openData(data) {
+    if (data) {
+      data.open = true;
+      if (data.children && data.children.length !== 0) {
+        data.children.forEach(obj => {
+          this.openData(obj);
+        });
+      }
+    }
   }
 }

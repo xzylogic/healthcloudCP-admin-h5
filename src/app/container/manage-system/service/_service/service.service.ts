@@ -48,6 +48,14 @@ export class ServiceService {
     // return this.http.get(`${this.app.api_url}${PATH.getServiceItem}?menuId=${menuId}`);
   }
 
+  saveServiceCategory(data) {
+    return this.http.post(`${this.app.api_url}${PATH.editServiceCategory}`, data);
+  }
+
+  saveServiceItem(data) {
+    return this.http.post(`${this.app.api_url}${PATH.editServiceCategory}`, data);
+  }
+
   setServiceCategoryFormFirst(parentId, parentName, linkList: Array<any>, data?: any): FormBase<any>[] {
     const forms: FormBase<any>[] = [];
     forms.push(

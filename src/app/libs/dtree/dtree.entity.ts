@@ -30,7 +30,7 @@ export enum DTreeFuncType {checkbox, editor}
 
 export enum DTreeShowType {oCreate, oUpdate, oDelete, oShow, createUpdate, createDelete, updateDelete, all}
 
-export enum DTreeEditType {toCreate, toUpdate, toDelete}
+export enum DTreeEditType {toCreate, toUpdate, toDelete, toShow}
 
 export class DTreeEditEntity {
   type: DTreeEditType;

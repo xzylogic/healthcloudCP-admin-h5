@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { FormDropdown } from '../../_entity/form-dropdown';
@@ -8,7 +8,7 @@ import { FormDropdown } from '../../_entity/form-dropdown';
   template: `
     <div [formGroup]="form">
       <div class="input_container">
-        <mat-form-field style="width: 100%">
+        <mat-form-field floatPlaceholder="always" style="width: 100%">
           <mat-select [placeholder]="data.label"
                       [formControlName]="data.key"
                       [(ngModel)]="value"
@@ -25,16 +25,13 @@ import { FormDropdown } from '../../_entity/form-dropdown';
   `,
   styleUrls: ['./lib-input.scss']
 })
-export class LibInputDropdownComponent implements OnInit {
+export class LibInputDropdownComponent {
   @Input() form: FormGroup;
   @Input() data: FormDropdown;
   @Input() value: any;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
 
   constructor() {
-  }
-
-  ngOnInit() {
   }
 
   change() {

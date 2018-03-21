@@ -1,211 +1,74 @@
 @import '../theme/theme';
 
-.grid-container {
-  height: calc(100vh - 218px);
-}
 
-.container {
-  position: relative;
+.tree__list {
   width: 100%;
-  height: 100%;
+  padding-left: 30px;
 }
 
-.menu__list {
+.tree__row {
   width: 100%;
-  height: calc(100vh - 328px);
-  overflow-y: scroll;
-}
-
-.menu__form {
-  height: calc(100vh - 288px) !important;
-  overflow-y: scroll !important;
-}
-
-.menu__form.tab {
-  margin-top: 15px;
-}
-
-.tree__title {
-  height: 55px;
-  line-height: 40px;
-  padding-bottom: 15px;
-  margin-bottom: 15px;
-  border-bottom: 1px solid $color-border-dark;
-  .p {
-    display: inline-block;
-    padding-right: 30px;
-  }
-  .button {
-    float: right;
-  }
-}
-
-.tree__des {
-  line-height: 40px;
-  .department {
-    margin-left: 0 !important;
-  }
-  span {
-    margin-right: 10px;
-    float: right;
-  }
-}
-
-.tree__p {
   height: 40px;
-  width: auto;
+  padding: 0 100px 0 30px;
   color: $color-text-secondary;
   overflow: hidden;
 }
 
-.tree__icon {
+.tree__checkbox {
+  width: 100%;
+  height: 40px;
+  padding-left: 100px;
+  color: $color-text-secondary;
+  overflow: hidden;
+}
+
+.tree__checkbox mat-checkbox {
+  position: relative;
+  top: -3px;
+}
+
+.tree__icon,
+.tree__span,
+.tree__button {
+  position: relative;
   float: left;
   height: 40px;
   line-height: 40px;
-  margin-right: 10px;
+}
+
+.tree__icon {
+  margin-left: -100%;
+  left: -30px;
+  width: 30px;
+  padding: 5px 0;
   cursor: pointer;
 }
 
-.tree__icon.last {
-  cursor: initial;
-}
-
-.tree__icon.type {
-  cursor: initial;
-  font-size: 9px;
-  width: 8px;
-}
-
-.center {
-  color: #f57c00;
-}
-
-.site {
-  color: #fbc02d;
-}
-
-.department {
-  color: #afb42b;
-  margin-left: 34px;
-}
-
-.block {
+.tree__icon .block {
+  position: relative;
+  top: -1px;
   font-size: 20px;
   cursor: initial;
 }
 
-.tree__checkbox {
-  float: left;
-  display: inline-block;
-  width: 24px;
-  line-height: 36px;
-  overflow: hidden;
-}
-
 .tree__span {
-  float: left;
-  display: inline-block;
-  height: 40px;
-  line-height: 40px;
-  padding-right: 15px;
-  font-size: 16px;
-  cursor: pointer;
-  //max-width: 180px;
+  width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.tree__span.cursor {
-  cursor: initial !important;
+.tree__span .cursor {
+  cursor: pointer;
 }
 
-.tree__span.last {
-  cursor: initial;
-  //max-width: 120px !important;
-}
-
-.tree__span.active {
+.tree__span .active {
   color: $color-primary;
   font-size: 18px;
 }
 
-.tree__list {
-  padding-left: 30px;
-}
-
-@media (max-width: 1128px) {
-  .tr_main > .tree__span {
-    max-width: 230px;
-  }
-  .tr_center > .tree__span {
-    max-width: 200px;
-  }
-  .tr_site > .tree__span {
-    max-width: 170px;
-  }
-  .tr_department > .tree__span {
-    max-width: 140px;
-  }
-}
-
-@media (min-width: 1128px) and (max-width: 1228px) {
-  .tr_main > .tree__span {
-    max-width: 270px;
-  }
-  .tr_center > .tree__span {
-    max-width: 240px;
-  }
-  .tr_site > .tree__span {
-    max-width: 210px;
-  }
-  .tr_department > .tree__span {
-    max-width: 180px;
-  }
-}
-
-@media (min-width: 1228px) and (max-width: 1279px) {
-  .tr_main > .tree__span {
-    max-width: 320px;
-  }
-  .tr_center > .tree__span {
-    max-width: 290px;
-  }
-  .tr_site > .tree__span {
-    max-width: 260px;
-  }
-  .tr_department > .tree__span {
-    max-width: 230px;
-  }
-}
-
-@media (min-width: 1279px) and (max-width: 1345px) {
-  .tr_main > .tree__span {
-    max-width: 338px;
-  }
-
-  .tr_center > .tree__span {
-    max-width: 308px;
-  }
-  .tr_site > .tree__span {
-    max-width: 278px;
-  }
-  .tr_department > .tree__span {
-    max-width: 248px;
-  }
-}
-
-@media (min-width: 1345px) {
-  .tr_main > .tree__span {
-    max-width: 360px;
-  }
-  .tr_center > .tree__span {
-    max-width: 330px;
-  }
-  .tr_site > .tree__span {
-    max-width: 300px;
-  }
-  .tr_department > .tree__span {
-    max-width: 270px;
-  }
+.tree__button {
+  margin-left: -100px;
+  right: -100px;
+  width: 100px;
 }

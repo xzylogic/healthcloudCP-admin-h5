@@ -5,7 +5,7 @@ import { DTreeEditEntity, DTreeEntity, DTreeFuncType } from './dtree.entity';
   selector: 'app-dtree',
   template: `
     <ul *ngIf="trees" class="tree__list">
-      <li *ngFor="let tree of trees" class="clear">
+      <li *ngFor="let tree of trees">
         <app-dtree-child [treeNode]="tree" [func]="func" (HandleChecked)="checkedEmit($event)"
                          (HandleUpdate)="updateEmit($event)"
         ></app-dtree-child>

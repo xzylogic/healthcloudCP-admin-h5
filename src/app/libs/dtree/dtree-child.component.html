@@ -1,0 +1,45 @@
+<div class="tree__row" *ngIf="this.func===dTreeFuncType.editor">
+  <div class="tree__span">
+    <span *ngIf="getSpanCreate(treeNode.unpermit)" class="cursor" [class.active]="treeNode.active"
+          (click)="updateTreeEmit(treeNode,dTreeEditType.toCreate)">
+      {{treeNode.menuName}}
+    </span>
+    <span *ngIf="getSpanUpdateDelete(treeNode.unpermit)" [class.active]="treeNode.active">
+      {{treeNode.menuName}}
+    </span>
+    <span *ngIf="getSpanShow(treeNode.unpermit)" [class.active]="treeNode.active">
+      {{treeNode.menuName}}
+    </span>
+  </div>
+  <div class="tree__icon">
+    <mat-icon (click)="toggleOpen(treeNode)" *ngIf="!treeNode.open&&treeNode.children">add</mat-icon>
+    <mat-icon (click)="toggleOpen(treeNode)" *ngIf="treeNode.open&&treeNode.children">remove</mat-icon>
+    <mat-icon class="block" *ngIf="!treeNode.children">block</mat-icon>
+  </div>
+  <div class="tree__button">
+    <button *ngIf="getUpdate(treeNode.unpermit)" mat-icon-button color="primary"
+            (click)="updateTreeEmit(treeNode,dTreeEditType.toUpdate)">
+      <mat-icon aria-label="edit">mode_edit</mat-icon>
+    </button>
+    <button *ngIf="getDelete(treeNode.unpermit)" mat-icon-button color="warn"
+            (click)="updateTreeEmit(treeNode,dTreeEditType.toDelete)">
+      <mat-icon aria-label="edit">delete_forever</mat-icon>
+    </button>
+    <button *ngIf="getShow(treeNode.unpermit)" mat-icon-button color="primary"
+            (click)="updateTreeEmit(treeNode,dTreeEditType.toShow)">
+      <mat-icon aria-label="edit">visibility</mat-icon>
+    </button>
+  </div>
+</div>
+<div class="tree__row-checkbox" *ngIf="this.func===dTreeFuncType.checkbox">
+  <div class="tree__span">
+    <mat-checkbox class="" [(ngModel)]="treeNode.checked" [(indeterminate)]="treeNode.indeterminate"
+                  (change)="checkedChangeEmit(treeNode)"></mat-checkbox>
+    <span>{{treeNode.menuName}}</span>
+  </div>
+  <div class="tree__icon">
+    <mat-icon (click)="toggleOpen(treeNode)" *ngIf="!treeNode.open&&treeNode.children">add</mat-icon>
+    <mat-icon (click)="toggleOpen(treeNode)" *ngIf="treeNode.open&&treeNode.children">remove</mat-icon>
+    <mat-icon class="block" *ngIf="!treeNode.children">block</mat-icon>
+  </div>
+</div>

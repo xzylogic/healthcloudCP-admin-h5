@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LibModule } from '../../../libs/common/lib.module';
 import { DTableModule } from '../../../libs/dtable/dtable.module';
 import { DFormModule } from '../../../libs/dform/dform.module';
+import { DtreeModule } from '../../../libs/dtree/dtree.module';
 import { HealthService } from './_service/health.service';
 import { HealthComponent } from './health.component';
 
@@ -16,6 +17,7 @@ const routes: Routes = [{
     LibModule,
     DTableModule,
     DFormModule,
+    DtreeModule,
     RouterModule.forChild(routes)
   ],
   declarations: [
