@@ -62,7 +62,7 @@ export class HealthComponent implements OnInit, OnDestroy {
           this.healthTree = [res.data];
         }
       }, err => {
-        HintDialog('网络请求失败，请重试！', this.dialog);
+        HintDialog('网络请求失败，请刷新重试！', this.dialog);
         throw new Error(err);
       });
     });
