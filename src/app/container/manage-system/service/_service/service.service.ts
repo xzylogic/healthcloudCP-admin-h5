@@ -13,6 +13,8 @@ const PATH = {
   editServiceItem: '/api/service/itemSaveOrUpdate',
   getServiceCategory: '/api/service/getCategoryByMenuId',
   getServiceItem: '/api/service/getItemByMenuId',
+  getLinks: '/api/getHopLinks',
+  deleteService: '/api/service/deleteMenuInfo'
 };
 
 @Injectable()
@@ -34,29 +36,50 @@ export class ServiceService {
   }
 
   getServices() {
-    return this.http.get(`/json/servicelist.json`);
-    // return this.http.get(`${this.app.api_url}${PATH.getServices}`);
+    return this.http.get(`${this.app.api_url}${PATH.getServices}`);
   }
 
   getServiceCategory(menuId) {
-    return this.http.get(`/json/servicedetail.json`);
-    // return this.http.get(`${this.app.api_url}${PATH.getServiceCategory}?menuId=${menuId}`);
+    return this.http.get(`${this.app.api_url}${PATH.getServiceCategory}?menuId=${menuId}`);
   }
 
   getServiceItem(menuId) {
-    return this.http.get(`/json/servicedetail2.json`);
-    // return this.http.get(`${this.app.api_url}${PATH.getServiceItem}?menuId=${menuId}`);
+    return this.http.get(`${this.app.api_url}${PATH.getServiceItem}?menuId=${menuId}`);
   }
 
   saveServiceCategory(data) {
     return this.http.post(`${this.app.api_url}${PATH.editServiceCategory}`, data);
   }
 
-  saveServiceItem(data) {
-    return this.http.post(`${this.app.api_url}${PATH.editServiceCategory}`, data);
+  getLinks(type) {
+    return this.http.get(`${this.app.api_url}${PATH.getLinks}?type=${type}`)
+      .map(res => {
+        if (res.code == 0 && res.data && Array.isArray(res.data)) {
+          const list = [];
+          res.data.forEach(obj => {
+            list.push({
+              id: obj.hopLinks,
+              name: obj.hopLinks
+            });
+          });
+          return list;
+        } else {
+          return [];
+        }
+      });
   }
 
-  setServiceCategoryFormFirst(parentId, parentName, linkList: Array<any>, data?: any): FormBase<any>[] {
+  deleteService(id) {
+    return this.http.post(`${this.app.api_url}${PATH.deleteService}`, {
+      menuIds: id
+    });
+  }
+
+  saveServiceItem(data) {
+    return this.http.post(`${this.app.api_url}${PATH.editServiceItem}`, data);
+  }
+
+  setServiceCategoryFormFirst(parentId, parentName, linkList: Array<any>, data?: any, disable?: boolean): FormBase<any>[] {
     const forms: FormBase<any>[] = [];
     forms.push(
       new FormHidden({
@@ -81,7 +104,7 @@ export class ServiceService {
         new FormHidden({
           key: 'menuId',
           label: '',
-          value: data && data.menuId || '',
+          value: disable ? null : data && data.menuId || '',
           required: true
         })
       );
@@ -92,14 +115,17 @@ export class ServiceService {
         label: '服务分类名称',
         value: data && data.categoryName || '',
         maxlength: 20,
+        disabled: !!disable,
         required: true
       })
     );
     forms.push(
-      new FormText({
+      new FormDropdown({
         key: 'categoryLink',
         label: '服务分类链接',
         value: data && data.categoryLink || 0,
+        options: linkList,
+        disabled: !!disable,
         required: true
       })
     );
@@ -107,68 +133,69 @@ export class ServiceService {
       new FormDropdown({
         key: 'sort',
         label: '服务分类顺序',
-        value: data && data.sort,
+        value: data && data.sort || 1,
         options: [{
-          id: '1',
+          id: 1,
           name: '1'
         }, {
-          id: '2',
+          id: 2,
           name: '2'
         }, {
-          id: '3',
+          id: 3,
           name: '3'
         }, {
-          id: '4',
+          id: 4,
           name: '4'
         }, {
-          id: '5',
+          id: 5,
           name: '5'
         }, {
-          id: '6',
+          id: 6,
           name: '6'
         }, {
-          id: '7',
+          id: 7,
           name: '7'
         }, {
-          id: '8',
+          id: 8,
           name: '8'
         }, {
-          id: '9',
+          id: 9,
           name: '9'
         }, {
-          id: '10',
+          id: 10,
           name: '10'
         }, {
-          id: '11',
+          id: 11,
           name: '11'
         }, {
-          id: '12',
+          id: 12,
           name: '12'
         }, {
-          id: '13',
+          id: 13,
           name: '13'
         }, {
-          id: '14',
+          id: 14,
           name: '14'
         }, {
-          id: '15',
+          id: 15,
           name: '15'
         }, {
-          id: '16',
+          id: 16,
           name: '16'
         }, {
-          id: '17',
+          id: 17,
           name: '17'
         }, {
-          id: '18',
+          id: 18,
           name: '18'
         }, {
-          id: '19',
+          id: 19,
           name: '19'
         }, {
-          id: '20',
+          id: 20,
           name: '20'
         }],
+        disabled: !!disable,
         required: true
       })
     );
@@ -176,8 +203,7 @@ export class ServiceService {
       new FormRadio({
         key: 'isHomeShow',
         label: '首页是否显示',
-        value: data && data.isHomeShow || 1,
-        disabled: false,
+        value: data && data.isHomeShow == 0 ? 0 : (data.isHomeShow || 1),
         options: [{
           id: 0,
           name: '是'
@@ -185,27 +211,16 @@ export class ServiceService {
           id: 1,
           name: '否'
         }],
+        disabled: !!disable,
         required: true
       })
     );
     forms.push(
       new FormFile({
-        key: 'imageUrl',
+        key: 'homeImageUrl',
         label: '首页分类图标',
-        value: data && data.imageUrl || '',
-        required: false,
-        isOptional: true,
-        optional: {
-          key: 'isHomeShow',
-          value: 0
-        }
-      })
-    );
-    forms.push(
-      new FormText({
-        key: 'homeCategoryLink',
-        label: '首页分类链接',
-        value: data && data.homeCategoryLink || 0,
+        value: data && data.homeImageUrl || '',
+        disabled: !!disable,
         required: false,
         isOptional: true,
         optional: {
@@ -218,29 +233,30 @@ export class ServiceService {
       new FormDropdown({
         key: 'homeSort',
         label: '首页分类顺序',
-        value: data && data.homeSort || '1',
+        value: data && data.homeCategorySort || 1,
         options: [{
-          id: '1',
+          id: 1,
           name: '1'
         }, {
-          id: '2',
+          id: 2,
           name: '2'
         }, {
-          id: '3',
+          id: 3,
           name: '3'
         }, {
-          id: '4',
+          id: 4,
           name: '4'
         }, {
-          id: '5',
+          id: 5,
           name: '5'
         }, {
-          id: '6',
+          id: 6,
           name: '6'
         }, {
-          id: '7',
+          id: 7,
           name: '7'
         }],
+        disabled: !!disable,
         required: true,
         isOptional: true,
         optional: {
@@ -254,7 +270,6 @@ export class ServiceService {
         key: 'delFlag',
         label: '是否启用',
         value: data && data.delFlag || 0,
-        disabled: false,
         options: [{
           id: 0,
           name: '是'
@@ -262,13 +277,14 @@ export class ServiceService {
           id: 1,
           name: '否'
         }],
+        disabled: !!disable,
         required: true
       })
     );
     return forms;
   }
 
-  setServiceCategoryForm(parentId, parentName, linkList: Array<any>, data?: any): FormBase<any>[] {
+  setServiceCategoryForm(parentId, parentName, linkList: Array<any>, data?: any, disable?: boolean): FormBase<any>[] {
     const forms: FormBase<any>[] = [];
     forms.push(
       new FormHidden({
@@ -293,7 +309,7 @@ export class ServiceService {
         new FormHidden({
           key: 'menuId',
           label: '',
-          value: data && data.menuId || '',
+          value: disable ? null : data && data.menuId || '',
           required: true
         })
       );
@@ -304,6 +320,7 @@ export class ServiceService {
         label: '服务分类名称',
         value: data && data.menuName || '',
         maxlength: 20,
+        disabled: !!disable,
         required: true
       })
     );
@@ -312,14 +329,17 @@ export class ServiceService {
         key: 'image',
         label: '服务分类图标',
         value: data && data.image || '',
+        disabled: !!disable,
         required: true
       })
     );
     forms.push(
-      new FormText({
+      new FormDropdown({
         key: 'categoryLink',
         label: '服务分类链接',
         value: data && data.categoryLink || 0,
+        options: linkList,
+        disabled: !!disable,
         required: true
       })
     );
@@ -389,6 +409,7 @@ export class ServiceService {
           id: '20',
           name: '20'
         }],
+        disabled: !!disable,
         required: true
       })
     );
@@ -397,6 +418,7 @@ export class ServiceService {
         key: 'imageUrl',
         label: '首页分类图标',
         value: data && data.imageUrl || '',
+        disabled: !!disable,
         required: false,
       })
     );
@@ -427,6 +449,7 @@ export class ServiceService {
           id: '7',
           name: '7'
         }],
+        disabled: !!disable,
         required: true,
       })
     );
@@ -442,13 +465,14 @@ export class ServiceService {
           id: 1,
           name: '否'
         }],
+        disabled: !!disable,
         required: true
       })
     );
     return forms;
   }
 
-  setServiceItemForm(parentId, parentName, linkList: Array<any>, data?: any): FormBase<any>[] {
+  setServiceItemForm(parentId, parentName, linkList: Array<any>, data?: any, disable?: boolean): FormBase<any>[] {
     const forms: FormBase<any>[] = [];
     forms.push(
       new FormHidden({
@@ -473,7 +497,7 @@ export class ServiceService {
         new FormHidden({
           key: 'menuId',
           label: '',
-          value: data && data.menuId || '',
+          value: disable ? null : data && data.menuId || '',
           required: true
         })
       );
@@ -482,8 +506,9 @@ export class ServiceService {
       new FormText({
         key: 'serviceName',
         label: '服务项目名称',
-        value: data && data.menuName || '',
+        value: data && data.serviceName || '',
         maxlength: 20,
+        disabled: !!disable,
         required: true
       })
     );
@@ -492,6 +517,7 @@ export class ServiceService {
         key: 'itemImageUrl',
         label: '服务项目图标',
         value: data && data.itemImageUrl || '',
+        disabled: !!disable,
         required: true
       })
     );
@@ -501,12 +527,13 @@ export class ServiceService {
         label: '链接类型',
         value: data && data.linkType || '1',
         options: [{
-          id: '1',
+          id: 1,
           name: '原生'
         }, {
-          id: '2',
+          id: 2,
           name: 'H5'
         }],
+        disabled: !!disable,
         required: true
       })
     );
@@ -515,25 +542,27 @@ export class ServiceService {
         key: 'serviceItemLink1',
         label: '服务分类链接',
         value: data && data.serviceItemLink1 || '',
-        required: true,
+        disabled: !!disable,
+        required: false,
         options: linkList,
         isOptional: true,
         optional: {
           key: 'linkType',
-          value: '1'
+          value: 1
         }
       })
     );
     forms.push(
       new FormText({
-        key: 'serviceItemLink',
+        key: 'serviceItemLink2',
         label: '服务分类链接',
-        value: data && data.serviceItemLink || 0,
-        required: true,
+        value: data && data.serviceItemLink2 || '',
+        disabled: !!disable,
+        required: false,
         isOptional: true,
         optional: {
           key: 'linkType',
-          value: '2'
+          value: 2
         }
       })
     );
@@ -541,68 +570,69 @@ export class ServiceService {
       new FormDropdown({
         key: 'sort',
         label: '服务分类顺序',
-        value: data && data.sort,
+        value: data && data.itemSort,
         options: [{
-          id: '1',
+          id: 1,
           name: '1'
         }, {
-          id: '2',
+          id: 2,
           name: '2'
         }, {
-          id: '3',
+          id: 3,
           name: '3'
         }, {
-          id: '4',
+          id: 4,
           name: '4'
         }, {
-          id: '5',
+          id: 5,
           name: '5'
         }, {
-          id: '6',
+          id: 6,
           name: '6'
         }, {
-          id: '7',
+          id: 7,
           name: '7'
         }, {
-          id: '8',
+          id: 8,
           name: '8'
         }, {
-          id: '9',
+          id: 9,
           name: '9'
         }, {
-          id: '10',
+          id: 10,
           name: '10'
         }, {
-          id: '11',
+          id: 11,
           name: '11'
         }, {
-          id: '12',
+          id: 12,
           name: '12'
         }, {
-          id: '13',
+          id: 13,
           name: '13'
         }, {
-          id: '14',
+          id: 14,
           name: '14'
         }, {
-          id: '15',
+          id: 15,
           name: '15'
         }, {
-          id: '16',
+          id: 16,
           name: '16'
         }, {
-          id: '17',
+          id: 17,
           name: '17'
         }, {
-          id: '18',
+          id: 18,
           name: '18'
         }, {
-          id: '19',
+          id: 19,
           name: '19'
         }, {
-          id: '20',
+          id: 20,
           name: '20'
         }],
+        disabled: !!disable,
         required: true
       })
     );
@@ -611,6 +641,7 @@ export class ServiceService {
         key: 'homeImageUrl',
         label: '首页分类图标',
         value: data && data.homeImageUrl || '',
+        disabled: !!disable,
         required: true,
       })
     );
@@ -618,29 +649,69 @@ export class ServiceService {
       new FormDropdown({
         key: 'homeSort',
         label: '首页分类顺序',
-        value: data && data.homeSort || '1',
+        value: data && data.homeSort || 1,
         options: [{
-          id: '1',
+          id: 1,
           name: '1'
         }, {
-          id: '2',
+          id: 2,
           name: '2'
         }, {
-          id: '3',
+          id: 3,
           name: '3'
         }, {
-          id: '4',
+          id: 4,
           name: '4'
         }, {
-          id: '5',
+          id: 5,
           name: '5'
         }, {
-          id: '6',
+          id: 6,
           name: '6'
         }, {
-          id: '7',
+          id: 7,
           name: '7'
+        }, {
+          id: 8,
+          name: '8'
+        }, {
+          id: 9,
+          name: '9'
+        }, {
+          id: 10,
+          name: '10'
+        }, {
+          id: 11,
+          name: '11'
+        }, {
+          id: 12,
+          name: '12'
+        }, {
+          id: 13,
+          name: '13'
+        }, {
+          id: 14,
+          name: '14'
+        }, {
+          id: 15,
+          name: '15'
+        }, {
+          id: 16,
+          name: '16'
+        }, {
+          id: 17,
+          name: '17'
+        }, {
+          id: 18,
+          name: '18'
+        }, {
+          id: 19,
+          name: '19'
+        }, {
+          id: 20,
+          name: '20'
         }],
+        disabled: !!disable,
         required: true,
       })
     );
@@ -656,6 +727,7 @@ export class ServiceService {
           id: 1,
           name: '否'
         }],
+        disabled: !!disable,
         required: true
       })
     );
@@ -671,6 +743,7 @@ export class ServiceService {
           id: 1,
           name: '否'
         }],
+        disabled: !!disable,
         required: true
       })
     );
@@ -686,6 +759,7 @@ export class ServiceService {
           id: 1,
           name: '否'
         }],
+        disabled: !!disable,
         required: true
       })
     );

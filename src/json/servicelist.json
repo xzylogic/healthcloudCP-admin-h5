@@ -60,8 +60,24 @@
             "menuId": "8f056190c58947e69039c83932943922",
             "menuName": "母子建档预约2",
             "parentId": "9e6867789ea14aa9ae33546e51cba442",
-            "type": "2",
-            "level": 2
+            "type": "1",
+            "level": 2,
+            "children": [
+              {
+                "menuId": "8f056190c58947e63932943922",
+                "menuName": "母建档约2",
+                "parentId": "9e6867789ea14aa9ae33546e51cba442",
+                "type": "2",
+                "level": 3
+              },
+              {
+                "menuId": "4c83c34ddfe44e0ed203662042",
+                "menuName": "叶酸领取2",
+                "parentId": "9e6867789ea14aa9ae33546e51cba442",
+                "type": "2",
+                "level": 3
+              }
+            ]
           },
           {
             "menuId": "4c83c34ddfe44e00a7931ed203662042",

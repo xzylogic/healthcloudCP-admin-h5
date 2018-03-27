@@ -25,5 +25,5 @@ export const routes: Routes = [{
 }];
 
 export const stores = {
-  // doctor: createReducer('doctor', [0, 0, 0], {}),
+  version: createReducer('version', [0, 0, 0], {}),
 };

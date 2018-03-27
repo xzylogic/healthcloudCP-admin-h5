@@ -1,12 +1,14 @@
 import { Inject, Injectable } from '@angular/core';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { FormBase } from '../../../../libs/dform/_entity/form-base';
-import { FormDate } from '../../../../libs/dform/_entity/form-date';
+import { FormDropdown } from '../../../../libs/dform/_entity/form-dropdown';
+import { FormFile } from '../../../../libs/dform/_entity/form-file';
 import { FormText } from '../../../../libs/dform/_entity/form-text';
 import { FormTextarea } from '../../../../libs/dform/_entity/form-textarea';
-import { ControlType, TableTitle } from '../../../../libs/dtable/dtable.entity';
 
-const PATH = {};
+const PATH = {
+  saveVersion: '/api/version/save'
+};
 
 @Injectable()
 export class VersionService {
@@ -36,90 +38,64 @@ export class VersionService {
     });
   }
 
-  setAccountTitles() {
-    const Titles = [
-      new TableTitle({
-        name: '',
-        key: '',
-        controlType: ControlType.checkbox
-      }),
-      new TableTitle({
-        name: '序号',
-        key: '',
-        controlType: ControlType.index
-      }),
-      new TableTitle({
-        name: '产品分类',
-        key: ''
-      }),
-      new TableTitle({
-        name: '版本号',
-        key: ''
-      }),
-      new TableTitle({
-        name: '应用图标',
-        key: ''
-      }),
-      new TableTitle({
-        name: '发布时间',
-        key: ''
-      }),
-      new TableTitle({
-        name: '编辑',
-        key: '',
-        controlType: ControlType.button
-      }),
-      new TableTitle({
-        name: '复制',
-        key: '',
-        controlType: ControlType.button
-      })
-    ];
-    return Titles;
+  saveVersion(data, type) {
+    const saveData = data;
+    saveData.productType = type;
+    return this.http.post(`${this.app.api_url}${PATH.saveVersion}`, saveData);
   }
 
-  setAccountForm(data?): FormBase<any>[] {
+  setVersionForm(data?, disable?: boolean): FormBase<any>[] {
     const forms: FormBase<any>[] = [];
     forms.push(
-      new FormText({
-        key: 'username',
-        label: '版本号',
-        value: data && data.username || '',
-        pattern: '^[A-Za-z0-9.]+$',
+      new FormDropdown({
+        key: 'productCategory',
+        label: '终端分类',
+        value: '1',
+        options: [{
+          id: '1',
+          name: '用户端'
+        }],
+        readonly: true,
+        disabled: !!disable,
         required: true,
-        errMsg: '请填写版本号',
         order: 0
       })
     );
     forms.push(
       new FormText({
-        key: 'loginname',
-        label: '应用图标',
-        value: data && data.loginname || '',
+        key: 'versionNum',
+        label: '版本号',
+        value: data && data.versionNum || '',
+        pattern: '^[A-Za-z0-9.]+$',
+        maxlength: 10,
+        disabled: !!disable,
         required: true,
-        errMsg: '请选择应用图标',
+        errMsg: '请填写正确的版本号（只允许输入字母、数字和小数点）',
         order: 1
       })
     );
     forms.push(
-      new FormDate({
-        key: 'telephone',
-        label: '发布时间',
-        value: data && data.telephone || '',
+      new FormFile({
+        key: 'appIcon',
+        label: '应用图标',
+        value: data && data.appIcon || '',
+        disabled: !!disable,
         required: true,
-        errMsg: '请选择发布时间',
+        errMsg: '请选择应用图标',
         order: 2
       })
     );
     forms.push(
       new FormTextarea({
-        key: 'roleId',
+        key: 'publishContent',
         label: '发布内容',
-        value: data && data.roleId || '',
-        maxlength: 300,
+        value: data && data.publishContent || '',
+        maxlength: 500,
+        size: '10',
+        disabled: !!disable,
         required: true,
         errMsg: '请填写发布内容',
-        order: 4
+        order: 3
       })
     );
     return forms.sort((a, b) => a.order - b.order);

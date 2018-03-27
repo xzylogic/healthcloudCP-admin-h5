@@ -6,6 +6,6 @@ export class FormTextarea extends FormBase<string> {
 
   constructor(options: FormTextarea) {
     super(options);
-    this.size = options['size'] || '30';
+    this.size = options['size'] || '5';
   }
 }

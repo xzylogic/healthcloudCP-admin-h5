@@ -51,7 +51,7 @@ export class HealthComponent implements OnInit, OnDestroy {
 
   getHealthTree() {
     this.route.params.subscribe(route => {
-      if (this.auth.getMenuPermission().indexOf(route.menu) > -1) {
+      if (route && route.menu && this.auth.getMenuPermission().indexOf(route.menu) > -1) {
         this.permission = true;
       }
       this.healthService.getHealthTree().subscribe(res => {

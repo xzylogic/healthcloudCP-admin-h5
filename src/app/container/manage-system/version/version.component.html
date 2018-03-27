@@ -1,7 +1,12 @@
 <app-container [config]="containerConfig">
-  <div class="addition" *ngIf="permission">
-    <button mat-raised-button (click)="newData()">新增版本信息</button>
-  </div>
   <div class="content">
+    <mat-tab-group>
+      <mat-tab label="IOS">
+        <app-form [formDatas]="formIOS" (formValues)="getValues($event,'IOS')"></app-form>
+      </mat-tab>
+      <mat-tab label="Android">
+        <app-form [formDatas]="formAndroid" (formValues)="getValues($event,'Android')"></app-form>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 </app-container>
