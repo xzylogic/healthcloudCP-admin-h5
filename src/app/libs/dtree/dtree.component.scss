@@ -1,6 +1,5 @@
 @import '../theme/theme';
 
-
 .tree__list {
   width: 100%;
   padding-left: 30px;
@@ -65,6 +64,12 @@
 .tree__span .active {
   color: $color-primary;
   font-size: 18px;
+}
+
+.tree__lens {
+  font-size: 9px;
+  width: 8px;
+  margin-right: 5px;
 }
 
 .tree__button {

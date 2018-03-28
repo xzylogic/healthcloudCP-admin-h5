@@ -1,5 +1,6 @@
 <div class="tree__row" *ngIf="this.func===dTreeFuncType.editor">
   <div class="tree__span">
+    <mat-icon *ngIf="treeNode.color" class="tree__lens" [style.color]="treeNode.color">lens</mat-icon>
     <span *ngIf="getSpanCreate(treeNode.unpermit)" class="cursor" [class.active]="treeNode.active"
           (click)="updateTreeEmit(treeNode,dTreeEditType.toCreate)">
       {{treeNode.menuName}}
@@ -33,8 +34,9 @@
 </div>
 <div class="tree__row-checkbox" *ngIf="this.func===dTreeFuncType.checkbox">
   <div class="tree__span">
-    <mat-checkbox class="" [(ngModel)]="treeNode.checked" [(indeterminate)]="treeNode.indeterminate"
+    <mat-checkbox [(ngModel)]="treeNode.checked" [(indeterminate)]="treeNode.indeterminate"
                   (change)="checkedChangeEmit(treeNode)"></mat-checkbox>
+    <mat-icon *ngIf="treeNode.color" class="tree__lens" [style.color]="treeNode.color">lens</mat-icon>
     <span>{{treeNode.menuName}}</span>
   </div>
   <div class="tree__icon">

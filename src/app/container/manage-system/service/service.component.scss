@@ -10,6 +10,7 @@
 }
 
 .tree__container {
+  width: 100%;
   height: calc(100vh - 280px);
   margin-left: -30px;
   overflow: auto;
@@ -40,3 +41,21 @@
   }
 }
 
+.tree__des {
+  line-height: 40px;
+  .tree__icon {
+    font-size: 9px;
+    width: 8px;
+    margin-right: 10px;
+  }
+  .category {
+    color: #f57c00;
+  }
+  .item {
+    color: #afb42b;
+  }
+  span {
+    margin-right: 10px;
+    float: right;
+  }
+}

@@ -65,6 +65,12 @@ export class ServiceComponent implements OnInit, OnDestroy {
   resetData(tree: DTreeEntity, permission) {
     if (tree.children) {
       tree.children.forEach(obj => {
+        if (obj.type == 1) {
+          obj.color = '#f57c00';
+        }
+        if (obj.type == 2) {
+          obj.color = '#afb42b';
+        }
         obj.unpermit = permission ?
           (obj.type == '1' ? DTreeShowType.all : DTreeShowType.updateDelete) :
           DTreeShowType.oShow;
@@ -170,7 +176,7 @@ export class ServiceComponent implements OnInit, OnDestroy {
         this.categoryLinks = data.links;
         this.formCategory = this.serviceService.setServiceCategoryFormFirst(
           treeData.parentId, treeData.parentName,
-          this.categoryLinks, data.data, disable
+          data.links, data.data, disable
         );
       });
     }
@@ -189,7 +195,7 @@ export class ServiceComponent implements OnInit, OnDestroy {
         this.categoryLinks = data.links;
         this.formCategory = this.serviceService.setServiceCategoryForm(
           treeData.parentId, treeData.parentName,
-          this.categoryLinks, data.data, disable
+          data.links, data.data, disable
         );
       });
     }
@@ -223,15 +229,15 @@ export class ServiceComponent implements OnInit, OnDestroy {
     } else {
       this.getItemDetailLinks(treeData.menuId, (data) => {
         this.itemLinks = data.links;
-        if (data && data.linkType == 1) {
-          data.serviceItemLink1 = data.serviceItemLink;
+        if (data && data.data && data.data.linkType == 1) {
+          data.data.serviceItemLink1 = data.data.serviceItemLink;
         }
-        if (data && data.linkType == 2) {
-          data.serviceItemLink2 = data.serviceItemLink;
+        if (data && data.data && data.data.linkType == 2) {
+          data.data.serviceItemLink2 = data.data.serviceItemLink;
         }
         this.formItem = this.serviceService.setServiceItemForm(
           treeData.parentId, treeData.parentName,
-          this.itemLinks, data.data, disable
+          data.links, data.data, disable
         );
       });
     }
@@ -255,7 +261,6 @@ export class ServiceComponent implements OnInit, OnDestroy {
     const getDetail = this.serviceService.getServiceCategory(id);
     Observable.forkJoin([getLinks, getDetail])
       .subscribe((res: Array<any>) => {
-        console.log(res);
         if (res[0] && res[1].code == 0 && res[1].data) {
           callback({links: res[0], data: res[1].data});
         } else {

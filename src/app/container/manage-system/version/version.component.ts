@@ -43,20 +43,20 @@ export class VersionComponent implements OnInit, OnDestroy {
   }
 
   getValues(data, type) {
-    this.hintDialog = HintDialog('是否保存版本信息？', this.dialog).afterClosed();
-    this.hintDialog.subscribe(result => {
-      if (result && result.key == 'confirm') {
-        this.versionService(data, type).subscribe(res => {
-          if (res.code == 0) {
-            HintDialog(res.msg || '保存成功！', this.dialog);
-          } else {
-            HintDialog(res.msg || '保存失败！', this.dialog);
-          }
-        }, err => {
-          HintDialog('网络链接失败，请重试！', this.dialog);
-          throw new Error(err);
-        });
-      }
-    });
+    this.hintDialog = HintDialog('是否保存版本信息？', this.dialog).afterClosed()
+      .subscribe(result => {
+        if (result && result.key == 'confirm') {
+          this.versionService.saveVersion(data, type).subscribe(res => {
+            if (res.code == 0) {
+              HintDialog(res.msg || '保存成功！', this.dialog);
+            } else {
+              HintDialog(res.msg || '保存失败！', this.dialog);
+            }
+          }, err => {
+            HintDialog('网络链接失败，请重试！', this.dialog);
+            throw new Error(err);
+          });
+        }
+      });
   }
 }

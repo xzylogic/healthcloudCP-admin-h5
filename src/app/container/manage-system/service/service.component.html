@@ -13,6 +13,10 @@
               <button class="button" mat-button color="primary" (click)="openData(serviceTree[0])">全部展开</button>
             </div>
             <div class="tree__container">
+              <div class="tree__des clear">
+                <span><mat-icon class="tree__icon item">lens</mat-icon>服务项目</span>
+                <span><mat-icon class="tree__icon category">lens</mat-icon>服务分类</span>
+              </div>
               <app-dtree *ngIf="serviceTree" [trees]="serviceTree" [func]="treeType"
                          (HandleUpdate)="handleUpdate($event)"
               ></app-dtree>

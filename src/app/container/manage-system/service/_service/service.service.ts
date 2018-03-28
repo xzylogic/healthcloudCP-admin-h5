@@ -70,9 +70,7 @@ export class ServiceService {
   }
 
   deleteService(id) {
-    return this.http.post(`${this.app.api_url}${PATH.deleteService}`, {
-      menuIds: id
-    });
+    return this.http.get(`${this.app.api_url}${PATH.deleteService}?menuIds=${id}`);
   }
 
   saveServiceItem(data) {
@@ -203,7 +201,7 @@ export class ServiceService {
       new FormRadio({
         key: 'isHomeShow',
         label: '首页是否显示',
-        value: data && data.isHomeShow == 0 ? 0 : (data.isHomeShow || 1),
+        value: data && data.isHomeShow == 0 ? 0 : (data && data.isHomeShow || 1),
         options: [{
           id: 0,
           name: '是'
@@ -318,7 +316,7 @@ export class ServiceService {
       new FormText({
         key: 'categoryName',
         label: '服务分类名称',
-        value: data && data.menuName || '',
+        value: data && data.categoryName || '',
         maxlength: 20,
         disabled: !!disable,
         required: true
@@ -326,9 +324,9 @@ export class ServiceService {
     );
     forms.push(
       new FormFile({
-        key: 'image',
+        key: 'imageUrl',
         label: '服务分类图标',
-        value: data && data.image || '',
+        value: data && data.imageUrl || '',
         disabled: !!disable,
         required: true
       })
@@ -349,64 +347,64 @@ export class ServiceService {
         label: '服务分类顺序',
         value: data && data.sort,
         options: [{
-          id: '1',
+          id: 1,
           name: '1'
         }, {
-          id: '2',
+          id: 2,
           name: '2'
         }, {
-          id: '3',
+          id: 3,
           name: '3'
         }, {
-          id: '4',
+          id: 4,
           name: '4'
         }, {
-          id: '5',
+          id: 5,
           name: '5'
         }, {
-          id: '6',
+          id: 6,
           name: '6'
         }, {
-          id: '7',
+          id: 7,
           name: '7'
         }, {
-          id: '8',
+          id: 8,
           name: '8'
         }, {
-          id: '9',
+          id: 9,
           name: '9'
         }, {
-          id: '10',
+          id: 10,
           name: '10'
         }, {
-          id: '11',
+          id: 11,
           name: '11'
         }, {
-          id: '12',
+          id: 12,
           name: '12'
         }, {
-          id: '13',
+          id: 13,
           name: '13'
         }, {
-          id: '14',
+          id: 14,
           name: '14'
         }, {
-          id: '15',
+          id: 15,
           name: '15'
         }, {
-          id: '16',
+          id: 16,
           name: '16'
         }, {
-          id: '17',
+          id: 17,
           name: '17'
         }, {
-          id: '18',
+          id: 18,
           name: '18'
         }, {
-          id: '19',
+          id: 19,
           name: '19'
         }, {
-          id: '20',
+          id: 20,
           name: '20'
         }],
         disabled: !!disable,
@@ -415,9 +413,9 @@ export class ServiceService {
     );
     forms.push(
       new FormFile({
-        key: 'imageUrl',
+        key: 'homeImageUrl',
         label: '首页分类图标',
-        value: data && data.imageUrl || '',
+        value: data && data.homeImageUrl || '',
         disabled: !!disable,
         required: false,
       })
@@ -426,27 +424,27 @@ export class ServiceService {
       new FormDropdown({
         key: 'homeSort',
         label: '首页分类顺序',
-        value: data && data.homeSort || '1',
+        value: data && data.homeCategorySort || 1,
         options: [{
-          id: '1',
+          id: 1,
           name: '1'
         }, {
-          id: '2',
+          id: 2,
           name: '2'
         }, {
-          id: '3',
+          id: 3,
           name: '3'
         }, {
-          id: '4',
+          id: 4,
           name: '4'
         }, {
-          id: '5',
+          id: 5,
           name: '5'
         }, {
-          id: '6',
+          id: 6,
           name: '6'
         }, {
-          id: '7',
+          id: 7,
           name: '7'
         }],
         disabled: !!disable,

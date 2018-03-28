@@ -8,6 +8,7 @@ export class DTreeEntity {
   indeterminate?: boolean;
   active?: boolean;
   open?: boolean;
+  color?: string;
   unpermit?: DTreeShowType;
   children?: DTreeEntity[];
 
@@ -21,6 +22,7 @@ export class DTreeEntity {
     this.indeterminate = !!obj.indeterminate;
     this.active = !!obj.active;
     this.open = !!obj.open;
+    this.color = obj.color || null;
     this.unpermit = obj.unpermit || DTreeShowType.oShow;
     this.children = obj.children || [];
   }
