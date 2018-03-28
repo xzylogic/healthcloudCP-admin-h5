@@ -9,6 +9,12 @@
   height: 100%;
 }
 
+.menu__list {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+}
+
 .tree__title {
   height: 55px;
   line-height: 40px;

@@ -20,8 +20,7 @@ export class HealthComponent implements OnInit, OnDestroy {
   formClassify: any;
   formProject: any;
 
-  classifyLinks: any;
-  projectLinks: any;
+  healthLinks: any;
 
   permission: boolean; // 权限 | true 编辑 false 查看
 
@@ -120,7 +119,6 @@ export class HealthComponent implements OnInit, OnDestroy {
       console.log('delete');
       const delDialog = HintDialog(`您确定要删除${sourceData.tree.menuName}?`, this.dialog)
         .afterClosed().subscribe(res => {
-          console.log(res);
           if (res && res.key == 'confirm') {
             this.deleteHealth(sourceData.tree.menuId);
             delDialog.unsubscribe();
@@ -130,12 +128,12 @@ export class HealthComponent implements OnInit, OnDestroy {
   }
 
   createHealthClassify(parentId, parentName) {
-    if (this.classifyLinks) {
-      this.formClassify = this.healthService.setHealthClassifyForm(parentId, parentName, this.classifyLinks);
+    if (this.healthLinks) {
+      this.formClassify = this.healthService.setHealthClassifyForm(parentId, parentName, this.healthLinks);
     } else {
-      this.healthService.getUrls(1).subscribe(links => {
-        this.classifyLinks = links;
-        this.formClassify = this.healthService.setHealthClassifyForm(parentId, parentName, this.classifyLinks);
+      this.healthService.getUrls().subscribe(links => {
+        this.healthLinks = links;
+        this.formClassify = this.healthService.setHealthClassifyForm(parentId, parentName, this.healthLinks);
       }, err => {
         console.log(err);
       });
@@ -143,31 +141,31 @@ export class HealthComponent implements OnInit, OnDestroy {
   }
 
   updateHealthClassify(treeData, disable?) {
-    if (this.classifyLinks) {
+    if (this.healthLinks) {
       this.getDetail(treeData.menuId, (data) => {
         this.formClassify = this.healthService.setHealthClassifyForm(
           treeData.parentId, treeData.parentName,
-          this.classifyLinks, data, disable
+          this.healthLinks, data, disable
         );
       });
     } else {
-      this.getLinksAndDetail(1, treeData.menuId, (data) => {
-        this.classifyLinks = data.links;
+      this.getLinksAndDetail(treeData.menuId, (data) => {
+        this.healthLinks = data.links;
         this.formClassify = this.healthService.setHealthClassifyForm(
           treeData.parentId, treeData.parentName,
-          this.classifyLinks, data.data, disable
+          this.healthLinks, data.data, disable
         );
       });
     }
   }
 
   createHealthProject(parentId, parentName) {
-    if (this.projectLinks) {
-      this.formProject = this.healthService.setHealthProjectForm(parentId, parentName, this.projectLinks);
+    if (this.healthLinks) {
+      this.formProject = this.healthService.setHealthProjectForm(parentId, parentName, this.healthLinks);
     } else {
-      this.healthService.getUrls(2).subscribe(links => {
-        this.projectLinks = links;
-        this.formProject = this.healthService.setHealthProjectForm(parentId, parentName, this.projectLinks);
+      this.healthService.getUrls().subscribe(links => {
+        this.healthLinks = links;
+        this.formProject = this.healthService.setHealthProjectForm(parentId, parentName, this.healthLinks);
       }, err => {
         console.log(err);
       });
@@ -175,7 +173,7 @@ export class HealthComponent implements OnInit, OnDestroy {
   }
 
   updateHealthProject(treeData, disable?) {
-    if (this.projectLinks) {
+    if (this.healthLinks) {
       this.getDetail(treeData.menuId, (data) => {
         if (data && data.url_type == 0) {
           data.url0 = Number(data.url);
@@ -185,12 +183,12 @@ export class HealthComponent implements OnInit, OnDestroy {
         }
         this.formProject = this.healthService.setHealthProjectForm(
           data.classify_id, treeData.parentName,
-          this.projectLinks, data, disable
+          this.healthLinks, data, disable
         );
       });
     } else {
-      this.getLinksAndDetail(2, treeData.menuId, (res) => {
-        this.projectLinks = res.links;
+      this.getLinksAndDetail(treeData.menuId, (res) => {
+        this.healthLinks = res.links;
         if (res.data && res.data.url_type == 0) {
           res.data.url0 = Number(res.data.url);
         }
@@ -199,7 +197,7 @@ export class HealthComponent implements OnInit, OnDestroy {
         }
         this.formProject = this.healthService.setHealthProjectForm(
           res.data.classify_id, treeData.parentName,
-          this.projectLinks, res.data, disable
+          this.healthLinks, res.data, disable
         );
       });
     }
@@ -218,8 +216,8 @@ export class HealthComponent implements OnInit, OnDestroy {
     });
   }
 
-  getLinksAndDetail(type, id, callback) {
-    const getLinks = this.healthService.getUrls(type);
+  getLinksAndDetail(id, callback) {
+    const getLinks = this.healthService.getUrls();
     const getDetail = this.healthService.getHealthDetail(id);
     Observable.forkJoin([getLinks, getDetail])
       .subscribe((res: Array<any>) => {

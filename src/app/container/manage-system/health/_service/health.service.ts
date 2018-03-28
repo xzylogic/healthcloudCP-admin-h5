@@ -18,7 +18,7 @@ const PATH = {
   saveHealthClassify: '/api/healthManage/saveClassify',
   saveHealthProject: '/api/healthManage/saveProject',
   updateHealth: '/api/healthManage/updateInfo',
-  getUrls: '/api/healthManage/queryUrl',
+  getUrls: '/api/getHopLinks',
   deleteHealth: '/api/healthManage/delete'
 };
 
@@ -48,15 +48,15 @@ export class HealthService {
     return this.http.get(`${this.app.api_url}${PATH.getHealthDetail}?id=${id}`);
   }
 
-  getUrls(type) {
-    return this.http.get(`${this.app.api_url}${PATH.getUrls}?type=${type}`)
+  getUrls() {
+    return this.http.get(`${this.app.api_url}${PATH.getUrls}?type=2`)
       .map(res => {
-        if (res.code == 0 && res.data && res.data.content && Array.isArray(res.data.content)) {
+        if (res.code == 0 && res.data && Array.isArray(res.data)) {
           const list = [];
-          res.data.content.forEach(obj => {
+          res.data.forEach(obj => {
             list.push({
-              id: obj.id,
-              name: obj.value
+              id: obj.hopLinks,
+              name: obj.hopLinks
             });
           });
           return list;
@@ -125,7 +125,7 @@ export class HealthService {
     forms.push(
       new FormDropdown({
         key: 'type',
-        label: '健康分类链接',
+        label: '健康分类跳转链接',
         value: data && data.type || 0,
         options: linkList,
         disabled: !!disable,
@@ -289,7 +289,7 @@ export class HealthService {
     forms.push(
       new FormDropdown({
         key: 'url0',
-        label: '健康项目链接',
+        label: '健康项目跳转链接',
         value: data && data.url0 || '',
         options: linkList,
         isOptional: true,
@@ -304,7 +304,7 @@ export class HealthService {
     forms.push(
       new FormText({
         key: 'url1',
-        label: '健康项目链接',
+        label: '健康项目跳转链接',
         value: data && data.url1 || '',
         maxlength: 200,
         isOptional: true,

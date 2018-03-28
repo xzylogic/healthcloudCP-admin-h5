@@ -19,8 +19,7 @@ export class ServiceComponent implements OnInit, OnDestroy {
   formCategory: any;
   formItem: any;
 
-  categoryLinks: any;
-  itemLinks: any;
+  healthLinks: any;
 
   permission: boolean; // 权限 | true 编辑 false 查看
 
@@ -132,7 +131,6 @@ export class ServiceComponent implements OnInit, OnDestroy {
       console.log('delete');
       const delDialog = HintDialog(`您确定要删除${sourceData.tree.menuName}?`, this.dialog)
         .afterClosed().subscribe(res => {
-          console.log(res);
           if (res && res.key == 'confirm') {
             this.deleteService(sourceData.tree.menuId);
             delDialog.unsubscribe();
@@ -142,38 +140,38 @@ export class ServiceComponent implements OnInit, OnDestroy {
   }
 
   createServiceCategoryFirst(parentId, parentName) {
-    if (this.categoryLinks) {
-      this.formCategory = this.serviceService.setServiceCategoryFormFirst(parentId, parentName, this.categoryLinks);
+    if (this.healthLinks) {
+      this.formCategory = this.serviceService.setServiceCategoryFormFirst(parentId, parentName, this.healthLinks);
     } else {
-      this.serviceService.getLinks(1).subscribe(links => {
-        this.categoryLinks = links;
-        this.formCategory = this.serviceService.setServiceCategoryFormFirst(parentId, parentName, this.categoryLinks);
+      this.serviceService.getLinks().subscribe(links => {
+        this.healthLinks = links;
+        this.formCategory = this.serviceService.setServiceCategoryFormFirst(parentId, parentName, this.healthLinks);
       });
     }
   }
 
   createServiceCategory(parentId, parentName) {
-    if (this.categoryLinks) {
-      this.formCategory = this.serviceService.setServiceCategoryForm(parentId, parentName, this.categoryLinks);
+    if (this.healthLinks) {
+      this.formCategory = this.serviceService.setServiceCategoryForm(parentId, parentName, this.healthLinks);
     } else {
-      this.serviceService.getLinks(1).subscribe(links => {
-        this.categoryLinks = links;
-        this.formCategory = this.serviceService.setServiceCategoryForm(parentId, parentName, this.categoryLinks);
+      this.serviceService.getLinks().subscribe(links => {
+        this.healthLinks = links;
+        this.formCategory = this.serviceService.setServiceCategoryForm(parentId, parentName, this.healthLinks);
       });
     }
   }
 
   updateServiceCategoryFirst(treeData, disable?: boolean) {
-    if (this.categoryLinks) {
+    if (this.healthLinks) {
       this.getCategoryDetail(treeData.menuId, (data) => {
         this.formCategory = this.serviceService.setServiceCategoryFormFirst(
           treeData.parentId, treeData.parentName,
-          this.categoryLinks, data, disable
+          this.healthLinks, data, disable
         );
       });
     } else {
       this.getCategoryDetailLinks(treeData.menuId, (data) => {
-        this.categoryLinks = data.links;
+        this.healthLinks = data.links;
         this.formCategory = this.serviceService.setServiceCategoryFormFirst(
           treeData.parentId, treeData.parentName,
           data.links, data.data, disable
@@ -183,16 +181,16 @@ export class ServiceComponent implements OnInit, OnDestroy {
   }
 
   updateServiceCategory(treeData, disable?: boolean) {
-    if (this.categoryLinks) {
+    if (this.healthLinks) {
       this.getCategoryDetail(treeData.menuId, (data) => {
         this.formCategory = this.serviceService.setServiceCategoryForm(
           treeData.parentId, treeData.parentName,
-          this.categoryLinks, data, disable
+          this.healthLinks, data, disable
         );
       });
     } else {
       this.getCategoryDetailLinks(treeData.menuId, (data) => {
-        this.categoryLinks = data.links;
+        this.healthLinks = data.links;
         this.formCategory = this.serviceService.setServiceCategoryForm(
           treeData.parentId, treeData.parentName,
           data.links, data.data, disable
@@ -202,18 +200,18 @@ export class ServiceComponent implements OnInit, OnDestroy {
   }
 
   createServiceItem(parentId, parentName) {
-    if (this.itemLinks) {
-      this.formItem = this.serviceService.setServiceItemForm(parentId, parentName, this.itemLinks);
+    if (this.healthLinks) {
+      this.formItem = this.serviceService.setServiceItemForm(parentId, parentName, this.healthLinks);
     } else {
-      this.serviceService.getLinks(2).subscribe(links => {
-        this.itemLinks = links;
-        this.formItem = this.serviceService.setServiceItemForm(parentId, parentName, this.itemLinks);
+      this.serviceService.getLinks().subscribe(links => {
+        this.healthLinks = links;
+        this.formItem = this.serviceService.setServiceItemForm(parentId, parentName, this.healthLinks);
       });
     }
   }
 
   updateServiceItem(treeData, disable?: boolean) {
-    if (this.itemLinks) {
+    if (this.healthLinks) {
       this.getItemDetail(treeData.menuId, (data) => {
         if (data && data.linkType == 1) {
           data.serviceItemLink1 = data.serviceItemLink;
@@ -223,12 +221,12 @@ export class ServiceComponent implements OnInit, OnDestroy {
         }
         this.formItem = this.serviceService.setServiceItemForm(
           treeData.parentId, treeData.parentName,
-          this.itemLinks, data, disable
+          this.healthLinks, data, disable
         );
       });
     } else {
       this.getItemDetailLinks(treeData.menuId, (data) => {
-        this.itemLinks = data.links;
+        this.healthLinks = data.links;
         if (data && data.data && data.data.linkType == 1) {
           data.data.serviceItemLink1 = data.data.serviceItemLink;
         }
@@ -257,7 +255,7 @@ export class ServiceComponent implements OnInit, OnDestroy {
   }
 
   getCategoryDetailLinks(id, callback) {
-    const getLinks = this.serviceService.getLinks(1);
+    const getLinks = this.serviceService.getLinks();
     const getDetail = this.serviceService.getServiceCategory(id);
     Observable.forkJoin([getLinks, getDetail])
       .subscribe((res: Array<any>) => {
@@ -286,7 +284,7 @@ export class ServiceComponent implements OnInit, OnDestroy {
   }
 
   getItemDetailLinks(id, callback) {
-    const getLinks = this.serviceService.getLinks(2);
+    const getLinks = this.serviceService.getLinks();
     const getDetail = this.serviceService.getServiceItem(id);
     Observable.forkJoin([getLinks, getDetail])
       .subscribe((res: Array<any>) => {

@@ -51,8 +51,8 @@ export class ServiceService {
     return this.http.post(`${this.app.api_url}${PATH.editServiceCategory}`, data);
   }
 
-  getLinks(type) {
-    return this.http.get(`${this.app.api_url}${PATH.getLinks}?type=${type}`)
+  getLinks() {
+    return this.http.get(`${this.app.api_url}${PATH.getLinks}?type=1`)
       .map(res => {
         if (res.code == 0 && res.data && Array.isArray(res.data)) {
           const list = [];
@@ -120,7 +120,7 @@ export class ServiceService {
     forms.push(
       new FormDropdown({
         key: 'categoryLink',
-        label: '服务分类链接',
+        label: '服务分类跳转链接',
         value: data && data.categoryLink || 0,
         options: linkList,
         disabled: !!disable,
@@ -334,7 +334,7 @@ export class ServiceService {
     forms.push(
       new FormDropdown({
         key: 'categoryLink',
-        label: '服务分类链接',
+        label: '服务分类跳转链接',
         value: data && data.categoryLink || 0,
         options: linkList,
         disabled: !!disable,
@@ -538,7 +538,7 @@ export class ServiceService {
     forms.push(
       new FormDropdown({
         key: 'serviceItemLink1',
-        label: '服务分类链接',
+        label: '服务分类跳转链接',
         value: data && data.serviceItemLink1 || '',
         disabled: !!disable,
         required: false,
@@ -553,7 +553,7 @@ export class ServiceService {
     forms.push(
       new FormText({
         key: 'serviceItemLink2',
-        label: '服务分类链接',
+        label: '服务分类跳转链接',
         value: data && data.serviceItemLink2 || '',
         disabled: !!disable,
         required: false,

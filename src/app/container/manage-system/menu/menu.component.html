@@ -8,7 +8,7 @@
             <button class="button" mat-button color="primary" (click)="offData(menuList)">全部折叠</button>
             <button class="button" mat-button color="primary" (click)="openData(menuList)">全部展开</button>
           </div>
-          <div *ngIf="menuList">
+          <div class="menu__list" *ngIf="menuList">
             <div class="clear tree__p">
               <mat-icon class="tree__icon" (click)="toggle(menuList)" *ngIf="!menuList.open">add</mat-icon>
               <mat-icon class="tree__icon" (click)="toggle(menuList)" *ngIf="menuList.open">remove</mat-icon>
