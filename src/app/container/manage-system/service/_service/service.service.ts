@@ -538,7 +538,7 @@ export class ServiceService {
     forms.push(
       new FormDropdown({
         key: 'serviceItemLink1',
-        label: '服务分类跳转链接',
+        label: '服务项目跳转链接',
         value: data && data.serviceItemLink1 || '',
         disabled: !!disable,
         required: false,
@@ -553,7 +553,7 @@ export class ServiceService {
     forms.push(
       new FormText({
         key: 'serviceItemLink2',
-        label: '服务分类跳转链接',
+        label: '服务项目跳转链接',
         value: data && data.serviceItemLink2 || '',
         disabled: !!disable,
         required: false,
@@ -567,7 +567,7 @@ export class ServiceService {
     forms.push(
       new FormDropdown({
         key: 'sort',
-        label: '服务分类顺序',
+        label: '服务项目顺序',
         value: data && data.itemSort,
         options: [{
           id: 1,
@@ -637,7 +637,7 @@ export class ServiceService {
     forms.push(
       new FormFile({
         key: 'homeImageUrl',
-        label: '首页分类图标',
+        label: '首页服务图标',
         value: data && data.homeImageUrl || '',
         disabled: !!disable,
         required: true,
@@ -646,7 +646,7 @@ export class ServiceService {
     forms.push(
       new FormDropdown({
         key: 'homeSort',
-        label: '首页分类顺序',
+        label: '首页服务顺序',
         value: data && data.homeSort || 1,
         options: [{
           id: 1,
