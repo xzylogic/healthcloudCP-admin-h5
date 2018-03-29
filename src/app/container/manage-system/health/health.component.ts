@@ -176,7 +176,7 @@ export class HealthComponent implements OnInit, OnDestroy {
     if (this.healthLinks) {
       this.getDetail(treeData.menuId, (data) => {
         if (data && data.url_type == 0) {
-          data.url0 = Number(data.url);
+          data.url0 = data.url;
         }
         if (data && data.url_type == 1) {
           data.url1 = data.url;
@@ -190,7 +190,7 @@ export class HealthComponent implements OnInit, OnDestroy {
       this.getLinksAndDetail(treeData.menuId, (res) => {
         this.healthLinks = res.links;
         if (res.data && res.data.url_type == 0) {
-          res.data.url0 = Number(res.data.url);
+          res.data.url0 = res.data.url;
         }
         if (res.data && res.data.url_type == 1) {
           res.data.url1 = res.data.url;

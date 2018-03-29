@@ -124,9 +124,9 @@ export class HealthService {
     );
     forms.push(
       new FormDropdown({
-        key: 'type',
+        key: 'categoryUrl',
         label: '健康分类跳转链接',
-        value: data && data.type || 0,
+        value: data && data.category_url || 0,
         options: linkList,
         disabled: !!disable,
         required: true
