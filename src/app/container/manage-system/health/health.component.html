@@ -1,0 +1,59 @@
+<app-container [config]="containerConfig">
+  <div class="content">
+    <div class="grid-container">
+      <div class="row grid">
+        <div class="col-3">
+          <div class="container clear">
+            <div class="tree__title">
+              <h3 class="p">健康管理列表</h3>
+              <button class="button" mat-icon-button color="primary" (click)="getHealthTree()">
+                <mat-icon class="mat-24">autorenew</mat-icon>
+              </button>
+              <button class="button" mat-button color="primary" (click)="offData(healthTree[0])">全部折叠</button>
+              <button class="button" mat-button color="primary" (click)="openData(healthTree[0])">全部展开</button>
+            </div>
+            <div class="tree__container">
+              <app-dtree *ngIf="healthTree" [trees]="healthTree" [func]="treeType"
+                         (HandleUpdate)="handleUpdate($event)"
+              ></app-dtree>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="container" *ngIf="formClassify&&type==1">
+            <div class="tree__title clear">
+              <h3 class="p">新增健康分类</h3>
+            </div>
+            <div class="menu__form">
+              <app-form [formDatas]="formClassify" (formValues)="getClassifyValues($event)"></app-form>
+            </div>
+          </div>
+          <div class="container" *ngIf="formClassify&&type==2">
+            <div class="tree__title clear">
+              <h3 class="p">{{permission?'编辑':'查看'}}健康分类</h3>
+            </div>
+            <div class="menu__form">
+              <app-form [formDatas]="formClassify" (formValues)="getClassifyUpdateValues($event)"></app-form>
+            </div>
+          </div>
+          <div class="container" *ngIf="formProject&&type==3">
+            <div class="tree__title clear">
+              <h3 class="p">添加健康项目</h3>
+            </div>
+            <div class="menu__form">
+              <app-form [formDatas]="formProject" (formValues)="getItemValues($event)"></app-form>
+            </div>
+          </div>
+          <div class="container" *ngIf="formProject&&type==4">
+            <div class="tree__title clear">
+              <h3 class="p">{{permission?'编辑':'查看'}}健康项目</h3>
+            </div>
+            <div class="menu__form">
+              <app-form [formDatas]="formProject" (formValues)="getItemUpdateValues($event)"></app-form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-container>

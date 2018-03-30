@@ -52,6 +52,7 @@ import { FormText } from '../../_entity/form-text';
                (mousedown)="change()"
                autocomplete="off"
         >
+        <mat-error>{{data.errMsg}}</mat-error>
         <mat-hint align="end">{{value.length}} / {{data.maxlength}}</mat-hint>
       </mat-input-container>
     </div>

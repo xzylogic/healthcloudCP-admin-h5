@@ -1,0 +1,79 @@
+@import '../theme/theme';
+
+.tree__list {
+  width: 100%;
+  padding-left: 30px;
+}
+
+.tree__row {
+  width: 100%;
+  height: 40px;
+  padding: 0 100px 0 30px;
+  color: $color-text-secondary;
+  overflow: hidden;
+}
+
+.tree__checkbox {
+  width: 100%;
+  height: 40px;
+  padding-left: 100px;
+  color: $color-text-secondary;
+  overflow: hidden;
+}
+
+.tree__checkbox mat-checkbox {
+  position: relative;
+  top: -3px;
+}
+
+.tree__icon,
+.tree__span,
+.tree__button {
+  position: relative;
+  float: left;
+  height: 40px;
+  line-height: 40px;
+}
+
+.tree__icon {
+  margin-left: -100%;
+  left: -30px;
+  width: 30px;
+  padding: 5px 0;
+  cursor: pointer;
+}
+
+.tree__icon .block {
+  position: relative;
+  top: -1px;
+  font-size: 20px;
+  cursor: initial;
+}
+
+.tree__span {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tree__span .cursor {
+  cursor: pointer;
+}
+
+.tree__span .active {
+  color: $color-primary;
+  font-size: 18px;
+}
+
+.tree__lens {
+  font-size: 9px;
+  width: 8px;
+  margin-right: 5px;
+}
+
+.tree__button {
+  margin-left: -100px;
+  right: -100px;
+  width: 100px;
+}

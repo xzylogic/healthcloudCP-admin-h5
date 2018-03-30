@@ -8,14 +8,14 @@ import { FormTextarea } from '../../_entity/form-textarea';
   template: `
     <div [formGroup]="form">
       <mat-input-container *ngIf="!data.maxlength" style="width: 100%" floatPlaceholder="always">
-        <textarea matInput [attr.row]="data.size"
+        <textarea matInput [attr.rows]="data.size"
                   [placeholder]="data.label" [formControlName]="data.key"
                   [(ngModel)]="value" (change)="change()" (keyup)="change()">
         </textarea>
         <mat-error>{{data.errMsg}}</mat-error>
       </mat-input-container>
       <mat-input-container *ngIf="data.maxlength" style="width: 100%" floatPlaceholder="always">
-        <textarea matInput [maxlength]="data.maxlength" [attr.row]="data.size"
+        <textarea matInput [maxlength]="data.maxlength" [attr.rows]="data.size"
                   [placeholder]="data.label" [formControlName]="data.key"
                   [(ngModel)]="value" (change)="change()" (keyup)="change()">
         </textarea>

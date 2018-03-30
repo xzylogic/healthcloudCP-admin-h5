@@ -1,0 +1,61 @@
+@import '../../../libs/theme/theme';
+
+.grid {
+  height: calc(100vh - 218px);
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.tree__container {
+  width: 100%;
+  height: calc(100vh - 280px);
+  margin-left: -30px;
+  overflow: auto;
+}
+
+.menu__form {
+  height: calc(100vh - 280px);
+  padding-right: 15px;
+  overflow: auto;
+}
+
+.menu__form.tab {
+  margin-top: 15px;
+}
+
+.tree__title {
+  height: 55px;
+  line-height: 40px;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid $color-border-dark;
+  .p {
+    display: inline-block;
+    padding-right: 30px;
+  }
+  .button {
+    float: right;
+  }
+}
+
+.tree__des {
+  line-height: 40px;
+  .tree__icon {
+    font-size: 9px;
+    width: 8px;
+    margin-right: 10px;
+  }
+  .category {
+    color: #f57c00;
+  }
+  .item {
+    color: #afb42b;
+  }
+  span {
+    margin-right: 10px;
+    float: right;
+  }
+}
