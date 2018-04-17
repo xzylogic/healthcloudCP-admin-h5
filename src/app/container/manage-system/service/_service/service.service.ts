@@ -77,7 +77,7 @@ export class ServiceService {
     return this.http.post(`${this.app.api_url}${PATH.editServiceItem}`, data);
   }
 
-  setServiceCategoryFormFirst(parentId, parentName, linkList: Array<any>, data?: any, disable?: boolean): FormBase<any>[] {
+  setServiceCategoryFormFirst(parentId, parentName, data?: any, disable?: boolean): FormBase<any>[] {
     const forms: FormBase<any>[] = [];
     forms.push(
       new FormHidden({
@@ -117,16 +117,16 @@ export class ServiceService {
         required: true
       })
     );
-    forms.push(
-      new FormDropdown({
-        key: 'categoryLink',
-        label: '服务分类跳转链接',
-        value: data && data.categoryLink || 0,
-        options: linkList,
-        disabled: !!disable,
-        required: true
-      })
-    );
+    // forms.push(
+    //   new FormDropdown({
+    //     key: 'categoryLink',
+    //     label: '服务分类跳转链接',
+    //     value: data && data.categoryLink || 0,
+    //     options: linkList,
+    //     disabled: !!disable,
+    //     required: true
+    //   })
+    // );
     forms.push(
       new FormDropdown({
         key: 'sort',
@@ -282,7 +282,7 @@ export class ServiceService {
     return forms;
   }
 
-  setServiceCategoryForm(parentId, parentName, linkList: Array<any>, data?: any, disable?: boolean): FormBase<any>[] {
+  setServiceCategoryForm(parentId, parentName, data?: any, disable?: boolean): FormBase<any>[] {
     const forms: FormBase<any>[] = [];
     forms.push(
       new FormHidden({
@@ -331,16 +331,16 @@ export class ServiceService {
         required: true
       })
     );
-    forms.push(
-      new FormDropdown({
-        key: 'categoryLink',
-        label: '服务分类跳转链接',
-        value: data && data.categoryLink || 0,
-        options: linkList,
-        disabled: !!disable,
-        required: true
-      })
-    );
+    // forms.push(
+    //   new FormDropdown({
+    //     key: 'categoryLink',
+    //     label: '服务分类跳转链接',
+    //     value: data && data.categoryLink || 0,
+    //     options: linkList,
+    //     disabled: !!disable,
+    //     required: true
+    //   })
+    // );
     forms.push(
       new FormDropdown({
         key: 'sort',

@@ -128,35 +128,41 @@ export class HealthComponent implements OnInit, OnDestroy {
   }
 
   createHealthClassify(parentId, parentName) {
-    if (this.healthLinks) {
-      this.formClassify = this.healthService.setHealthClassifyForm(parentId, parentName, this.healthLinks);
-    } else {
-      this.healthService.getUrls().subscribe(links => {
-        this.healthLinks = links;
-        this.formClassify = this.healthService.setHealthClassifyForm(parentId, parentName, this.healthLinks);
-      }, err => {
-        console.log(err);
-      });
-    }
+    this.formClassify = this.healthService.setHealthClassifyForm(parentId, parentName);
+    // if (this.healthLinks) {
+    //   this.formClassify = this.healthService.setHealthClassifyForm(parentId, parentName, this.healthLinks);
+    // } else {
+    //   this.healthService.getUrls().subscribe(links => {
+    //     this.healthLinks = links;
+    //     this.formClassify = this.healthService.setHealthClassifyForm(parentId, parentName, this.healthLinks);
+    //   }, err => {
+    //     console.log(err);
+    //   });
+    // }
   }
 
   updateHealthClassify(treeData, disable?) {
-    if (this.healthLinks) {
-      this.getDetail(treeData.menuId, (data) => {
-        this.formClassify = this.healthService.setHealthClassifyForm(
-          treeData.parentId, treeData.parentName,
-          this.healthLinks, data, disable
-        );
-      });
-    } else {
-      this.getLinksAndDetail(treeData.menuId, (data) => {
-        this.healthLinks = data.links;
-        this.formClassify = this.healthService.setHealthClassifyForm(
-          treeData.parentId, treeData.parentName,
-          this.healthLinks, data.data, disable
-        );
-      });
-    }
+    this.getDetail(treeData.menuId, (data) => {
+      this.formClassify = this.healthService.setHealthClassifyForm(
+        treeData.parentId, treeData.parentName, data, disable
+      );
+    });
+    // if (this.healthLinks) {
+    //   this.getDetail(treeData.menuId, (data) => {
+    //     this.formClassify = this.healthService.setHealthClassifyForm(
+    //       treeData.parentId, treeData.parentName,
+    //       this.healthLinks, data, disable
+    //     );
+    //   });
+    // } else {
+    //   this.getLinksAndDetail(treeData.menuId, (data) => {
+    //     this.healthLinks = data.links;
+    //     this.formClassify = this.healthService.setHealthClassifyForm(
+    //       treeData.parentId, treeData.parentName,
+    //       this.healthLinks, data.data, disable
+    //     );
+    //   });
+    // }
   }
 
   createHealthProject(parentId, parentName) {
