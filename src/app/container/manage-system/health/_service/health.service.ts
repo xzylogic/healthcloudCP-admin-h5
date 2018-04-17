@@ -82,7 +82,7 @@ export class HealthService {
     return this.http.delete(`${this.app.api_url}${PATH.deleteHealth}?id=${id}`);
   }
 
-  setHealthClassifyForm(parentId, parentName, linkList: Array<any>, data?: any, disable?: boolean): FormBase<any>[] {
+  setHealthClassifyForm(parentId, parentName, data?: any, disable?: boolean): FormBase<any>[] {
     const forms: FormBase<any>[] = [];
     forms.push(
       new FormHidden({
@@ -122,16 +122,16 @@ export class HealthService {
         required: true
       })
     );
-    forms.push(
-      new FormDropdown({
-        key: 'categoryUrl',
-        label: '健康分类跳转链接',
-        value: data && data.category_url || 0,
-        options: linkList,
-        disabled: !!disable,
-        required: true
-      })
-    );
+    // forms.push(
+    //   new FormDropdown({
+    //     key: 'categoryUrl',
+    //     label: '健康分类跳转链接',
+    //     value: data && data.category_url || 0,
+    //     options: linkList,
+    //     disabled: !!disable,
+    //     required: true
+    //   })
+    // );
     forms.push(
       new FormDropdown({
         key: 'sequence',

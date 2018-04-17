@@ -140,63 +140,75 @@ export class ServiceComponent implements OnInit, OnDestroy {
   }
 
   createServiceCategoryFirst(parentId, parentName) {
-    if (this.healthLinks) {
-      this.formCategory = this.serviceService.setServiceCategoryFormFirst(parentId, parentName, this.healthLinks);
-    } else {
-      this.serviceService.getLinks().subscribe(links => {
-        this.healthLinks = links;
-        this.formCategory = this.serviceService.setServiceCategoryFormFirst(parentId, parentName, this.healthLinks);
-      });
-    }
+    this.formCategory = this.serviceService.setServiceCategoryFormFirst(parentId, parentName);
+    // if (this.healthLinks) {
+    //   this.formCategory = this.serviceService.setServiceCategoryFormFirst(parentId, parentName, this.healthLinks);
+    // } else {
+    //   this.serviceService.getLinks().subscribe(links => {
+    //     this.healthLinks = links;
+    //     this.formCategory = this.serviceService.setServiceCategoryFormFirst(parentId, parentName, this.healthLinks);
+    //   });
+    // }
   }
 
   createServiceCategory(parentId, parentName) {
-    if (this.healthLinks) {
-      this.formCategory = this.serviceService.setServiceCategoryForm(parentId, parentName, this.healthLinks);
-    } else {
-      this.serviceService.getLinks().subscribe(links => {
-        this.healthLinks = links;
-        this.formCategory = this.serviceService.setServiceCategoryForm(parentId, parentName, this.healthLinks);
-      });
-    }
+    this.formCategory = this.serviceService.setServiceCategoryForm(parentId, parentName);
+    // if (this.healthLinks) {
+    //   this.formCategory = this.serviceService.setServiceCategoryForm(parentId, parentName, this.healthLinks);
+    // } else {
+    //   this.serviceService.getLinks().subscribe(links => {
+    //     this.healthLinks = links;
+    //     this.formCategory = this.serviceService.setServiceCategoryForm(parentId, parentName, this.healthLinks);
+    //   });
+    // }
   }
 
   updateServiceCategoryFirst(treeData, disable?: boolean) {
-    if (this.healthLinks) {
-      this.getCategoryDetail(treeData.menuId, (data) => {
-        this.formCategory = this.serviceService.setServiceCategoryFormFirst(
-          treeData.parentId, treeData.parentName,
-          this.healthLinks, data, disable
-        );
-      });
-    } else {
-      this.getCategoryDetailLinks(treeData.menuId, (data) => {
-        this.healthLinks = data.links;
-        this.formCategory = this.serviceService.setServiceCategoryFormFirst(
-          treeData.parentId, treeData.parentName,
-          data.links, data.data, disable
-        );
-      });
-    }
+    this.getCategoryDetail(treeData.menuId, (data) => {
+      this.formCategory = this.serviceService.setServiceCategoryFormFirst(
+        treeData.parentId, treeData.parentName, data, disable
+      );
+    });
+    // if (this.healthLinks) {
+    //   this.getCategoryDetail(treeData.menuId, (data) => {
+    //     this.formCategory = this.serviceService.setServiceCategoryFormFirst(
+    //       treeData.parentId, treeData.parentName,
+    //       this.healthLinks, data, disable
+    //     );
+    //   });
+    // } else {
+    //   this.getCategoryDetailLinks(treeData.menuId, (data) => {
+    //     this.healthLinks = data.links;
+    //     this.formCategory = this.serviceService.setServiceCategoryFormFirst(
+    //       treeData.parentId, treeData.parentName,
+    //       data.links, data.data, disable
+    //     );
+    //   });
+    // }
   }
 
   updateServiceCategory(treeData, disable?: boolean) {
-    if (this.healthLinks) {
-      this.getCategoryDetail(treeData.menuId, (data) => {
-        this.formCategory = this.serviceService.setServiceCategoryForm(
-          treeData.parentId, treeData.parentName,
-          this.healthLinks, data, disable
-        );
-      });
-    } else {
-      this.getCategoryDetailLinks(treeData.menuId, (data) => {
-        this.healthLinks = data.links;
-        this.formCategory = this.serviceService.setServiceCategoryForm(
-          treeData.parentId, treeData.parentName,
-          data.links, data.data, disable
-        );
-      });
-    }
+    this.getCategoryDetail(treeData.menuId, (data) => {
+      this.formCategory = this.serviceService.setServiceCategoryForm(
+        treeData.parentId, treeData.parentName, data, disable
+      );
+    });
+    // if (this.healthLinks) {
+    //   this.getCategoryDetail(treeData.menuId, (data) => {
+    //     this.formCategory = this.serviceService.setServiceCategoryForm(
+    //       treeData.parentId, treeData.parentName,
+    //       this.healthLinks, data, disable
+    //     );
+    //   });
+    // } else {
+    //   this.getCategoryDetailLinks(treeData.menuId, (data) => {
+    //     this.healthLinks = data.links;
+    //     this.formCategory = this.serviceService.setServiceCategoryForm(
+    //       treeData.parentId, treeData.parentName,
+    //       data.links, data.data, disable
+    //     );
+    //   });
+    // }
   }
 
   createServiceItem(parentId, parentName) {
@@ -404,7 +416,7 @@ class ServiceCategoryFirstEntity {
   menuId?: string;
   parentId: string;
   categoryName: string;
-  categoryLink: string;
+  // categoryLink: string;
   sort: number;
   isHomeShow: number;
   homeImageUrl: string;
@@ -417,7 +429,7 @@ class ServiceCategoryFirstEntity {
     }
     this.parentId = obj.parentId;
     this.categoryName = obj.categoryName;
-    this.categoryLink = obj.categoryLink;
+    // this.categoryLink = obj.categoryLink;
     this.sort = obj.sort;
     this.isHomeShow = obj.isHomeShow;
     if (obj.isHomeShow == 0) {
@@ -433,7 +445,7 @@ class ServiceCategoryEntity {
   parentId: string;
   categoryName: string;
   imageUrl: string;
-  categoryLink: string;
+  // categoryLink: string;
   sort: number;
   homeImageUrl: string;
   homeCategoryLink: string;
@@ -447,7 +459,7 @@ class ServiceCategoryEntity {
     this.parentId = obj.parentId;
     this.categoryName = obj.categoryName;
     this.imageUrl = obj.imageUrl;
-    this.categoryLink = obj.categoryLink;
+    // this.categoryLink = obj.categoryLink;
     this.sort = obj.sort;
     this.homeImageUrl = obj.homeImageUrl;
     this.homeCategoryLink = obj.homeCategoryLink;
