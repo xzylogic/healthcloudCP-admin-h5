@@ -7,7 +7,16 @@
 .container {
   width: 100%;
   height: 100%;
-  overflow: auto;
+}
+
+.menu__container {
+  width: 100%;
+  height: calc(100vh - 280px);
+  overflow-y: scroll; 
+}
+
+.menu__list {
+  // overflow-y: scroll;
 }
 
 .tree__title {

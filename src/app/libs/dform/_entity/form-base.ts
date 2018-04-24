@@ -28,6 +28,8 @@ export class FormBase<T> {
   errMsg?: string; // 错误提示
   order?: number; // 排序
   pattern?: string;
+  isOptional?: boolean;
+  optional?: { key: any, value: any };
 
   constructor(options: FormBase<T>) {
     this.value = options.value;
@@ -38,6 +40,8 @@ export class FormBase<T> {
     this.validated = !!options.validated;
     this.disabled = !!options.disabled;
     this.readonly = !!options.readonly;
+    this.isOptional = !!options.isOptional;
+    this.optional = options.optional || {key: '', value: ''};
     this.placeholder = options.placeholder || '';
     this.controlType = options.controlType || FormType.text;
     this.errMsg = options.errMsg || '';

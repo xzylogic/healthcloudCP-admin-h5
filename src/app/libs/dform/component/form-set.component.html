@@ -1,4 +1,5 @@
-<div [formGroup]="form" #formSet>
+<div [formGroup]="form" #formSet
+     *ngIf="(!formdata.isOptional)||(formdata.isOptional&&form.controls[formdata.optional.key]&&(form.controls[formdata.optional.key]['value']==formdata.optional.value))">
   <div [ngSwitch]="formdata.controlType" class="lib-form-set">
     <div *ngSwitchCase="formControl.text" class="lib-form__content">
       <div class="lib-input">

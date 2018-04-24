@@ -1,0 +1,95 @@
+{
+  "code": 0,
+  "data": {
+    "menuId": "1",
+    "menuName": "服务管理",
+    "children": [
+      {
+        "menuId": "9e6867789ea14aa9ae33546e51cba44b",
+        "menuName": "预约服务",
+        "parentId": "1",
+        "type": "1",
+        "children": [
+          {
+            "menuId": "8f056190c58947e69039c83932943942",
+            "menuName": "母子建档预约",
+            "parentId": "9e6867789ea14aa9ae33546e51cba44b",
+            "type": "2",
+            "level": 2
+          },
+          {
+            "menuId": "4c83c34ddfe44e00a7931ed203662048",
+            "menuName": "叶酸领取预约",
+            "parentId": "9e6867789ea14aa9ae33546e51cba44b",
+            "type": "2",
+            "level": 2
+          }
+        ],
+        "level": 1
+      },
+      {
+        "menuId": "9e6867789ea14aa9ae33546e51cba441",
+        "menuName": "预约服务1",
+        "parentId": "1",
+        "type": "1",
+        "children": [
+          {
+            "menuId": "8f056190c58947e69039c83932943941",
+            "menuName": "母子建档预约1",
+            "parentId": "9e6867789ea14aa9ae33546e51cba441",
+            "type": "2",
+            "level": 2
+          },
+          {
+            "menuId": "4c83c34ddfe44e00a7931ed203662041",
+            "menuName": "叶酸领取预约1",
+            "parentId": "9e6867789ea14aa9ae33546e51cba441",
+            "type": "2",
+            "level": 2
+          }
+        ],
+        "level": 1
+      },
+      {
+        "menuId": "9e6867789ea14aa9ae33546e51cba442",
+        "menuName": "预约服务2",
+        "parentId": "1",
+        "type": "1",
+        "children": [
+          {
+            "menuId": "8f056190c58947e69039c83932943922",
+            "menuName": "母子建档预约2",
+            "parentId": "9e6867789ea14aa9ae33546e51cba442",
+            "type": "1",
+            "level": 2,
+            "children": [
+              {
+                "menuId": "8f056190c58947e63932943922",
+                "menuName": "母建档约2",
+                "parentId": "9e6867789ea14aa9ae33546e51cba442",
+                "type": "2",
+                "level": 3
+              },
+              {
+                "menuId": "4c83c34ddfe44e0ed203662042",
+                "menuName": "叶酸领取2",
+                "parentId": "9e6867789ea14aa9ae33546e51cba442",
+                "type": "2",
+                "level": 3
+              }
+            ]
+          },
+          {
+            "menuId": "4c83c34ddfe44e00a7931ed203662042",
+            "menuName": "叶酸领取预约2",
+            "parentId": "9e6867789ea14aa9ae33546e51cba442",
+            "type": "2",
+            "level": 2
+          }
+        ],
+        "level": 1
+      }
+    ],
+    "level": 0
+  }
+}

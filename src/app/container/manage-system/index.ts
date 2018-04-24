@@ -13,8 +13,17 @@ export const routes: Routes = [{
 }, {
   path: 'account/:menu',
   loadChildren: 'app/container/manage-system/account/account.module#AccountModule'
+}, {
+  path: 'health/:menu',
+  loadChildren: 'app/container/manage-system/health/health.module#HealthModule'
+}, {
+  path: 'service/:menu',
+  loadChildren: 'app/container/manage-system/service/service.module#ServiceModule'
+}, {
+  path: 'version/:menu',
+  loadChildren: 'app/container/manage-system/version/version.module#VersionModule'
 }];
 
 export const stores = {
-  // doctor: createReducer('doctor', [0, 0, 0], {}),
+  version: createReducer('version', [0, 0, 0], {}),
 };

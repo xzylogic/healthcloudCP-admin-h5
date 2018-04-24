@@ -1,0 +1,77 @@
+<app-container [config]="containerConfig">
+  <div class="content">
+    <div class="grid-container">
+      <div class="row grid">
+        <div class="col-3">
+          <div class="container clear">
+            <div class="tree__title">
+              <h3 class="p">服务管理列表</h3>
+              <button class="button" mat-icon-button color="primary" (click)="getServices()">
+                <mat-icon class="mat-24">autorenew</mat-icon>
+              </button>
+              <button class="button" mat-button color="primary" (click)="offData(serviceTree[0])">全部折叠</button>
+              <button class="button" mat-button color="primary" (click)="openData(serviceTree[0])">全部展开</button>
+            </div>
+            <div class="tree__container">
+              <div class="tree__des clear">
+                <span><mat-icon class="tree__icon item">lens</mat-icon>服务项目</span>
+                <span><mat-icon class="tree__icon category">lens</mat-icon>服务分类</span>
+              </div>
+              <app-dtree *ngIf="serviceTree" [trees]="serviceTree" [func]="treeType"
+                         (HandleUpdate)="handleUpdate($event)"
+              ></app-dtree>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="container" *ngIf="formCategory&&type==1">
+            <div class="tree__title clear">
+              <h3 class="p">新增服务分类</h3>
+            </div>
+            <div class="menu__form">
+              <app-form [formDatas]="formCategory" (formValues)="getCategoryValues($event)"></app-form>
+            </div>
+          </div>
+          <div class="container clear" *ngIf="formCategory&&formItem&&type==2">
+            <mat-tab-group dynamicHeight="true" style="padding-top: 6px">
+              <mat-tab label="新增服务分类">
+                <div class="menu__form tab">
+                  <app-form [formDatas]="formCategory" (formValues)="getCategoryValues($event)"></app-form>
+                </div>
+              </mat-tab>
+              <mat-tab label="新增服务项目">
+                <div class="menu__form tab">
+                  <app-form [formDatas]="formItem" (formValues)="getItemValues($event)"></app-form>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+          <div class="container" *ngIf="formCategory&&type==3">
+            <div class="tree__title clear">
+              <h3 class="p">{{permission?'编辑':'查看'}}服务分类</h3>
+            </div>
+            <div class="menu__form">
+              <app-form [formDatas]="formCategory" (formValues)="getCategoryValues($event)"></app-form>
+            </div>
+          </div>
+          <div class="container" *ngIf="formItem&&type==4">
+            <div class="tree__title clear">
+              <h3 class="p">添加服务项目</h3>
+            </div>
+            <div class="menu__form">
+              <app-form [formDatas]="formItem" (formValues)="getItemValues($event)"></app-form>
+            </div>
+          </div>
+          <div class="container" *ngIf="formItem&&type==5">
+            <div class="tree__title clear">
+              <h3 class="p">{{permission?'编辑':'查看'}}服务项目</h3>
+            </div>
+            <div class="menu__form">
+              <app-form [formDatas]="formItem" (formValues)="getItemValues($event)"></app-form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-container>
