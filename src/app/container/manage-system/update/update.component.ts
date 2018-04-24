@@ -104,7 +104,7 @@ class UpdateEntity {
 }
 
 class UpdateSaveEntity {
-  data: UpdateEntity;
+  data: string;
   del_flag: string;
   discrete: string;
   key_word: string;
@@ -112,13 +112,13 @@ class UpdateSaveEntity {
   remark: string;
 
   constructor(obj: UpdateEntity, type: string = 'IOS') {
-    this.data = <UpdateEntity>{
+    this.data = JSON.stringify(<UpdateEntity>{
       lastVersion: obj.lastVersion,
       downloadUrl: obj.downloadUrl || '',
       iosDownloadUrl: obj.iosDownloadUrl || '',
       updateMsg: obj.updateMsg,
       enforceUpdate: obj.force == 2 ? `${obj.enforceUpdateA},${obj.enforceUpdateB}` : ''
-    };
+    });
     this.del_flag = '0';
     this.discrete = '0';
     this.key_word = type == 'IOS' ? 'app.common.appUpdate.ios' : 'app.common.appUpdate';

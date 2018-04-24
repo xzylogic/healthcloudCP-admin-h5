@@ -7,7 +7,7 @@ import { FormText } from '../../../../libs/dform/_entity/form-text';
 import { FormTextarea } from '../../../../libs/dform/_entity/form-textarea';
 
 const PATH = {
-  saveShare: '/api/share/save'
+  saveShare: '/api/appConfig/saveAppConfig'
 };
 
 @Injectable()
@@ -38,10 +38,12 @@ export class ShareService {
     });
   }
 
-  saveShare(data, type) {
-    const saveData = data;
-    saveData.productType = type;
-    return this.http.post(`${this.app.api_url}${PATH.saveShare}`, saveData);
+  saveShare(data) {
+    this.http.setHeaders({
+      'main-area': 3101,
+      source: 1
+    });
+    return this.http.post(`${this.app.api_url}${PATH.saveShare}`, data);
   }
 
   setShareForm(data?, disable?: boolean): FormBase<any>[] {
