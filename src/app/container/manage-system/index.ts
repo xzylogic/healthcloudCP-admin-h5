@@ -22,8 +22,14 @@ export const routes: Routes = [{
 }, {
   path: 'version/:menu',
   loadChildren: 'app/container/manage-system/version/version.module#VersionModule'
+}, {
+  path: 'update/:menu',
+  loadChildren: 'app/container/manage-system/update/update.module#UpdateModule'
+}, {
+  path: 'share/:menu',
+  loadChildren: 'app/container/manage-system/share/share.module#ShareModule'
 }];
 
 export const stores = {
-  version: createReducer('version', [0, 0, 0], {}),
+  // version: createReducer('version', [0, 0, 0], {}),
 };
