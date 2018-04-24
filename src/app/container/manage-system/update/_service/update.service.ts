@@ -30,6 +30,10 @@ export class UpdateService {
   }
 
   getUpdate(type) {
+    this.http.setHeaders({
+      'main-area': 3101,
+      source: 1
+    });
     return this.http.get(`${this.app.api_url}${PATH.getUpdate}?keyWord=${type}`);
   }
 

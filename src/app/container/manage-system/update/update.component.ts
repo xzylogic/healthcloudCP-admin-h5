@@ -53,6 +53,14 @@ export class UpdateComponent implements OnInit, OnDestroy {
     Observable.forkJoin([getIOS, getAndroid]).subscribe(
       (res: Array<any>) => {
         console.log(res);
+        if (res[0].code == 0 && res[0].data && res[0].data.data) {
+          this.formIOS = new UpdateEntity(JSON.parse(res[0].data.data))
+          console.log(this.formIOS)
+        }
+        if (res[1].code == 0 && res[1].data && res[1].data.data) {
+          this.formAndroid = new UpdateEntity(JSON.parse(res[1].data.data))
+          console.log(this.formAndroid)
+        }
       }, err => {
         console.log(err);
         this.formIOS = new UpdateEntity();
@@ -89,7 +97,8 @@ class UpdateEntity {
   enforceUpdateA: string;
   enforceUpdateB: string;
   enforceUpdate: string;
-  force: number;
+  forceA: string;
+  forceB: string;
 
   constructor(obj?: UpdateEntity) {
     this.lastVersion = obj && obj.lastVersion || '';
@@ -97,7 +106,8 @@ class UpdateEntity {
     this.iosDownloadUrl = obj && obj.iosDownloadUrl || '';
     this.updateMsg = obj && obj.updateMsg || '';
     this.enforceUpdate = obj && obj.enforceUpdate || '';
-    this.force = obj && obj.enforceUpdate ? 2 : 1;
+    this.forceA = obj && obj.enforceUpdate ? '2' : '1';
+    this.forceB = obj && obj.enforceUpdate ? '2' : '1';
     this.enforceUpdateA = obj && obj.enforceUpdate ? obj.enforceUpdate.split(',')[0] : '';
     this.enforceUpdateB = obj && obj.enforceUpdate ? obj.enforceUpdate.split(',')[1] : '';
   }
@@ -117,7 +127,7 @@ class UpdateSaveEntity {
       downloadUrl: obj.downloadUrl || '',
       iosDownloadUrl: obj.iosDownloadUrl || '',
       updateMsg: obj.updateMsg,
-      enforceUpdate: obj.force == 2 ? `${obj.enforceUpdateA},${obj.enforceUpdateB}` : ''
+      enforceUpdate: obj.forceA == 2 ||  obj.forceB == 2 ? `${obj.enforceUpdateA},${obj.enforceUpdateB}` : ''
     });
     this.del_flag = '0';
     this.discrete = '0';
