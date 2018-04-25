@@ -23,7 +23,7 @@ export class UpdateService {
   setUpdateConfig() {
     return new ContainerConfig({
       title: '系统管理',
-      subTitle: '版本更新管理',
+      subTitle: '版本升级管理',
       ifHome: true,
       homeRouter: '/update'
     });

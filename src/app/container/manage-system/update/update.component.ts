@@ -19,7 +19,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
   permission = false;
   formIOS: any;
   formAndroid: any;
-
+  errMsg: any;
   hintDialog: any;
 
   constructor(
@@ -52,28 +52,67 @@ export class UpdateComponent implements OnInit, OnDestroy {
     const getAndroid = this.updateService.getUpdate('app.common.appUpdate');
     Observable.forkJoin([getIOS, getAndroid]).subscribe(
       (res: Array<any>) => {
-        console.log(res);
+        this.errMsg = '';
         if (res[0].code == 0 && res[0].data && res[0].data.data) {
-          this.formIOS = new UpdateEntity(JSON.parse(res[0].data.data));
+          this.formIOS = new UpdateEntity(JSON.parse(res[0].data.data), res[0].data.id);
+        } else {
+          this.formIOS = new UpdateEntity();
         }
         if (res[1].code == 0 && res[1].data && res[1].data.data) {
-          this.formAndroid = new UpdateEntity(JSON.parse(res[1].data.data));
+          this.formAndroid = new UpdateEntity(JSON.parse(res[1].data.data), res[1].data.id);
+        } else {
+          this.formAndroid = new UpdateEntity();
         }
       }, err => {
         console.log(err);
-        this.formIOS = new UpdateEntity();
-        this.formAndroid = new UpdateEntity();
+        this.errMsg = '网络出错，请重试！';
       });
+  }
+
+  getIOSValue() {
+    this.updateService.getUpdate('app.common.appUpdate.ios')
+      .subscribe(res => {
+        this.errMsg = '';
+        if (res.code == 0 && res.data && res.data.data) {
+          this.formIOS = new UpdateEntity(JSON.parse(res.data.data), res.data.id);
+        } else {
+          this.formIOS = new UpdateEntity();
+        }
+      }, err => {
+        console.log(err);
+        this.errMsg = '网络出错，请重试！';
+      });
+  }
+
+  getAndroidValue() {
+    this.updateService.getUpdate('app.common.appUpdate')
+      .subscribe(res => {
+        this.errMsg = '';
+        if (res.code == 0 && res.data && res.data.data) {
+          this.formAndroid = new UpdateEntity(JSON.parse(res.data.data), res.data.id);
+        } else {
+          this.formAndroid = new UpdateEntity();
+        }
+      }, err => {
+        console.log(err);
+        this.errMsg = '网络出错，请重试！';
+      });
+
   }
 
   getValues(data, type) {
     const saveData = new UpdateSaveEntity(data, type);
-    this.hintDialog = HintDialog('是否更新版本升级信息？', this.dialog).afterClosed()
+    this.hintDialog = HintDialog(`是否${data.id ? '更新' : '保存'}版本升级信息？`, this.dialog).afterClosed()
       .subscribe(result => {
         if (result && result.key == 'confirm') {
           this.updateService.saveUpdate(saveData).subscribe(res => {
             if (res.code == 0) {
               HintDialog(res.msg || '保存成功！', this.dialog);
+              if (type == 'IOS') {
+                this.getIOSValue();
+              } else if (type == 'Android') {
+                this.getAndroidValue();
+              }
             } else {
               HintDialog(res.msg || '保存失败！', this.dialog);
             }
@@ -87,6 +126,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
 }
 
 class UpdateEntity {
+  id: string;
   lastVersion: string;
   downloadUrl: string;
   iosDownloadUrl: string;
@@ -97,7 +137,8 @@ class UpdateEntity {
   forceA: string;
   forceB: string;
 
-  constructor(obj?: UpdateEntity) {
+  constructor(obj?: UpdateEntity, id?: string) {
+    this.id = id || '';
     this.lastVersion = obj && obj.lastVersion || '';
     this.downloadUrl = obj && obj.downloadUrl || '';
     this.iosDownloadUrl = obj && obj.iosDownloadUrl || '';
@@ -111,6 +152,7 @@ class UpdateEntity {
 }
 
 class UpdateSaveEntity {
+  id: string;
   data: string;
   del_flag: string;
   discrete: string;
@@ -119,6 +161,9 @@ class UpdateSaveEntity {
   remark: string;
 
   constructor(obj: UpdateEntity, type: string = 'IOS') {
+    if (obj.id) {
+      this.id = obj.id;
+    }
     this.data = JSON.stringify(<UpdateEntity>{
       lastVersion: obj.lastVersion,
       downloadUrl: obj.downloadUrl || '',
