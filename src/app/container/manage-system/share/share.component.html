@@ -1,5 +1,9 @@
 <app-container [config]="containerConfig">
   <div class="content">
-    <app-form [formDatas]="form" [button]="'提交'" [reset]="true" (formValues)="getValues($event)"></app-form>
+    <div *ngIf="!form&&errMsg" style="text-align: center;padding: 30px">
+      <span>{{errMsg}}</span>
+      <button mat-button type="button" color="primary" (click)="getInit()">刷新</button>
+    </div>
+    <app-form *ngIf="form" [formDatas]="form" button="{{id ? '更新' : '保存'}}" (formValues)="getValues($event)"></app-form>
   </div>
 </app-container>
