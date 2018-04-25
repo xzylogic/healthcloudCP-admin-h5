@@ -1,0 +1,72 @@
+{
+  "code": 0,
+  "msg": "查询成功",
+  "data": {
+    "more": false,
+    "content": [
+      {
+        "hospitalName": "上海交通大学医学院附属新华医院",
+        "outpatientType": 1,
+        "time": "2017-10-11",
+        "department": "急诊中心",
+        "diagnosis": "呼吸道感染"
+      },
+      {
+        "hospitalName": "上海交通大学医学院附属新华医院",
+        "outpatientType": 2,
+        "time": "2017-10-11",
+        "department": "急诊中心",
+        "diagnosis": "呼吸道感染"
+      },
+      {
+        "hospitalName": "上海交通大学医学院附属新华医院",
+        "outpatientType": 3,
+        "time": "2017-10-11",
+        "department": "急诊中心",
+        "diagnosis": "呼吸道感染"
+      },
+      {
+        "hospitalName": "上海交通大学医学院附属新华医院",
+        "outpatientType": 3,
+        "time": "2017-10-11",
+        "department": "急诊中心",
+        "diagnosis": "呼吸道感染"
+      },
+      {
+        "hospitalName": "上海交通大学医学院附属新华医院",
+        "outpatientType": 2,
+        "time": "2017-10-11",
+        "department": "急诊中心",
+        "diagnosis": "呼吸道感染"
+      },
+      {
+        "hospitalName": "上海交通大学医学院附属新华医院",
+        "outpatientType": 2,
+        "time": "2017-10-11",
+        "department": "急诊中心",
+        "diagnosis": "呼吸道感染"
+      },
+      {
+        "hospitalName": "上海交通大学医学院附属新华医院",
+        "outpatientType": 3,
+        "time": "2017-10-11",
+        "department": "急诊中心",
+        "diagnosis": "呼吸道感染"
+      },
+      {
+        "hospitalName": "上海交通大学医学院附属新华医院",
+        "outpatientType": 1,
+        "time": "2017-10-11",
+        "department": "急诊中心",
+        "diagnosis": "呼吸道感染"
+      },
+      {
+        "hospitalName": "上海交通大学医学院附属新华医院",
+        "outpatientType": 3,
+        "time": "2017-10-11",
+        "department": "急诊中心",
+        "diagnosis": "呼吸道感染"
+      }
+    ]
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "code": 0,
+  "msg": "查询成功",
+  "data": {
+    "more": false,
+    "content": [
+      {
+        "medicalHistoryType": 1,
+        "medicalHistoryName": "过敏史",
+        "value": [
+          "青霉素、黄霉素"
+        ]
+      },
+      {
+        "medicalHistoryType": 2,
+        "medicalHistoryName": "疾病史",
+        "value": [
+          "高血压  时间：2017/02/02 14:00",
+          "高血压  时间：2017/02/02 14:00",
+          "高血压  时间：2017/02/02 14:00"
+        ]
+      },
+      {
+        "medicalHistoryType": 3,
+        "medicalHistoryName": "手术史",
+        "value": [
+          "高血压  时间：2017/02/02 14:00"
+        ]
+      },
+      {
+        "medicalHistoryType": 4,
+        "medicalHistoryName": "外伤史",
+        "value": [
+          "高血压  时间：2017/02/02 14:00",
+          "高血压  时间：2017/02/02 14:00",
+          "高血压  时间：2017/02/02 14:00"
+        ]
+      },
+      {
+        "medicalHistoryType": 5,
+        "medicalHistoryName": "输血史",
+        "value": [
+          "高血压  时间：2017/02/02 14:00",
+          "高血压  时间：2017/02/02 14:00",
+          "高血压  时间：2017/02/02 14:00"
+        ]
+      },
+      {
+        "medicalHistoryType": 6,
+        "medicalHistoryName": "家族史",
+        "value": [
+          "高血压  时间：2017/02/02 14:00"
+        ]
+      }
+    ]
+  }
+}

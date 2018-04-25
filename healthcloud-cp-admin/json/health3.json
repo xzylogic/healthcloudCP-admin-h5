@@ -1,0 +1,48 @@
+{
+  "code": 0,
+  "msg": "查询成功",
+  "data": {
+    "more": false,
+    "content": [
+      {
+        "hospitalName": "上海交通大学医学院附属新华医院",
+        "department": "急诊中心",
+        "hospitalizationTime": "2017-05-31",
+        "leaveHospitalTime": "2017-05-31",
+        "diagnosis": "呼吸道感染",
+        "doctorEnjoin": "病人住院后主意饮食"
+      },
+      {
+        "hospitalName": "上海交通大学医学院附属新华医院",
+        "department": "急诊中心",
+        "hospitalizationTime": "2017-05-31",
+        "leaveHospitalTime": "2017-05-31",
+        "diagnosis": "呼吸道感染",
+        "doctorEnjoin": "病人住院后主意饮食"
+      },
+      {
+        "hospitalName": "上海交通大学医学院附属新华医院",
+        "department": "急诊中心",
+        "hospitalizationTime": "2017-05-31",
+        "leaveHospitalTime": "2017-05-31",
+        "diagnosis": "呼吸道感染",
+        "doctorEnjoin": "病人住院后主意饮食"
+      },
+      {
+        "hospitalName": "上海交通大学医学院附属新华医院",
+        "department": "急诊中心",
+        "hospitalizationTime": "2017-05-31",
+        "leaveHospitalTime": "2017-05-31",
+        "diagnosis": "呼吸道感染",
+        "doctorEnjoin": "病人住院后主意饮食"
+      },
+      {
+        "hospitalName": "上海交通大学医学院附属新华医院",
+        "department": "急诊中心",
+        "hospitalizationTime": "2015/11/11~2015-11-12",
+        "diagnosis": "呼吸道感染",
+        "doctorEnjoin": "病人住院后主意饮食"
+      }
+    ]
+  }
+}
