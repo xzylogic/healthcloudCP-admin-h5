@@ -29,8 +29,8 @@ export class ArticleClassifyService {
     return this.http.get(`${this.app.api_url}${PATH.getClassify}?id=${id}`);
   }
 
-  saveClassify(data) {
-    return this.http.post(`${this.app.api_url}${PATH.saveClassify}`, data);
+  saveClassify(data, menu) {
+    return this.http.post(`${this.app.api_url}${PATH.saveClassify}?menuId=${menu}`, data);
   }
 
   delClassify(id, flag, menu) {

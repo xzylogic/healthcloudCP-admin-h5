@@ -73,7 +73,7 @@ export class ArticleClassifyEditComponent implements OnInit, OnDestroy {
   }
 
   getValues(data) {
-    this.subscribeSave = this.classifyService.saveClassify(data)
+    this.subscribeSave = this.classifyService.saveClassify(data, this.paramsMenu)
       .subscribe(res => {
         if (res.code === 0) {
           this.subscribeDialog = HintDialog(ERRMSG.saveSuccess, this.dialog)
