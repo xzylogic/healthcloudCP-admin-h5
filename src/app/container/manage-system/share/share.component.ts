@@ -12,7 +12,7 @@ export class ShareComponent implements OnInit, OnDestroy {
   containerConfig: ContainerConfig;
   permission = false;
   form: any;
-  errMsg: string;
+  errMsg: any;
   id: string;
 
   hintDialog: any;
