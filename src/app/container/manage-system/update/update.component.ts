@@ -169,7 +169,7 @@ class UpdateSaveEntity {
       downloadUrl: obj.downloadUrl || '',
       iosDownloadUrl: obj.iosDownloadUrl || '',
       updateMsg: obj.updateMsg,
-      enforceUpdate: obj.forceA == 2 || obj.forceB == 2 ? `${obj.enforceUpdateA},${obj.enforceUpdateB}` : ''
+      enforceUpdate: obj.forceA == '2' || obj.forceB == '2' ? `${obj.enforceUpdateA},${obj.enforceUpdateB}` : ''
     });
     this.del_flag = '0';
     this.discrete = '0';
