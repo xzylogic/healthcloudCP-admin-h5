@@ -1,16 +1,11 @@
 import { Inject, Injectable } from '@angular/core';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
-import { catchError } from 'rxjs/operators';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
 import { FormBase } from '../../../../libs/dform/_entity/form-base';
-import { FormDate } from '../../../../libs/dform/_entity/form-date';
 import { FormDropdown } from '../../../../libs/dform/_entity/form-dropdown';
 import { FormFile } from '../../../../libs/dform/_entity/form-file';
 import { FormHidden } from '../../../../libs/dform/_entity/form-hidden';
 import { FormRadio } from '../../../../libs/dform/_entity/form-radio';
 import { FormText } from '../../../../libs/dform/_entity/form-text';
-import { FormTextarea } from '../../../../libs/dform/_entity/form-textarea';
-import { ControlType, TableTitle } from '../../../../libs/dtable/dtable.entity';
 
 const PATH = {
   getHealthTree: '/api/healthManage/queryList',
@@ -206,7 +201,7 @@ export class HealthService {
       new FormRadio({
         key: 'enable',
         label: '是否启用',
-        value: data && data.enable || 1,
+        value: data && (data.enable == 0 ? data.enable : data.enable || 1),
         options: [{
           id: 1,
           name: '是'
@@ -406,7 +401,7 @@ export class HealthService {
       new FormRadio({
         key: 'enable',
         label: '是否启用',
-        value: data && data.enable || 1,
+        value: data && (data.enable == 0 ? data.enable : data.enable || 1),
         options: [{
           id: 1,
           name: '是'
