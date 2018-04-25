@@ -81,8 +81,9 @@ export class ServiceComponent implements OnInit, OnDestroy {
   handleUpdate(sourceData) {
     // 新增服务分类（第一层）
     if (sourceData.type == DTreeEditType.toCreate && sourceData.tree.level == 0) {
-      this.type = 1;
+      this.type = 2;
       this.createServiceCategoryFirst(sourceData.tree.menuId, sourceData.tree.menuName);
+      this.createServiceItem(sourceData.tree.menuId, sourceData.tree.menuName);
     }
     // 新增服务分类和服务项目（第二层）
     if (sourceData.type == DTreeEditType.toCreate && sourceData.tree.level == 1) {

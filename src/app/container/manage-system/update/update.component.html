@@ -1,0 +1,132 @@
+<app-container [config]="containerConfig">
+  <div class="content">
+    <mat-tab-group>
+      <mat-tab label="IOS">
+        <div *ngIf="!formIOS&&errMsg" style="text-align: center;padding: 30px">
+          <span>{{errMsg}}</span>
+          <button mat-button type="button" color="primary" (click)="getIOSValue()">刷新</button>
+        </div>
+        <form #formA="ngForm" (ngSubmit)="getValues(formA.value, 'IOS')" *ngIf="formIOS">
+          <input type="hidden" name="id" [(ngModel)]="formIOS.id" [disabled]="!formIOS.id">
+          <div class="form-content">
+            <mat-form-field floatPlaceholder="always" style="width: 100%">
+              <input matInput placeholder="当前版本" name="lastVersion" [(ngModel)]="formIOS.lastVersion"
+                     [disabled]="!permission" [pattern]="'^[A-Za-z0-9.]+$'" required #lastVersionA="ngModel">
+              <mat-error *ngIf="lastVersionA.invalid && (lastVersionA.dirty || lastVersionA.touched)">
+                请填写正确的版本号（只允许输入字母、数字和小数点）
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-content" style="padding-bottom: 1.25em">
+            <p style="font-size:12px;color:rgba(0, 0, 0, 0.54);padding-bottom:10px">升级类型</p>
+            <mat-radio-group name="forceA" [(ngModel)]="formIOS.forceA"
+                             [disabled]="!permission" required>
+              <mat-radio-button [value]="'1'">普通升级</mat-radio-button>
+              <mat-radio-button [value]="'2'">强制升级</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div *ngIf="formIOS.forceA==2" class="form-content">
+            <mat-form-field floatPlaceholder="always" style="width: 150px">
+              <input matInput placeholder="强制升级版本区间" name="enforceUpdateA" [(ngModel)]="formIOS.enforceUpdateA"
+                     [disabled]="!permission" required #enforceUpdateAA="ngModel">
+            </mat-form-field>
+            <span style="padding: 0 15px">~</span>
+            <mat-form-field floatPlaceholder="always" style="width: 150px">
+              <input matInput placeholder="" name="enforceUpdateB" [(ngModel)]="formIOS.enforceUpdateB"
+                     [disabled]="!permission" required #enforceUpdateBA="ngModel">
+            </mat-form-field>
+            <mat-error style="margin: -15px 0 15px 0;font-size: 12px"
+                       *ngIf="(enforceUpdateAA.invalid&&(enforceUpdateAA.dirty||enforceUpdateAA.touched))||(enforceUpdateBA.invalid&&(enforceUpdateBA.dirty||enforceUpdateBA.touched))">
+              请填写正确的版本号（只允许输入字母、数字和小数点）
+            </mat-error>
+          </div>
+          <div class="form-content">
+            <mat-form-field floatPlaceholder="always" style="width: 100%">
+              <input matInput placeholder="IOS下载" name="iosDownloadUrl" [(ngModel)]="formIOS.iosDownloadUrl"
+                     [disabled]="!permission" required #iosDownloadUrl="ngModel">
+              <mat-error *ngIf="iosDownloadUrl.invalid && (iosDownloadUrl.dirty || iosDownloadUrl.touched)">
+                请填写正确的下载地址
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-content">
+            <mat-form-field floatPlaceholder="always" style="width: 100%">
+            <textarea matInput placeholder="升级描述" name="updateMsg" [(ngModel)]="formIOS.updateMsg"
+                      [disabled]="!permission" required #updateMsgA="ngModel"></textarea>
+              <mat-error *ngIf="updateMsgA.invalid && (updateMsgA.dirty || updateMsgA.touched)">
+                请填写升级描述
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <button mat-raised-button color="primary" type="submit"
+                  style="margin-top: 30px" [disabled]="!formA.valid">
+            {{formIOS.id ? '更新' : '保存'}}
+          </button>
+        </form>
+      </mat-tab>
+      <mat-tab label="Android">
+        <div *ngIf="!formIOS&&errMsg" style="text-align: center;padding: 30px">
+          <span>{{errMsg}}</span>
+          <button mat-button type="button" color="primary" (click)="getAndroidValue()">刷新</button>
+        </div>
+        <form #formB="ngForm" (ngSubmit)="getValues(formB.value, 'Android')" *ngIf="formAndroid">
+          <input type="hidden" name="id" [(ngModel)]="formAndroid.id" [disabled]="!formAndroid.id">
+          <div class="form-content">
+            <mat-form-field floatPlaceholder="always" style="width: 100%">
+              <input matInput placeholder="当前版本" name="lastVersion" [(ngModel)]="formAndroid.lastVersion"
+                     [disabled]="!permission" [pattern]="'^[A-Za-z0-9.]+$'" required #lastVersionB="ngModel">
+              <mat-error *ngIf="lastVersionB.invalid && (lastVersionB.dirty || lastVersionB.touched)">
+                请填写正确的版本号（只允许输入字母、数字和小数点）
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-content" style="padding-bottom: 1.25em">
+            <p style="font-size:12px;color:rgba(0, 0, 0, 0.54);padding-bottom:10px">升级类型</p>
+            <mat-radio-group name="forceB" [(ngModel)]="formAndroid.forceB"
+                             [disabled]="!permission" required>
+              <mat-radio-button [value]="'1'">普通升级</mat-radio-button>
+              <mat-radio-button [value]="'2'">强制升级</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div *ngIf="formAndroid.forceB==2" class="form-content">
+            <mat-form-field floatPlaceholder="always" style="width: 150px">
+              <input matInput placeholder="强制升级版本区间" name="enforceUpdateA" [(ngModel)]="formAndroid.enforceUpdateA"
+                     [disabled]="!permission" required #enforceUpdateAB="ngModel">
+            </mat-form-field>
+            <span style="padding: 0 15px">~</span>
+            <mat-form-field floatPlaceholder="always" style="width: 150px">
+              <input matInput placeholder="" name="enforceUpdateB" [(ngModel)]="formAndroid.enforceUpdateB"
+                     [disabled]="!permission" required #enforceUpdateBB="ngModel">
+            </mat-form-field>
+            <mat-error style="margin: -15px 0 15px 0;font-size: 12px"
+                       *ngIf="(enforceUpdateAB.invalid&&(enforceUpdateAB.dirty||enforceUpdateAB.touched))||(enforceUpdateBB.invalid&&(enforceUpdateBB.dirty||enforceUpdateBB.touched))">
+              请填写正确的版本号（只允许输入字母、数字和小数点）
+            </mat-error>
+          </div>
+          <div class="form-content">
+            <mat-form-field floatPlaceholder="always" style="width: 100%">
+              <input matInput placeholder="Android下载" name="downloadUrl" [(ngModel)]="formAndroid.downloadUrl"
+                     [disabled]="!permission" required #downloadUrl="ngModel">
+              <mat-error *ngIf="downloadUrl.invalid && (downloadUrl.dirty || downloadUrl.touched)">
+                请填写正确的下载地址
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-content">
+            <mat-form-field floatPlaceholder="always" style="width: 100%">
+            <textarea matInput placeholder="升级描述" name="updateMsg" [(ngModel)]="formAndroid.updateMsg"
+                      [disabled]="!permission" required #updateMsgB="ngModel"></textarea>
+              <mat-error *ngIf="updateMsgB.invalid && (updateMsgB.dirty || updateMsgB.touched)">
+                请填写升级描述
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <button mat-raised-button color="primary" type="submit"
+                  style="margin-top: 30px" [disabled]="!formB.valid">
+            {{formAndroid.id ? '更新' : '保存'}}
+          </button>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</app-container>
