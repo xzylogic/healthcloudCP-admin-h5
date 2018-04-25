@@ -49,17 +49,15 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   getInitialValue() {
     const getIOS = this.updateService.getUpdate('app.common.appUpdate.ios');
-    const getAndroid = this.updateService.getUpdate('app.common.appUpdate.ios');
+    const getAndroid = this.updateService.getUpdate('app.common.appUpdate');
     Observable.forkJoin([getIOS, getAndroid]).subscribe(
       (res: Array<any>) => {
         console.log(res);
         if (res[0].code == 0 && res[0].data && res[0].data.data) {
-          this.formIOS = new UpdateEntity(JSON.parse(res[0].data.data))
-          console.log(this.formIOS)
+          this.formIOS = new UpdateEntity(JSON.parse(res[0].data.data));
         }
         if (res[1].code == 0 && res[1].data && res[1].data.data) {
-          this.formAndroid = new UpdateEntity(JSON.parse(res[1].data.data))
-          console.log(this.formAndroid)
+          this.formAndroid = new UpdateEntity(JSON.parse(res[1].data.data));
         }
       }, err => {
         console.log(err);
@@ -70,7 +68,6 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   getValues(data, type) {
     const saveData = new UpdateSaveEntity(data, type);
-    console.log(saveData);
     this.hintDialog = HintDialog('是否更新版本升级信息？', this.dialog).afterClosed()
       .subscribe(result => {
         if (result && result.key == 'confirm') {
@@ -127,7 +124,7 @@ class UpdateSaveEntity {
       downloadUrl: obj.downloadUrl || '',
       iosDownloadUrl: obj.iosDownloadUrl || '',
       updateMsg: obj.updateMsg,
-      enforceUpdate: obj.forceA == 2 ||  obj.forceB == 2 ? `${obj.enforceUpdateA},${obj.enforceUpdateB}` : ''
+      enforceUpdate: obj.forceA == 2 || obj.forceB == 2 ? `${obj.enforceUpdateA},${obj.enforceUpdateB}` : ''
     });
     this.del_flag = '0';
     this.discrete = '0';
