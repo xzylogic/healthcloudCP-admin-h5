@@ -51,7 +51,7 @@ export class ShareComponent implements OnInit, OnDestroy {
   }
 
   getValues(data) {
-    this.hintDialog = HintDialog('是否保存版本信息？', this.dialog).afterClosed()
+    this.hintDialog = HintDialog('是否保存配置信息？', this.dialog).afterClosed()
       .subscribe(result => {
         if (result && result.key == 'confirm') {
           const saveData = new ShareSaveEntity(data, this.id);
