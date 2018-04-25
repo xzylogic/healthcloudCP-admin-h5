@@ -12,6 +12,7 @@ export class ShareComponent implements OnInit, OnDestroy {
   containerConfig: ContainerConfig;
   permission = false;
   form: any;
+  id: string;
 
   hintDialog: any;
 
@@ -32,6 +33,7 @@ export class ShareComponent implements OnInit, OnDestroy {
       }
       this.form = this.shareService.setShareForm(null, !this.permission);
     });
+    this.getInit();
   }
 
   ngOnDestroy() {
@@ -40,14 +42,23 @@ export class ShareComponent implements OnInit, OnDestroy {
     }
   }
 
+  getInit() {
+    this.shareService.getShare().subscribe(res => {
+      if (res.code == 0 && res.data && res.data.id && res.data.data) {
+        this.id = res.data.id;
+      }
+    });
+  }
+
   getValues(data) {
     this.hintDialog = HintDialog('是否保存版本信息？', this.dialog).afterClosed()
       .subscribe(result => {
         if (result && result.key == 'confirm') {
-          const saveData = new ShareSaveEntity(data);
+          const saveData = new ShareSaveEntity(data, this.id);
           this.shareService.saveShare(saveData).subscribe(res => {
             if (res.code == 0) {
               HintDialog(res.msg || '保存成功！', this.dialog);
+              this.getInit();
             } else {
               HintDialog(res.msg || '保存失败！', this.dialog);
             }
@@ -69,6 +80,7 @@ class ShareEntity {
 }
 
 class ShareSaveEntity {
+  id: string;
   data: string;
   del_flag: string;
   discrete: string;
@@ -76,7 +88,10 @@ class ShareSaveEntity {
   main_area: string;
   remark: string;
 
-  constructor(obj: ShareEntity) {
+  constructor(obj: ShareEntity, id?: string) {
+    if (id) {
+      this.id = id;
+    }
     this.data = JSON.stringify(<ShareEntity>{
       androidUrl: obj.androidUrl,
       iosUrl: obj.iosUrl,

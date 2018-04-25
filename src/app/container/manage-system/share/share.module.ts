@@ -17,7 +17,6 @@ const routes: Routes = [{
     LibModule,
     DTableModule,
     DFormModule,
-    MatTabsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

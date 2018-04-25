@@ -7,6 +7,7 @@ import { FormText } from '../../../../libs/dform/_entity/form-text';
 import { FormTextarea } from '../../../../libs/dform/_entity/form-textarea';
 
 const PATH = {
+  getShare: '/api/appConfig/findSingleAppConfigByKeyWord',
   saveShare: '/api/appConfig/saveAppConfig'
 };
 
@@ -28,22 +29,20 @@ export class ShareService {
     });
   }
 
-  setShareEditConfig(flag) {
-    return new ContainerConfig({
-      title: '系统管理',
-      subTitle: flag ? '编辑版本信息' : '新增版本信息',
-      ifHome: false,
-      homeRouter: '/share',
-      back: true
-    });
-  }
-
   saveShare(data) {
     this.http.setHeaders({
       'main-area': 3101,
       source: 1
     });
     return this.http.post(`${this.app.api_url}${PATH.saveShare}`, data);
+  }
+
+  getShare() {
+    this.http.setHeaders({
+      'main-area': 3101,
+      source: 1
+    });
+    return this.http.get(`${this.app.api_url}${PATH.getShare}?keyWord=app.common.shareUrl`);
   }
 
   setShareForm(data?, disable?: boolean): FormBase<any>[] {
