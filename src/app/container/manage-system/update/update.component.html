@@ -59,7 +59,7 @@
             </mat-form-field>
           </div>
           <button mat-raised-button color="primary" type="submit"
-                  style="margin-top: 30px" [disabled]="!formA.valid">
+                  style="margin-top: 30px" [disabled]="!formA.valid||!permission">
             {{formIOS.id ? '更新' : '保存'}}
           </button>
         </form>
@@ -122,7 +122,7 @@
             </mat-form-field>
           </div>
           <button mat-raised-button color="primary" type="submit"
-                  style="margin-top: 30px" [disabled]="!formB.valid">
+                  style="margin-top: 30px" [disabled]="!formB.valid||!permission">
             {{formAndroid.id ? '更新' : '保存'}}
           </button>
         </form>

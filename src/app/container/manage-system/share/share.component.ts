@@ -12,6 +12,7 @@ export class ShareComponent implements OnInit, OnDestroy {
   containerConfig: ContainerConfig;
   permission = false;
   form: any;
+  errMsg: string;
   id: string;
 
   hintDialog: any;
@@ -31,9 +32,8 @@ export class ShareComponent implements OnInit, OnDestroy {
       if (this.auth.getMenuPermission().indexOf(route.menu) > -1) {
         this.permission = true;
       }
-      this.form = this.shareService.setShareForm(null, !this.permission);
+      this.getInit();
     });
-    this.getInit();
   }
 
   ngOnDestroy() {
@@ -45,13 +45,20 @@ export class ShareComponent implements OnInit, OnDestroy {
   getInit() {
     this.shareService.getShare().subscribe(res => {
       if (res.code == 0 && res.data && res.data.id && res.data.data) {
+        this.errMsg = '';
         this.id = res.data.id;
+        this.form = this.shareService.setShareForm(JSON.parse(res.data.data), !this.permission);
+      } else {
+        this.form = this.shareService.setShareForm(null, !this.permission);
       }
+    }, err => {
+      console.log(err);
+      this.errMsg = '网络出错，请重试！';
     });
   }
 
   getValues(data) {
-    this.hintDialog = HintDialog('是否保存配置信息？', this.dialog).afterClosed()
+    this.hintDialog = HintDialog(`是否${this.id ? '更新' : '保存'}配置信息？`, this.dialog).afterClosed()
       .subscribe(result => {
         if (result && result.key == 'confirm') {
           const saveData = new ShareSaveEntity(data, this.id);
