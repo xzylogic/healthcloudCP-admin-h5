@@ -38,7 +38,7 @@ export class LibInputRadioComponent implements OnInit {
   ngOnInit() {
     if (this.data) {
       this.data.options.forEach(obj => {
-        if (obj.id === this.value) {
+        if (obj.id == this.value) {
           obj.checked = true;
         }
       });
