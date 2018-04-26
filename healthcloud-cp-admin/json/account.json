@@ -1,0 +1,119 @@
+{
+  "code": 0,
+  "data": {
+    "total_pages": 1,
+    "total_elements": 1,
+    "size": 10,
+    "number": 1,
+    "parameter": {
+      "username": "zhongshuqing"
+    },
+    "data": [
+      {
+        "user_id": "7c2d2c9edc0941ab8530e0716208b64a",
+        "loginname": "zhongshuqing",
+        "username": "zhongshuqing",
+        "password": null,
+        "locked": null,
+        "bind_uid": null,
+        "del_flag": "0",
+        "create_by": null,
+        "create_date": "2017-08-24 04:02:31",
+        "update_by": null,
+        "update_date": null,
+        "communityName": "昌平服务中心1机构",
+        "role_list": [
+          {
+            "role_id": "59d4057729a64ab3ab5becc2de2a4e5e",
+            "name": "上海管理员",
+            "checked": null
+          }
+        ]
+      },
+      {
+        "user_id": "7c2d2c9edc0941ab8530e0716208b64a",
+        "loginname": "zhongshuqing",
+        "username": "zhongshuqing",
+        "password": null,
+        "locked": null,
+        "bind_uid": null,
+        "del_flag": "0",
+        "create_by": null,
+        "create_date": "2017-08-24 04:02:31",
+        "update_by": null,
+        "update_date": null,
+        "communityName": "昌平服务中心1机构",
+        "role_list": [
+          {
+            "role_id": "59d4057729a64ab3ab5becc2de2a4e5e",
+            "name": "上海管理员",
+            "checked": null
+          }
+        ]
+      },
+      {
+        "user_id": "7c2d2c9edc0941ab8530e0716208b64a",
+        "loginname": "zhongshuqing",
+        "username": "zhongshuqing",
+        "password": null,
+        "locked": null,
+        "bind_uid": null,
+        "del_flag": "0",
+        "create_by": null,
+        "create_date": "2017-08-24 04:02:31",
+        "update_by": null,
+        "update_date": null,
+        "communityName": "昌平服务中心1机构",
+        "role_list": [
+          {
+            "role_id": "59d4057729a64ab3ab5becc2de2a4e5e",
+            "name": "上海管理员",
+            "checked": null
+          }
+        ]
+      },
+      {
+        "user_id": "7c2d2c9edc0941ab8530e0716208b64a",
+        "loginname": "zhongshuqing",
+        "username": "zhongshuqing",
+        "password": null,
+        "locked": null,
+        "bind_uid": null,
+        "del_flag": "0",
+        "create_by": null,
+        "create_date": "2017-08-24 04:02:31",
+        "update_by": null,
+        "update_date": null,
+        "communityName": "昌平服务中心1机构",
+        "role_list": [
+          {
+            "role_id": "59d4057729a64ab3ab5becc2de2a4e5e",
+            "name": "上海管理员",
+            "checked": null
+          }
+        ]
+      },
+      {
+        "user_id": "7c2d2c9edc0941ab8530e0716208b64a",
+        "loginname": "zhongshuqing",
+        "username": "zhongshuqing",
+        "password": null,
+        "locked": null,
+        "bind_uid": null,
+        "del_flag": "0",
+        "create_by": null,
+        "create_date": "2017-08-24 04:02:31",
+        "update_by": null,
+        "update_date": null,
+        "communityName": "昌平服务中心1机构",
+        "role_list": [
+          {
+            "role_id": "59d4057729a64ab3ab5becc2de2a4e5e",
+            "name": "上海管理员",
+            "checked": null
+          }
+        ]
+      }
+    ]
+  }
+}

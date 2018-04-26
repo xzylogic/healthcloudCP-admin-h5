@@ -1,0 +1,22 @@
+{
+  "code": 0,
+  "msg": "查询成功",
+  "data": {
+    "name": "XXX",
+    "sex": 1,
+    "headphoto": "http://www.baidu.com",
+    "birthday": "1991年2月2日",
+    "cardType": "身份证",
+    "card": "430703199104309639",
+    "nationality": "中国",
+    "nation": "汉族",
+    "phone": "28075636666",
+    "bloodType": "O型",
+    "mechanism": "上海交通大学医学院附属新华医院",
+    "permanentAddress": "上海市上海浦东新区华北路22号",
+    "presentAddress": "上海市上海浦东新区华北路22号",
+    "community": "社区",
+    "committee": "居委会",
+    "street": "街道"
+  }
+}

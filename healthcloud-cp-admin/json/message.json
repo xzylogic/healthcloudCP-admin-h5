@@ -1,0 +1,120 @@
+{
+  "code": 0,
+  "msg": "查询成功",
+  "data": {
+    "more": false,
+    "content": [
+      {
+        "id": "8a81725a5e04e61f015e04e753650001",
+        "notifier_uid": "1234",
+        "receiver_uid": "1235",
+        "type": 0,
+        "is_read": 1,
+        "jump_url": "http://www.baidu.com",
+        "title": "标题",
+        "content": "消息",
+        "del_flag": "0",
+        "create_time": 1503320823000
+      },
+      {
+        "id": "8a81725a5e04e61f015e04e753650002",
+        "notifier_uid": "1234",
+        "receiver_uid": "1235",
+        "type": 1,
+        "is_read": 1,
+        "jump_url": "http://www.baidu.com",
+        "title": "标题",
+        "content": "消息",
+        "del_flag": "0",
+        "create_time": 1503320823000
+      },
+      {
+        "id": "8a81725a5e04e61f015e04e753650003",
+        "notifier_uid": "1234",
+        "receiver_uid": "1235",
+        "type": 2,
+        "is_read": 0,
+        "jump_url": "http://www.baidu.com",
+        "title": "标题",
+        "content": "消息",
+        "del_flag": "0",
+        "create_time": 1503320823000
+      },
+      {
+        "id": "8a81725a5e04e61f015e04e7536500031",
+        "notifier_uid": "1234",
+        "receiver_uid": "1235",
+        "type": 2,
+        "is_read": 0,
+        "jump_url": "http://www.baidu.com",
+        "title": "标题",
+        "content": "消息",
+        "del_flag": "0",
+        "create_time": 1503320823000
+      },
+      {
+        "id": "8a81725a5e04e61f015e04e753650004",
+        "notifier_uid": "1234",
+        "receiver_uid": "1235",
+        "type": 3,
+        "is_read": 1,
+        "jump_url": "http://www.baidu.com",
+        "title": "标题",
+        "content": "消息",
+        "del_flag": "0",
+        "create_time": 1503320823000
+      },
+      {
+        "id": "8a81725a5e04e61f015e04e7536500042",
+        "notifier_uid": "1234",
+        "receiver_uid": "1235",
+        "type": 3,
+        "is_read": 1,
+        "jump_url": "http://www.baidu.com",
+        "title": "标题",
+        "content": "消息",
+        "del_flag": "0",
+        "create_time": 1503320823000
+      },
+      {
+        "id": "8a81725a5e04e61f015e04e753650005",
+        "notifier_uid": "1234",
+        "receiver_uid": "1235",
+        "type": 4,
+        "is_read": 0,
+        "jump_url": "http://www.baidu.com",
+        "title": "标题",
+        "content": "消息",
+        "del_flag": "0",
+        "create_time": 1503320823000
+      },
+      {
+        "id": "8a81725a5e04e61f015e04e753650006",
+        "notifier_uid": "1234",
+        "receiver_uid": "1235",
+        "type": 5,
+        "is_read": 0,
+        "jump_url": "http://www.baidu.com",
+        "title": "标题",
+        "content": "消息",
+        "del_flag": "0",
+        "create_time": 1503320823000
+      },
+      {
+        "id": "8a81725a5e04e61f015e04e753650007",
+        "notifier_uid": "1234",
+        "receiver_uid": "1235",
+        "type": 6,
+        "is_read": 0,
+        "jump_url": "http://www.baidu.com",
+        "title": "标题",
+        "content": "消息",
+        "del_flag": "0",
+        "create_time": 1503320823000
+      }
+    ],
+    "more_params": {
+      "flag": "2"
+    }
+  }
+}
