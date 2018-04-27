@@ -97,3 +97,16 @@
   margin: 0;
 }
 
+.article-content .my_video {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56%;
+  iframe,
+  embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
