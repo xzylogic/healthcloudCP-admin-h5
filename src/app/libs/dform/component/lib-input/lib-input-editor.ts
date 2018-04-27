@@ -44,8 +44,8 @@ export class LibInputEditorComponent implements OnInit, AfterViewInit, OnDestroy
     // 使用 base64 保存图片
     this.editor.customConfig.uploadImgShowBase64 = true;
     this.editor.customConfig.onchange = (html) => {
-      this.value = html;
-      this.valueChange.emit(html);
+      this.value = this.format(html);
+      this.valueChange.emit(this.value);
     };
     this.editor.create();
     this.editor.txt.html(this.value);
@@ -53,5 +53,10 @@ export class LibInputEditorComponent implements OnInit, AfterViewInit, OnDestroy
 
   ngOnDestroy() {
     this.editor = null;
+  }
+
+  format(html) {
+    const newHtml = html.replace(/((<iframe.*><\/iframe>)(?!(<\/section>)))|((<embed.*><\/embed>)(?!(<\/section>)))/gi, '<section class="my_video">$&</section>');
+    return newHtml;
   }
 }

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogConfig, MatDialogRef } from '@angular/material';
 
 @Component({
@@ -6,7 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogConfig, MatDialogRef } from '@angular/materia
   templateUrl: './article-detail.component.html',
   styleUrls: ['./article-detail.component.scss']
 })
-export class ArticleDetailComponent implements AfterViewInit {
+export class ArticleDetailComponent implements OnInit, AfterViewInit {
   option: any = {};
   @ViewChild('inner') inner: ElementRef;
 
@@ -19,8 +19,12 @@ export class ArticleDetailComponent implements AfterViewInit {
     this.option.content = this.data.content || '{{ 此处为文章内容 }}';
   }
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.inner.nativeElement.innerHTML = this.option.content;
+  }
+
+  ngAfterViewInit() {
+    // this.inner.nativeElement.innerHTML = this.option.content;
   }
 }
 
