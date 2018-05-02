@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { ContainerConfig } from '../../../../libs/common/container/container.component';
+import { FormRadio } from '../../../../libs/dform/_entity/form-radio';
 import { ControlType, TableTitle } from '../../../../libs/dtable/dtable.entity';
 import { FormBase } from '../../../../libs/dform/_entity/form-base';
 import { FormHidden } from '../../../../libs/dform/_entity/form-hidden';
@@ -210,13 +211,48 @@ export class ArticleService {
       })
     );
     forms.push(
+      new FormRadio({
+        key: 'contentType',
+        label: '文章类型',
+        value: data && data.contentType || '1',
+        options: [{
+          id: '1',
+          name: '内容'
+        }, {
+          id: '2',
+          name: '链接'
+        }],
+        order: 5
+      })
+    );
+    forms.push(
+      new FormText({
+        key: 'contentUrl',
+        label: '链接',
+        value: data && data.contentUrl || '',
+        required: false,
+        errMsg: '请填写文章链接',
+        isOptional: true,
+        optional: {
+          key: 'contentType',
+          value: '2'
+        },
+        order: 6
+      })
+    );
+    forms.push(
       new FormEditor({
         key: 'content',
         label: '内容',
         value: data && data.content || '',
-        required: true,
+        required: false,
         errMsg: '请填写文章内容',
-        order: 5
+        isOptional: true,
+        optional: {
+          key: 'contentType',
+          value: '1'
+        },
+        order: 6
       })
     );
     forms.push(
@@ -226,7 +262,7 @@ export class ArticleService {
         value: data && data.keyword || '',
         required: true,
         errMsg: '请填写关键字',
-        order: 6
+        order: 7
       })
     );
     forms.push(
@@ -236,7 +272,7 @@ export class ArticleService {
         value: data && data.author || '',
         required: true,
         errMsg: '请填写文章作者',
-        order: 7
+        order: 8
       })
     );
     forms.push(
@@ -247,7 +283,7 @@ export class ArticleService {
         required: true,
         options: classifyList,
         errMsg: '请选择资讯分类',
-        order: 8
+        order: 9
       })
     );
     forms.push(
@@ -258,7 +294,7 @@ export class ArticleService {
         required: true,
         errMsg: '请填写正确的预设阅读量（非负整数）',
         pattern: `^[0-9]*$`,
-        order: 9
+        order: 10
       })
     );
     return forms.sort((a, b) => a.order - b.order);
