@@ -14,6 +14,7 @@ const PATH = {
   getArticle: '/api/article/info', // 获取文章详情
   saveArticle: '/api/article/saveOrUpdate', // 新增/编辑文章详情
   getClassifies: '/api/article/categoryList', // 获取文章分类列表（不分页）
+  getUrlContent: '/api/article/getHtmlByUrl'
 };
 
 @Injectable()
@@ -30,6 +31,10 @@ export class ArticleService {
    */
   getClassifies() {
     return this.http.get(`${this.app.api_url}${PATH.getClassifies}?isVisable=0`);
+  }
+
+  getUrlContent(url) {
+    return this.http.get(`${this.app.api_url}${PATH.getUrlContent}?url=${url}`);
   }
 
   /**

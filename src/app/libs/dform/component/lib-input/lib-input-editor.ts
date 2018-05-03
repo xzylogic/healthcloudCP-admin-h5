@@ -56,8 +56,7 @@ export class LibInputEditorComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   format(html) {
-    const newHtml = html.replace(/((<iframe.*><\/iframe>)|(<embed.*>))?!(<\/section>)/gi, '<section class="my_video">$&</section>');
-    // console.log(newHtml);
+    const newHtml = html.replace(/((<iframe.*\/iframe>)|(<embed.*>))(?!(<\/section>))/gi, '<section class="my_video">$&</section>');
     return newHtml;
   }
 }
