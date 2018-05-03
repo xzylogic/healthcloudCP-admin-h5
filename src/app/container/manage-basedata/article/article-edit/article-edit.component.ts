@@ -104,19 +104,25 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
    * @param data
    */
   getValues(data) {
-    this.subscribeSave = this.articleService.saveArticle(data, this.paramsMenu)
-      .subscribe(res => {
-        if (res.code === 0) {
-          this.subscribeDialog = HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {
-            this.router.navigate(['article', this.paramsMenu]);
-          });
-        } else {
-          HintDialog(res.msg || ERRMSG.saveError, this.dialog);
-        }
-      }, err => {
-        console.log(err);
-        HintDialog(ERRMSG.saveError, this.dialog);
-      });
+    if (data.contentType == 1 && !data.content) {
+      HintDialog('请填写文章内容', this.dialog);
+    } else if (data.contentType == 2 && !data.contentUrl) {
+      HintDialog('请填写文章链接', this.dialog);
+    } else {
+      this.subscribeSave = this.articleService.saveArticle(data, this.paramsMenu)
+        .subscribe(res => {
+          if (res.code === 0) {
+            this.subscribeDialog = HintDialog(ERRMSG.saveSuccess, this.dialog).afterClosed().subscribe(() => {
+              this.router.navigate(['article', this.paramsMenu]);
+            });
+          } else {
+            HintDialog(res.msg || ERRMSG.saveError, this.dialog);
+          }
+        }, err => {
+          console.log(err);
+          HintDialog(ERRMSG.saveError, this.dialog);
+        });
+    }
   }
 
   /**
