@@ -1,5 +1,15 @@
-<div mat-dialog-content>
-  <h1 class="article-title">{{option.title}}</h1>
-  <p class="article-date">{{option.time | datex: 'YYYY-MM-DD HH:mm'}}</p>
-  <p class="article-content" #inner></p>
+<div class="dialog__content">
+  <div *ngIf="option.type=='1'||!option.url">
+    <h1 class="article-title">{{option.title}}</h1>
+    <p class="article-date">{{option.time | datex: "YYYY-MM-DD HH:mm"}}</p>
+    <p class="article-content" #inner></p>
+  </div>
+  <div *ngIf="option.type=='2'&&option.url&&option.data&&!errMsg" class="iframe__content">
+    <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(option.data)"></iframe>
+  </div>
+  <div *ngIf="errMsg">
+    <h1 class="article-title">{{option.title}}</h1>
+    <p class="article-date">{{option.time | datex: "YYYY-MM-DD HH:mm"}}</p>
+    <p class="article-content">{{errMsg}}</p>
+  </div>
 </div>

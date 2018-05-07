@@ -1,4 +1,5 @@
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, Response, ResponseContentType } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
@@ -75,6 +76,17 @@ export class HttpService {
       .map(HttpService.checkForError)
       .catch(err => Observable.throw(err))
       .map(HttpService.getJson);
+  }
+
+  /**
+   * HTTP GET METHOD
+   * @param  {string}     path
+   * @return {Observable}
+   */
+  getHTML(path: string): Observable<any> {
+    return this.http.get(this.setTimestamps(path), {headers: this.headers, withCredentials: true, responseType: ResponseContentType.Text})
+      .map(HttpService.checkForError)
+      .catch(err => Observable.throw(err));
   }
 
   /**

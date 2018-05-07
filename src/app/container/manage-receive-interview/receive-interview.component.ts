@@ -177,7 +177,7 @@ export class ReceiveInterviewComponent implements OnInit, OnDestroy {
               siteId: this.siteId,
               page: this.interviewTable.currentPage
             });
-            this.router.navigate(['health-file', res.value.personcard]);
+            this.router.navigate(['health-file', data.value.personcard]);
           } else {
             HintDialog('该用户无健康档案信息！', this.dialog);
           }
