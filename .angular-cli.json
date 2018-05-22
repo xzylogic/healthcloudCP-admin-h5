@@ -9,7 +9,6 @@
       "outDir": "healthcloud-cp-admin",
       "assets": [
         "assets",
-        "json",
         "favicon.ico"
       ],
       "index": "index.html",

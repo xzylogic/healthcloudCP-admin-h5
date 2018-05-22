@@ -56,7 +56,7 @@ export class PlanService {
 
   setPlanConfig() {
     return new ContainerConfig({
-      title: '计划免疫预约',
+      title: '预防接种预约',
       subTitle: '排号及号源维护',
       ifHome: true,
       homeRouter: '/planned-immunity/plan'
