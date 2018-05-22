@@ -57,7 +57,7 @@ export class AppointmentService {
 
   setAppointmentConfig() {
     return new ContainerConfig({
-      title: '计划免疫预约',
+      title: '预防接种预约',
       subTitle: '预约信息查询',
       ifHome: true,
       homeRouter: '/planned-immunity/appointment'
@@ -66,7 +66,7 @@ export class AppointmentService {
 
   setAppointmentDetailConfig(route) {
     return new ContainerConfig({
-      title: '计划免疫预约',
+      title: '预防接种预约',
       subTitle: '预约详情',
       ifHome: false,
       homeRouter: ['/planned-immunity', 'appointment', route],
