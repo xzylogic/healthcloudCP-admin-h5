@@ -47,19 +47,19 @@ export class AppointmentDetailComponent implements OnInit {
   }
 
   saveStatus() {
-    let msg = `是否设置${this.data && this.data.childDto && this.data.childDto.name || ''}`;
+    let msg = `是否设置用户${this.data && this.data.childDto && this.data.childDto.name || ''}`;
     let reason = '';
     if (this.status == '1') {
-      msg += '正常接种？';
+      msg += '正常体检？';
       this.reason = '';
       this.reasonRadio = '';
     }
     if (this.status == '3') {
-      msg += '接种取消？';
+      msg += '体检取消？';
       reason = `取消原因：${this.reasonRadio == '0' ? this.reason : this.reasonRadio}`;
     }
     if (this.status == '4') {
-      msg += '接种爽约？';
+      msg += '体检爽约？';
       this.reason = '';
       this.reasonRadio = '';
     }

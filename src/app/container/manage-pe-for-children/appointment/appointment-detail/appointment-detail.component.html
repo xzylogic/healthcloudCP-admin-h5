@@ -56,10 +56,10 @@
           <div class="col-6">
             <p class="detail-content">订单状态：
               <span *ngIf="data?.status==0">预约中</span>
-              <span *ngIf="data?.status==1">正常接种</span>
+              <span *ngIf="data?.status==1">正常体检</span>
               <span *ngIf="data?.status==2">用户取消</span>
-              <span *ngIf="data?.status==3">接种取消</span>
-              <span *ngIf="data?.status==4">接种爽约</span>
+              <span *ngIf="data?.status==3">体检取消</span>
+              <span *ngIf="data?.status==4">体检爽约</span>
             </p>
           </div>
         </div>
@@ -71,9 +71,9 @@
         <div class="input-content">
           <mat-radio-group [(ngModel)]="status" name="status" [disabled]="data?.status!==0||data.operation==0">
             <mat-radio-button value="2" *ngIf="data?.status!==0||data.operation==0">用户取消</mat-radio-button>
-            <mat-radio-button value="1">正常接种</mat-radio-button>
-            <mat-radio-button value="3">接种取消</mat-radio-button>
-            <mat-radio-button value="4">接种爽约</mat-radio-button>
+            <mat-radio-button value="1">正常体检</mat-radio-button>
+            <mat-radio-button value="3">体检取消</mat-radio-button>
+            <mat-radio-button value="4">体检爽约</mat-radio-button>
           </mat-radio-group>
         </div>
         <div class="input-dialog" *ngIf="data.status==0&&data.operation==1&&status=='3'">
