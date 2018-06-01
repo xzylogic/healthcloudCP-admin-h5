@@ -27,6 +27,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   @select(['pe-for-children', 'data']) data: Observable<any>;
   telephone = '';
   date: Date;
+  birthDate: Date;
   name = '';
   number = '';
   status = '';
@@ -84,6 +85,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
       if (res.data) {
         this.telephone = res.data.telephone;
         this.date = res.data.date;
+        this.birthDate = res.data.birthDate;
         this.name = res.data.name;
         this.number = res.data.number;
         this.status = res.data.status;
@@ -114,6 +116,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   reset() {
     this.telephone = '';
     this.date = null;
+    this.birthDate = null;
     this.name = '';
     this.number = '';
     this.status = '';
@@ -134,6 +137,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     this.action.dataChange('pe-for-children', {
       telephone: this.telephone,
       date: this.date,
+      birthDate: this.birthDate,
       name: this.name,
       number: this.number,
       status: this.status,
@@ -144,6 +148,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     this.subscribeList = this.appointmentService.getData(
       page, this.number, this.status, this.name,
       this.date && moment(new Date(this.date)).format('YYYY-MM-DD') || '',
+      this.birthDate && moment(new Date(this.birthDate)).format('YYYY-MM-DD') || '',
       this.telephone, this.siteId || this.centerId
     )
       .subscribe(res => {

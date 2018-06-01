@@ -91,6 +91,9 @@ export class AppointmentDetailComponent implements OnInit {
         } else {
           HintDialog(res.msg || '操作失败～', this.dialog);
         }
+        setTimeout(() => {
+          this.dialog.closeAll();
+        }, 3000);
       }, err => {
         console.log(err);
         HintDialog(ERRMSG.netErrMsg, this.dialog);

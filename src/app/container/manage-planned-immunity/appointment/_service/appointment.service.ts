@@ -19,7 +19,7 @@ export class AppointmentService {
   ) {
   }
 
-  getData(page, planImmunizationNum?, status?, name?, reservationDate?, telephone?, organizationId?) {
+  getData(page, planImmunizationNum?, status?, name?, reservationDate?, birthDate?, telephone?, organizationId?) {
     let query = `?flag=${page + 1}`;
     if (planImmunizationNum) {
       query += `&planImmunizationNum=${planImmunizationNum}`;
@@ -32,6 +32,9 @@ export class AppointmentService {
     }
     if (reservationDate) {
       query += `&reservationDate=${reservationDate}`;
+    }
+    if (birthDate) {
+      query += `&birthDate=${birthDate}`;
     }
     if (telephone) {
       query += `&telephone=${telephone}`;
