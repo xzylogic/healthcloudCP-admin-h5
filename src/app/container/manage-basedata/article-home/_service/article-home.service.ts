@@ -5,6 +5,7 @@ import { FormBase } from '../../../../libs/dform/_entity/form-base';
 import { FormRadio } from '../../../../libs/dform/_entity/form-radio';
 import { FormText } from '../../../../libs/dform/_entity/form-text';
 import { FormDatetime } from '../../../../libs/dform/_entity/form-datetime';
+import { FormHidden } from '../../../../libs/dform/_entity/form-hidden';
 
 const PATH = {
   getArticleTitle: '/api/article/queryArticleByTitleName',
@@ -94,15 +95,15 @@ export class ArticleHomeService {
         key: 'endTime',
         name: '结束时间段',
       }),
-      new TableTitle({
-        key: 'isRecommend',
-        name: '是否推荐',
-        controlType: ControlType.pipe,
-        option: {
-          key: [1, 0],
-          value: ['推荐', '不推荐']
-        }
-      }),
+      // new TableTitle({
+      //   key: 'isRecommend',
+      //   name: '是否推荐',
+      //   controlType: ControlType.pipe,
+      //   option: {
+      //     key: [1, 0],
+      //     value: ['推荐', '不推荐']
+      //   }
+      // }),
       new TableTitle({
         key: 'status',
         name: '时间状态',
@@ -173,21 +174,21 @@ export class ArticleHomeService {
         options: 'range'
       })
     );
-    forms.push(
-      new FormRadio({
-        key: 'isRecommend',
-        label: '是否推荐',
-        value: data && (data.isRecommend == 0 ? data.isRecommend : data.isRecommend || ''),
-        required: true,
-        options: [{
-          id: 1,
-          name: '是'
-        }, {
-          id: 0,
-          name: '否'
-        }]
-      })
-    );
+    // forms.push(
+    //   new FormRadio({
+    //     key: 'isRecommend',
+    //     label: '是否推荐',
+    //     value: data && (data.isRecommend == 0 ? data.isRecommend : data.isRecommend || ''),
+    //     required: true,
+    //     options: [{
+    //       id: 1,
+    //       name: '是'
+    //     }, {
+    //       id: 0,
+    //       name: '否'
+    //     }]
+    //   })
+    // );
     forms.push(
       new FormText({
         key: 'rank',

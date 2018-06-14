@@ -204,17 +204,17 @@ export class ArticleService {
         order: 3
       })
     );
-    forms.push(
-      new FormFile({
-        key: 'recommImageUrl',
-        label: '推荐图片(请上传不大于150KB的JPG或者PNG图片，建议比例1：3)',
-        value: data && data.recommImageUrl || '',
-        required: false,
-        errMsg: '',
-        size: 150,
-        order: 4
-      })
-    );
+    // forms.push(
+    //   new FormFile({
+    //     key: 'recommImageUrl',
+    //     label: '推荐图片(请上传不大于150KB的JPG或者PNG图片，建议比例1：3)',
+    //     value: data && data.recommImageUrl || '',
+    //     required: false,
+    //     errMsg: '',
+    //     size: 150,
+    //     order: 4
+    //   })
+    // );
     forms.push(
       new FormRadio({
         key: 'contentType',
