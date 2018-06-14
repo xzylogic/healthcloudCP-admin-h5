@@ -126,7 +126,7 @@ export class ArticleHomeEditComponent implements OnInit, OnDestroy {
     const formData: any = {};
     formData.articleId = data.articleId;
     formData.rank = data.rank;
-    formData.isRecommend = data.isRecommend;
+    formData.isRecommend = 0;
     formData.isVisable = 0;
     formData.startTime = data.range.split(' - ')[0];
     formData.endTime = data.range.split(' - ')[1];

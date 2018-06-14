@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ContainerConfig } from '../../libs/common/container/container.component';
 import { HintDialog } from '../../libs/dmodal/dialog.component';
 import { MatDialog } from '@angular/material';
@@ -22,11 +22,13 @@ export class PlanCommonComponent implements OnInit, OnDestroy {
   flag = true;
   operation: any;
   orgName: any;
+  navigateLink: any;
 
   constructor(
     @Inject('plancommon') private planCommonService,
     private dialog: MatDialog,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
   }
 
@@ -40,18 +42,22 @@ export class PlanCommonComponent implements OnInit, OnDestroy {
         if (route.type === 'jm') {
           title = '预防接种预约';
           router = ['/planned-immunity/plan', route.menu];
+          this.navigateLink = router;
         }
         if (route.type === 'jd') {
           title = '母子建档预约';
           router = ['/mac-database/plan', route.menu];
+          this.navigateLink = router;
         }
         if (route.type === 'tj') {
           title = '儿童体检预约';
           router = ['/pe-for-children/plan', route.menu];
+          this.navigateLink = router;
         }
         if (route.type === 'ys') {
           title = '叶酸领取预约';
           router = ['/receive-folic-acid/plan', route.menu];
+          this.navigateLink = router;
         }
         this.containerConfig = this.planCommonService.setPlanConfig(title, router, this.date);
         this.getDefault();
@@ -103,7 +109,9 @@ export class PlanCommonComponent implements OnInit, OnDestroy {
     this.planCommonService.saveDefault(postData)
       .subscribe(res => {
         if (res.code === 0) {
-          HintDialog('保存成功', this.dialog);
+          HintDialog('保存成功', this.dialog).afterClosed().subscribe(() => {
+            this.router.navigate(this.navigateLink, {queryParams: {tab: 2, date: this.date, flag: true}});
+          });
           this.getDefault();
         } else {
           HintDialog(res.msg || '保存失败', this.dialog);

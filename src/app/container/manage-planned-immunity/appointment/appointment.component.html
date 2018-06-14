@@ -1,10 +1,15 @@
 <app-container [config]="containerConfig">
   <div class="content">
     <form style="padding: 0 16px 16px" class="clear">
-      <mat-form-field floatPlaceholder="always" style="float: left;width: 42%;padding-right: 1em">
+      <mat-form-field floatPlaceholder="always" style="float: left;width: 28%;padding-right: 1em">
         <input matInput placeholder="宝宝姓名" name="name" [(ngModel)]="name">
       </mat-form-field>
-      <mat-form-field floatPlaceholder="always" style="float: left;width: 42%;margin-right: 1em">
+      <mat-form-field floatPlaceholder="always" style="float: left;width: 28%;padding-right: 1em">
+        <input matInput [matDatepicker]="pickerBirth" placeholder="宝宝生日" name="birthDate" [(ngModel)]="birthDate">
+        <mat-datepicker-toggle matSuffix [for]="pickerBirth"></mat-datepicker-toggle>
+        <mat-datepicker #pickerBirth></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field floatPlaceholder="always" style="float: left;width: 28%;margin-right: 1em">
         <input matInput placeholder="家长手机号" name="telephone" [(ngModel)]="telephone">
       </mat-form-field>
       <mat-form-field floatPlaceholder="always" style="float: left;width: 28%;padding-right: 1em">
