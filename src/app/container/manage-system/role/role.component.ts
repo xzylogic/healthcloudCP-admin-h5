@@ -100,7 +100,18 @@ export class RoleComponent implements OnInit, OnDestroy {
         this.dialog
       ).afterClosed().subscribe(result => {
         if (result && result.key === 'confirm') {
-          this.enableMenu(res.value.roleId, res.value.delFlag);
+          const delflag = res.value.delFlag == 0 ? 1 : 0;
+          this.enableMenu(res.value.roleId, delflag);
+        }
+      });
+    }
+    if (res.key === 'del' && res.value) {
+      this.subscribeHDialog = HintDialog(
+        `你确定要删除角色：${res.value.name}？`,
+        this.dialog
+      ).afterClosed().subscribe(result => {
+        if (result && result.key === 'confirm') {
+          this.enableMenu(res.value.roleId, -1);
         }
       });
     }
@@ -111,7 +122,7 @@ export class RoleComponent implements OnInit, OnDestroy {
   }
 
   enableMenu(id, flag) {
-    this.subscribeDel = this.roleService.enableRole(id, flag == 0 ? 1 : 0, this.paramsMenu)
+    this.subscribeDel = this.roleService.enableRole(id, flag, this.paramsMenu)
       .subscribe(res => {
         if (res.code === 0) {
           HintDialog(res.msg || '操作成功！', this.dialog);
@@ -124,4 +135,5 @@ export class RoleComponent implements OnInit, OnDestroy {
         HintDialog(ERRMSG.netErrMsg, this.dialog);
       });
   }
+
 }
