@@ -101,6 +101,9 @@ export class RoleService {
           }, {
             key: 'delFlag',
             name: ''
+          }, {
+            key: 'del',
+            name: '删除'
           }]
         }));
     }
