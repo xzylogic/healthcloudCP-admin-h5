@@ -1,7 +1,9 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
 import { ContainerConfig } from '../../../libs/common/container/container.component';
 import { TableOption } from '../../../libs/dtable/dtable.entity';
+import { HintDialog } from '../../../libs/dmodal/dialog.component';
 import { ERRMSG } from '../../_store/static';
 
 @Component({
@@ -14,6 +16,8 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   subscribeParams: any;
   subscribeData: any;
+  subscribeHDialog: any;
+  subscribeDelete: any;
 
   containerConfig: ContainerConfig;
   accountTable: TableOption;
@@ -32,6 +36,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     @Inject('auth') private auth,
     @Inject('account') private accountService,
     private router: Router,
+    private dialog: MatDialog,
     private route: ActivatedRoute
   ) {
   }
@@ -60,6 +65,12 @@ export class AccountComponent implements OnInit, OnDestroy {
     }
     if (this.subscribeData) {
       this.subscribeData.unsubscribe();
+    }
+    if (this.subscribeHDialog) {
+      this.subscribeHDialog.unsubscribe();
+    }
+    if (this.subscribeDelete) {
+      this.subscribeDelete.unsubscribe();
     }
   }
 
@@ -105,10 +116,35 @@ export class AccountComponent implements OnInit, OnDestroy {
     if (res.key === 'edit' && res.value.userId) {
       this.router.navigate(['/account', this.paramsMenu, 'edit'], {queryParams: {id: res.value.userId}});
     }
+    if (res.key === 'del' && res.value.userId) {
+      this.subscribeHDialog = HintDialog(
+        `你确定要删除账号：${res.value.username}？`,
+        this.dialog
+      ).afterClosed().subscribe(result => {
+        if (result && result.key === 'confirm') {
+          this.deleteAccount(res.value.userId);
+        }
+      });
+    }
   }
 
   newData() {
     this.router.navigate(['/account', this.paramsMenu, 'edit']);
+  }
+
+  deleteAccount(userId) {
+    this.subscribeDelete = this.accountService.deleteAccount(userId)
+      .subscribe(res => {
+        if (res.code === 0) {
+          HintDialog(res.msg || '操作成功！', this.dialog);
+          this.reset();
+        } else {
+          HintDialog(res.msg || '操作失败～', this.dialog);
+        }
+      }, err => {
+        console.log(err);
+        HintDialog(ERRMSG.netErrMsg, this.dialog);
+      });
   }
 
   formatData(data) {
