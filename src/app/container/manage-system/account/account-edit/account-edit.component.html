@@ -22,11 +22,11 @@
         <p class="input-span">所属机构</p>
         <div *ngIf="menuList">
           <div class="clear tree__p">
-            <mat-icon class="tree__icon" (click)="toggle(menuList)" *ngIf="!menuList.open&&menuList.children">add
+            <mat-icon class="tree__icon" (click)="toggle(menuList)" *ngIf="!menuList.open&&ifChildren(menuList.children)">add
             </mat-icon>
-            <mat-icon class="tree__icon" (click)="toggle(menuList)" *ngIf="menuList.open&&menuList.children">remove
+            <mat-icon class="tree__icon" (click)="toggle(menuList)" *ngIf="menuList.open&&ifChildren(menuList.children)">remove
             </mat-icon>
-            <mat-icon class="tree__icon block" *ngIf="menuList.type!=3&&!menuList.children">block</mat-icon>
+            <mat-icon class="tree__icon block" *ngIf="menuList.type!=3&&!ifChildren(menuList.children)">block</mat-icon>
             <div *ngIf="!menuList.type">
               <p class="tree__span" [class.active]="menuList.active"
                  (click)="selectMenu(menuList)">
@@ -55,12 +55,12 @@
               </p>
             </div>
           </div>
-          <ul *ngIf="menuList.children&&menuList.open" class="tree__list">
-            <li *ngFor="let menu of menuList.children">
+          <ul *ngIf="ifChildren(menuList.children)&&menuList.open" class="tree__list">
+            <li *ngFor="let menu of formatMenu(menuList.children)">
               <div class="clear tree__p">
-                <mat-icon class="tree__icon" (click)="toggle(menu)" *ngIf="!menu.open&&menu.children">add</mat-icon>
-                <mat-icon class="tree__icon" (click)="toggle(menu)" *ngIf="menu.open&&menu.children">remove</mat-icon>
-                <mat-icon class="tree__icon block" *ngIf="menu.type!=3&&!menu.children">block</mat-icon>
+                <mat-icon class="tree__icon" (click)="toggle(menu)" *ngIf="!menu.open&&ifChildren(menu.children)">add</mat-icon>
+                <mat-icon class="tree__icon" (click)="toggle(menu)" *ngIf="menu.open&&ifChildren(menu.children)">remove</mat-icon>
+                <mat-icon class="tree__icon block" *ngIf="menu.type!=3&&!ifChildren(menu.children)">block</mat-icon>
                 <div *ngIf="menu.type==1">
                   <mat-icon class="tree__icon type center">lens</mat-icon>
                   <p class="tree__span" [class.active]="menu.active" (click)="selectMenu(menu)">
@@ -80,15 +80,15 @@
                   </p>
                 </div>
               </div>
-              <ul *ngIf="menu.children&&menu.open" class="tree__list">
-                <li *ngFor="let subMenu of menu.children">
+              <ul *ngIf="ifChildren(menu.children)&&menu.open" class="tree__list">
+                <li *ngFor="let subMenu of formatMenu(menu.children)">
                   <div class="clear tree__p">
-                    <mat-icon class="tree__icon" (click)="toggle(subMenu)" *ngIf="!subMenu.open&&subMenu.children">add
+                    <mat-icon class="tree__icon" (click)="toggle(subMenu)" *ngIf="!subMenu.open&&ifChildren(subMenu.children)">add
                     </mat-icon>
-                    <mat-icon class="tree__icon" (click)="toggle(subMenu)" *ngIf="subMenu.open&&subMenu.children">
+                    <mat-icon class="tree__icon" (click)="toggle(subMenu)" *ngIf="subMenu.open&&ifChildren(subMenu.children)">
                       remove
                     </mat-icon>
-                    <mat-icon class="tree__icon block" *ngIf="subMenu.type!=3&&!subMenu.children">block</mat-icon>
+                    <mat-icon class="tree__icon block" *ngIf="subMenu.type!=3&&!ifChildren(subMenu.children)">block</mat-icon>
                     <div *ngIf="subMenu.type==1">
                       <mat-icon class="tree__icon type center">lens</mat-icon>
                       <p class="tree__span" [class.active]="subMenu.active" (click)="selectMenu(subMenu)">
@@ -108,8 +108,8 @@
                       </p>
                     </div>
                   </div>
-                  <ul *ngIf="subMenu.children&&subMenu.open" class="tree__list">
-                    <li *ngFor="let sSubMenu of subMenu.children">
+                  <ul *ngIf="ifChildren(subMenu.children)&&subMenu.open" class="tree__list">
+                    <li *ngFor="let sSubMenu of formatMenu(subMenu.children)">
                       <div class="clear tree__p">
                         <mat-icon class="tree__icon type department">lens</mat-icon>
                         <p class="tree__span last" [class.active]="sSubMenu.active"

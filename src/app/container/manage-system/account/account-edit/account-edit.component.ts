@@ -214,12 +214,29 @@ export class AccountEditComponent implements OnInit, OnDestroy {
             const tag = this.getTree(this.menuList, this.menuId);
             this.openTree(this.menuList, tag);
           }
+          // console.log(this.menuList);
         } else {
           console.log(res);
         }
       }, err => {
         console.log(err);
       });
+  }
+
+  formatMenu(menus) {
+    return menus.filter(menu => menu.type !== '3');
+  }
+
+  ifChildren(children) {
+    let flat = false;
+    if (children && Array.isArray(children)) {
+      children.forEach(child => {
+        if (child.type !== '3') {
+          flat = true;
+        }
+      });
+    }
+    return flat;
   }
 
   resetPwd() {
