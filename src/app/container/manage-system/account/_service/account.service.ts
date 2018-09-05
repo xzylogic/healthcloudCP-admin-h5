@@ -16,7 +16,8 @@ const PATH = {
   getCommunity: '/api/getCommunityMenuByUserId',
   getCommunityAll: '/api/appointmentTime/getAllCommunityByUserId',
   // getCommunityAll: '/api/getAllCommunityByUserId',
-  resetPwd: '/api/basicInfo/user/updatePassword'
+  resetPwd: '/api/basicInfo/user/updatePassword',
+  accountDelete: '/api/basicInfo/user/delete'
 };
 
 @Injectable()
@@ -65,6 +66,10 @@ export class AccountService {
 
   updateAccount(data, roleIds, menuId, menu) {
     return this.http.post(`${this.app.api_url}${PATH.updateAccount}?roleIds=${roleIds}&menuId=${menuId}&jmenuId=${menu}`, data);
+  }
+
+  deleteAccount(userId) {
+    return this.http.get(`${this.app.api_url}${PATH.accountDelete}?userId=${userId}`);
   }
 
   getValid(name, userId) {
@@ -139,7 +144,11 @@ export class AccountService {
           option: [{
             key: 'edit',
             name: '编辑'
-          }]
+          }, {
+            key: 'del',
+            name: '删除'
+          }],
+          minwidth: 105
         }));
     }
     return Titles;
