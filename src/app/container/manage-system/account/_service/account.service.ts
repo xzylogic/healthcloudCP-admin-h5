@@ -147,7 +147,8 @@ export class AccountService {
           }, {
             key: 'del',
             name: '删除'
-          }]
+          }],
+          minwidth: 105
         }));
     }
     return Titles;
