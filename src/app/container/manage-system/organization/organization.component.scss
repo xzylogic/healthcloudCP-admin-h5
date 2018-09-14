@@ -197,3 +197,23 @@
     max-width: 270px;
   }
 }
+
+.span__disable {
+  display: inline-block;
+  width: 16px;
+  height: 20px;
+  background: url(../../../libs/theme/img/icon_disable.png) no-repeat left center;
+  background-size: 100%;
+  position: relative;
+  top: 4px;
+}
+
+.span__enable {
+  display: inline-block;
+  width: 16px;
+  height: 20px;
+  background: url(../../../libs/theme/img/icon_enable.png) no-repeat left center;
+  background-size: 100%;
+  position: relative;
+  top: 4px;
+}
