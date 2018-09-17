@@ -16,140 +16,176 @@
             </div>
             <div class="menu__list" *ngIf="menuList&&menuList.level==0">
               <!--昌平卫计委-->
-              <div class="clear tree__p">
-                <mat-icon class="tree__icon" (click)="toggle(menuList)" *ngIf="!menuList.open&&menuList.children">add
-                </mat-icon>
-                <mat-icon class="tree__icon" (click)="toggle(menuList)" *ngIf="menuList.open&&menuList.children">remove
-                </mat-icon>
-                <mat-icon class="tree__icon block" *ngIf="!menuList.children">block</mat-icon>
-                <p class="tree__span" [class.active]="menuList.active"
-                   (click)="newCenter(menuList.menuId,menuList.menuName)">
-                  <span *ngIf="menuList.enable==1" class="span__disable"></span>
-                  <span *ngIf="menuList.enable==0" class="span__enable"></span>
-                  {{menuList.menuName}}
-                </p>
-              </div>
+              <app-tree-node
+                [menu]="menuList"
+                permission="permission"
+                (toggleEmitter)="toggle($event)"
+              ></app-tree-node>
+              <!--<div class="tree__p flex__container">-->
+              <!--<div class="flex__main">-->
+              <!--<div class="content">-->
+              <!--<p class="tree__span" [class.active]="menuList.active"-->
+              <!--(click)="newCenter(menuList.menuId,menuList.menuName)">-->
+              <!--{{menuList.menuName}}-->
+              <!--</p>-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--<div class="flex__sub">-->
+              <!--<mat-icon class="tree__icon" (click)="toggle(menuList)" *ngIf="!menuList.open&&menuList.children">add-->
+              <!--</mat-icon>-->
+              <!--<mat-icon class="tree__icon" (click)="toggle(menuList)" *ngIf="menuList.open&&menuList.children">remove-->
+              <!--</mat-icon>-->
+              <!--<mat-icon class="tree__icon block" *ngIf="!menuList.children">block</mat-icon>-->
+              <!--<span *ngIf="menuList.enable==1" class="span__disable"></span>-->
+              <!--<span *ngIf="menuList.enable==0" class="span__enable"></span>-->
+              <!--</div>-->
+              <!--<div class="flex__extra"></div>-->
+              <!--</div>-->
               <ul *ngIf="menuList.children&&menuList.open" class="tree__list">
                 <li *ngFor="let menu of menuList.children" class="clear">
                   <!--中心-->
-                  <div class="clear tree__p">
-                    <mat-icon class="tree__icon" (click)="toggle(menu)"
-                              *ngIf="menu.type!=3&&(!menu.open&&menu.children)">
-                      add
-                    </mat-icon>
-                    <mat-icon class="tree__icon" (click)="toggle(menu)"
-                              *ngIf="menu.type!=3&&(menu.open&&menu.children)">
-                      remove
-                    </mat-icon>
-                    <mat-icon class="tree__icon block" *ngIf="menu.type!=3&&!menu.children">block</mat-icon>
-                    <div *ngIf="menu.type==1" class="tr_center">
-                      <mat-icon class="tree__icon type center">lens</mat-icon>
-                      <p class="tree__span" [class.active]="menu.active" (click)="newSite(menu.menuId, menu.menuName)">
-                        <span *ngIf="menu.enable==1" class="span__disable"></span>
-                        <span *ngIf="menu.enable==0" class="span__enable"></span>
-                        {{menu.menuName}}
-                      </p>
-                      <button mat-icon-button color="primary" (click)="updateCenter(menu)" *ngIf="permission">
-                        <mat-icon aria-label="edit">mode_edit</mat-icon>
-                      </button>
-                      <button mat-icon-button color="primary" (click)="updateCenter(menu)" *ngIf="!permission">
-                        <mat-icon aria-label="edit">visibility</mat-icon>
-                      </button>
-                    </div>
-                    <div *ngIf="menu.type==2" class="tr_center">
-                      <mat-icon class="tree__icon type site">lens</mat-icon>
-                      <p class="tree__span" [class.active]="menu.active"
-                         (click)="newDepartment(menu.menuId, menu.menuName)">
-                         <span *ngIf="menu.enable==1" class="span__disable"></span>
-                         <span *ngIf="menu.enable==0" class="span__enable"></span>
-                         {{menu.menuName}}
-                      </p>
-                      <button mat-icon-button color="primary" (click)="updateSite(menu)" *ngIf="permission">
-                        <mat-icon aria-label="edit">mode_edit</mat-icon>
-                      </button>
-                      <button mat-icon-button color="primary" (click)="updateSite(menu)" *ngIf="!permission">
-                        <mat-icon aria-label="edit">visibility</mat-icon>
-                      </button>
-                    </div>
-                    <div *ngIf="menu.type==3" class="tr_center">
-                      <mat-icon class="tree__icon type department">lens</mat-icon>
-                      <p class="tree__span last">
-                        <span *ngIf="menu.enable==1" class="span__disable"></span>
-                        <span *ngIf="menu.enable==0" class="span__enable"></span>
-                        {{menu.menuName}}
-                      </p>
-                      <button mat-icon-button color="primary" (click)="updateDepartment(menu)" *ngIf="permission">
-                        <mat-icon aria-label="edit">mode_edit</mat-icon>
-                      </button>
-                      <button mat-icon-button color="primary" (click)="updateDepartment(menu)" *ngIf="!permission">
-                        <mat-icon aria-label="edit">visibility</mat-icon>
-                      </button>
-                    </div>
-                  </div>
+                  <app-tree-node
+                    [menu]="menu"
+                    permission="permission"
+                    (toggleEmitter)="toggle($event)"
+                  ></app-tree-node>
+                  <!--<div class="clear tree__p flex__container">-->
+                  <!--<div class="flex__main"></div>-->
+                  <!--<div class="flex__sub"></div>-->
+                  <!--<div class="flex__extra"></div>-->
+                  <!--<mat-icon class="tree__icon" (click)="toggle(menu)"-->
+                  <!--*ngIf="menu.type!=3&&(!menu.open&&menu.children)">-->
+                  <!--add-->
+                  <!--</mat-icon>-->
+                  <!--<mat-icon class="tree__icon" (click)="toggle(menu)"-->
+                  <!--*ngIf="menu.type!=3&&(menu.open&&menu.children)">-->
+                  <!--remove-->
+                  <!--</mat-icon>-->
+                  <!--<mat-icon class="tree__icon block" *ngIf="menu.type!=3&&!menu.children">block</mat-icon>-->
+                  <!--<div *ngIf="menu.type==1" class="tr_center">-->
+                  <!--<mat-icon class="tree__icon type center">lens</mat-icon>-->
+                  <!--<p class="tree__span" [class.active]="menu.active" (click)="newSite(menu.menuId, menu.menuName)">-->
+                  <!--<span *ngIf="menu.enable==1" class="span__disable"></span>-->
+                  <!--<span *ngIf="menu.enable==0" class="span__enable"></span>-->
+                  <!--{{menu.menuName}}-->
+                  <!--<button mat-icon-button color="primary" (click)="updateCenter(menu)" *ngIf="permission">-->
+                  <!--<mat-icon aria-label="edit">mode_edit</mat-icon>-->
+                  <!--</button>-->
+                  <!--<button mat-icon-button color="primary" (click)="updateCenter(menu)" *ngIf="!permission">-->
+                  <!--<mat-icon aria-label="edit">visibility</mat-icon>-->
+                  <!--</button>-->
+                  <!--</p>-->
+                  <!--</div>-->
+                  <!--<div *ngIf="menu.type==2" class="tr_center">-->
+                  <!--<mat-icon class="tree__icon type site">lens</mat-icon>-->
+                  <!--<p class="tree__span" [class.active]="menu.active"-->
+                  <!--(click)="newDepartment(menu.menuId, menu.menuName)">-->
+                  <!--<span *ngIf="menu.enable==1" class="span__disable"></span>-->
+                  <!--<span *ngIf="menu.enable==0" class="span__enable"></span>-->
+                  <!--{{menu.menuName}}-->
+                  <!--<button mat-icon-button color="primary" (click)="updateSite(menu)" *ngIf="permission">-->
+                  <!--<mat-icon aria-label="edit">mode_edit</mat-icon>-->
+                  <!--</button>-->
+                  <!--<button mat-icon-button color="primary" (click)="updateSite(menu)" *ngIf="!permission">-->
+                  <!--<mat-icon aria-label="edit">visibility</mat-icon>-->
+                  <!--</button>-->
+                  <!--</p>-->
+                  <!--</div>-->
+                  <!--<div *ngIf="menu.type==3" class="tr_center">-->
+                  <!--<mat-icon class="tree__icon type department">lens</mat-icon>-->
+                  <!--<p class="tree__span last">-->
+                  <!--<span *ngIf="menu.enable==1" class="span__disable"></span>-->
+                  <!--<span *ngIf="menu.enable==0" class="span__enable"></span>-->
+                  <!--{{menu.menuName}}-->
+                  <!--<button mat-icon-button color="primary" (click)="updateDepartment(menu)" *ngIf="permission">-->
+                  <!--<mat-icon aria-label="edit">mode_edit</mat-icon>-->
+                  <!--</button>-->
+                  <!--<button mat-icon-button color="primary" (click)="updateDepartment(menu)" *ngIf="!permission">-->
+                  <!--<mat-icon aria-label="edit">visibility</mat-icon>-->
+                  <!--</button>-->
+                  <!--</p>-->
+                  <!--</div>-->
+                  <!--</div>-->
                   <ul *ngIf="menu.children&&menu.open" class="tree__list">
                     <li *ngFor="let subMenu of menu.children" class="clear">
                       <!--站点-->
-                      <div class="clear tree__p">
-                        <mat-icon class="tree__icon" (click)="toggle(subMenu)"
-                                  *ngIf="subMenu.type!=3&&(!subMenu.open&&subMenu.children)">
-                          add
-                        </mat-icon>
-                        <mat-icon class="tree__icon" (click)="toggle(subMenu)"
-                                  *ngIf="subMenu.type!=3&&(subMenu.open&&subMenu.children)">
-                          remove
-                        </mat-icon>
-                        <mat-icon class="tree__icon block" *ngIf="subMenu.type!=3&&!subMenu.children">block</mat-icon>
-                        <div *ngIf="subMenu.type==2" class="tr_site">
-                          <mat-icon class="tree__icon type site">lens</mat-icon>
-                          <p class="tree__span" [class.active]="subMenu.active"
-                             (click)="newDepartment(subMenu.menuId, subMenu.menuName)">
-                             <span *ngIf="subMenu.enable==1" class="span__disable"></span>
-                             <span *ngIf="subMenu.enable==0" class="span__enable"></span>
-                             {{subMenu.menuName}}
-                          </p>
-                          <button mat-icon-button color="primary" (click)="updateSite(subMenu)" *ngIf="permission">
-                            <mat-icon aria-label="edit">mode_edit</mat-icon>
-                          </button>
-                          <button mat-icon-button color="primary" (click)="updateSite(subMenu)" *ngIf="!permission">
-                            <mat-icon aria-label="edit">visibility</mat-icon>
-                          </button>
-                        </div>
-                        <div *ngIf="subMenu.type==3" class="tr_site">
-                          <mat-icon class="tree__icon type department">lens</mat-icon>
-                          <p class="tree__span last">
-                            <span *ngIf="subMenu.enable==1" class="span__disable"></span>
-                            <span *ngIf="subMenu.enable==0" class="span__enable"></span>
-                            {{subMenu.menuName}}
-                          </p>
-                          <button mat-icon-button color="primary" (click)="updateDepartment(subMenu)"
-                                  *ngIf="permission">
-                            <mat-icon aria-label="edit">mode_edit</mat-icon>
-                          </button>
-                          <button mat-icon-button color="primary" (click)="updateDepartment(subMenu)"
-                                  *ngIf="!permission">
-                            <mat-icon aria-label="edit">visibility</mat-icon>
-                          </button>
-                        </div>
-                      </div>
+                      <app-tree-node
+                        [menu]="subMenu"
+                        permission="permission"
+                        (toggleEmitter)="toggle($event)"
+                      ></app-tree-node>
+                      <!--<div class="clear tree__p flex__container">-->
+                      <!--<div class="flex__main"></div>-->
+                      <!--<div class="flex__sub"></div>-->
+                      <!--<div class="flex__extra"></div>-->
+                      <!--<mat-icon class="tree__icon" (click)="toggle(subMenu)"-->
+                      <!--*ngIf="subMenu.type!=3&&(!subMenu.open&&subMenu.children)">-->
+                      <!--add-->
+                      <!--</mat-icon>-->
+                      <!--<mat-icon class="tree__icon" (click)="toggle(subMenu)"-->
+                      <!--*ngIf="subMenu.type!=3&&(subMenu.open&&subMenu.children)">-->
+                      <!--remove-->
+                      <!--</mat-icon>-->
+                      <!--<mat-icon class="tree__icon block" *ngIf="subMenu.type!=3&&!subMenu.children">block</mat-icon>-->
+                      <!--<div *ngIf="subMenu.type==2" class="tr_site">-->
+                      <!--<mat-icon class="tree__icon type site">lens</mat-icon>-->
+                      <!--<p class="tree__span" [class.active]="subMenu.active"-->
+                      <!--(click)="newDepartment(subMenu.menuId, subMenu.menuName)">-->
+                      <!--<span *ngIf="subMenu.enable==1" class="span__disable"></span>-->
+                      <!--<span *ngIf="subMenu.enable==0" class="span__enable"></span>-->
+                      <!--{{subMenu.menuName}}-->
+                      <!--<button mat-icon-button color="primary" (click)="updateSite(subMenu)" *ngIf="permission">-->
+                      <!--<mat-icon aria-label="edit">mode_edit</mat-icon>-->
+                      <!--</button>-->
+                      <!--<button mat-icon-button color="primary" (click)="updateSite(subMenu)" *ngIf="!permission">-->
+                      <!--<mat-icon aria-label="edit">visibility</mat-icon>-->
+                      <!--</button>-->
+                      <!--</p>-->
+                      <!--</div>-->
+                      <!--<div *ngIf="subMenu.type==3" class="tr_site">-->
+                      <!--<mat-icon class="tree__icon type department">lens</mat-icon>-->
+                      <!--<p class="tree__span last">-->
+                      <!--<span *ngIf="subMenu.enable==1" class="span__disable"></span>-->
+                      <!--<span *ngIf="subMenu.enable==0" class="span__enable"></span>-->
+                      <!--{{subMenu.menuName}}-->
+                      <!--<button mat-icon-button color="primary" (click)="updateDepartment(subMenu)"-->
+                      <!--*ngIf="permission">-->
+                      <!--<mat-icon aria-label="edit">mode_edit</mat-icon>-->
+                      <!--</button>-->
+                      <!--<button mat-icon-button color="primary" (click)="updateDepartment(subMenu)"-->
+                      <!--*ngIf="!permission">-->
+                      <!--<mat-icon aria-label="edit">visibility</mat-icon>-->
+                      <!--</button>-->
+                      <!--</p>-->
+                      <!--</div>-->
+                      <!--</div>-->
                       <ul *ngIf="subMenu.children&&subMenu.open" class="tree__list">
                         <li *ngFor="let sSubMenu of subMenu.children" class="clear">
                           <!--科室-->
-                          <div class="clear tree__p tr_department">
-                            <mat-icon class="tree__icon type department">lens</mat-icon>
-                            <p class="tree__span last">
-                              <span *ngIf="sSubMenu.enable==1" class="span__disable"></span>
-                              <span *ngIf="sSubMenu.enable==0" class="span__enable"></span>
-                              {{sSubMenu.menuName}}
-                            </p>
-                            <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)"
-                                    *ngIf="permission">
-                              <mat-icon aria-label="edit">mode_edit</mat-icon>
-                            </button>
-                            <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)"
-                                    *ngIf="!permission">
-                              <mat-icon aria-label="edit">visibility</mat-icon>
-                            </button>
-                          </div>
+                          <app-tree-node
+                            [menu]="sSubMenu"
+                            permission="permission"
+                            (toggleEmitter)="toggle($event)"
+                          ></app-tree-node>
+                          <!--<div class="clear tree__p tr_department flex__container">-->
+                          <!--<div class="flex__main"></div>-->
+                          <!--<div class="flex__sub"></div>-->
+                          <!--<div class="flex__extra"></div>-->
+                          <!--<mat-icon class="tree__icon type department">lens</mat-icon>-->
+                          <!--<p class="tree__span last">-->
+                          <!--<span *ngIf="sSubMenu.enable==1" class="span__disable"></span>-->
+                          <!--<span *ngIf="sSubMenu.enable==0" class="span__enable"></span>-->
+                          <!--{{sSubMenu.menuName}}-->
+                          <!--<button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)"-->
+                          <!--*ngIf="permission">-->
+                          <!--<mat-icon aria-label="edit">mode_edit</mat-icon>-->
+                          <!--</button>-->
+                          <!--<button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)"-->
+                          <!--*ngIf="!permission">-->
+                          <!--<mat-icon aria-label="edit">visibility</mat-icon>-->
+                          <!--</button>-->
+                          <!--</p>-->
+                          <!--</div>-->
                         </li>
                       </ul>
                     </li>
@@ -159,7 +195,10 @@
             </div>
             <div class="menu__list" *ngIf="menuList&&menuList.level==1">
               <!--中心-->
-              <div class="clear tree__p">
+              <div class="clear tree__p flex__container">
+                <div class="flex__main"></div>
+                <div class="flex__sub"></div>
+                <div class="flex__extra"></div>
                 <mat-icon class="tree__icon" (click)="toggle(menuList)"
                           *ngIf="menuList.type!=3&&(!menuList.open&&menuList.children)">add
                 </mat-icon>
@@ -174,13 +213,13 @@
                     <span *ngIf="menuList.enable==1" class="span__disable"></span>
                     <span *ngIf="menuList.enable==0" class="span__enable"></span>
                     {{menuList.menuName}}
+                    <button mat-icon-button color="primary" (click)="updateCenter(menuList)" *ngIf="permission">
+                      <mat-icon aria-label="edit">mode_edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="primary" (click)="updateCenter(menuList)" *ngIf="!permission">
+                      <mat-icon aria-label="edit">visibility</mat-icon>
+                    </button>
                   </p>
-                  <button mat-icon-button color="primary" (click)="updateCenter(menuList)" *ngIf="permission">
-                    <mat-icon aria-label="edit">mode_edit</mat-icon>
-                  </button>
-                  <button mat-icon-button color="primary" (click)="updateCenter(menuList)" *ngIf="!permission">
-                    <mat-icon aria-label="edit">visibility</mat-icon>
-                  </button>
                 </div>
                 <div *ngIf="menuList.type==2" class="tr_main">
                   <mat-icon class="tree__icon type site">lens</mat-icon>
@@ -189,13 +228,13 @@
                     <span *ngIf="menuList.enable==1" class="span__disable"></span>
                     <span *ngIf="menuList.enable==0" class="span__enable"></span>
                     {{menuList.menuName}}
+                    <button mat-icon-button color="primary" (click)="updateSite(menuList)" *ngIf="permission">
+                      <mat-icon aria-label="edit">mode_edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="primary" (click)="updateSite(menuList)" *ngIf="!permission">
+                      <mat-icon aria-label="edit">visibility</mat-icon>
+                    </button>
                   </p>
-                  <button mat-icon-button color="primary" (click)="updateSite(menuList)" *ngIf="permission">
-                    <mat-icon aria-label="edit">mode_edit</mat-icon>
-                  </button>
-                  <button mat-icon-button color="primary" (click)="updateSite(menuList)" *ngIf="!permission">
-                    <mat-icon aria-label="edit">visibility</mat-icon>
-                  </button>
                 </div>
                 <div *ngIf="menuList.type==3" class="tr_main">
                   <mat-icon class="tree__icon type department">lens</mat-icon>
@@ -203,19 +242,22 @@
                     <span *ngIf="menuList.enable==1" class="span__disable"></span>
                     <span *ngIf="menuList.enable==0" class="span__enable"></span>
                     {{menuList.menuName}}
+                    <button mat-icon-button color="primary" (click)="updateDepartment(menuList)" *ngIf="permission">
+                      <mat-icon aria-label="edit">mode_edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="primary" (click)="updateDepartment(menuList)" *ngIf="!permission">
+                      <mat-icon aria-label="edit">visibility</mat-icon>
+                    </button>
                   </p>
-                  <button mat-icon-button color="primary" (click)="updateDepartment(menuList)" *ngIf="permission">
-                    <mat-icon aria-label="edit">mode_edit</mat-icon>
-                  </button>
-                  <button mat-icon-button color="primary" (click)="updateDepartment(menuList)" *ngIf="!permission">
-                    <mat-icon aria-label="edit">visibility</mat-icon>
-                  </button>
                 </div>
               </div>
               <ul *ngIf="menuList.children&&menuList.open" class="tree__list">
                 <li *ngFor="let subMenu of menuList.children" class="clear">
                   <!--站点-->
-                  <div class="clear tree__p">
+                  <div class="clear tree__p flex__container">
+                    <div class="flex__main"></div>
+                    <div class="flex__sub"></div>
+                    <div class="flex__extra"></div>
                     <mat-icon class="tree__icon" (click)="toggle(subMenu)"
                               *ngIf="subMenu.type!=3&&(!subMenu.open&&subMenu.children)">add
                     </mat-icon>
@@ -230,13 +272,13 @@
                         <span *ngIf="subMenu.enable==1" class="span__disable"></span>
                         <span *ngIf="subMenu.enable==0" class="span__enable"></span>
                         {{subMenu.menuName}}
+                        <button mat-icon-button color="primary" (click)="updateSite(subMenu)" *ngIf="permission">
+                          <mat-icon aria-label="edit">mode_edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="primary" (click)="updateSite(subMenu)" *ngIf="!permission">
+                          <mat-icon aria-label="edit">visibility</mat-icon>
+                        </button>
                       </p>
-                      <button mat-icon-button color="primary" (click)="updateSite(subMenu)" *ngIf="permission">
-                        <mat-icon aria-label="edit">mode_edit</mat-icon>
-                      </button>
-                      <button mat-icon-button color="primary" (click)="updateSite(subMenu)" *ngIf="!permission">
-                        <mat-icon aria-label="edit">visibility</mat-icon>
-                      </button>
                     </div>
                     <div *ngIf="subMenu.type==3" class="tr_center">
                       <mat-icon class="tree__icon type department">lens</mat-icon>
@@ -244,32 +286,36 @@
                         <span *ngIf="subMenu.enable==1" class="span__disable"></span>
                         <span *ngIf="subMenu.enable==0" class="span__enable"></span>
                         {{subMenu.menuName}}
+                        <button mat-icon-button color="primary" (click)="updateDepartment(subMenu)" *ngIf="permission">
+                          <mat-icon aria-label="edit">mode_edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="primary" (click)="updateDepartment(subMenu)" *ngIf="!permission">
+                          <mat-icon aria-label="edit">visibility</mat-icon>
+                        </button>
                       </p>
-                      <button mat-icon-button color="primary" (click)="updateDepartment(subMenu)" *ngIf="permission">
-                        <mat-icon aria-label="edit">mode_edit</mat-icon>
-                      </button>
-                      <button mat-icon-button color="primary" (click)="updateDepartment(subMenu)" *ngIf="!permission">
-                        <mat-icon aria-label="edit">visibility</mat-icon>
-                      </button>
                     </div>
                   </div>
                   <ul *ngIf="subMenu.children&&subMenu.open" class="tree__list">
                     <li *ngFor="let sSubMenu of subMenu.children" class="clear">
                       <!--科室-->
-                      <div class="clear tree__p" class="tr_department">
+                      <div class="clear tree__p" class="tr_department flex__container">
+                        <div class="flex__main"></div>
+                        <div class="flex__sub"></div>
+                        <div class="flex__extra"></div>
                         <mat-icon class="tree__icon type department">lens</mat-icon>
                         <p class="tree__span last">
                           <span *ngIf="sSubMenu.enable==1" class="span__disable"></span>
                           <span *ngIf="sSubMenu.enable==0" class="span__enable"></span>
                           {{sSubMenu.menuName}}
+                          <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)"
+                                  *ngIf="permission">
+                            <mat-icon aria-label="edit">mode_edit</mat-icon>
+                          </button>
+                          <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)"
+                                  *ngIf="!permission">
+                            <mat-icon aria-label="edit">visibility</mat-icon>
+                          </button>
                         </p>
-                        <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)" *ngIf="permission">
-                          <mat-icon aria-label="edit">mode_edit</mat-icon>
-                        </button>
-                        <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)"
-                                *ngIf="!permission">
-                          <mat-icon aria-label="edit">visibility</mat-icon>
-                        </button>
                       </div>
                     </li>
                   </ul>
@@ -278,22 +324,30 @@
             </div>
             <div class="menu__list" *ngIf="menuList&&menuList.level==2">
               <!--站点-->
-              <div class="clear tree__p">
-                <mat-icon class="tree__icon" (click)="toggle(menuList)"
-                          *ngIf="menuList.type!=3&&(!menuList.open&&menuList.children)">add
-                </mat-icon>
-                <mat-icon class="tree__icon" (click)="toggle(menuList)"
-                          *ngIf="menuList.type!=3&&(menuList.open&&menuList.children)">remove
-                </mat-icon>
-                <mat-icon class="tree__icon block" *ngIf="menuList.type!=3&&!menuList.children">block</mat-icon>
-                <div *ngIf="menuList.type==2" class="tr_main">
-                  <mat-icon class="tree__icon type site">lens</mat-icon>
-                  <p class="tree__span" [class.active]="menuList.active"
-                     (click)="newDepartment(menuList.menuId, menuList.menuName)">
-                    <span *ngIf="menuList.enable==1" class="span__disable"></span>
-                    <span *ngIf="menuList.enable==0" class="span__enable"></span>
-                    {{menuList.menuName}}
-                  </p>
+              <div class="tree__p flex__container">
+                <div class="flex__main">
+                  <div *ngIf="menuList.type==2" class="tr_main">
+                    <mat-icon class="tree__icon type site">lens</mat-icon>
+                    <p class="tree__span" [class.active]="menuList.active"
+                       (click)="newDepartment(menuList.menuId, menuList.menuName)">
+                      <span *ngIf="menuList.enable==1" class="span__disable"></span>
+                      <span *ngIf="menuList.enable==0" class="span__enable"></span>
+                      {{menuList.menuName}}
+
+                    </p>
+                  </div>
+                </div>
+                <div class="flex__sub">
+
+                  <mat-icon class="tree__icon" (click)="toggle(menuList)"
+                            *ngIf="menuList.type!=3&&(!menuList.open&&menuList.children)">add
+                  </mat-icon>
+                  <mat-icon class="tree__icon" (click)="toggle(menuList)"
+                            *ngIf="menuList.type!=3&&(menuList.open&&menuList.children)">remove
+                  </mat-icon>
+                  <mat-icon class="tree__icon block" *ngIf="menuList.type!=3&&!menuList.children">block</mat-icon>
+                </div>
+                <div class="flex__extra">
                   <button mat-icon-button color="primary" (click)="updateSite(menuList)" *ngIf="permission">
                     <mat-icon aria-label="edit">mode_edit</mat-icon>
                   </button>
@@ -307,13 +361,13 @@
                     <span *ngIf="menuList.enable==1" class="span__disable"></span>
                     <span *ngIf="menuList.enable==0" class="span__enable"></span>
                     {{menuList.menuName}}
+                    <button mat-icon-button color="primary" (click)="updateDepartment(menuList)" *ngIf="permission">
+                      <mat-icon aria-label="edit">mode_edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="primary" (click)="updateDepartment(menuList)" *ngIf="!permission">
+                      <mat-icon aria-label="edit">visibility</mat-icon>
+                    </button>
                   </p>
-                  <button mat-icon-button color="primary" (click)="updateDepartment(menuList)" *ngIf="permission">
-                    <mat-icon aria-label="edit">mode_edit</mat-icon>
-                  </button>
-                  <button mat-icon-button color="primary" (click)="updateDepartment(menuList)" *ngIf="!permission">
-                    <mat-icon aria-label="edit">visibility</mat-icon>
-                  </button>
                 </div>
               </div>
               <ul *ngIf="menuList.children&&menuList.open" class="tree__list">
@@ -325,32 +379,35 @@
                       <span *ngIf="sSubMenu.enable==1" class="span__disable"></span>
                       <span *ngIf="sSubMenu.enable==0" class="span__enable"></span>
                       {{sSubMenu.menuName}}
+                      <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)" *ngIf="permission">
+                        <mat-icon aria-label="edit">mode_edit</mat-icon>
+                      </button>
+                      <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)" *ngIf="!permission">
+                        <mat-icon aria-label="edit">visibility</mat-icon>
+                      </button>
                     </p>
-                    <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)" *ngIf="permission">
-                      <mat-icon aria-label="edit">mode_edit</mat-icon>
-                    </button>
-                    <button mat-icon-button color="primary" (click)="updateDepartment(sSubMenu)" *ngIf="!permission">
-                      <mat-icon aria-label="edit">visibility</mat-icon>
-                    </button>
                   </div>
                 </li>
               </ul>
             </div>
             <div class="menu__list" *ngIf="menuList&&menuList.level==3">
               <!--科室-->
-              <div class="clear tree__p tr_main">
+              <div class="clear tree__p tr_main flex__container">
+                <div class="flex__main"></div>
+                <div class="flex__sub"></div>
+                <div class="flex__extra"></div>
                 <mat-icon class="tree__icon type department last">lens</mat-icon>
                 <p class="tree__span last">
                   <span *ngIf="menuList.enable==1" class="span__disable"></span>
                   <span *ngIf="menuList.enable==0" class="span__enable"></span>
                   {{menuList.menuName}}
+                  <button mat-icon-button color="primary" (click)="updateDepartment(menuList)" *ngIf="permission">
+                    <mat-icon aria-label="edit">mode_edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="primary" (click)="updateDepartment(menuList)" *ngIf="!permission">
+                    <mat-icon aria-label="edit">visibility</mat-icon>
+                  </button>
                 </p>
-                <button mat-icon-button color="primary" (click)="updateDepartment(menuList)" *ngIf="permission">
-                  <mat-icon aria-label="edit">mode_edit</mat-icon>
-                </button>
-                <button mat-icon-button color="primary" (click)="updateDepartment(menuList)" *ngIf="!permission">
-                  <mat-icon aria-label="edit">visibility</mat-icon>
-                </button>
               </div>
             </div>
           </div>

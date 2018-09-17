@@ -6,6 +6,7 @@ import { LibModule } from '../../../libs/common/lib.module';
 import { CommonModule } from '@angular/common';
 import { DFormModule } from '../../../libs/dform/dform.module';
 import { MatButtonModule, MatGridListModule, MatTabsModule } from '@angular/material';
+import { TreenodeComponent } from './treenode.component';
 
 const routes: Routes = [{
   path: '',
@@ -23,7 +24,8 @@ const routes: Routes = [{
     RouterModule.forChild(routes)
   ],
   declarations: [
-    OrganizationComponent
+    OrganizationComponent,
+    TreenodeComponent
   ],
   providers: [
     OrganizationService,
