@@ -2,7 +2,8 @@
   <div class="flex__main">
     <div class="content">
       <p [class.active]="menu.active"
-         (click)="new(menu.menuId, menu.menuName)">
+         [class.pointer]="type!='department'"
+         (click)="new(menu)">
         {{menu.menuName}}
       </p>
     </div>
@@ -10,17 +11,22 @@
   <div class="flex__sub">
     <mat-icon class="flex__icon" (click)="toggle(menu)" *ngIf="!menu.open&&menu.children">add</mat-icon>
     <mat-icon class="flex__icon" (click)="toggle(menu)" *ngIf="menu.open&&menu.children">remove</mat-icon>
-    <mat-icon class="flex__icon" style="font-size: 18px"  *ngIf="!menu.children">block</mat-icon>
-    <mat-icon class="flex__icon type">lens</mat-icon>
+    <mat-icon class="flex__icon block" *ngIf="!menu.children">block</mat-icon>
+    <mat-icon
+      class="flex__icon type"
+      [class.center]="type=='center'"
+      [class.site]="type=='site'"
+      [class.department]="type=='department'">lens
+    </mat-icon>
     <span *ngIf="menu.enable==1" class="span__disable"></span>
     <span *ngIf="menu.enable==0" class="span__enable"></span>
   </div>
   <div class="flex__extra">
-    <button mat-icon-button color="primary" (click)="update(menu)" *ngIf="permission">
-      <mat-icon class="flex__icon">mode_edit</mat-icon>
+    <button mat-icon-button color="primary" (click)="update(menu)" *ngIf="permission&&type!='root'">
+      <mat-icon>mode_edit</mat-icon>
     </button>
-    <button mat-icon-button color="primary" (click)="update(menu)" *ngIf="!permission">
-      <mat-icon class="flex__icon">visibility</mat-icon>
+    <button mat-icon-button color="primary" (click)="update(menu)" *ngIf="!permission&&type!='root'">
+      <mat-icon>visibility</mat-icon>
     </button>
   </div>
 </div>

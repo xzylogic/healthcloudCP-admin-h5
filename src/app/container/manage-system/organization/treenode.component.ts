@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-tree-node',
@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class TreenodeComponent {
   @Input() menu: any;
   @Input() permission: any;
+  @Input() type: any;
   @Output() toggleEmitter: EventEmitter<any> = new EventEmitter();
   @Output() newEmitter: EventEmitter<any> = new EventEmitter();
   @Output() updateEmitter: EventEmitter<any> = new EventEmitter();
