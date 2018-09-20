@@ -1,0 +1,101 @@
+@import '../../../libs/theme/theme';
+
+.flex__container {
+  position: relative;
+  height: 40px;
+  line-height: 40px;
+  width: auto;
+  overflow: hidden;
+  color: $color-text-secondary;
+  .flex__main,
+  .flex__sub,
+  .flex__extra {
+    float: left;
+    position: relative;
+    height: 40px;
+  }
+  .flex__main {
+    width: 100%;
+    .content {
+      padding: 0 50px 0 70px;
+      p {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .pointer {
+        cursor: pointer;
+      }
+      .active {
+        color: $color-primary;
+        font-size: 18px;
+      }
+    }
+  }
+  .flex__sub {
+    width: 70px;
+    margin-left: -100%;
+  }
+  .flex__extra {
+    width: 50px;
+    margin-left: -50px;
+  }
+}
+
+.flex__container::before,
+.flex__container::after {
+  content: '';
+  display: table;
+  height: 0;
+  clear: both;
+}
+
+.flex__icon {
+  float: left;
+  height: 40px;
+  line-height: 40px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.flex__icon.block {
+  font-size: 18px;
+  padding-left: 3px;
+}
+
+.flex__icon.type {
+  font-size: 9px;
+  width: 8px;
+  color: #fff;
+}
+
+.flex__icon.center {
+  color: #f57c00;
+}
+
+.flex__icon.site {
+  color: #fbc02d;
+}
+
+.flex__icon.department {
+  color: #afb42b;
+}
+
+.span__disable {
+  float: left;
+  display: inline-block;
+  width: 16px;
+  height: 40px;
+  background: url(../../../libs/theme/img/icon_disable.png) no-repeat left center;
+  background-size: 100%;
+}
+
+.span__enable {
+  float: left;
+  display: inline-block;
+  width: 16px;
+  height: 40px;
+  background: url(../../../libs/theme/img/icon_enable.png) no-repeat left center;
+  background-size: 100%;
+}
