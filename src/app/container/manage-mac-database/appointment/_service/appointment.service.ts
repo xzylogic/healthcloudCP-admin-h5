@@ -20,7 +20,7 @@ export class AppointmentService {
   ) {
   }
 
-  getData(page, status?, num?, name?, date?, oId?) {
+  getData(page, status?, num?, name?, date?, oId?, phone?) {
     let query = `?flag=${page + 1}`;
     if (status || status == 0) {
       query += `&status=${status}`;
@@ -36,6 +36,9 @@ export class AppointmentService {
     }
     if (oId) {
       query += `&organizationId=${oId}`;
+    }
+    if (phone) {
+      query += `&phone=${phone}`
     }
     return this.http.get(`${this.app.api_url}${PATH.getData}${query}`);
   }
