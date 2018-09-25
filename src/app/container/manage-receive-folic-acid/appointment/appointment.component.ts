@@ -32,6 +32,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   status = '';
   centerId = '';
   siteId = '';
+  phone = '';
 
   centerList: Array<any>;
   siteList: Array<any>;
@@ -82,6 +83,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
         this.status = res.data.status;
         this.centerId = res.data.centerId;
         this.siteId = res.data.siteId;
+        this.phone = res.data.phone;
         this.getData(res.data.page);
       } else {
         this.reset();
@@ -114,6 +116,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     this.status = '';
     this.centerId = '';
     this.siteId = '';
+    this.phone = '';
     this.getCenter(this.communityList);
     this.getSite(this.communityList);
     this.getDepartment(this.communityList);
@@ -133,12 +136,14 @@ export class AppointmentComponent implements OnInit, OnDestroy {
       status: this.status,
       centerId: this.centerId,
       siteId: this.siteId,
+      phone: this.phone,
       page: this.appointmentTable.currentPage
     });
     this.subscribeList = this.appointmentService.getData(
       page, this.appointmentTable.size, this.name,
       this.cardNo, this.number, this.status,
-      this.siteId || this.centerId
+      this.siteId || this.centerId,
+      this.phone || ''
     )
       .subscribe(res => {
         this.appointmentTable.loading = false;

@@ -21,7 +21,7 @@ export class AppointmentService {
   ) {
   }
 
-  getData(page, size, name?, cardNo?, num?, status?, menuId?) {
+  getData(page, size, name?, cardNo?, num?, status?, menuId?, phone?) {
     const param: any = {};
     if (name) {
       param.name = name;
@@ -37,6 +37,9 @@ export class AppointmentService {
     }
     if (menuId) {
       param.hospitalId = menuId;
+    }
+    if (phone) {
+      param.phone = phone;
     }
     return this.http.post(`${this.app.api_url}${PATH.getData}`, {
       flag: page + 1, // 当前页码
