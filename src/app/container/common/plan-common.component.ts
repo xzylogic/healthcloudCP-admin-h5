@@ -4,6 +4,7 @@ import { ContainerConfig } from '../../libs/common/container/container.component
 import { HintDialog } from '../../libs/dmodal/dialog.component';
 import { MatDialog } from '@angular/material';
 import { ERRMSG } from '../_store/static';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-plan-common',
@@ -23,6 +24,7 @@ export class PlanCommonComponent implements OnInit, OnDestroy {
   operation: any;
   orgName: any;
   navigateLink: any;
+  overdate: any;
 
   constructor(
     @Inject('plancommon') private planCommonService,
@@ -61,6 +63,9 @@ export class PlanCommonComponent implements OnInit, OnDestroy {
         }
         this.containerConfig = this.planCommonService.setPlanConfig(title, router, this.date);
         this.getDefault();
+        const setDate = new Date(this.date).valueOf();
+        const nowDate = new Date(moment(new Date()).format('YYYY-MM-DD')).valueOf();
+        this.overdate = (setDate < nowDate);
       }
     });
   }
