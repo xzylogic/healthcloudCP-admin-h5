@@ -43,9 +43,11 @@
 }
 
 .check_content {
+  display: inline-block;
   position: relative;
   top: .4375em;
   margin-right: 1em;
+  min-width: 125px;
 }
 
 .upload_container {
