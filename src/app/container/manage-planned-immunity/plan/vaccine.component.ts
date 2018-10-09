@@ -34,17 +34,22 @@ export class VaccineComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    console.log(this.orgId);
+    // console.log(this.orgId);
   }
 
-  editVaccine(week, ampm) {
+  editVaccine(week, ampm, ids) {
+    let defalutValue = [];
+    if (ids && (typeof ids === 'string')) {
+      defalutValue = ids.split(',');
+    }
+    // console.log(defalutValue);
     const option: DialogEdit = new DialogEdit({
       title: `维护${this.renderWeek(week)}${this.renderAmPm(ampm)}的疫苗`,
       form: [
         new FormCheckbox({
           key: 'vaccine' + week + ampm,
           label: '请选择疫苗',
-          value: [],
+          value: defalutValue,
           options: [...this.vaccineList]
         })
       ]
@@ -52,7 +57,7 @@ export class VaccineComponent implements OnInit, OnChanges {
 
     const editDialog = EditDialog(option, this.dialog);
     editDialog.afterClosed().subscribe(data => {
-      console.log(data);
+      // console.log(data);
       if (data && data['vaccine' + week + ampm] && data['vaccine' + week + ampm].length === 0) {
         HintDialog('请选择疫苗', this.dialog);
       } else if (data && data['vaccine' + week + ampm]) {
@@ -62,7 +67,7 @@ export class VaccineComponent implements OnInit, OnChanges {
   }
 
   saveVaccine(week, ampm, ids) {
-    console.log(ids);
+    // console.log(ids);
     let vaccineId = '';
     if (this.vaccineList.length === ids.length) {
       vaccineId = '0';
@@ -74,10 +79,10 @@ export class VaccineComponent implements OnInit, OnChanges {
       amPm: ampm,
       vaccine_id: vaccineId
     }];
-    console.log(saveData);
+    // console.log(saveData);
     this.planService.saveVaccine(saveData, this.orgId)
       .subscribe(res => {
-        console.log(res);
+        // console.log(res);
         if (res.code === 0) {
           this.save.emit();
         }

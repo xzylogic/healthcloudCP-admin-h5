@@ -58,14 +58,14 @@ export class LibInputCheckboxComponent implements OnInit, OnChanges {
         list.push(obj);
       }
     });
-    console.log(this.data.options);
-    console.log(list);
+    // console.log(this.data.options);
+    // console.log(list);
     if (list.length === this.data.options.length) {
       this.checkedAll = true;
     } else {
       this.checkedAll = false;
     }
-    console.log(this.checkedAll);
+    // console.log(this.checkedAll);
   }
 
   getCheckedAll(event) {
@@ -98,7 +98,7 @@ export class LibInputCheckboxComponent implements OnInit, OnChanges {
   }
 
   change() {
-    console.log(this.value);
+    // console.log(this.value);
     this.valueChange.emit(this.value);
   }
 }
