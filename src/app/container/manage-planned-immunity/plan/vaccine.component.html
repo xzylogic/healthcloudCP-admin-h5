@@ -18,7 +18,7 @@
       <tr>
         <td>上午</td>
         <td *ngFor="let obj of vaccineSchedule[0];let i = index" style="vertical-align: bottom">
-          {{obj.vaccineNames}}
+          <p>{{obj.vaccineNames}}</p>
           <button 
             class="border_button"
             mat-button 
@@ -31,14 +31,14 @@
       <tr>
         <td>下午</td>
         <td *ngFor="let obj of vaccineSchedule[1];let i = index" style="vertical-align: bottom">
-          {{obj.vaccineNames}}
+          <p>{{obj.vaccineNames}}</p>
           <button 
             class="border_button"
             mat-button 
             type="button" 
             color="primary" 
             [disabled]="!obj.workState"
-            (click)="editVaccine(obj.week, obj.amPm)">请维护疫苗</button>
+            (click)="editVaccine(obj.week, obj.amPm, obj.ids)">请维护疫苗</button>
         </td>
       </tr>
     </tbody>

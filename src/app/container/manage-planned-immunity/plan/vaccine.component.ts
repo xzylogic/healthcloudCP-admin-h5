@@ -39,8 +39,10 @@ export class VaccineComponent implements OnInit, OnChanges {
 
   editVaccine(week, ampm, ids) {
     let defalutValue = [];
-    if (ids && (typeof ids === 'string')) {
+    if (ids && (typeof ids === 'string') && ids != '0') {
       defalutValue = ids.split(',');
+    } else if (ids && (typeof ids === 'string') && ids == '0') {
+      defalutValue = [...this.vaccineList.map(obj => obj.id)];
     }
     // console.log(defalutValue);
     const option: DialogEdit = new DialogEdit({
