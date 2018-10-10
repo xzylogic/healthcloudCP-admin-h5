@@ -70,6 +70,12 @@
           <button mat-raised-button color="primary" (click)="saveWeekList()">保存</button>
         </div>
       </mat-tab>
+      <mat-tab label="疫苗维护">
+        <app-plan-vaccine 
+          [orgId]="siteId || this.centerId"
+          [vaccineSchedule]="vaccineSchedule" 
+          (save)="getVaccineSchedule()"></app-plan-vaccine>
+      </mat-tab>
       <mat-tab label="号源维护">
         <form #form="ngForm" (submit)="saveTimeList(form)"
               *ngIf="timeList1&&timeList2&&timeList3&&timeList4&&timeList5&&timeList6">

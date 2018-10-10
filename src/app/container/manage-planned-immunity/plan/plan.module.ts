@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { MatButtonModule, MatCheckboxModule, MatTabsModule } from '@angular/material';
 import { PlanComponent } from './plan.component';
+import { VaccineComponent } from './vaccine.component';
 import { PlanService } from './_service/plan.service';
 import { LibModule } from '../../../libs/common/lib.module';
 import { PlanCommonModule } from '../../common/plan-common.module';
@@ -28,7 +29,8 @@ const routes: Routes = [{
     RouterModule.forChild(routes)
   ],
   declarations: [
-    PlanComponent
+    PlanComponent,
+    VaccineComponent
   ],
   providers: [
     PlanService,

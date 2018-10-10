@@ -37,6 +37,8 @@ export class PlanComponent implements OnInit {
   operationTime: any;
   show: any;
 
+  vaccineSchedule: any;
+
   events: CalendarEvent[] = [];
 
   constructor(
@@ -109,6 +111,16 @@ export class PlanComponent implements OnInit {
     this.getWeekList();
     this.getTimeList();
     this.getDays();
+    this.getVaccineSchedule();
+  }
+
+  getVaccineSchedule() {
+    this.planService.getVaccineSchedule(this.siteId || this.centerId)
+      .subscribe(res => {
+        if (res.code === 0 && res.data) {
+          this.vaccineSchedule = res.data;
+        }
+      });
   }
 
   getWeekList() {
