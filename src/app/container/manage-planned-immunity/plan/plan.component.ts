@@ -169,6 +169,7 @@ export class PlanComponent implements OnInit {
           HintDialog('保存成功', this.dialog);
           this.getWeekList();
           this.getTimeList();
+          this.getVaccineSchedule();
         } else {
           HintDialog(res.msg || '保存失败', this.dialog);
         }
