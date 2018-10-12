@@ -53,30 +53,31 @@ export class PlanComponent implements OnInit {
 
   ngOnInit() {
     this.containerConfig = this.planService.setPlanConfig();
-    this.route.queryParams.subscribe(res => {
-      if (res.tab) {
-        this.tab = res.tab;
+    Observable.zip(
+      this.route.queryParams, this.data, this.getCommunityAll(),
+      (route, data, community) => ({route, data, community})
+    ).subscribe(({route, data, community}) => {
+      if (route.tab) {
+        this.tab = route.tab;
       }
-      if (res.date) {
-        this.viewDate = new Date(res.date);
+      if (route.date) {
+        this.viewDate = new Date(route.date);
       }
-      if (res.flag) {
-        this.data.subscribe(data => {
-          if (data) {
-            this.siteId = data.siteId;
-            this.centerId = data.centerId;
-            this.orgName = data.orgName;
-            this.orgNameRecord = '';
-            this.search();
-          } else {
-            this.reset();
-          }
-        });
+      if (route.flag) {
+        if (data) {
+          this.siteId = data.siteId;
+          this.centerId = data.centerId;
+          this.orgName = data.orgName;
+          this.orgNameRecord = '';
+          this.search();
+          this.getSiteFromCenter(this.centerId, this.siteId);
+        } else {
+          this.reset();
+        }
       } else {
         this.reset();
       }
     });
-    this.getCommunityAll();
   }
 
   reset() {
@@ -169,6 +170,7 @@ export class PlanComponent implements OnInit {
           HintDialog('保存成功', this.dialog);
           this.getWeekList();
           this.getTimeList();
+          this.getVaccineSchedule();
         } else {
           HintDialog(res.msg || '保存失败', this.dialog);
         }
@@ -236,8 +238,8 @@ export class PlanComponent implements OnInit {
   }
 
   getCommunityAll() {
-    this.planService.getCommunity()
-      .subscribe(res => {
+    return this.planService.getCommunity()
+      .map(res => {
         if (res.code === 0 && res.data) {
           this.communityList = res.data;
           this.getCenter(res.data);
@@ -302,6 +304,29 @@ export class PlanComponent implements OnInit {
           this.orgNameRecord = obj.name;
         }
       });
+    }
+  }
+
+  getSiteFromCenter(centerId, siteId) {
+    if (Array.isArray(this.centerList)) {
+      this.centerList.forEach(obj => {
+        if (obj.menuId == centerId) {
+          this.orgNameRecord = obj.name;
+        }
+      });
+    }
+    if (centerId && !siteId) {
+      this.siteId = '';
+      const site = [{menuId: '', name: '无'}];
+      this.communityList.forEach(obj => {
+        if (obj.parentId === centerId && obj.type == 2) {
+          site.push(obj);
+        }
+      });
+      if (site.length !== 1) {
+        site.splice(0, 1);
+      }
+      this.siteList = site;
     }
   }
 }

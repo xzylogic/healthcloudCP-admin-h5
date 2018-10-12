@@ -84,10 +84,10 @@ export class PregnancyInterviewComponent implements OnInit, OnDestroy {
       titles: this.interviewService.setTitles(),
       ifPage: true
     });
-    this.getCommunityAll();
+    // this.getCommunityAll();
     this.subscribeRoute = Observable.zip(
-      this.route.params, this.data,
-      (param, data) => ({param, data})
+      this.route.params, this.data, this.getCommunityAll(),
+      (param, data, community) => ({param, data, community})
     ).subscribe(res => {
       if (res.param && res.param.menu) {
         this.paramsMenu = res.param.menu;
@@ -100,6 +100,7 @@ export class PregnancyInterviewComponent implements OnInit, OnDestroy {
         this.centerId = res.data.centerId;
         this.siteId = res.data.siteId;
         this.getData(res.data.page);
+        this.getSiteFromCenter(this.centerId, this.siteId);
       } else {
         this.reset();
       }
@@ -116,9 +117,9 @@ export class PregnancyInterviewComponent implements OnInit, OnDestroy {
     if (this.subscribeDialog) {
       this.subscribeDialog.unsubscribe();
     }
-    if (this.subscribeCommunity) {
-      this.subscribeCommunity.unsubscribe();
-    }
+    // if (this.subscribeCommunity) {
+    //   this.subscribeCommunity.unsubscribe();
+    // }
   }
 
   reset() {
@@ -211,8 +212,8 @@ export class PregnancyInterviewComponent implements OnInit, OnDestroy {
   }
 
   getCommunityAll() {
-    this.subscribeCommunity = this.interviewService.getCommunityAll()
-      .subscribe(res => {
+    return this.interviewService.getCommunityAll()
+      .map(res => {
         if (res.code === 0 && res.data) {
           this.communityList = res.data;
           this.getCenter(res.data);
@@ -267,6 +268,22 @@ export class PregnancyInterviewComponent implements OnInit, OnDestroy {
       const site = [{menuId: '', name: '无'}];
       this.communityList.forEach(obj => {
         if (obj.parentId === data.value && obj.type == 2) {
+          site.push(obj);
+        }
+      });
+      if (site.length !== 1) {
+        site.splice(0, 1);
+      }
+      this.siteList = site;
+    }
+  }
+
+  getSiteFromCenter(centerId, siteId) {
+    if (centerId && !siteId && this.communityList) {
+      this.siteId = '';
+      const site = [{menuId: '', name: '无'}];
+      this.communityList.forEach(obj => {
+        if (obj.parentId === centerId && obj.type == 2) {
           site.push(obj);
         }
       });
