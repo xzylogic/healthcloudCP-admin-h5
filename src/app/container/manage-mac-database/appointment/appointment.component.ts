@@ -69,10 +69,10 @@ export class AppointmentComponent implements OnInit, OnDestroy {
       // titles: this.appointmentService.setAppointmentTitles(),
       ifPage: true
     });
-    this.getCommunityAll();
+    // this.getCommunityAll();
     this.subscribeRoute = Observable.zip(
-      this.route.params, this.data,
-      (route, data) => ({route, data})
+      this.route.params, this.data, this.getCommunityAll(),
+      (route, data, community) => ({route, data, community})
     ).subscribe(res => {
       if (res.route && res.route.menu) {
         this.paramsMenu = res.route.menu;
@@ -86,6 +86,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
         this.siteId = res.data.siteId;
         this.phone = res.data.phone;
         this.getData(res.data.page);
+        this.getSiteFromCenter(this.centerId, this.siteId);
       } else {
         this.reset();
       }
@@ -102,9 +103,9 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     if (this.subscribeDialog) {
       this.subscribeDialog.unsubscribe();
     }
-    if (this.subscribeCommunity) {
-      this.subscribeCommunity.unsubscribe();
-    }
+    // if (this.subscribeCommunity) {
+    //   this.subscribeCommunity.unsubscribe();
+    // }
     if (this.subscribeAudit) {
       this.subscribeAudit.unsubscribe();
     }
@@ -236,8 +237,8 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   }
 
   getCommunityAll() {
-    this.subscribeCommunity = this.appointmentService.getCommunityAll()
-      .subscribe(res => {
+    return this.appointmentService.getCommunityAll()
+      .map(res => {
         if (res.code === 0 && res.data) {
           this.communityList = res.data;
           this.getCenter(res.data);
@@ -292,6 +293,22 @@ export class AppointmentComponent implements OnInit, OnDestroy {
       const site = [{menuId: '', name: '无'}];
       this.communityList.forEach(obj => {
         if (obj.parentId === data.value && obj.type == 2) {
+          site.push(obj);
+        }
+      });
+      if (site.length !== 1) {
+        site.splice(0, 1);
+      }
+      this.siteList = site;
+    }
+  }
+
+  getSiteFromCenter(centerId, siteId) {
+    if (centerId && !siteId && this.communityList) {
+      this.siteId = '';
+      const site = [{menuId: '', name: '无'}];
+      this.communityList.forEach(obj => {
+        if (obj.parentId === centerId && obj.type == 2) {
           site.push(obj);
         }
       });
