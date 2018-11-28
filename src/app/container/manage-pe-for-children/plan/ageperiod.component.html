@@ -1,0 +1,47 @@
+<div class="table-container clear">
+  <table class="table" *ngIf="vaccineSchedule&&vaccineSchedule[0]&&vaccineSchedule[1]">
+    <thead>
+      <tr>
+        <th>
+          <div style="min-width:100px"></div>
+        </th>
+        <th>周一</th>
+        <th>周二</th>
+        <th>周三</th>
+        <th>周四</th>
+        <th>周五</th>
+        <th>周六</th>
+        <th>周日</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>上午</td>
+        <td *ngFor="let obj of vaccineSchedule[0];let i = index" style="vertical-align: bottom">
+          <p>{{obj.vaccineNames}}</p>
+          <button 
+            class="border_button"
+            mat-button 
+            type="button" 
+            color="primary"
+            [disabled]="!obj.workState"
+            (click)="editVaccine(obj.week, obj.amPm, obj.ids)">请维护体检</button>
+        </td>
+      </tr>
+      <tr>
+        <td>下午</td>
+        <td *ngFor="let obj of vaccineSchedule[1];let i = index" style="vertical-align: bottom">
+          <p>{{obj.vaccineNames}}</p>
+          <button 
+            class="border_button"
+            mat-button 
+            type="button" 
+            color="primary" 
+            [disabled]="!obj.workState"
+            (click)="editVaccine(obj.week, obj.amPm, obj.ids)">请维护体检</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<p>温馨提示：请设置排班表，再维护体检。</p>
