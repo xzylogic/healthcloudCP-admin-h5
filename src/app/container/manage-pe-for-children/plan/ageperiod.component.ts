@@ -15,6 +15,7 @@ export class AgePeriodComponent implements OnInit, OnChanges {
   @Input() vaccineSchedule: any = defaultVaccineList;
   @Output() save: EventEmitter<any> = new EventEmitter();
   vaccineList: any;
+  vaccineList2: any;
 
   constructor(
     @Inject('action') private action,
@@ -28,7 +29,8 @@ export class AgePeriodComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.planService.getVaccine().subscribe(res => {
       if (res && res.code == 0 && res.data && res.data.content) {
-        this.vaccineList = res.data.content;
+        this.vaccineList = res.data.content.filter(obj => obj.type == 1);
+        this.vaccineList2 = res.data.content.filter(obj => obj.type == 2);
       }
     });
   }
@@ -37,49 +39,70 @@ export class AgePeriodComponent implements OnInit, OnChanges {
     // console.log(this.orgId);
   }
 
-  editVaccine(week, ampm, ids) {
-    let defalutValue = [];
-    if (ids && (typeof ids === 'string') && ids != '0') {
-      defalutValue = ids.split(',');
-    } else if (ids && (typeof ids === 'string') && ids == '0') {
-      defalutValue = [...this.vaccineList.map(obj => obj.id)];
-    }
-    // console.log(defalutValue);
+  getDefaultShow(monthAges, type) {
+    const name = monthAges.filter(obj => obj.type == type).map(obj => obj.name);
+    // const nameall = name.filter(n => n === '全月龄');
+    return name.join(',');
+  }
+
+  editVaccine(week, ampm, monthAges) {
+    let defalutValue1 = [];
+    let defalutValue2 = [];
+    defalutValue1 = monthAges.filter(obj => obj.type == 1).map(data => data.id);
+    defalutValue2 = monthAges.filter(obj => obj.type == 2).map(data => data.id);
     const option: DialogEdit = new DialogEdit({
       title: `维护${this.renderWeek(week)}${this.renderAmPm(ampm)}的体检`,
       form: [
         new FormCheckbox({
-          key: 'vaccine' + week + ampm,
-          label: '请选择年龄段',
-          value: defalutValue,
-          options: [...this.vaccineList]
-        })
+          key: 'local' + week + ampm,
+          label: '本地儿童体检时段',
+          value: defalutValue1,
+          allCheckedName: '全选',
+          options: this.vaccineList
+          // options: this.vaccineList.filter(obj => obj.name !== '全月龄')
+        }),
+        new FormCheckbox({
+          key: 'nonlocal' + week + ampm,
+          label: '外地儿童体检时段',
+          value: defalutValue2,
+          allCheckedName: '全选',
+          options: this.vaccineList2
+          // options: this.vaccineList2.filter(obj => obj.name !== '全月龄')
+        }),
       ]
     });
 
     const editDialog = EditDialog(option, this.dialog);
     editDialog.afterClosed().subscribe(data => {
       // console.log(data);
-      if (data && data['vaccine' + week + ampm] && data['vaccine' + week + ampm].length === 0) {
-        HintDialog('请选择年龄段', this.dialog);
-      } else if (data && data['vaccine' + week + ampm]) {
-        this.saveVaccine(week, ampm, data['vaccine' + week + ampm]);
+      if (data && data['local' + week + ampm] && data['local' + week + ampm].length === 0) {
+        HintDialog('请选择本地儿童体检时段', this.dialog);
+      } else if (data && data['nonlocal' + week + ampm] && data['nonlocal' + week + ampm].length === 0) {
+        HintDialog('请选择外地儿童体检时段', this.dialog);
+      } else if (data && data['local' + week + ampm] && data['nonlocal' + week + ampm]) {
+        this.saveVaccine(week, ampm, data['local' + week + ampm], data['nonlocal' + week + ampm]);
       }
     });
   }
 
-  saveVaccine(week, ampm, ids) {
+  saveVaccine(week, ampm, ids, ids2) {
     // console.log(ids);
-    let vaccineId = '';
-    if (this.vaccineList.length === ids.length) {
-      vaccineId = '0';
-    } else {
-      vaccineId = ids.join(',');
-    }
+    let vaccineId1 = '';
+    let vaccineId2 = '';
+    // if ((this.vaccineList.length - 1) === ids.length) {
+    //   vaccineId1 = this.vaccineList.map(obj => obj.id).join(',');
+    // } else {
+      vaccineId1 = ids.join(',');
+    // }
+    // if ((this.vaccineList2.length - 1) === ids2.length) {
+    //   vaccineId2 = this.vaccineList2.map(obj => obj.id).join(',');
+    // } else {
+      vaccineId2 = ids2.join(',');
+    // }
     const saveData = [{
       week: week,
       amPm: ampm,
-      vaccine_id: vaccineId
+      monthage_id: vaccineId1 + ',' + vaccineId2
     }];
     // console.log(saveData);
     this.planService.saveVaccine(saveData, this.orgId)

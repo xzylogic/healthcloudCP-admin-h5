@@ -2,6 +2,7 @@ import { FormBase, FormType } from './form-base';
 
 export class FormCheckbox extends FormBase<Array<any>> {
   controlType?: FormType = FormType.checkbox;
+  allCheckedName?: string;
   options: {
     id: any, // 值
     name: string,  // 显示名称
@@ -11,5 +12,6 @@ export class FormCheckbox extends FormBase<Array<any>> {
   constructor(options: FormCheckbox) {
     super(options);
     this.options = options['options'] || [];
+    this.allCheckedName = options['allCheckedName'] || '全选';
   }
 }

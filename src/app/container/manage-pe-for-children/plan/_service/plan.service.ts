@@ -8,9 +8,9 @@ const PATH = {
   saveTimeList: '/api/appointmentTime/saveWeekTime',
   getCommunity: '/api/appointmentTime/getAllCommunityByUserId',
   getDays: '/api/appointmentTime/getDates',
-  getVaccine: '/api/vaccine/list',
-  getVaccineSchedule: '/api/vaccine/hospitalSchedule',
-  saveVaccine: '/api/vaccine/save'
+  getVaccine: '/api/childExamination/list',
+  getVaccineSchedule: '/api/childExamination/hospitalSchedule',
+  saveVaccine: '/api/childExamination/save'
 };
 
 @Injectable()
