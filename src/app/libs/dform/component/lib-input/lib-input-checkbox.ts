@@ -12,7 +12,7 @@ import { FormCheckbox } from '../../_entity/form-checkbox';
           <mat-checkbox class="check_content"
                       [(checked)]="checkedAll"
                       (change)="getCheckedAll($event)"
-          >全选</mat-checkbox><mat-checkbox class="check_content"
+          >{{data.allCheckedName}}</mat-checkbox><mat-checkbox class="check_content"
                        *ngFor="let opt of data.options"
                        [(checked)]="opt.checked"
                        (change)="getChecked($event, opt.id, opt)"

@@ -7,7 +7,10 @@ const PATH = {
   getTimeList: '/api/appointmentTime/getWeekTimeList',
   saveTimeList: '/api/appointmentTime/saveWeekTime',
   getCommunity: '/api/appointmentTime/getAllCommunityByUserId',
-  getDays: '/api/appointmentTime/getDates'
+  getDays: '/api/appointmentTime/getDates',
+  getVaccine: '/api/childExamination/list',
+  getVaccineSchedule: '/api/childExamination/hospitalSchedule',
+  saveVaccine: '/api/childExamination/save'
 };
 
 @Injectable()
@@ -52,6 +55,18 @@ export class PlanService {
 
   getCommunity() {
     return this.http.get(`${this.app.api_url}${PATH.getCommunity}?userId=${this.auth.getAdminId()}&type=tj`);
+  }
+
+  getVaccine() {
+    return this.http.get(`${this.app.api_url}${PATH.getVaccine}`);
+  }
+
+  getVaccineSchedule(orgId) {
+    return this.http.get(`${this.app.api_url}${PATH.getVaccineSchedule}?hospitalId=${orgId}`);
+  }
+
+  saveVaccine(data, orgId) {
+    return this.http.post(`${this.app.api_url}${PATH.saveVaccine}?hospitalId=${orgId}`, data);
   }
 
   setPlanConfig() {

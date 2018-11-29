@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { PlanComponent } from './plan.component';
 import { RouterModule, Routes } from '@angular/router';
 import { PlanService } from './_service/plan.service';
 import { LibModule } from '../../../libs/common/lib.module';
@@ -7,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule, MatCheckboxModule, MatTabsModule } from '@angular/material';
 import { PlanCommonModule } from '../../common/plan-common.module';
 import { DFormModule } from '../../../libs/dform/dform.module';
+import { PlanComponent } from './plan.component';
+import { AgePeriodComponent } from './ageperiod.component';
 
 const routes: Routes = [{
   path: '',
@@ -28,7 +29,8 @@ const routes: Routes = [{
     RouterModule.forChild(routes)
   ],
   declarations: [
-    PlanComponent
+    PlanComponent,
+    AgePeriodComponent
   ],
   providers: [
     PlanService,
