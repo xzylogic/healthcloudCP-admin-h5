@@ -1,5 +1,5 @@
 <div class="clear" style="padding: 1em 0">
-  <h2 style="float: left">{{ viewDate | calendarDate:(view + 'ViewTitle'):'zh-cn' }}</h2>
+  <h2 style="float: left">{{ getDate(viewDate) }}</h2>
   <div style="float: right" class="clear">
     <button mat-mini-fab (click)="today()" style="float: left;margin: 0 5px">今天</button>
     <button mat-mini-fab color="primary" (click)="decrement()" [disabled]="prevBtnDisabled"

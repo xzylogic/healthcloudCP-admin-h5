@@ -89,6 +89,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.changeDate(new Date());
   }
 
+  getDate(date) {
+    return moment(date).format('YYYY年MM月');
+  }
+
   dateIsValid(date: Date): boolean {
     return date >= this.minDate && date <= this.maxDate;
   }
