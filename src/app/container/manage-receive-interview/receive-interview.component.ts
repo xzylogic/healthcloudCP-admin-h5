@@ -131,7 +131,7 @@ export class ReceiveInterviewComponent implements OnInit, OnDestroy {
           this.interviewTable.errorMessage = ERRMSG.nullMsg;
         } else if (res.data && res.totalPages) {
           this.interviewTable.totalPage = res.totalPages;
-          this.formatData(res.data);
+          this.formatData(res.data, res.parameter && res.parameter.operation);
           this.interviewTable.lists = res.data;
         } else {
           this.interviewTable.errorMessage = res.msg || ERRMSG.otherMsg;
@@ -143,11 +143,12 @@ export class ReceiveInterviewComponent implements OnInit, OnDestroy {
       });
   }
 
-  formatData(data) {
+  formatData(data, operation) {
+    console.log(operation);
     if (data && Array.isArray(data)) {
       data.forEach(obj => {
         obj.statusName = obj.followStatus == 1 ? '已随访' : '待随访';
-        obj.edit = obj.followStatus == 1 ? '查看' : '登记';
+        obj.edit = (obj.followStatus != 1 && operation == 1) ? '登记' : '查看';
       });
     }
   }

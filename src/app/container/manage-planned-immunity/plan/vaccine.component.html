@@ -24,7 +24,7 @@
             mat-button 
             type="button" 
             color="primary"
-            [disabled]="!obj.workState"
+            [disabled]="!obj.workState || operation != 1"
             (click)="editVaccine(obj.week, obj.amPm, obj.ids)">请维护疫苗</button>
         </td>
       </tr>
@@ -37,7 +37,7 @@
             mat-button 
             type="button" 
             color="primary" 
-            [disabled]="!obj.workState"
+            [disabled]="!obj.workState || operation != 1"
             (click)="editVaccine(obj.week, obj.amPm, obj.ids)">请维护疫苗</button>
         </td>
       </tr>

@@ -13,6 +13,7 @@ import { HintDialog } from '../../../libs/dmodal/dialog.module';
 export class AgePeriodComponent implements OnInit, OnChanges {
   @Input() orgId: any;
   @Input() vaccineSchedule: any = defaultVaccineList;
+  @Input() operation: any;
   @Output() save: EventEmitter<any> = new EventEmitter();
   vaccineList: any;
   vaccineList2: any;
