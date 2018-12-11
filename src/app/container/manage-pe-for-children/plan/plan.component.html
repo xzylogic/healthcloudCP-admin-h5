@@ -72,6 +72,7 @@
       </mat-tab>
       <mat-tab label="体检维护">
         <app-plan-ageperiod 
+          [operation]="operationWeek"
           [orgId]="siteId || this.centerId"
           [vaccineSchedule]="vaccineSchedule" 
           (save)="getVaccineSchedule()"></app-plan-ageperiod>

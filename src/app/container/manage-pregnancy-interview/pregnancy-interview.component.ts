@@ -153,7 +153,7 @@ export class PregnancyInterviewComponent implements OnInit, OnDestroy {
           this.interviewTable.errorMessage = ERRMSG.nullMsg;
         } else if (res.code == 0 && res.data && res.data.content && res.data.extras) {
           this.interviewTable.totalPage = res.data.extras.totalPage;
-          this.formatData(res.data.content);
+          this.formatData(res.data.content, res.data.extras.operation);
           this.interviewTable.lists = res.data.content;
         } else {
           this.interviewTable.errorMessage = res.msg || ERRMSG.otherMsg;
@@ -165,11 +165,11 @@ export class PregnancyInterviewComponent implements OnInit, OnDestroy {
       });
   }
 
-  formatData(data) {
+  formatData(data, operation) {
     if (data && Array.isArray(data)) {
       data.forEach(obj => {
         obj.statusName = obj.status == 1 ? '已随访' : '待随访';
-        obj.edit = obj.status == 1 ? '查看' : '登记';
+        obj.edit = (obj.status != 1 && operation == 1 ) ? '登记' : '查看';
       });
     }
   }

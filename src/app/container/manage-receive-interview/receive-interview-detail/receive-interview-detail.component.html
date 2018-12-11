@@ -39,7 +39,7 @@
                 <div *ngIf="data.questionnairesType!=9">
                   <mat-form-field style="width: 300px">
                     <input matInput [matDatepicker]="pickers" [placeholder]="'开始服用时间'" name="startTime{{i}}"
-                           [(ngModel)]="data.startTime" [disabled]="data.isEditor!=0">
+                           [(ngModel)]="data.startTime" [disabled]="data.isEditor!=0||data.operation!=1">
                     <mat-datepicker-toggle matSuffix [for]="pickers"></mat-datepicker-toggle>
                     <mat-datepicker #pickers></mat-datepicker>
                   </mat-form-field>
@@ -47,7 +47,7 @@
                 <div *ngIf="data.questionnairesType==6">
                   <mat-form-field style="width: 300px">
                     <input matInput [matDatepicker]="pickere" [placeholder]="'停止服用时间'" name="endTime{{i}}"
-                           [(ngModel)]="data.endTime" [disabled]="data.isEditor!=0">
+                           [(ngModel)]="data.endTime" [disabled]="data.isEditor!=0||data.operation!=1">
                     <mat-datepicker-toggle matSuffix [for]="pickere"></mat-datepicker-toggle>
                     <mat-datepicker #pickere></mat-datepicker>
                   </mat-form-field>
@@ -55,12 +55,12 @@
                 <div *ngIf="data.questionnairesType!=9">
                   <mat-form-field style="width: 300px">
                     <input matInput [placeholder]="'服用天数（单位：天）'" name="takeDay{{i}}" [(ngModel)]="data.takeDay"
-                           [disabled]="data.isEditor!=0">
+                           [disabled]="data.isEditor!=0||data.operation!=1">
                   </mat-form-field>
                 </div>
                 <div class="input-content" *ngIf="data.questionnairesType!=9">
                   <label>是否受孕</label>
-                  <mat-radio-group [(ngModel)]="data.ispregnant" name="ispregnant{{i}}" [disabled]="data.isEditor!=0">
+                  <mat-radio-group [(ngModel)]="data.ispregnant" name="ispregnant{{i}}" [disabled]="data.isEditor!=0||data.operation!=1">
                     <mat-radio-button [value]="1" class="float">是</mat-radio-button>
                     <mat-radio-button [value]="0" class="float">否</mat-radio-button>
                   </mat-radio-group>
@@ -68,13 +68,13 @@
                 <div *ngIf="data.ispregnant==1&&data.questionnairesType!=9">
                   <mat-form-field style="width: 300px">
                     <input matInput [placeholder]="'服药后第几个月怀孕'" name="afterTakePregnantMonth{{i}}"
-                           [(ngModel)]="data.afterTakePregnantMonth" [disabled]="data.isEditor!=0">
+                           [(ngModel)]="data.afterTakePregnantMonth" [disabled]="data.isEditor!=0||data.operation!=1">
                   </mat-form-field>
                 </div>
                 <div *ngIf="data.ispregnant==1&&data.questionnairesType!=9">
                   <mat-form-field style="width: 300px">
                     <input matInput [matDatepicker]="pickerx" [placeholder]="'末次月经时间'" name="lastPeriodTime{{i}}"
-                           [(ngModel)]="data.lastPeriodTime" [disabled]="data.isEditor!=0">
+                           [(ngModel)]="data.lastPeriodTime" [disabled]="data.isEditor!=0||data.operation!=1">
                     <mat-datepicker-toggle matSuffix [for]="pickerx"></mat-datepicker-toggle>
                     <mat-datepicker #pickerx></mat-datepicker>
                   </mat-form-field>
@@ -120,7 +120,7 @@
                            disabled>
                   </mat-form-field>
                 </div>
-                <div class="input-content" *ngIf="data.isEditor==0">
+                <div class="input-content" *ngIf="data.isEditor==0&&data.operation==1">
                   <button mat-raised-button color="primary" type="submit">保存</button>
                 </div>
               </form>

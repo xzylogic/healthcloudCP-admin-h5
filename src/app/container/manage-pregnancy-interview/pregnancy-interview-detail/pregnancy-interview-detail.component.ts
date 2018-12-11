@@ -26,6 +26,7 @@ export class PregnancyInterviewDetailComponent implements OnInit, OnDestroy {
   userId: any;
   pregnancyPeriod = 0;
   pregnancyState = [1, 1, 1, 1, 1];
+  operation: any;
 
   @ContentChildren('date') date: any;
 
@@ -72,6 +73,7 @@ export class PregnancyInterviewDetailComponent implements OnInit, OnDestroy {
           this.formData = res.data || {};
           this.formDataDto = res.data.followDuringPregnancyQuestionnairesDto || [];
           this.userId = res.data.addUserId;
+          this.operation = res.data.operation;
         }
       }, err => {
         console.log(err);

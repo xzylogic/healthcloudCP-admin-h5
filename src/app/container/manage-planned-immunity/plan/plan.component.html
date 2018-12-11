@@ -72,6 +72,7 @@
       </mat-tab>
       <mat-tab label="疫苗维护">
         <app-plan-vaccine 
+          [operation]="operationWeek"
           [orgId]="siteId || this.centerId"
           [vaccineSchedule]="vaccineSchedule" 
           (save)="getVaccineSchedule()"></app-plan-vaccine>
